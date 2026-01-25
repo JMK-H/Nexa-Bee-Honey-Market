@@ -1,15 +1,58 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="work" width="1300" height="820" titletext="New Form" background="#f9f9f9">
+  <Form id="work" width="1300" height="820" titletext="New Form" background="#f9f9f9" onload="work_onload">
     <Layouts>
       <Layout height="820" width="1300">
-        <ImageViewer id="ImageViewer00" taborder="0" text="ImageViewer00" left="8%" bottom="52.5%" right="8%" top="10%" borderRadius="20px"/>
-        <Static id="Static00" taborder="1" text="오늘의 TOP3 &gt;" left="1%" top="1%" width="206" height="54" cssclass="WorkTitle"/>
-        <Static id="Static00_00" taborder="2" text="나의 찜목록 &gt;" left="1%" top="51%" width="206" height="54" cssclass="WorkTitle"/>
-        <Div id="Div00" taborder="3" text="Div00" left="8%" top="486" width="24%" height="292" borderRadius="20px"/>
-        <Div id="Div00_00" taborder="4" text="Div00" left="38.00%" top="486" width="24%" height="292" borderRadius="20px"/>
-        <Div id="Div00_00_00" taborder="5" text="Div00" left="68.00%" top="486" width="24%" height="292" borderRadius="20px"/>
+        <ImageViewer id="ImageViewer00" taborder="0" text="ImageViewer00" left="0.00%" bottom="63.41%" right="0.00%" top="0.00%"/>
+        <Static id="staUserName" taborder="1" text="나의 찜목록 &gt;" left="1.00%" top="37.44%" width="206" height="54" onclick="staUserName_onclick"/>
+        <Div id="Div00" taborder="2" text="Div00" left="8.00%" top="386" width="24%" height="292" borderRadius="20px"/>
+        <Div id="Div00_00" taborder="3" text="Div00" left="38.00%" top="386" width="24%" height="292" borderRadius="20px"/>
+        <Div id="Div00_00_00" taborder="4" text="Div00" left="68.00%" top="386" width="24%" height="292" borderRadius="20px"/>
       </Layout>
     </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+
+this.work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	//글로벌 데이터셋 접근가능하게 함
+	var objApp = nexacro.getApplication();
+	var objDs = objApp.gdsLoginUser;
+    
+    // 이미 데이터가 있으면 즉시 실행
+    if(objDs.rowcount > 0) {
+        this.fn_setNick();
+    }
+    
+    // 데이터가 아직 없다면, 값이 바뀌는 순간 실행되도록 감시자 등록
+    objDs.addEventHandler("onvaluechanged", this.fn_setNick, this)
+};
+
+this.fn_setNick = function()
+{
+    var objApp = nexacro.getApplication();
+	var objDs = objApp.gdsLoginUser;
+	
+    var nickname = objDs.getColumn(0, "LOGIN_NICKNAME");
+    
+    if(nickname) {
+        this.staUserName.set_usedecorate(true);
+        this.staUserName.set_text("<fc v='#F5A623'>" + nickname + "</fc><fc v='#888888'> 의 찜목록</fc>");
+        
+        // 한 번 그렸으면 감시자 해제 (성능 최적화)
+        objDs.removeEventHandler("onvaluechanged", this.fn_setNick, this);
+    }
+};
+
+this.staUserName_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	//글로벌 데이터셋 접근가능하게 함
+	var objApp = nexacro.getApplication();
+	var objDs = objApp.gdsLoginUser;
+	trace(objDs.getColumn(0,"LOGIN_NICKNAME"));
+	this.staUserName.set_usedecorate(true);
+    this.staUserName.set_text("<fc v='#F5A623'>" + objDs.getColumn(0,"LOGIN_NICKNAME") + "</fc>" 
+                            + "<fc v='#888888'> 의 찜목록</fc>");
+};
+]]></Script>
   </Form>
 </FDL>

@@ -7,5 +7,6 @@
         <Div id="divLogin" taborder="1" left="600" top="200" width="400" height="500" background="#ffffff" url="Login::ggul1100fm.xfdl" border="1px solid #ffffff" border-radius="20px" boxShadow="10px 10px 10px #888888" text="" borderRadius="20px"/>
       </Layout>
     </Layouts>
+    <Script type="xscript5.1"><![CDATA[]]></Script>
   </Form>
 </FDL>

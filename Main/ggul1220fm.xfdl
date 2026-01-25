@@ -25,8 +25,8 @@ this.fn_drawCards = function ()
 		objDivMain = null;
 
 		
-		var objDivMain = new Div();  //내가 만들려고하는 오브젝트, 그리드를 만들고싶으면 new grid(); 콤보도 마찬가지로 표현.. 
-		objDivMain.init("divMain", 160, 150, 1538, 640); // 컴포넌트에 대한 초기값, (아이디, left, top, width, height) 
+		var objDivMain = new Div();  //내가 만들려고하는 오브젝트, 그리드를 만들고싶으면 new grid(); 콤보도 마찬가지로 표현.
+		objDivMain.init("divMain", 100, 150, 1538, 640); // 컴포넌트에 대한 초기값, (아이디, left, top, width, height) 
 		this.addChild("divMain", objDivMain); // 생성했는데 화면에다가 붙여주는 것
 		objDivMain.show();  // 화면에보여줄려고 하는 메소드 show 
 	}

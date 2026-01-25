@@ -104,6 +104,15 @@ this.fnCallback = function (svcId, errCd, errMsg)
 
         if(objDs.rowcount > 0)//로그인 성공시
         {
+			trace("####################"+objDs.rowcount);
+			// [디버깅 반복문 시작]
+			for (var i = 0; i < objDs.getColCount(); i++) 
+			{
+				var colId = objDs.getColID(i); // 컬럼명 꺼내기
+				var colVal = objDs.getColumn(0, i); // 0번째 행의 값 꺼내기
+				trace(colId + " : " + colVal);
+			}
+			
 			//로그아웃시 이전에 입력된 정보창 지우기
 			this.tfId.set_value("");//아이디 지우기
 			this.tfPassword.set_value("");//비번 지우기
