@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="ggulin1100fm" width="1600" height="900" cssclass="LoginForm">
+    <Layouts>
+      <Layout height="900" width="1600">
+        <Div id="divBgBlur" taborder="0" left="0" top="0" right="0" bottom="0" background="#c1c1c1" opacity="0.5"/>
+        <Div id="divLogin" taborder="1" left="600" top="200" width="400" height="500" background="#ffffff" url="Login::ggul1100fm.xfdl" border="1px solid #ffffff" border-radius="20px" boxShadow="10px 10px 10px #888888" text="" borderRadius="20px"/>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>

@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="ggulin1110fm" width="400" height="500" background="#ffffff">
+    <Layouts>
+      <Layout height="500" mobileorientation="landscape" width="400">
+        <Static id="RNf" taborder="0" text="꿀꺼억" left="50" top="50" right="50" height="50" cssclass="PopupTitle"/>
+        <TextField id="tfId" taborder="1" labeltext="아이디" left="50" top="120" height="56" right="50" helpertext="아이디를 입력하세요." displaynulltext="아이디를 입력하세요." cssclass="FindId"/>
+        <TextField id="tfPassword" taborder="2" labeltext="비밀번호" left="50" top="181" height="56" right="50" helpertext="비밀번호를 입력하세요." visible="true" onchanged="TextField00_00_onchanged" inputtype="password" displaynulltext="비밀번호를 입력하세요." cssclass="FindId"/>
+        <Button id="btnLogin" taborder="3" text="로그인" left="50" top="252" width="300" height="40" cssclass="Login" onclick="btnLogin_onclick" borderRadius="10px"/>
+        <Button id="btnSignup" taborder="4" text="회원가입" left="50" top="306" width="300" height="40" onclick="btnSignup_onclick" borderRadius="10px"/>
+        <Div id="Div00" taborder="5" left="50" top="400" height="72" background="beige" right="50" borderRadius="10px"/>
+        <Static id="staFindId" taborder="6" text="아이디를 잊었나요?" left="50" top="365" width="140" height="23" cssclass="ForgotIdPw" onclick="Static00_onclick"/>
+        <Static id="staFindPassword" taborder="7" text="비밀번호를 잊었나요?" left="210" top="365" width="140" height="23" cssclass="ForgotIdPw" onclick="staFindPassword_onclick"/>
+        <Static id="staSubText" taborder="8" text="admin: 김준모 / Phone: 010-8255-1653" left="50" top="400" width="300" height="72" textAlign="center"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[this.Static00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	var sTitle = this.gfnGetWord("popup.modal");	// 모달팝업
+	var oArg = {paramCode:"abcd", paramNum:12345, paramDataset:this.dsTest};
+	//trace("팝업 전 : " + JSON.stringify(oArg));
+	var oOption = {title:sTitle, titlebar: false};	//top, left를 지정하지 않으면 가운데정렬 //"top=20,left=370"
+	var sPopupCallBack = "fnPopupCallback";
+	this.gfnOpenPopup( "staFindId","Login::ggul1110pu.xfdl",oArg,sPopupCallBack,oOption);
+};
+
+this.fnPopupCallback = function (id, rtn)
+{
+	if(id == "staFindPassword")
+	{
+		//this.alert("비번찾기 콜백");
+	}
+	else if(id == "staFindId")
+	{
+		//this.alert("아이디찾기 콜백실행");
+	}
+	else if(id =="Signup")
+	{
+		//this.alert("회원가입 콜백 실행");
+	}
+};
+
+
+
+this.staFindPassword_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	var sPopupId = "staFindPassword"; //Popup ID
+	var sUrl = "Login::ggul1120pu.xfdl"; //팝업 URL
+	var oArg = {paramCode:"abcd", paramNum:12345, paramDataset:this.dsTest}; //전달값
+	var sPopupCallback = "fnPopupCallback";
+	var oOption = {title:"모달 팝업", titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
+
+	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
+
+};
+
+
+
+this.btnSignup_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sPopupId = "Signup"; //Popup ID
+	var sUrl = "Login::ggul1130pu.xfdl"; //팝업 URL
+	var oArg = {paramCode:"abcd", paramNum:12345, paramDataset:this.dsTest}; //전달값
+	var sPopupCallback = "fnPopupCallback";
+	var oOption = {title:"회원가입", titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
+
+	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
+
+};
+
+//=====================================로그인 버튼 눌렀을 때======================================================
+this.btnLogin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{	
+	this.dsCurrentUser.clearData(); // 서버에 보낼 데이터셋 기존 데이터 삭제
+	var nRow = this.dsCurrentUser.addRow(); //서버에 보낼 데이터셋에 한 행 추가
+	
+	//지금 아이디 비번창 서버에 보낼 데이터셋에 추가
+	this.dsCurrentUser.setColumn(nRow, "LOGIN_ID", this.tfId.value);
+	this.dsCurrentUser.setColumn(nRow, "LOGIN_PW", this.tfPassword.value);
+	
+	//트랜잭션 쏘기
+	var strSvcUrl = "nexa/getLoginUser.do";
+	var inData = "dsCurrentUser=dsCurrentUser"; //현재 로그인 시도하는 데이터셋
+	var strArg = "";
+	var outData = "gdsLoginUser=gdsLoginUser"; //로그인 성공하면 성공한 유저의 정보 한줄
+
+	this.gfnTransaction("getLoginUser"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+};
+
+//=======================================콜백함수=====================================================
+this.fnCallback = function (svcId, errCd, errMsg)
+{
+	if(svcId == "getLoginUser") // 트랜잭션 ID 확인
+    {
+		//글로벌 데이터셋 접근가능하게 함
+        var objApp = nexacro.getApplication();
+        var objDs = objApp.gdsLoginUser;
+
+        if(objDs.rowcount > 0)//로그인 성공시
+        {
+			//로그아웃시 이전에 입력된 정보창 지우기
+			this.tfId.set_value("");//아이디 지우기
+			this.tfPassword.set_value("");//비번 지우기
+			
+			//로그인 성공시 메인화면으로 전환
+			objApp.mainframe.VFrameSet00.set_separatesize("0,*"); 
+        }
+        else //로그인 실패
+        {
+			this.tfPassword.set_value("");//비번창 지우기
+        }
+    }
+};]]></Script>
+    <Objects>
+      <Dataset id="dsCurrentUser">
+        <ColumnInfo>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+          <Column id="LOGIN_PW" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

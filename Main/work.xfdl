@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="work" width="1300" height="820" titletext="New Form" background="#f9f9f9">
+    <Layouts>
+      <Layout height="820" width="1300">
+        <ImageViewer id="ImageViewer00" taborder="0" text="ImageViewer00" left="8%" bottom="52.5%" right="8%" top="10%" borderRadius="20px"/>
+        <Static id="Static00" taborder="1" text="오늘의 TOP3 &gt;" left="1%" top="1%" width="206" height="54" cssclass="WorkTitle"/>
+        <Static id="Static00_00" taborder="2" text="나의 찜목록 &gt;" left="1%" top="51%" width="206" height="54" cssclass="WorkTitle"/>
+        <Div id="Div00" taborder="3" text="Div00" left="8%" top="486" width="24%" height="292" borderRadius="20px"/>
+        <Div id="Div00_00" taborder="4" text="Div00" left="38.00%" top="486" width="24%" height="292" borderRadius="20px"/>
+        <Div id="Div00_00_00" taborder="5" text="Div00" left="68.00%" top="486" width="24%" height="292" borderRadius="20px"/>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>

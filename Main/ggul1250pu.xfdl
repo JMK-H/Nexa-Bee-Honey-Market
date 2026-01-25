@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="ggul1250pu" width="500" height="450" titletext="New Form" borderRadius="20px">
+    <Layouts>
+      <Layout height="450" mobileorientation="landscape" width="500">
+        <Static id="staTitle" taborder="0" text="비밀번호 변경" left="100" top="10" height="60" right="100" cssclass="PopupTitle"/>
+        <Static id="staSubTitle" taborder="1" text="안전한 비밀번호로 변경해주세요." left="80" top="49" height="60" cssclass="PopupSubTitle" right="80"/>
+        <TextField id="tfCurrentPassword" taborder="2" labeltext="현재 비밀번호" left="50" top="130" height="60" right="50" cssclass="FindId" displaynulltext="현재 비밀번호를 입력하세요."/>
+        <TextField id="tfNewPassword" taborder="3" labeltext="새 비밀번호" left="50" top="200" height="60" right="50" cssclass="FindId" displaynulltext="새 비밀번호를 입력하세요."/>
+        <TextField id="tfCheckPassword" taborder="4" labeltext="비밀번호 확인" left="50" top="270" height="60" right="50" cssclass="FindId" displaynulltext="새 비밀번호를 다시 입력하세요."/>
+        <Button id="btnCancel" taborder="5" text="취소" left="50" top="375" height="40" right="260" onclick="btnCancel_onclick" borderRadius="10px"/>
+        <Button id="btnConfirm" taborder="6" text="변경하기" left="260" top="375" height="40" right="50" cssclass="Login" borderRadius="10px"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.btnCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.close();
+};
+]]></Script>
+  </Form>
+</FDL>

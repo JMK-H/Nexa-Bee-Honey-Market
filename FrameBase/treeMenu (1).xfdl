@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="treeMenu" width="1070" height="520" titletext="트리 메뉴" onload="form_onload">
+    <Layouts>
+      <Layout height="520" horizontalgap="0" mobileorientation="landscape" spacing="0px" tabletemplate="1* / 1*" verticalgap="0" width="1070">
+        <Static id="staBg0" taborder="0" left="55.00" top="25" height="495" right="45" cssclass="sta_WF_MenuBox"/>
+        <Static id="staBoxShadow" taborder="2" left="7.48%" top="44" width="324" height="396" cssclass="sta_WF_BoxShadow"/>
+        <Grid id="grdTreeMenu" taborder="1" left="32.71%" top="10" width="324" height="396" binddataset="dsTreeMenu" autofittype="col" initvalueid="iv_Grid0" treeusecheckbox="false" treeinitstatus="expand,all" treeuseline="false" cssclass="grd_WF_TreeGrid" oncellclick="grdTreeMenu_oncellclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="163"/>
+              </Columns>
+              <Rows>
+                <Row size="40"/>
+              </Rows>
+              <Band id="body">
+                <Cell text="bind:data" treelevel="bind:data" displaytype="treeitemcontrol" edittype="tree" cssclass="EXPR(lev=='1'?&quot;cell_grd_Dep2&quot;:lev=='2'?&quot;cell_grd_Dep3&quot;:&quot;&quot;)"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="Static00_00_01_00" taborder="3" text="55" left="0" top="235" width="55" height="40" background="RGBA(255,0,0,0.14)" visible="false" textAlign="center"/>
+        <Static id="Static00_00" taborder="4" text="25" left="912.00" top="0" width="120" height="25" background="RGBA(255,0,0,0.14)" visible="false" textAlign="center"/>
+        <Static id="Static00_00_01_00_00" taborder="5" text="45" left="1025.00" top="133" width="45" height="40" background="RGBA(255,0,0,0.14)" visible="false" textAlign="center"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsTreeMenu">
+        <ColumnInfo>
+          <Column id="lev" type="STRING" size="256"/>
+          <Column id="data" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="lev">0</Col>
+            <Col id="data">1 depth Menu</Col>
+          </Row>
+          <Row>
+            <Col id="lev">1</Col>
+            <Col id="data">2 depth Menu</Col>
+          </Row>
+          <Row>
+            <Col id="lev">2</Col>
+            <Col id="data">3 depth Menu</Col>
+          </Row>
+          <Row>
+            <Col id="lev">2</Col>
+            <Col id="data">3 depth Menu</Col>
+          </Row>
+          <Row>
+            <Col id="lev">2</Col>
+            <Col id="data">3 depth Menu</Col>
+          </Row>
+          <Row>
+            <Col id="lev">2</Col>
+            <Col id="data">3 depth Menu</Col>
+          </Row>
+          <Row>
+            <Col id="lev">1</Col>
+            <Col id="data">2 depth Menu</Col>
+          </Row>
+          <Row>
+            <Col id="lev">2</Col>
+            <Col id="data">3 depth Menu</Col>
+          </Row>
+          <Row>
+            <Col id="lev">2</Col>
+            <Col id="data">3 depth Menu</Col>
+          </Row>
+          <Row>
+            <Col id="lev">1</Col>
+            <Col id="data">2 depth Menu</Col>
+          </Row>
+          <Row>
+            <Col id="data">3 depth Menu</Col>
+            <Col id="lev">2</Col>
+          </Row>
+          <Row>
+            <Col id="data">3 depth Menu</Col>
+            <Col id="lev">2</Col>
+          </Row>
+          <Row>
+            <Col id="data">1 depth Menu</Col>
+            <Col id="lev">0</Col>
+          </Row>
+          <Row>
+            <Col id="data">2 depth Menu</Col>
+            <Col id="lev">1</Col>
+          </Row>
+          <Row>
+            <Col id="data">3 depth Menu</Col>
+            <Col id="lev">2</Col>
+          </Row>
+          <Row>
+            <Col id="data">1 depth Menu</Col>
+            <Col id="lev">0</Col>
+          </Row>
+          <Row>
+            <Col id="data">2 depth Menu</Col>
+            <Col id="lev">1</Col>
+          </Row>
+          <Row>
+            <Col id="data">3 depth Menu</Col>
+            <Col id="lev">2</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*  DEMO site
+*  @FileName 	treeMenu.xfdl
+*  @Creator 	PRESALES
+*  @CreateDate 	2024/06/11
+*  @Desction   
+************** 소스 수정 이력 ****************************************************
+* Date					Modifier					Description
+*******************************************************************************
+* 2024/06/11			PRESALES					최초생성
+*******************************************************************************
+*/
+
+/*******************************************************************************************************************************
+ * FORM 변수 선언 영역
+*******************************************************************************************************************************/
+
+/*******************************************************************************************************************************
+ * FORM EVENT 영역
+*******************************************************************************************************************************/
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	
+};
+
+/*******************************************************************************************************************************
+ * Transaction 서비스호출 처리 영역
+*******************************************************************************************************************************/
+
+/*******************************************************************************************************************************
+ * Callback 영역
+*******************************************************************************************************************************/
+
+/*******************************************************************************************************************************
+ * 사용자 Function 영역
+*******************************************************************************************************************************/
+
+/*******************************************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+*******************************************************************************************************************************/
+this.grdTreeMenu_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{	
+	let row = obj.getTreeRow(this.dsTreeMenu.rowposition);
+	let treeStatus = obj.getTreeStatus(row);
+	
+	// Collapse(접힌) 상태
+	if (treeStatus == "0") {
+		obj.setTreeStatus(row, true);	// 펼치기
+	// Expand(펼쳐진) 상태
+	} else if (treeStatus == "1") {
+		obj.setTreeStatus(row, false);// 접기
+	}
+	
+};
+]]></Script>
+  </Form>
+</FDL>

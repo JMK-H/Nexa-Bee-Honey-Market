@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="ggul1110pu" width="400" height="400" titletext="New Form" borderRadius="20px">
+    <Layouts>
+      <Layout height="400" mobileorientation="landscape" width="400">
+        <Static id="staTitle" taborder="0" text="아이디 찾기" left="20" top="20" height="60" right="20" cssclass="PopupTitle"/>
+        <Static id="staSubtitle" taborder="1" text="가입시 등록한 아이디와 이메일을 입력하세요." left="20" top="80" width="360" height="40" cssclass="PopupSubTitle"/>
+        <TextField id="txfNickname" taborder="2" labeltext="닉네임" left="75" top="125" width="250" height="60" displaynulltext="ex) 주머니속 50원" cssclass="FindId" color="#000000"/>
+        <TextField id="txfEmail" taborder="3" labeltext="이메일 주소" left="75" top="195" width="250" height="60" inputtype="email" invalidtext="이메일 주소를 입력하세요." hotkey="" displaynulltext="example@gamil.com" cssclass="FindId"/>
+        <Button id="findIdCancel" taborder="4" text="취소" left="75" top="300" width="120" height="35" onclick="findIdCancel_onclick" borderRadius="10px"/>
+        <Button id="findIdOk" taborder="5" text="확인" left="205" top="300" width="120" height="35" onclick="Button01_onclick" cssclass="Login" borderRadius="10px"/>
+        <Static id="staResult" taborder="6" text="여기있어" left="75" top="260" width="249" height="33"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+
+this.findIdCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.close();
+};
+
+this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	
+	this.dsFindId.clearData(); //비우고
+	this.dsResultId.clearData();
+	var nRow = this.dsFindId.addRow(); //한 행 추가
+	
+	//데이터셋에 담기
+	this.dsFindId.setColumn(nRow, "LOGIN_NICKNAME", this.txfNickname.value);
+	this.dsFindId.setColumn(nRow, "LOGIN_EMAIL", this.txfEmail.value);
+	
+	//트랜잭션 날리기
+	var strSvcUrl = "nexa/getFindId.do?v="+ new Date().getTime();
+	var inData = "dsFindId=dsFindId";
+	var strArg = "";
+	var outData = "dsResultId=dsResultId";
+
+	this.gfnTransaction("getFindId"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+	
+};
+
+//========================================콜백함수====================================================
+this.fnCallback = function (svcId, errCd, errMsg)
+{
+	if(svcId == "getFindId")
+	{
+		// 사용자 상호작용 sta창 설정 || 가로,세로 중앙 정렬, css설정
+		this.staResult.set_textAlign("center");
+		this.staResult.set_verticalAlign("middle");
+		this.staResult.set_cssclass("PopupSubTitle");
+		if(this.dsResultId.rowcount > 0)//찾기성공
+        {
+			//밑에 아이디 보여주는 화면
+			this.staResult.text= "찾으시는 아이디는 : "+this.dsResultId.getColumn(0,"LOGIN_ID")+" 입니다."; 
+        }
+        else //정보찾기 실패
+        {
+			this.staResult.text= "일치하는 정보가 없습니다.";
+        }
+    }
+	
+};]]></Script>
+    <Objects>
+      <Dataset id="dsFindId">
+        <ColumnInfo>
+          <Column id="LOGIN_NICKNAME" type="STRING" size="256"/>
+          <Column id="LOGIN_EMAIL" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsResultId">
+        <ColumnInfo>
+          <Column id="LOGIN_NICKNAME" type="STRING" size="256"/>
+          <Column id="LOGIN_EMAIL" type="STRING" size="256"/>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

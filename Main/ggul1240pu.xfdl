@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="ggul1240pu" width="500" height="300" titletext="New Form" borderRadius="20px">
+    <Layouts>
+      <Layout height="300" width="500">
+        <Static id="staTitle" taborder="0" text="닉네임 변경" left="100" top="10" height="60" right="100" cssclass="PopupTitle"/>
+        <Static id="staSubTitle" taborder="1" text="새로운 닉네임을 입력해주세요" left="80" top="49" height="60" cssclass="PopupSubTitle" right="80"/>
+        <TextField id="tfNewNickname" taborder="2" labeltext="새 닉네임" left="50" top="120" height="60" cssclass="FindId" displaynulltext="ex) 주머니속 50원" right="50"/>
+        <Button id="btnCancel" taborder="3" text="취소" left="50" top="205" height="40" right="260" onclick="btnCancel_onclick"/>
+        <Button id="btnConfirm" taborder="4" text="변경하기" left="260" top="205" height="40" right="50" cssclass="Login"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.btnCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.close();
+};
+]]></Script>
+  </Form>
+</FDL>

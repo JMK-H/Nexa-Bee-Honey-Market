@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="ggul1230pu" width="500" height="300" titletext="New Form" borderRadius="20px" border="none">
+    <Layouts>
+      <Layout height="300" mobileorientation="landscape" width="500">
+        <Static id="staTitle" taborder="0" text="회원" left="150" top="0" height="60" cssclass="ChangeUserTitle" textAlign="center" right="150"/>
+        <Static id="staSubTitle" taborder="1" text="닉네임: 관리자" left="150" top="70" height="30" cssclass="ChangeUserSubTitle" textAlign="center" right="150"/>
+        <Button id="btnChangeNickname" taborder="2" text="닉네임 변경" left="20" top="126" height="50" right="20" cssclass="ChangeUserPopup" borderRadius="20px" onclick="btnChangeNickname_onclick"/>
+        <Button id="btnChangePassword" taborder="3" text="비밀번호 변경" left="20" top="175" height="50" right="20" cssclass="ChangeUserPopup" borderRadius="20px" onclick="btnChangePassword_onclick"/>
+        <Button id="btnLogout" taborder="4" text="로그아웃" left="20" top="224" height="50" right="20" cssclass="ChangeUserPopup" borderRadius="20px" onclick="btnLogout_onclick"/>
+        <Button id="Button00" taborder="5" left="440" top="15" width="31" height="30" onclick="Button00_onclick" background="url('imagerc::btnClose.png') no-repeat center" cssclass="ChangeUserPopup"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.btnLogout_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var objApp = nexacro.getApplication();
+	var objDs = objApp.gdsLoginUser;
+	objDs.clearData(); 
+	
+	this.close();
+	objApp.mainframe.VFrameSet00.set_separatesize("*,0");
+};
+
+
+
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.close();
+};
+
+this.btnChangeNickname_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.close();
+	
+	var sPopupId = "ChangeNickname"; //Popup ID
+	var sUrl = "Main::ggul1240pu.xfdl"; //팝업 URL
+	var oArg = ""; //전달값
+	var sPopupCallback = "fnCallPopup";
+	var oOption = {titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
+
+	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
+
+};
+
+this.btnChangePassword_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.close();
+	
+	var sPopupId = "ChangePassword"; //Popup ID
+	var sUrl = "Main::ggul1250pu.xfdl"; //팝업 URL
+	var oArg = ""; //전달값
+	var sPopupCallback = "fnCallPopup";
+	var oOption = {titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
+
+	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
+};
+]]></Script>
+  </Form>
+</FDL>

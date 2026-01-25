@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="left" width="300" height="820" titletext="New Form">
+    <Layouts>
+      <Layout height="820" width="300">
+        <Grid id="gridMenu" taborder="0" left="0" top="55" right="0" bottom="0" binddataset="ds_menu" autofittype="col" treeusecheckbox="false" treeinitstatus="collapse,null" cssclass="QuickMenu" border="0px none">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="55"/>
+              </Rows>
+              <Band id="body">
+                <Cell text="bind:MENU_NAME" displaytype="treeitemcontrol" edittype="tree" treelevel="bind:MENU_LEVEL"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="Button00" taborder="1" text="Top10보기" left="0" top="0" height="55" right="0" cssclass="ChangeUserPopup" border="0px none,0px none,1px solid #9e9e9e"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_menu">
+        <ColumnInfo>
+          <Column id="MENU_NAME" type="STRING" size="256"/>
+          <Column id="MENU_LEVEL" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="MENU_NAME">가전제품</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_NAME">청소</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_LEVEL">1</Col>
+            <Col id="MENU_NAME">주방</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_NAME">의류</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_NAME">겉옷</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_LEVEL">1</Col>
+            <Col id="MENU_NAME">셔츠</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_LEVEL">1</Col>
+            <Col id="MENU_NAME">맨투맨</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

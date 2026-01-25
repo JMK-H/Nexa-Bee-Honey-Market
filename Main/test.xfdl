@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="test" width="1280" height="720" titletext="New Form">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <Grid id="Grid00" taborder="0" left="125" top="46" width="375" height="222" binddataset="ds_users">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row band="head" size="24"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="LOGIN_ID"/>
+                <Cell col="1" text="LOGIN_PW"/>
+                <Cell col="2" text="LOGIN_NAME"/>
+                <Cell col="3" text="LOGIN_NICKNAME"/>
+                <Cell col="4" text="LOGIN_EMAIL"/>
+                <Cell col="5" text="LOGIN_STATUS"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:LOGIN_ID"/>
+                <Cell col="1" text="bind:LOGIN_PW"/>
+                <Cell col="2" text="bind:LOGIN_NAME"/>
+                <Cell col="3" text="bind:LOGIN_NICKNAME"/>
+                <Cell col="4" text="bind:LOGIN_EMAIL"/>
+                <Cell col="5" text="bind:LOGIN_STATUS"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="Button00" taborder="1" text="조회" left="552" top="64" width="114" height="79" onclick="Button00_onclick"/>
+        <Button id="Button01" taborder="2" text="중복체크" left="554" top="173" width="114" height="54" onclick="Button01_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+		var strSvcUrl = "nexa/getUserList.do";
+		var inData = "";
+		var strArg = "";
+		var outData = "ds_users=ds_users";
+
+		this.gfnTransaction("selectPaging"
+							, strSvcUrl
+							, inData //이클립스받기=넥사크로주기
+							, outData //넥사크로받기=이클립스주기
+							, strArg
+							, "fnCallback"
+							, true);
+};
+this.id_count="";
+this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+		var ID = "jmklove123";
+		
+		var strSvcUrl = "nexa/getSameIdCount.do";
+		var inData = "";
+		var strArg = "userId=" + nexacro.wrapQuote("uuuuuu");
+		var outData = "";
+
+		this.gfnTransaction("selectPaging"
+							, strSvcUrl
+							, inData //이클립스받기=넥사크로주기
+							, outData //넥사크로받기=이클립스주기
+							, strArg
+							, "fnCallback"
+							, true);
+		
+};
+
+this.fnCallback = function ()
+{
+	alert(this.id_count);
+};
+]]></Script>
+    <Objects>
+      <Dataset id="ds_users">
+        <ColumnInfo>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+          <Column id="LOGIN_PW" type="STRING" size="256"/>
+          <Column id="LOGIN_NAME" type="STRING" size="256"/>
+          <Column id="LOGIN_NICKNAME" type="STRING" size="256"/>
+          <Column id="LOGIN_EMAIL" type="STRING" size="256"/>
+          <Column id="LOGIN_STATUS" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="ggul1210fm" width="1600" height="50" titletext="New Form" background="#ffffff" stepshowtype="always">
+    <Layouts>
+      <Layout height="50" mobileorientation="landscape" width="1600">
+        <Button id="btnMenu" taborder="0" left="200" top="30" width="30" height="20" border="0px none" onclick="btnMenu_onclick" background="url('imagerc::Gemini_Generated_Image_s14ec0s14ec0s14e.png') no-repeat center"/>
+        <Button id="btnUser" taborder="1" top="23" height="35" border="0px none" background="url('imagerc::개인정보.png') no-repeat right center" width="20" right="220" onclick="btnUser_onclick"/>
+        <Button id="btnZzim" taborder="2" top="25" width="30" height="30" background="url('imagerc::찜아이콘ns.png') no-repeat center" border="0px none" right="260" onclick="btnZzim_onclick"/>
+        <Static id="staTitle" taborder="3" text="꿀꺼억" left="500" top="0" width="600" height="80" cssclass="PopupTitle"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[var objAni="";
+var nWidth = "";
+var objDim = "";
+this.btnMenu_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{	
+	// 1. 기존 애니메이션이 동작 중이면 중단 (중복 방지)
+    if (!this.ani00) 
+	{
+		objAni = new nexacro.Animation("ani00", this); 
+		this.addChild("ani00", objAni);
+		
+		// 2. 애니메이션 오브젝트 생성 (ID, 지속시간: 0.3초)
+		// 가속도 효과 (부드럽게)
+		objAni.set_duration(300); // 300ms (0.3초) 동안 동작
+		objAni.set_easing("easeInQuad");
+	}
+
+    // 3. 현재 상태에 따라 목표치 설정
+    if(this.parent.parent.divLeft.getOffsetWidth() > 0) {
+        nWidth = 0;      // 닫기
+    } else {
+        nWidth = 300;    // 열기
+    }
+	
+	objAni.removeTarget("aniTarget01");
+    // 4. 애니메이션 대상 속성 추가 (너비와 Work 영역의 위치를 동시에!)
+    objAni.addTarget("aniTarget01", this.parent.parent.divLeft, "width:" + nWidth);
+
+    // 5. 실행
+    objAni.play();
+	this.fnDivOpac();
+};
+
+this.btnZzim_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	trace(this.parent.parent.divWork);
+	this.parent.parent.divWork.set_url("Main::ggul1220fm.xfdl");
+
+};
+
+this.btnUser_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sPopupId = "ChangeUserPopup"; //Popup ID
+	var sUrl = "Main::ggul1230pu.xfdl"; //팝업 URL
+	var oArg = ""; //전달값
+	var sPopupCallback = "fnCallback";
+	var oOption = {title:"회원정보 변경", titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
+
+	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
+};
+]]></Script>
+  </Form>
+</FDL>

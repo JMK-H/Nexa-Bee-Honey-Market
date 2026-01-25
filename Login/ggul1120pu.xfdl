@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="ggul1120pu" width="400" height="400" titletext="New Form">
+    <Layouts>
+      <Layout height="400" mobileorientation="landscape" width="400">
+        <Static id="staTitle" taborder="0" text="비밀번호 찾기" left="20" top="20" height="60" right="20" cssclass="PopupTitle"/>
+        <Static id="staSubtitle" taborder="1" text="가입 시 등록한 정보를 입력하세요." left="20" top="73" width="360" height="40" cssclass="PopupSubTitle"/>
+        <TextField id="txfId" taborder="2" labeltext="아이디" left="40" top="113" height="50" cssclass="FindId" right="40" displaynulltext="아이디를 입력하세요."/>
+        <TextField id="txfEmail" taborder="3" labeltext="이메일 주소" left="40" top="223" width="320" height="50" cssclass="FindId" displaynulltext="ex) example@gmail.com"/>
+        <TextField id="txfName" taborder="4" labeltext="이름" left="40" top="168" height="50" cssclass="FindId" right="40" displaynulltext="ex) 홍길동"/>
+        <Button id="btnCancel" taborder="5" text="취소" left="40" top="345" height="35" right="210" onclick="btnCancel_onclick" borderRadius="10px"/>
+        <Button id="btnConfirm" taborder="6" text="확인" left="210" top="345" height="35" right="40" cssclass="Login" onclick="btnConfirm_onclick" borderRadius="10px"/>
+        <Static id="staResult" taborder="7" text="" left="40" top="284" width="320" height="50"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.btnCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.close();
+};
+
+this.btnConfirm_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+		//넘길 데이터셋 초기화 및 입력 정보 담기
+		this.dsFindPw.clearData(); //비우고
+		this.dsResultPw.clearData(); //담을것도 미리 비우기
+		var nRow = this.dsFindPw.addRow(); //한 행 추가
+		
+		//보낼 데이터셋에 담기
+		this.dsFindPw.setColumn(nRow, "LOGIN_ID", this.txfId.value); 
+		this.dsFindPw.setColumn(nRow, "LOGIN_EMAIL", this.txfEmail.value);
+		this.dsFindPw.setColumn(nRow, "LOGIN_NAME", this.txfName.value);
+		
+		//담은 dsFindPw데이터셋 넘기고 dsResultPw로 정보 받기
+		var strSvcUrl = "nexa/getFindPw.do?v="+ new Date().getTime();
+		var inData = "dsFindPw=dsFindPw";
+		var strArg = "";
+		var outData = "dsResultPw=dsResultPw";
+
+		this.gfnTransaction("getFindPw"
+							, strSvcUrl
+							, inData //이클립스받기=넥사크로주기
+							, outData //넥사크로받기=이클립스주기
+							, strArg
+							, "fnCallback"
+							, true);
+};
+
+//==============================================콜백함수===================================================
+
+this.fnCallback = function (svcId, errCd, errMsg)
+{
+	if(svcId == "getFindPw")
+	{
+		// 사용자 상호작용 sta창 설정 || 가로,세로 중앙 정렬, css설정
+		this.staResult.set_textAlign("center");
+		this.staResult.set_verticalAlign("middle");
+		this.staResult.set_cssclass("PopupSubTitle");
+		if(this.dsResultPw.rowcount > 0)//찾기성공
+		{
+			//밑에 아이디 보여주는 화면
+			this.staResult.text= "찾으시는 비밀번호는 : "+this.dsResultPw.getColumn(0,"LOGIN_PW") + " 입니다."; 
+		}
+		else //정보찾기 실패
+        {
+			this.staResult.text= "일치하는 정보가 없습니다.";
+        }
+	}
+};]]></Script>
+    <Objects>
+      <Dataset id="dsFindPw">
+        <ColumnInfo>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+          <Column id="LOGIN_NAME" type="STRING" size="256"/>
+          <Column id="LOGIN_EMAIL" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsResultPw">
+        <ColumnInfo>
+          <Column id="LOGIN_PW" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

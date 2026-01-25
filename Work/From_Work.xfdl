@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="From_Work" width="1280" height="720" titletext="New Form" onload="From_Work_onload">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <Grid id="Grid00" taborder="0" left="8" top="8" width="352" height="372" binddataset="gdsMessage" autofittype="col" griduserproperty="checkbox">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="164"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="MSG_ID"/>
+                <Cell col="1" text="MSG_TEXT"/>
+                <Cell col="2" text="MSG_TYPE"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:MSG_ID"/>
+                <Cell col="1" text="bind:MSG_TEXT"/>
+                <Cell col="2" text="bind:MSG_TYPE"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="btnAlert" taborder="1" text="Alert" left="372" top="16" width="175" height="82" onclick="btnAlert_onclick"/>
+        <Button id="btnConfirm" taborder="2" text="Confirm" left="372" top="123" width="175" height="82" onclick="btnConfirm_onclick"/>
+      </Layout>
+    </Layouts>
+    <Objects/>
+    <Script type="xscript5.1"><![CDATA[
+this.btnAlert_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sMsgId = "msg.err.validator.minlength"; //메세지ID
+	var arrArg = ["이름", "3"]; //메세지취환될값 배열[생략가능]
+	var sPopId = sMsgId; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+	var sMsgCallback = "";
+	trace(nexacro.getApplication().gdsMessage);
+	this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+};
+
+this.btnConfirm_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sMsgId = "confirm.logout"; //메세지ID
+	var arrArg = ""; //메세지취환될값 배열[생략가능]
+	var sPopId = sMsgId; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+	var sMsgCallback = "fn_callback";
+
+	this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+};
+
+this.fn_callback = function (id, rtn)
+{
+	if(rtn)
+	{
+		alert("확인");
+	}
+	else
+	{
+		alert("취소");
+	}
+};
+
+this.From_Work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.gfnFormOnLoad(this);
+};
+]]></Script>
+  </Form>
+</FDL>
