@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="ggul1210fm" width="1600" height="50" titletext="New Form" background="#ffffff" stepshowtype="always">
+  <Form id="ggul1210fm" width="1600" height="80" titletext="New Form" background="#ffffff" stepshowtype="always">
     <Layouts>
-      <Layout height="50" mobileorientation="landscape" width="1600">
+      <Layout height="80" mobileorientation="landscape" width="1600">
         <Button id="btnMenu" taborder="0" left="200" top="30" width="30" height="20" border="0px none" onclick="btnMenu_onclick" background="url('imagerc::Gemini_Generated_Image_s14ec0s14ec0s14e.png') no-repeat center"/>
         <Button id="btnUser" taborder="1" top="23" height="35" border="0px none" background="url('imagerc::개인정보.png') no-repeat right center" width="20" right="220" onclick="btnUser_onclick"/>
         <Button id="btnZzim" taborder="2" top="25" width="30" height="30" background="url('imagerc::찜아이콘ns.png') no-repeat center" border="0px none" right="260" onclick="btnZzim_onclick"/>

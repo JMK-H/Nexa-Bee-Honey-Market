@@ -6,7 +6,11 @@
         <Static id="Static00" taborder="0" text="내가 찜한 꿀템 &gt;" left="1.31%" top="6.10%" width="206" height="53" cssclass="WorkTitle" onclick="Static00_onclick"/>
         <Button id="Button00" taborder="1" text="메인으로" left="36" top="10" width="148" height="38" onclick="Button00_onclick" borderRadius="10px" cssclass="Login"/>
         <Static id="Static01" taborder="2" text="총 n개의 아이템을 찜했습니다." left="44" top="88" width="208" height="60" cssclass="PopupSubTitle"/>
-        <Div id="divMain" taborder="3" text="Div00" left="32" top="206" width="1538" height="594" background="aquamarine"/>
+        <Div id="divMain" taborder="3" text="Div00" left="32" top="206" width="1538" height="594" background="aquamarine">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
@@ -58,6 +62,11 @@ this.fn_drawCards = function ()
 		objDiv.set_boxShadow("3px 3px 10px rgba(0,0,0,0.3)");
 		this.divMain.form.addChild("div" + i, objDiv); // 생성했는데 화면에다가 붙여주는 것
 		objDiv.set_border("1px solid #e5e5e5");  // 배경색깔 
+		
+// 		//div에 고유번호 추가, 클릭이벤트 추가 (추후 div로 한번 더 덮고 그 div에 추가하면됨)
+// 		objDiv.u_Row = i;
+// 		objDiv.addEventHandler("onclick", this.fn_divClick, this);
+		
 		objDiv.show();  // 화면에보여줄려고 하는 메소드 show 
 		
 		// Static 객체 생성
@@ -92,7 +101,18 @@ this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.parent.parent.divWork.set_url("Main::work.xfdl");
 };
-]]></Script>
+
+
+// ==========================================동적 생성된 Div 클릭 이벤트============================================
+this.fn_divClick = function(obj:nexacro.Div, e:nexacro.ClickEventInfo)
+{
+    // obj는 내가 클릭한 그 Div입니다.
+    // 아까 심어둔 u_Row를 꺼내서 확인합니다.
+    trace("클릭한 Div의 번호 : " + obj.u_Row);
+    
+    // 만약 alert창으로 보고 싶으면
+    alert("이 상품은 " + obj.u_Row + "번째 데이터입니다!");
+};]]></Script>
     <Objects>
       <Dataset id="dsExample">
         <ColumnInfo>

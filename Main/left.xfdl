@@ -3,7 +3,7 @@
   <Form id="left" width="300" height="820" titletext="New Form">
     <Layouts>
       <Layout height="820" width="300">
-        <Grid id="gridMenu" taborder="0" left="0" top="55" right="0" bottom="0" binddataset="ds_menu" autofittype="col" treeusecheckbox="false" treeinitstatus="collapse,null" cssclass="QuickMenu" border="0px none">
+        <Grid id="gridMenu" taborder="0" left="0" top="55" right="0" bottom="0" binddataset="ds_menu" autofittype="col" treeusecheckbox="false" treeinitstatus="collapse,null" cssclass="QuickMenu" border="0px none" oncellclick="gridMenu_oncellclick">
           <Formats>
             <Format id="default">
               <Columns>
@@ -24,40 +24,93 @@
     <Objects>
       <Dataset id="ds_menu">
         <ColumnInfo>
+          <Column id="MENU_ID" type="STRING" size="256"/>
           <Column id="MENU_NAME" type="STRING" size="256"/>
           <Column id="MENU_LEVEL" type="STRING" size="256"/>
         </ColumnInfo>
         <Rows>
           <Row>
+            <Col id="MENU_ID">ELEC</Col>
             <Col id="MENU_NAME">가전제품</Col>
             <Col id="MENU_LEVEL">0</Col>
           </Row>
           <Row>
+            <Col id="MENU_ID">CLEAN</Col>
             <Col id="MENU_NAME">청소</Col>
             <Col id="MENU_LEVEL">1</Col>
           </Row>
           <Row>
-            <Col id="MENU_LEVEL">1</Col>
+            <Col id="MENU_ID">KITCHEN</Col>
             <Col id="MENU_NAME">주방</Col>
+            <Col id="MENU_LEVEL">1</Col>
           </Row>
           <Row>
+            <Col id="MENU_ID">CLOTH</Col>
             <Col id="MENU_NAME">의류</Col>
             <Col id="MENU_LEVEL">0</Col>
           </Row>
           <Row>
+            <Col id="MENU_ID">OUTER</Col>
             <Col id="MENU_NAME">겉옷</Col>
             <Col id="MENU_LEVEL">1</Col>
           </Row>
           <Row>
-            <Col id="MENU_LEVEL">1</Col>
+            <Col id="MENU_ID">SHIRT</Col>
             <Col id="MENU_NAME">셔츠</Col>
+            <Col id="MENU_LEVEL">1</Col>
           </Row>
           <Row>
-            <Col id="MENU_LEVEL">1</Col>
+            <Col id="MENU_ID">MTM</Col>
             <Col id="MENU_NAME">맨투맨</Col>
+            <Col id="MENU_LEVEL">1</Col>
           </Row>
         </Rows>
       </Dataset>
     </Objects>
+    <Script type="xscript5.1"><![CDATA[var objAni="";
+this.gridMenu_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	//눌린게 대메뉴냐 소메뉴냐 구분하기위해
+	var sLevel = this.ds_menu.getColumn(e.row, "MENU_LEVEL"); 
+	
+	if(sLevel == "0"){return;} //대메뉴는 변하는 거 없음
+	
+	//==============소메뉴 구분라인===========================
+	var sMenuId = this.ds_menu.getColumn(e.row, "MENU_ID");
+	var objApp = nexacro.getApplication();//글로벌에 접근 가능하게한뒤에
+	objApp.gv_MenuId = sMenuId;
+	
+	// 1. 기존 애니메이션이 동작 중이면 중단 (중복 방지)==================================================================
+    if (!this.ani00) 
+	{
+		objAni = new nexacro.Animation("ani00", this); 
+		this.addChild("ani00", objAni);
+		
+		// 2. 애니메이션 오브젝트 생성 (ID, 지속시간: 0.3초)
+		// 가속도 효과 (부드럽게)
+		objAni.set_duration(300); // 300ms (0.3초) 동안 동작
+		objAni.set_easing("easeInQuad");
+	}
+
+    // 3. 현재 상태에 따라 목표치 설정
+    if(this.parent.parent.divLeft.getOffsetWidth() > 0) {
+        nWidth = 0;      // 닫기
+    } else {
+        nWidth = 300;    // 열기
+    }
+	
+	objAni.removeTarget("aniTarget01");
+    // 4. 애니메이션 대상 속성 추가 (너비와 Work 영역의 위치를 동시에!)
+    objAni.addTarget("aniTarget01", this.parent.parent.divLeft, "width:" + nWidth);
+
+    // 5. 실행
+    objAni.play();
+	//=====================================================================================================================
+	
+	trace(objApp.gv_MenuId+this.parent);
+	this.parent.parent.divWork.url = "Main::ggul1290fm.xfdl"; //사용자가 선택한 퀵메뉴로 화면 전환
+	trace("클릭됨");
+};
+]]></Script>
   </Form>
 </FDL>
