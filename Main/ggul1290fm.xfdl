@@ -1,52 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="ggul1290fm" width="1300" height="650" titletext="New Form" onload="ggul1290fm_onload">
+  <Form id="ggul1290fm" width="1600" height="730" titletext="New Form" onload="ggul1290fm_onload" scrolltype="both">
     <Layouts>
-      <Layout height="650" mobileorientation="landscape" width="1300">
-        <Grid id="Grid00" taborder="0" left="400" top="280" width="516" height="202" binddataset="dsCurrentItem">
-          <Formats>
-            <Format id="default">
-              <Columns>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-              </Columns>
-              <Rows>
-                <Row band="head" size="24"/>
-                <Row size="24"/>
-              </Rows>
-              <Band id="head">
-                <Cell text="POST_ID"/>
-                <Cell col="1" text="USER_ID"/>
-                <Cell col="2" text="TITLE"/>
-                <Cell col="3" text="CONTENT"/>
-                <Cell col="4" text="PRICE"/>
-                <Cell col="5" text="PURCHASE_URL"/>
-                <Cell col="6" text="PHOTO_URL"/>
-                <Cell col="7" text="REG_DATE"/>
-                <Cell col="8" text="CATEGORY_ID"/>
-              </Band>
-              <Band id="body">
-                <Cell text="bind:POST_ID"/>
-                <Cell col="1" text="bind:USER_ID"/>
-                <Cell col="2" text="bind:TITLE"/>
-                <Cell col="3" text="bind:CONTENT"/>
-                <Cell col="4" text="bind:PRICE"/>
-                <Cell col="5" text="bind:PURCHASE_URL"/>
-                <Cell col="6" text="bind:PHOTO_URL"/>
-                <Cell col="7" text="bind:REG_DATE"/>
-                <Cell col="8" text="bind:CATEGORY_ID"/>
-              </Band>
-            </Format>
-          </Formats>
-        </Grid>
-        <Div id="divPage" taborder="1" text="Div00" left="258" width="784" url="Cmm::CmmPaging.xfdl" height="40" bottom="0"/>
+      <Layout height="730" mobileorientation="landscape" width="1600">
+        <Div id="divPage" taborder="1" text="Div00" left="408" width="784" url="Cmm::CmmPaging.xfdl" border="1px solid #e84133" height="40" bottom="0"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -80,31 +37,12 @@
     </Objects>
     <Script type="xscript5.1"><![CDATA[
 this.ggul1290fm_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
-{
-// 	var objApp = nexacro.getApplication();
-// 	var sMenuId = objApp.gv_MenuId;
-// 	
-// 	var strSvcUrl = "nexa/getItemList.do";
-// 	var inData = "";
-// 	var strArg = "categoryId=" + sMenuId;
-// 	var outData = "dsCurrentItem=dsCurrentItem";
-// 
-// 	this.gfnTransaction("getItemList"
-// 						, strSvcUrl
-// 						, inData //이클립스받기=넥사크로주기
-// 						, outData //넥사크로받기=이클립스주기
-// 						, strArg
-// 						, "fnCallback"
-// 						, true);
-						
-	//=======================================페이징 처리=================================================
-	
-	this.fnPageInit();
-	
+{				
+	this.fnPageInit();//페이징 초기화
 };
 //=======================================페이징 처리 관련 함수들=================================================
 
-this.fvRecords = 16;          // 목록 갯수 (한 페이지에 보여줄 개수)
+this.fvRecords = 8;          // 목록 갯수 (한 페이지에 보여줄 개수)
 this.fvPage = 0;              // 현재 페이지 번호
 this.fvRecordsOffset = 0;     // 시작 rownum (0부터 시작)
 this.fvTotalCount = 0;        // 전체 데이터 갯수 (DB에서 받아와야 함)
@@ -113,7 +51,7 @@ this.fvPageCount = 10;
  this.fnPageInit = function ()
  {
  	//pagin info init setting
-	this.fvRecords=16;                                //목록갯수
+	this.fvRecords=8;                                //목록갯수
 	this.fvPage=0;	 								 //페이지번호
 	this.fvRecordsOffset=0;							 //시작rownum
 	this.fvPageCount = 10;							 //실제표출페이지갯수
@@ -148,6 +86,172 @@ this.fnSearch = function ()
     trace("★ 조회 요청: " + strArg);
 	
 };
+//==================================== 이미지 뷰어, static 동적생성=======================================
+
+this.fn_drawCards = function ()
+{
+	// 1. 기존 카드 삭제 (최대 8개니까 8번 돔)
+    for(var i=0; i<8; i++) 
+    {
+        var sDivId = "divCard" + i;
+        if(this.isValidObject(sDivId))
+        {
+            var objDel = this.removeChild(sDivId);
+            objDel.destroy();
+            objDel = null;
+        }
+    }
+
+    var objDs = this.dsCurrentItem;
+    // 데이터 없으면 중단
+    if (objDs == null || objDs.getRowCount() == 0) return;
+    
+
+    // 디자인
+    var nCardW   = 300;   // 카드 가로
+    var nCardH   = 300;   // 카드 세로
+    var nGapX    = 25;    // 가로 간격
+    var nGapY    = 25;    // 세로 간격
+    var nStartX  = 140;   // 시작 위치
+    var nStartY  = 20;    // 시작 위치
+    var nColCnt  = 4;     // 한 줄에 4개
+    
+    var nCnt = objDs.getRowCount();
+
+    for(var i=0; i < nCnt; i++)
+    {
+        // 좌표 계산
+        var nRow = Math.floor(i / nColCnt); 
+        var nCol = i % nColCnt;             
+        
+        var nLeft = nStartX + (nCol * (nCardW + nGapX));
+        var nTop  = nStartY + (nRow * (nCardH + nGapY));
+        
+        // 카드 Div 생성
+        var sDivId = "divCard" + i;
+        var objDiv = new Div();
+        objDiv.init(sDivId, nLeft, nTop, nCardW, nCardH);
+        
+        //디자인
+        objDiv.set_borderRadius("20px");  // 모서리 둥글게
+        objDiv.set_border("1px solid #e5e5e5"); // 테두리
+        objDiv.set_boxShadow("2px 2px 10px rgba(0,0,0,0.1)"); //그림자
+        objDiv.set_background("#ffffff");
+        
+        this.addChild(sDivId, objDiv);
+        objDiv.show();
+        
+
+        // 이미지 뷰어
+        var objImg = new ImageViewer();
+        // Left:10, Top:10, Width:280, Height:180
+        objImg.init("imgView", 10, 10, 280, 180); 
+        
+        objImg.set_image(objDs.getColumn(i, "PHOTO_URL"));
+        objImg.set_stretch("fit");
+        objImg.set_borderRadius("15px 15px 0px 0px"); // 이미지 윗부분도 살짝 둥글게
+        objImg.set_border("0px none"); // 이미지는 테두리 없는 게 깔끔함
+        
+        objDiv.form.addChild("imgView", objImg);
+        objImg.show();
+        
+        // 상품명
+        var objStName = new Static();
+        // 이미지 바로 밑
+        objStName.init("stName", 10, 200, 280, 40);
+        
+        objStName.set_text(objDs.getColumn(i, "TITLE"));
+        objStName.set_font("bold 14px 'Malgun Gothic'");
+        objStName.set_color("#333333");
+        objStName.set_verticalAlign("top");
+        objStName.set_wordWrap("char");
+        
+        objDiv.form.addChild("stName", objStName);
+        objStName.show();
+        
+
+        // 가격
+        var objStPrice = new Static();
+        objStPrice.init("stPrice", 10, 250, 280, 30);
+        
+        var nPrice = objDs.getColumn(i, "PRICE");
+        objStPrice.set_text(nexacro.toNumber(nPrice).toLocaleString() + "원");
+        objStPrice.set_textAlign("right");
+        objStPrice.set_font("bold 16px 'Arial'");
+        objStPrice.set_color("#ff5500"); // 주황색 포인트
+        
+        objDiv.form.addChild("stPrice", objStPrice);
+        objStPrice.show();
+
+        // 투명 클릭 버튼으로 덮기
+        var objBtn = new Button();
+        objBtn.init("btnClick", 0, 0, null, null, 0, 0);
+        objBtn.set_background("transparent");
+        objBtn.set_border("0px none");
+        objBtn.set_borderRadius("20px"); // 버튼도 둥글게 해야 클릭 범위 일치
+        objBtn.set_cursor("pointer");    // 마우스 손가락 모양
+        objBtn.u_Row = i; 
+        
+        objBtn.addEventHandler("onclick", this.fn_divClick, this);
+        
+        objDiv.form.addChild("btnClick", objBtn);
+        objBtn.show();
+        objBtn.bringToFront();
+		
+		//=======================찜버튼==============================
+ 		var btnZzim = new Button();
+
+		// 2. btnZzim 본인이 직접 init 
+		btnZzim.init("btnZzim", 250, 10, 40, 40); 
+
+		// 3. 메소드로 배경색 설정
+		btnZzim.set_background("black");
+		btnZzim.set_text("♥");
+		btnZzim.set_color("white");
+		
+		//이벤트 추가
+		btnZzim.addEventHandler("onclick", this.fn_ZzimClick, this);
+		
+		//css추가
+		btnZzim.set_borderRadius("10px"); // 버튼도 둥글게 해야 클릭 범위 일치
+        btnZzim.set_cursor("pointer");    // 마우스 손가락 모양
+        btnZzim.u_Row = i; 
+		// 4. 카드(objDiv)의 form에 추가
+		objDiv.form.addChild("btnZzim", btnZzim);
+
+		// 5. 화면에 보여주기
+		btnZzim.show();
+		btnZzim.bringToFront();
+    }
+    
+    // 페이징 버튼 위치 자동 조정
+    var nPageTop = nStartY + (2 * (nCardH + nGapY)) + 10;
+    
+    if (this.isValidObject("divPage")) {
+        this.divPage.set_top(nPageTop);
+        this.divPage.bringToFront();
+    }
+	
+	this.resetScroll();//마술
+};
+//=============================동적생성 컴포넌트 이벤트 메서드==========================================
+this.fn_divClick = function(obj:nexacro.Button, e:nexacro.ClickEventInfo)//카드 클릭
+{
+    var nRow = obj.u_Row;
+    var sTitle = this.dsCurrentItem.getColumn(nRow, "TITLE");
+    //디버깅용
+    trace("클릭한 상품 행: " + nRow + " / 상품명: " + sTitle);
+    alert("[" + sTitle + "] 상품을 선택하셨습니다.");
+};
+
+this.fn_ZzimClick = function (obj:nexacro.Button, e:nexacro.ClickEventInfo)//찜버튼 클릭
+{
+	var nRow = obj.u_Row;
+	var sTitle = this.dsCurrentItem.getColumn(nRow, "TITLE");
+	//디버깅용
+	trace("클릭한 상품 행: " + nRow + " / 상품명: " + sTitle);
+	alert("[" + sTitle + "] 상품을 찜하셨습니다.");
+};
 
 //===========================================콜백함수======================================================
 this.fnCallback = function (svcID, errorCode, errorMsg)
@@ -160,13 +264,14 @@ this.fnCallback = function (svcID, errorCode, errorMsg)
     if (svcID == "search") 
     {   
         this.fnPagingSetting();
+		this.fn_drawCards();
 	}
 };
-
+//================================================페이징처리===================================================
 this.fnPagingSetting = function ()
 {
     var nTotalCount = nexacro.toNumber(this.dsPagingInfo.getColumn(0, "totalCount"));
-    var nRecords = 16;
+    var nRecords = 8;
     var nPage = nexacro.toNumber(this.fvPage);
     
     //CmmPaging.xfdl의 함수호출

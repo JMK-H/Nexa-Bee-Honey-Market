@@ -6,7 +6,7 @@
         <Button id="btnMenu" taborder="0" left="200" top="30" width="30" height="20" border="0px none" onclick="btnMenu_onclick" background="url('imagerc::Gemini_Generated_Image_s14ec0s14ec0s14e.png') no-repeat center"/>
         <Button id="btnUser" taborder="1" top="23" height="35" border="0px none" background="url('imagerc::개인정보.png') no-repeat right center" width="20" right="220" onclick="btnUser_onclick"/>
         <Button id="btnZzim" taborder="2" top="25" width="30" height="30" background="url('imagerc::찜아이콘ns.png') no-repeat center" border="0px none" right="260" onclick="btnZzim_onclick"/>
-        <Static id="staTitle" taborder="3" text="꿀꺼억" left="500" top="0" width="600" height="80" cssclass="PopupTitle"/>
+        <Static id="staTitle" taborder="3" text="꿀꺼억" left="500" top="0" width="600" height="80" cssclass="PopupTitle" onclick="staTitle_onclick"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[var objAni="";
@@ -58,6 +58,11 @@ this.btnUser_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	var oOption = {title:"회원정보 변경", titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
 
 	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
+};
+
+this.staTitle_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	this.parent.divWork = "Main::work.xfdl";
 };
 ]]></Script>
   </Form>
