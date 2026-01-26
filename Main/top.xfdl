@@ -62,7 +62,8 @@ this.btnUser_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 
 this.staTitle_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
 {
-	this.parent.divWork = "Main::work.xfdl";
+	this.parent.parent.divWork.set_url("Main::work.xfdl");
+	alert("클릭됨");
 };
 ]]></Script>
   </Form>
