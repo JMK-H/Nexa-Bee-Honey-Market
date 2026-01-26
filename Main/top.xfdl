@@ -39,7 +39,7 @@ this.btnMenu_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 
     // 5. 실행
     objAni.play();
-	this.fnDivOpac();
+
 };
 
 this.btnZzim_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)

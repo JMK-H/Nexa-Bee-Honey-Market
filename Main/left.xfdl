@@ -80,19 +80,19 @@ this.gridMenu_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventIn
 	var objApp = nexacro.getApplication();//글로벌에 접근 가능하게한뒤에
 	objApp.gv_MenuId = sMenuId;
 	
-	// 1. 기존 애니메이션이 동작 중이면 중단 (중복 방지)==================================================================
+	// 기존 애니메이션이 동작 중이면 중단 (중복 방지)==================================================================
     if (!this.ani00) 
 	{
 		objAni = new nexacro.Animation("ani00", this); 
 		this.addChild("ani00", objAni);
 		
-		// 2. 애니메이션 오브젝트 생성 (ID, 지속시간: 0.3초)
+		// 애니메이션 오브젝트 생성 (ID, 지속시간: 0.3초)
 		// 가속도 효과 (부드럽게)
 		objAni.set_duration(300); // 300ms (0.3초) 동안 동작
 		objAni.set_easing("easeInQuad");
 	}
 
-    // 3. 현재 상태에 따라 목표치 설정
+    // 현재 상태에 따라 목표치 설정
     if(this.parent.parent.divLeft.getOffsetWidth() > 0) {
         nWidth = 0;      // 닫기
     } else {
@@ -100,16 +100,22 @@ this.gridMenu_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventIn
     }
 	
 	objAni.removeTarget("aniTarget01");
-    // 4. 애니메이션 대상 속성 추가 (너비와 Work 영역의 위치를 동시에!)
+    // 애니메이션 대상 속성 추가 (너비와 Work 영역의 위치를 동시에!)
     objAni.addTarget("aniTarget01", this.parent.parent.divLeft, "width:" + nWidth);
 
-    // 5. 실행
+    // 실행
     objAni.play();
 	//=====================================================================================================================
 	
-	trace(objApp.gv_MenuId+this.parent);
-	this.parent.parent.divWork.url = "Main::ggul1290fm.xfdl"; //사용자가 선택한 퀵메뉴로 화면 전환
-	trace("클릭됨");
+	//온로드 이벤트 발생시키기위한 코드
+	if (this.parent.parent.divWork.url == "Main::ggul1290fm.xfdl") 
+    {
+        this.parent.parent.divWork.reload(); 
+    }
+    else 
+    {
+        this.parent.parent.divWork.url = "Main::ggul1290fm.xfdl";	
+    }
 };
 ]]></Script>
   </Form>

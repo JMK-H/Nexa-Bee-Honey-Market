@@ -5,7 +5,7 @@
       <Layout height="640" mobileorientation="landscape" width="400">
         <Static id="staTitle" taborder="0" text="회원가입" left="40" top="20" height="60" cssclass="PopupTitle" right="40"/>
         <TextField id="txfName" taborder="1" labeltext="이름" left="30" top="249" height="60" cssclass="FindId" displaynulltext="ex) 홍길동" right="30"/>
-        <TextField id="txfNickname" taborder="2" labeltext="닉네임" left="30" top="160" height="60" cssclass="FindId" displaynulltext="ex) 주머니속 핫도그" right="30" oninput="txfNickname_oninput"/>
+        <TextField id="txfNickname" taborder="2" labeltext="닉네임" left="30" top="160" height="60" cssclass="FindId" displaynulltext="ex) 주머니속 핫도그" right="30" oninput="txfNickname_oninput" onchanged="txfNickname_onchanged"/>
         <TextField id="txfId" taborder="3" labeltext="아이디" left="30" top="90" height="60" cssclass="FindId" displaynulltext="아이디를 입력하세요." right="130"/>
         <TextField id="txfPassword" taborder="4" labeltext="비밀번호" left="30" top="320" height="60" cssclass="FindId" displaynulltext="비밀번호를 입력하세요." right="30" inputtype="password" oninput="txfPassword_oninput"/>
         <TextField id="txfCheckPw" taborder="5" labeltext="비밀번호 확인" left="30" top="390" height="60" cssclass="FindId" displaynulltext="비밀번호를 다시 입력하세요." right="30" inputtype="password" oninput="txfCheckPw_oninput"/>
@@ -329,6 +329,11 @@ this.txfNickname_oninput = function(obj:nexacro.TextField,e:nexacro.InputEventIn
 							, strArg
 							, "fnCallback"
 							, true);
+};
+
+this.txfNickname_onchanged = function(obj:nexacro.TextField,e:nexacro.ChangeEventInfo)
+{
+	
 };
 ]]></Script>
     <Objects>

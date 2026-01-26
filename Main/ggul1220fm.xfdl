@@ -23,7 +23,6 @@ this.fn_drawCards = function ()
 {
 	if(this.isValidObject(this.divMain))
 	{
-		
 		var objDivMain = this.removeChild("divMain"); 
 		objDivMain.destroy(); 
 		objDivMain = null;

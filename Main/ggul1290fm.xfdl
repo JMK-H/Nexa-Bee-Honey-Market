@@ -1,17 +1,184 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="ggul1290fm" width="1300" height="650" titletext="New Form">
+  <Form id="ggul1290fm" width="1300" height="650" titletext="New Form" onload="ggul1290fm_onload">
     <Layouts>
       <Layout height="650" mobileorientation="landscape" width="1300">
-        <Grid id="Grid00" taborder="0" left="158" top="10" width="516" height="202" binddataset="Dataset00">
+        <Grid id="Grid00" taborder="0" left="400" top="280" width="516" height="202" binddataset="dsCurrentItem">
           <Formats>
-            <Format id="default"/>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row band="head" size="24"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="POST_ID"/>
+                <Cell col="1" text="USER_ID"/>
+                <Cell col="2" text="TITLE"/>
+                <Cell col="3" text="CONTENT"/>
+                <Cell col="4" text="PRICE"/>
+                <Cell col="5" text="PURCHASE_URL"/>
+                <Cell col="6" text="PHOTO_URL"/>
+                <Cell col="7" text="REG_DATE"/>
+                <Cell col="8" text="CATEGORY_ID"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:POST_ID"/>
+                <Cell col="1" text="bind:USER_ID"/>
+                <Cell col="2" text="bind:TITLE"/>
+                <Cell col="3" text="bind:CONTENT"/>
+                <Cell col="4" text="bind:PRICE"/>
+                <Cell col="5" text="bind:PURCHASE_URL"/>
+                <Cell col="6" text="bind:PHOTO_URL"/>
+                <Cell col="7" text="bind:REG_DATE"/>
+                <Cell col="8" text="bind:CATEGORY_ID"/>
+              </Band>
+            </Format>
           </Formats>
         </Grid>
+        <Div id="divPage" taborder="1" text="Div00" left="258" width="784" url="Cmm::CmmPaging.xfdl" height="40" bottom="0"/>
       </Layout>
     </Layouts>
     <Objects>
-      <Dataset id="Dataset00"/>
+      <Dataset id="dsCurrentItem">
+        <ColumnInfo>
+          <Column id="POST_ID" type="STRING" size="256"/>
+          <Column id="USER_ID" type="STRING" size="256"/>
+          <Column id="TITLE" type="STRING" size="256"/>
+          <Column id="CONTENT" type="STRING" size="256"/>
+          <Column id="PRICE" type="STRING" size="256"/>
+          <Column id="PURCHASE_URL" type="STRING" size="256"/>
+          <Column id="PHOTO_URL" type="STRING" size="256"/>
+          <Column id="REG_DATE" type="STRING" size="256"/>
+          <Column id="CATEGORY_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsPagingInfo">
+        <ColumnInfo>
+          <Column id="totalCount" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsSearch">
+        <ColumnInfo>
+          <Column id="records" type="INT" size="256"/>
+          <Column id="page" type="INT" size="256"/>
+          <Column id="recordsOffset" type="INT" size="256"/>
+          <Column id="pageCount" type="INT" size="256"/>
+          <Column id="categoryId" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
     </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.ggul1290fm_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+// 	var objApp = nexacro.getApplication();
+// 	var sMenuId = objApp.gv_MenuId;
+// 	
+// 	var strSvcUrl = "nexa/getItemList.do";
+// 	var inData = "";
+// 	var strArg = "categoryId=" + sMenuId;
+// 	var outData = "dsCurrentItem=dsCurrentItem";
+// 
+// 	this.gfnTransaction("getItemList"
+// 						, strSvcUrl
+// 						, inData //이클립스받기=넥사크로주기
+// 						, outData //넥사크로받기=이클립스주기
+// 						, strArg
+// 						, "fnCallback"
+// 						, true);
+						
+	//=======================================페이징 처리=================================================
+	
+	this.fnPageInit();
+	
+};
+//=======================================페이징 처리 관련 함수들=================================================
+
+this.fvRecords = 16;          // 목록 갯수 (한 페이지에 보여줄 개수)
+this.fvPage = 0;              // 현재 페이지 번호
+this.fvRecordsOffset = 0;     // 시작 rownum (0부터 시작)
+this.fvTotalCount = 0;        // 전체 데이터 갯수 (DB에서 받아와야 함)
+this.fvPageCount = 10;
+
+ this.fnPageInit = function ()
+ {
+ 	//pagin info init setting
+	this.fvRecords=16;                                //목록갯수
+	this.fvPage=0;	 								 //페이지번호
+	this.fvRecordsOffset=0;							 //시작rownum
+	this.fvPageCount = 10;							 //실제표출페이지갯수
+	
+	this.fnSearch();
+ };
+
+this.fnSearch = function ()
+{
+	// 1. 현재 선택된 카테고리 ID 가져오기
+    var objApp = nexacro.getApplication();
+    var sMenuId = objApp.gv_MenuId;
+	
+	this.dsSearch.clearData();
+	var nRow = this.dsSearch.addRow();
+	this.dsSearch.setColumn(nRow, "records", this.fvRecords);
+	this.dsSearch.setColumn(nRow, "recordsOffset", this.fvRecordsOffset);
+	this.dsSearch.setColumn(nRow, "categoryId", sMenuId);
+	
+    // 2. ★ 핵심: 서버로 보낼 파라미터 조립 (변수 방식)
+    var strArg = "";
+
+    // 3. 서버 호출
+    this.gfnTransaction("search"             // svcID (콜백에서 구분용)
+                        , "selectPaging.do" // URL
+                        , "dsSearch=dsSearch"                 // inData (보낼 데이터셋 없음)
+                        , "dsCurrentItem=dsCurrentItem dsPagingInfo=dsPagingInfo" // outData (받을 데이터셋)
+                        , strArg             // Argument (변수들)
+                        , "fnCallback"       // 콜백 함수
+                        , true);             // 비동기 여부
+                        
+    trace("★ 조회 요청: " + strArg);
+	
+};
+
+//===========================================콜백함수======================================================
+this.fnCallback = function (svcID, errorCode, errorMsg)
+{
+	// 에러 체크 (서버에서 에러나면 errorCode가 음수)
+    if (errorCode < 0) {
+        alert("통신 에러 발생: " + errorMsg);
+        return;
+    }
+    if (svcID == "search") 
+    {   
+        this.fnPagingSetting();
+	}
+};
+
+this.fnPagingSetting = function ()
+{
+    var nTotalCount = nexacro.toNumber(this.dsPagingInfo.getColumn(0, "totalCount"));
+    var nRecords = 16;
+    var nPage = nexacro.toNumber(this.fvPage);
+    
+    //CmmPaging.xfdl의 함수호출
+    this.divPage.form.fnCreatePage("fnPagingCallback", nTotalCount, nRecords, nPage, 10);
+};
+
+this.fnPagingCallback = function(nPage, nRecordsOffset)
+{
+	this.fvPage = nPage; 				
+	this.fvRecordsOffset = nRecordsOffset;
+	
+	this.fnSearch(); //조회함수호출
+};]]></Script>
   </Form>
 </FDL>
