@@ -11,107 +11,180 @@
             <Layout/>
           </Layouts>
         </Div>
+        <Grid id="Grid01" taborder="4" left="421" top="33" width="309" height="151" binddataset="dsMyZzimList">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row band="head" size="24"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="POST_ID"/>
+                <Cell col="1" text="TITLE"/>
+                <Cell col="2" text="PRICE"/>
+                <Cell col="3" text="PHOTO_URL"/>
+                <Cell col="4" text="REG_DATE"/>
+                <Cell col="5" text="LOGIN_ID"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:POST_ID"/>
+                <Cell col="1" text="bind:TITLE"/>
+                <Cell col="2" text="bind:PRICE"/>
+                <Cell col="3" text="bind:PHOTO_URL"/>
+                <Cell col="4" text="bind:REG_DATE"/>
+                <Cell col="5" text="bind:LOGIN_ID"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
+// this.work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+// {
+// 	this.fn_drawCards();
+// };
+// 
+// this.fn_drawCards = function ()
+// {
+// 	if(this.isValidObject(this.divMain))
+// 	{
+// 		var objDivMain = this.removeChild("divMain"); 
+// 		objDivMain.destroy(); 
+// 		objDivMain = null;
+// 
+// 		
+// 		var objDivMain = new Div();  //내가 만들려고하는 오브젝트, 그리드를 만들고싶으면 new grid(); 콤보도 마찬가지로 표현.
+// 		objDivMain.init("divMain", 100, 150, 1538, 640); // 컴포넌트에 대한 초기값, (아이디, left, top, width, height) 
+// 		this.addChild("divMain", objDivMain); // 생성했는데 화면에다가 붙여주는 것
+// 		objDivMain.show();  // 화면에보여줄려고 하는 메소드 show 
+// 	}
+// 	
+// 	var xPos = 0;  //left 
+// 	var yPos = 0;  //top
+// 	
+// 	for(var i=0; i<this.dsExample.getRowCount(); i++)
+// 	{
+// 		
+// //		if(i==4)
+// 		if (((i)%3) == 0)
+// 		{
+// 			if(i == 0) yPos = 0;
+// 			else yPos = yPos+330;
+// 			
+// 			xPos = 0;	
+// 		}	else {
+// 		trace(i + "== else ==" + xPos);		
+// 			xPos = xPos + 250;
+// 		}
+// 	
+// 	
+// 		var objDiv = "objDiv" + i;
+// 		objDiv = new Div();  //내가 만들려고하는 오브젝트, 그리드를 만들고싶으면 new grid(); 콤보도 마찬가지로 표현 
+// 		objDiv.init("div" + i, xPos, yPos, 400, 290); // 컴포넌트에 대한 초기값, (아이디, left, top, width, height) 
+// 		objDiv.set_background("#ffffff");
+// 		objDiv.set_borderRadius("20px");
+// 		objDiv.set_boxShadow("3px 3px 10px rgba(0,0,0,0.3)");
+// 		this.divMain.form.addChild("div" + i, objDiv); // 생성했는데 화면에다가 붙여주는 것
+// 		objDiv.set_border("1px solid #e5e5e5");  // 배경색깔 
+// 		
+// // 		//div에 고유번호 추가, 클릭이벤트 추가 (추후 div로 한번 더 덮고 그 div에 추가하면됨)
+// // 		objDiv.u_Row = i;
+// // 		objDiv.addEventHandler("onclick", this.fn_divClick, this);
+// 		
+// 		objDiv.show();  // 화면에보여줄려고 하는 메소드 show 
+// 		
+// 		// Static 객체 생성
+// 		var objStatic = new Static();
+// 
+// 		// 2. 초기화 (아이디, left, top, width, height)
+// 		// 부모인 objDiv(350x200) 안에서의 상대 좌표
+// 		objStatic.init("st_text" + i, 20, 20, 300, 40); 
+// 
+// 		// 3. 부모 Div(objDiv)의 form에 자식으로 추가
+// 		objDiv.form.addChild("st_text" + i, objStatic);
+// 
+// 		// 4. 글자 내용 및 스타일 설정
+// 		// 데이터셋에서 'title' 컬럼이 있다면 그걸 가져와서 뿌려줍니다.
+// 		objStatic.set_text(this.dsExample.getColumn(i, "fileimg") + " 상품"); 
+// 		objStatic.set_color("#333333"); // 글자색
+// 		objStatic.set_font("bold 14pt 'Malgun Gothic'"); // 폰트 설정
+// 
+// 		// 5. 화면에 보여주기
+// 		objStatic.show();
+// 		
+// 		xPos  = xPos+220;	
+// 	}
+// 		var objDivTmp = "div"+i;
+// 		objDivTmp = this.divMain.form.components[objDivTmp];
+// 		trace("@@@@@@@@@@"+objDivTmp);
+// 		
+// 		trace("yPos" + yPos); 
+// };
+// 
+// this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+// {
+// 	this.parent.parent.divWork.set_url("Main::work.xfdl");
+// };
+// 
+// 
+// // ==========================================동적 생성된 Div 클릭 이벤트============================================
+// this.fn_divClick = function(obj:nexacro.Div, e:nexacro.ClickEventInfo)
+// {
+//     // obj는 내가 클릭한 그 Div입니다.
+//     // 아까 심어둔 u_Row를 꺼내서 확인합니다.
+//     trace("클릭한 Div의 번호 : " + obj.u_Row);
+//     
+//     // 만약 alert창으로 보고 싶으면
+//     alert("이 상품은 " + obj.u_Row + "번째 데이터입니다!");
+// };
+
+
+
+//==================================================================================================================
+//===================================================다시시작======================================================
+//==================================================================================================================
+
+//화면 로딩될 때
 this.work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	this.fn_drawCards();
+	var sLoginId = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ID");
+
+	var strSvcUrl = "nexa/getMyZzimList.do";
+	var inData = "";
+	var strArg = "pLoginId=" + nexacro.wrapQuote(sLoginId);
+	var outData = "dsMyZzimList=dsMyZzimList";
+
+	this.gfnTransaction("selectPaging"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
 };
+// 
+// this.fn_drawCards() = function ()
+// {
+// 	
+// };
 
-this.fn_drawCards = function ()
-{
-	if(this.isValidObject(this.divMain))
-	{
-		var objDivMain = this.removeChild("divMain"); 
-		objDivMain.destroy(); 
-		objDivMain = null;
 
-		
-		var objDivMain = new Div();  //내가 만들려고하는 오브젝트, 그리드를 만들고싶으면 new grid(); 콤보도 마찬가지로 표현.
-		objDivMain.init("divMain", 100, 150, 1538, 640); // 컴포넌트에 대한 초기값, (아이디, left, top, width, height) 
-		this.addChild("divMain", objDivMain); // 생성했는데 화면에다가 붙여주는 것
-		objDivMain.show();  // 화면에보여줄려고 하는 메소드 show 
-	}
-	
-	var xPos = 0;  //left 
-	var yPos = 0;  //top
-	
-	for(var i=0; i<this.dsExample.getRowCount(); i++)
-	{
-		
-//		if(i==4)
-		if (((i)%3) == 0)
-		{
-			if(i == 0) yPos = 0;
-			else yPos = yPos+330;
-			
-			xPos = 0;	
-		}	else {
-		trace(i + "== else ==" + xPos);		
-			xPos = xPos + 250;
-		}
-	
-	
-		var objDiv = "objDiv" + i;
-		objDiv = new Div();  //내가 만들려고하는 오브젝트, 그리드를 만들고싶으면 new grid(); 콤보도 마찬가지로 표현 
-		objDiv.init("div" + i, xPos, yPos, 400, 290); // 컴포넌트에 대한 초기값, (아이디, left, top, width, height) 
-		objDiv.set_background("#ffffff");
-		objDiv.set_borderRadius("20px");
-		objDiv.set_boxShadow("3px 3px 10px rgba(0,0,0,0.3)");
-		this.divMain.form.addChild("div" + i, objDiv); // 생성했는데 화면에다가 붙여주는 것
-		objDiv.set_border("1px solid #e5e5e5");  // 배경색깔 
-		
-// 		//div에 고유번호 추가, 클릭이벤트 추가 (추후 div로 한번 더 덮고 그 div에 추가하면됨)
-// 		objDiv.u_Row = i;
-// 		objDiv.addEventHandler("onclick", this.fn_divClick, this);
-		
-		objDiv.show();  // 화면에보여줄려고 하는 메소드 show 
-		
-		// Static 객체 생성
-		var objStatic = new Static();
-
-		// 2. 초기화 (아이디, left, top, width, height)
-		// 부모인 objDiv(350x200) 안에서의 상대 좌표
-		objStatic.init("st_text" + i, 20, 20, 300, 40); 
-
-		// 3. 부모 Div(objDiv)의 form에 자식으로 추가
-		objDiv.form.addChild("st_text" + i, objStatic);
-
-		// 4. 글자 내용 및 스타일 설정
-		// 데이터셋에서 'title' 컬럼이 있다면 그걸 가져와서 뿌려줍니다.
-		objStatic.set_text(this.dsExample.getColumn(i, "fileimg") + " 상품"); 
-		objStatic.set_color("#333333"); // 글자색
-		objStatic.set_font("bold 14pt 'Malgun Gothic'"); // 폰트 설정
-
-		// 5. 화면에 보여주기
-		objStatic.show();
-		
-		xPos  = xPos+220;	
-	}
-		var objDivTmp = "div"+i;
-		objDivTmp = this.divMain.form.components[objDivTmp];
-		trace("@@@@@@@@@@"+objDivTmp);
-		
-		trace("yPos" + yPos); 
-};
-
+//홈화면 돌아가기
 this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.parent.parent.divWork.set_url("Main::work.xfdl");
 };
 
-
-// ==========================================동적 생성된 Div 클릭 이벤트============================================
-this.fn_divClick = function(obj:nexacro.Div, e:nexacro.ClickEventInfo)
-{
-    // obj는 내가 클릭한 그 Div입니다.
-    // 아까 심어둔 u_Row를 꺼내서 확인합니다.
-    trace("클릭한 Div의 번호 : " + obj.u_Row);
-    
-    // 만약 alert창으로 보고 싶으면
-    alert("이 상품은 " + obj.u_Row + "번째 데이터입니다!");
-};]]></Script>
+]]></Script>
     <Objects>
       <Dataset id="dsExample">
         <ColumnInfo>
@@ -175,6 +248,16 @@ this.fn_divClick = function(obj:nexacro.Div, e:nexacro.ClickEventInfo)
         </Rows>
       </Dataset>
       <Dataset id="dsSearch"/>
+      <Dataset id="dsMyZzimList">
+        <ColumnInfo>
+          <Column id="POST_ID" type="STRING" size="256"/>
+          <Column id="TITLE" type="STRING" size="256"/>
+          <Column id="PRICE" type="STRING" size="256"/>
+          <Column id="PHOTO_URL" type="STRING" size="256"/>
+          <Column id="REG_DATE" type="STRING" size="256"/>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
     </Objects>
   </Form>
 </FDL>

@@ -65,6 +65,12 @@ this.staTitle_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
 	this.parent.parent.divWork.set_url("Main::work.xfdl");
 	alert("클릭됨");
 };
-]]></Script>
+
+//==================================================콜백함수===============================================
+
+this.fnCallback = function ()
+{
+	this.parent.parent.divWork.set_url("Main::work.xfdl");
+};]]></Script>
   </Form>
 </FDL>

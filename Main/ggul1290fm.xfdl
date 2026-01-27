@@ -18,6 +18,7 @@
           <Column id="PHOTO_URL" type="STRING" size="256"/>
           <Column id="REG_DATE" type="STRING" size="256"/>
           <Column id="CATEGORY_ID" type="STRING" size="256"/>
+          <Column id="IS_WISH" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
       <Dataset id="dsPagingInfo">
@@ -32,6 +33,14 @@
           <Column id="recordsOffset" type="INT" size="256"/>
           <Column id="pageCount" type="INT" size="256"/>
           <Column id="categoryId" type="STRING" size="256"/>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsZzim">
+        <ColumnInfo>
+          <Column id="WISH_ID" type="STRING" size="256"/>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+          <Column id="POST_ID" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
     </Objects>
@@ -61,21 +70,23 @@ this.fvPageCount = 10;
 
 this.fnSearch = function ()
 {
-	// 1. 현재 선택된 카테고리 ID 가져오기
+	// 현재 선택된 카테고리 ID 가져오기
     var objApp = nexacro.getApplication();
     var sMenuId = objApp.gv_MenuId;
+	var sLoginId = objApp.gdsLoginUser.getColumn(0,"LOGIN_ID");
 	
 	this.dsSearch.clearData();
 	var nRow = this.dsSearch.addRow();
 	this.dsSearch.setColumn(nRow, "records", this.fvRecords);
 	this.dsSearch.setColumn(nRow, "recordsOffset", this.fvRecordsOffset);
 	this.dsSearch.setColumn(nRow, "categoryId", sMenuId);
+	this.dsSearch.setColumn(nRow, "LOGIN_ID", sLoginId);
 	
-    // 2. ★ 핵심: 서버로 보낼 파라미터 조립 (변수 방식)
+    // 서버로 보낼 파라미터 조립
     var strArg = "";
 
     // 3. 서버 호출
-    this.gfnTransaction("search"             // svcID (콜백에서 구분용)
+    this.gfnTransaction(  "search"             // svcID (콜백에서 구분용)
                         , "selectPaging.do" // URL
                         , "dsSearch=dsSearch"                 // inData (보낼 데이터셋 없음)
                         , "dsCurrentItem=dsCurrentItem dsPagingInfo=dsPagingInfo" // outData (받을 데이터셋)
@@ -86,11 +97,12 @@ this.fnSearch = function ()
     trace("★ 조회 요청: " + strArg);
 	
 };
-//==================================== 이미지 뷰어, static 동적생성=======================================
+
+//==================================== div, 버튼, 이미지 뷰어, static 동적생성=======================================
 
 this.fn_drawCards = function ()
 {
-	// 1. 기존 카드 삭제 (최대 8개니까 8번 돔)
+	// 기존 카드 삭제 (최대 8개니까 8번 돔)
     for(var i=0; i<8; i++) 
     {
         var sDivId = "divCard" + i;
@@ -201,13 +213,11 @@ this.fn_drawCards = function ()
 		//=======================찜버튼==============================
  		var btnZzim = new Button();
 
-		// 2. btnZzim 본인이 직접 init 
+		// btnZzim 본인이 직접 init 
 		btnZzim.init("btnZzim", 250, 10, 40, 40); 
 
-		// 3. 메소드로 배경색 설정
-		btnZzim.set_background("black");
-		btnZzim.set_text("♥");
-		btnZzim.set_color("white");
+		// 메소드로 배경색 설정
+		btnZzim.set_background("white");//#f5a623
 		
 		//이벤트 추가
 		btnZzim.addEventHandler("onclick", this.fn_ZzimClick, this);
@@ -216,12 +226,60 @@ this.fn_drawCards = function ()
 		btnZzim.set_borderRadius("10px"); // 버튼도 둥글게 해야 클릭 범위 일치
         btnZzim.set_cursor("pointer");    // 마우스 손가락 모양
         btnZzim.u_Row = i; 
-		// 4. 카드(objDiv)의 form에 추가
+		if(this.dsCurrentItem.getColumn(i, "IS_WISH") == "1")
+		{
+			btnZzim.set_icon("imagerc::Select.png");
+		}
+		else 
+		{
+			btnZzim.set_icon("imagerc::NoSelect.png");
+		}
+		// 카드(objDiv)의 form에 추가
 		objDiv.form.addChild("btnZzim", btnZzim);
 
-		// 5. 화면에 보여주기
+		// 화면에 보여주기
 		btnZzim.show();
 		btnZzim.bringToFront();
+		
+		//=======================추천 비추천버튼 추가==============================
+		var btnGood = new Button();
+		var btnBad = new Button();
+
+		// 추천 비추천 버튼init 
+		btnGood.init("btnZzim", 10, 250, 40, 40);
+		btnBad.init("btnZzim", 60, 250, 40, 40);
+
+		// 메소드로 배경색 설정
+		btnGood.set_background("blue");
+		btnGood.set_text("추천");
+		btnGood.set_color("white");
+		
+		btnBad.set_background("red");
+		btnBad.set_text("비추천");
+		btnBad.set_color("white");
+		
+		//이벤트 추가 수정필요
+		btnGood.addEventHandler("onclick", this.fn_GoodClick, this);
+		btnBad.addEventHandler("onclick", this.fn_BadClick, this);
+		
+		//css추가
+		btnGood.set_borderRadius("10px"); // 버튼도 둥글게 해야 클릭 범위 일치
+        btnGood.set_cursor("pointer");    // 마우스 손가락 모양
+        btnGood.u_Row = i; 
+		
+		btnBad.set_borderRadius("10px"); // 버튼도 둥글게 해야 클릭 범위 일치
+        btnBad.set_cursor("pointer");    // 마우스 손가락 모양
+        btnBad.u_Row = i; 
+		// 카드(objDiv)의 form에 추가
+		objDiv.form.addChild("btnGood", btnGood);
+		objDiv.form.addChild("btnBad", btnBad);
+
+		// 화면에 보여주기
+		btnGood.show();
+		btnGood.bringToFront();
+		
+		btnBad.show();
+		btnBad.bringToFront();
     }
     
     // 페이징 버튼 위치 자동 조정
@@ -248,10 +306,64 @@ this.fn_ZzimClick = function (obj:nexacro.Button, e:nexacro.ClickEventInfo)//찜
 {
 	var nRow = obj.u_Row;
 	var sTitle = this.dsCurrentItem.getColumn(nRow, "TITLE");
+	var sPostId = this.dsCurrentItem.getColumn(nRow, "POST_ID");
+	var sLoginId = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ID");
+
+	//데이터셋에 POST_ID, LOGIN_ID넣기
+	this.dsZzim.clearData(); // 기존 데이터 삭제
+	var nRow = this.dsZzim.addRow(); //한 행 추가
+	
+	this.dsZzim.setColumn(nRow, "LOGIN_ID", sLoginId);
+	this.dsZzim.setColumn(nRow, "POST_ID", sPostId);
+	
+	//버튼 css 설정
+	var currentIcon = obj.icon;
+	var strSvcUrl = "";
+	var ID = "";
+	if(currentIcon == "imagerc::Select.png") //찜취소 누르기
+	{
+		obj.set_icon("imagerc::NoSelect.png");
+		strSvcUrl = "nexa/deleteZzimList.do";
+		ID = "deleteZzimList"
+	}
+	else //찜누르기
+	{
+		//트랜잭션 날리기
+		obj.set_icon("imagerc::Select.png");
+		strSvcUrl = "nexa/getZzimList.do";
+		ID="getZzimList";
+	}
+	var inData = "dsZzim=dsZzim:U";
+	var strArg = "";
+	var outData = "";
+
+	this.gfnTransaction( ID
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+};
+
+this.fn_GoodClick = function (obj:nexacro.Button, e:nexacro.ClickEventInfo)//추천버튼 클릭
+{
+	var nRow = obj.u_Row;
+	var sTitle = this.dsCurrentItem.getColumn(nRow, "TITLE");
 	//디버깅용
 	trace("클릭한 상품 행: " + nRow + " / 상품명: " + sTitle);
-	alert("[" + sTitle + "] 상품을 찜하셨습니다.");
+	alert("[" + sTitle + "] 상품을 추천하셨습니다.");
 };
+
+this.fn_BadClick = function (obj:nexacro.Button, e:nexacro.ClickEventInfo)//비추천버튼 클릭
+{
+	var nRow = obj.u_Row;
+	var sTitle = this.dsCurrentItem.getColumn(nRow, "TITLE");
+	//디버깅용
+	trace("클릭한 상품 행: " + nRow + " / 상품명: " + sTitle);
+	alert("[" + sTitle + "] 상품을 비추천하셨습니다.");
+};
+
 
 //===========================================콜백함수======================================================
 this.fnCallback = function (svcID, errorCode, errorMsg)
@@ -265,6 +377,14 @@ this.fnCallback = function (svcID, errorCode, errorMsg)
     {   
         this.fnPagingSetting();
 		this.fn_drawCards();
+	}
+	else if(svcID == "getZzimList")
+	{
+		alert("찜 메뉴 선택 트랜잭션 콜백 실행");
+	}
+	else if(svcID == "deleteZzimList")
+	{
+		alert("찜 메뉴 취소 트랜잭션 콜백 실행");
 	}
 };
 //================================================페이징처리===================================================
