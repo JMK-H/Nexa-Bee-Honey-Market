@@ -1,175 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="work" width="1600" height="820" titletext="New Form" background="#f9f9f9" onload="work_onload">
+  <Form id="work" width="1600" height="730" titletext="New Form" background="#f9f9f9" onload="work_onload">
     <Layouts>
-      <Layout height="820" width="1600">
+      <Layout height="730" width="1600">
         <Static id="Static00" taborder="0" text="내가 찜한 꿀템 &gt;" left="1.31%" top="6.10%" width="206" height="53" cssclass="WorkTitle" onclick="Static00_onclick"/>
         <Button id="Button00" taborder="1" text="메인으로" left="36" top="10" width="148" height="38" onclick="Button00_onclick" borderRadius="10px" cssclass="Login"/>
         <Static id="Static01" taborder="2" text="총 n개의 아이템을 찜했습니다." left="44" top="88" width="208" height="60" cssclass="PopupSubTitle"/>
-        <Div id="divMain" taborder="3" text="Div00" left="32" top="206" width="1538" height="594" background="aquamarine">
-          <Layouts>
-            <Layout/>
-          </Layouts>
-        </Div>
-        <Grid id="Grid01" taborder="4" left="421" top="33" width="309" height="151" binddataset="dsMyZzimList">
-          <Formats>
-            <Format id="default">
-              <Columns>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-              </Columns>
-              <Rows>
-                <Row band="head" size="24"/>
-                <Row size="24"/>
-              </Rows>
-              <Band id="head">
-                <Cell text="POST_ID"/>
-                <Cell col="1" text="TITLE"/>
-                <Cell col="2" text="PRICE"/>
-                <Cell col="3" text="PHOTO_URL"/>
-                <Cell col="4" text="REG_DATE"/>
-                <Cell col="5" text="LOGIN_ID"/>
-              </Band>
-              <Band id="body">
-                <Cell text="bind:POST_ID"/>
-                <Cell col="1" text="bind:TITLE"/>
-                <Cell col="2" text="bind:PRICE"/>
-                <Cell col="3" text="bind:PHOTO_URL"/>
-                <Cell col="4" text="bind:REG_DATE"/>
-                <Cell col="5" text="bind:LOGIN_ID"/>
-              </Band>
-            </Format>
-          </Formats>
-        </Grid>
+        <Div id="divPage" taborder="3" text="Div00" left="403" width="777" height="112" background="brown" url="Cmm::CmmPaging.xfdl" bottom="0"/>
       </Layout>
     </Layouts>
-    <Script type="xscript5.1"><![CDATA[
-// this.work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
-// {
-// 	this.fn_drawCards();
-// };
-// 
-// this.fn_drawCards = function ()
-// {
-// 	if(this.isValidObject(this.divMain))
-// 	{
-// 		var objDivMain = this.removeChild("divMain"); 
-// 		objDivMain.destroy(); 
-// 		objDivMain = null;
-// 
-// 		
-// 		var objDivMain = new Div();  //내가 만들려고하는 오브젝트, 그리드를 만들고싶으면 new grid(); 콤보도 마찬가지로 표현.
-// 		objDivMain.init("divMain", 100, 150, 1538, 640); // 컴포넌트에 대한 초기값, (아이디, left, top, width, height) 
-// 		this.addChild("divMain", objDivMain); // 생성했는데 화면에다가 붙여주는 것
-// 		objDivMain.show();  // 화면에보여줄려고 하는 메소드 show 
-// 	}
-// 	
-// 	var xPos = 0;  //left 
-// 	var yPos = 0;  //top
-// 	
-// 	for(var i=0; i<this.dsExample.getRowCount(); i++)
-// 	{
-// 		
-// //		if(i==4)
-// 		if (((i)%3) == 0)
-// 		{
-// 			if(i == 0) yPos = 0;
-// 			else yPos = yPos+330;
-// 			
-// 			xPos = 0;	
-// 		}	else {
-// 		trace(i + "== else ==" + xPos);		
-// 			xPos = xPos + 250;
-// 		}
-// 	
-// 	
-// 		var objDiv = "objDiv" + i;
-// 		objDiv = new Div();  //내가 만들려고하는 오브젝트, 그리드를 만들고싶으면 new grid(); 콤보도 마찬가지로 표현 
-// 		objDiv.init("div" + i, xPos, yPos, 400, 290); // 컴포넌트에 대한 초기값, (아이디, left, top, width, height) 
-// 		objDiv.set_background("#ffffff");
-// 		objDiv.set_borderRadius("20px");
-// 		objDiv.set_boxShadow("3px 3px 10px rgba(0,0,0,0.3)");
-// 		this.divMain.form.addChild("div" + i, objDiv); // 생성했는데 화면에다가 붙여주는 것
-// 		objDiv.set_border("1px solid #e5e5e5");  // 배경색깔 
-// 		
-// // 		//div에 고유번호 추가, 클릭이벤트 추가 (추후 div로 한번 더 덮고 그 div에 추가하면됨)
-// // 		objDiv.u_Row = i;
-// // 		objDiv.addEventHandler("onclick", this.fn_divClick, this);
-// 		
-// 		objDiv.show();  // 화면에보여줄려고 하는 메소드 show 
-// 		
-// 		// Static 객체 생성
-// 		var objStatic = new Static();
-// 
-// 		// 2. 초기화 (아이디, left, top, width, height)
-// 		// 부모인 objDiv(350x200) 안에서의 상대 좌표
-// 		objStatic.init("st_text" + i, 20, 20, 300, 40); 
-// 
-// 		// 3. 부모 Div(objDiv)의 form에 자식으로 추가
-// 		objDiv.form.addChild("st_text" + i, objStatic);
-// 
-// 		// 4. 글자 내용 및 스타일 설정
-// 		// 데이터셋에서 'title' 컬럼이 있다면 그걸 가져와서 뿌려줍니다.
-// 		objStatic.set_text(this.dsExample.getColumn(i, "fileimg") + " 상품"); 
-// 		objStatic.set_color("#333333"); // 글자색
-// 		objStatic.set_font("bold 14pt 'Malgun Gothic'"); // 폰트 설정
-// 
-// 		// 5. 화면에 보여주기
-// 		objStatic.show();
-// 		
-// 		xPos  = xPos+220;	
-// 	}
-// 		var objDivTmp = "div"+i;
-// 		objDivTmp = this.divMain.form.components[objDivTmp];
-// 		trace("@@@@@@@@@@"+objDivTmp);
-// 		
-// 		trace("yPos" + yPos); 
-// };
-// 
-// this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-// {
-// 	this.parent.parent.divWork.set_url("Main::work.xfdl");
-// };
-// 
-// 
-// // ==========================================동적 생성된 Div 클릭 이벤트============================================
-// this.fn_divClick = function(obj:nexacro.Div, e:nexacro.ClickEventInfo)
-// {
-//     // obj는 내가 클릭한 그 Div입니다.
-//     // 아까 심어둔 u_Row를 꺼내서 확인합니다.
-//     trace("클릭한 Div의 번호 : " + obj.u_Row);
-//     
-//     // 만약 alert창으로 보고 싶으면
-//     alert("이 상품은 " + obj.u_Row + "번째 데이터입니다!");
-// };
-
-
-
-//==================================================================================================================
+    <Script type="xscript5.1"><![CDATA[//==================================================================================================================
 //===================================================다시시작======================================================
 //==================================================================================================================
 
 //화면 로딩될 때
 this.work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	var sLoginId = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ID");
-
-	var strSvcUrl = "nexa/getMyZzimList.do";
-	var inData = "";
-	var strArg = "pLoginId=" + nexacro.wrapQuote(sLoginId);
-	var outData = "dsMyZzimList=dsMyZzimList";
-
-	this.gfnTransaction("selectPaging"
-						, strSvcUrl
-						, inData //이클립스받기=넥사크로주기
-						, outData //넥사크로받기=이클립스주기
-						, strArg
-						, "fnCallback"
-						, true);
+	this.fnPageInit();//페이징 초기화
 };
 // 
 // this.fn_drawCards() = function ()
@@ -177,6 +24,237 @@ this.work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 // 	
 // };
 
+//=======================================페이징 처리 관련 함수들=================================================
+
+this.fvRecords = 8;          // 목록 갯수 (한 페이지에 보여줄 개수)
+this.fvPage = 0;              // 현재 페이지 번호
+this.fvRecordsOffset = 0;     // 시작 rownum (0부터 시작)
+this.fvTotalCount = 0;        // 전체 데이터 갯수 (DB에서 받아와야 함)
+this.fvPageCount = 10;
+
+ this.fnPageInit = function ()
+ {
+ 	//pagin info init setting
+	this.fvRecords=8;                                //목록갯수
+	this.fvPage=0;	 								 //페이지번호
+	this.fvRecordsOffset=0;							 //시작rownum
+	this.fvPageCount = 10;							 //실제표출페이지갯수
+	
+	this.fnSearch();
+ };
+
+this.fnSearch = function ()
+{	
+	var sLoginId = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ID");
+	this.dsSearch.clearData();
+	var nRow = this.dsSearch.addRow();
+	this.dsSearch.setColumn(nRow, "records", this.fvRecords);
+	this.dsSearch.setColumn(nRow, "recordsOffset", this.fvRecordsOffset);
+	this.dsSearch.setColumn(nRow, "LOGIN_ID", sLoginId);                      
+     	
+ 	var strSvcUrl = "nexa/getMyZzimList.do";
+ 	var inData = "dsSearch=dsSearch";
+ 	var strArg = "pLoginId=" + nexacro.wrapQuote(sLoginId);
+ 	var outData = "dsMyZzimList=dsMyZzimList dsPagingInfo=dsPagingInfo";
+ 
+ 	this.gfnTransaction("getMyZzimList"
+ 						, strSvcUrl
+ 						, inData //이클립스받기=넥사크로주기
+ 						, outData //넥사크로받기=이클립스주기
+ 						, strArg
+ 						, "fnCallback"
+ 						, true);
+	trace("★ 조회 요청: " + strArg);
+};
+
+//==================================== div, 버튼, 이미지 뷰어, static 동적생성=======================================
+
+this.fn_drawCards = function ()
+{
+	// 기존 카드 삭제 (최대 8개니까 8번 돔)
+    for(var i=0; i<8; i++) 
+    {
+        var sDivId = "divCard" + i;
+        if(this.isValidObject(sDivId))
+        {
+            var objDel = this.removeChild(sDivId);
+            objDel.destroy();
+            objDel = null;
+        }
+    }
+
+    var objDs = this.dsMyZzimList;
+    // 데이터 없으면 중단
+    if (objDs == null || objDs.getRowCount() == 0) return;
+    
+
+    // 디자인
+    var nCardW   = 300;   // 카드 가로
+    var nCardH   = 300;   // 카드 세로
+    var nGapX    = 25;    // 가로 간격
+    var nGapY    = 25;    // 세로 간격
+    var nStartX  = 140;   // 시작 위치
+    var nStartY  = 20;    // 시작 위치
+    var nColCnt  = 4;     // 한 줄에 4개
+    
+    var nCnt = objDs.getRowCount();
+
+    for(var i=0; i < nCnt; i++)
+    {
+        // 좌표 계산
+        var nRow = Math.floor(i / nColCnt); 
+        var nCol = i % nColCnt;             
+        
+        var nLeft = nStartX + (nCol * (nCardW + nGapX));
+        var nTop  = nStartY + (nRow * (nCardH + nGapY));
+        
+        // 카드 Div 생성
+        var sDivId = "divCard" + i;
+        var objDiv = new Div();
+        objDiv.init(sDivId, nLeft, nTop, nCardW, nCardH);
+        
+        //디자인
+        objDiv.set_borderRadius("20px");  // 모서리 둥글게
+        objDiv.set_border("1px solid #e5e5e5"); // 테두리
+        objDiv.set_boxShadow("2px 2px 10px rgba(0,0,0,0.1)"); //그림자
+        objDiv.set_background("#ffffff");
+        
+        this.addChild(sDivId, objDiv);
+        objDiv.show();
+        
+
+        // 이미지 뷰어
+        var objImg = new ImageViewer();
+        // Left:10, Top:10, Width:280, Height:180
+        objImg.init("imgView", 10, 10, 280, 180); 
+        
+        objImg.set_image(objDs.getColumn(i, "PHOTO_URL"));
+        objImg.set_stretch("fit");
+        objImg.set_borderRadius("15px 15px 0px 0px"); // 이미지 윗부분도 살짝 둥글게
+        objImg.set_border("0px none"); // 이미지는 테두리 없는 게 깔끔함
+        
+        objDiv.form.addChild("imgView", objImg);
+        objImg.show();
+        
+        // 상품명
+        var objStName = new Static();
+        // 이미지 바로 밑
+        objStName.init("stName", 10, 200, 280, 40);
+        
+        objStName.set_text(objDs.getColumn(i, "TITLE"));
+        objStName.set_font("bold 14px 'Malgun Gothic'");
+        objStName.set_color("#333333");
+        objStName.set_verticalAlign("top");
+        objStName.set_wordWrap("char");
+        
+        objDiv.form.addChild("stName", objStName);
+        objStName.show();
+        
+
+        // 가격
+        var objStPrice = new Static();
+        objStPrice.init("stPrice", 10, 250, 280, 30);
+        
+        var nPrice = objDs.getColumn(i, "PRICE");
+        objStPrice.set_text(nexacro.toNumber(nPrice).toLocaleString() + "원");
+        objStPrice.set_textAlign("right");
+        objStPrice.set_font("bold 16px 'Arial'");
+        objStPrice.set_color("#ff5500"); // 주황색 포인트
+        
+        objDiv.form.addChild("stPrice", objStPrice);
+        objStPrice.show();
+
+        // 투명 클릭 버튼으로 덮기
+        var objBtn = new Button();
+        objBtn.init("btnClick", 0, 0, null, null, 0, 0);
+        objBtn.set_background("transparent");
+        objBtn.set_border("0px none");
+        objBtn.set_borderRadius("20px"); // 버튼도 둥글게 해야 클릭 범위 일치
+        objBtn.set_cursor("pointer");    // 마우스 손가락 모양
+        objBtn.u_Row = i; 
+        
+		//이벤트추가
+        //objBtn.addEventHandler("onclick", this.fn_divClick, this);
+        
+        objDiv.form.addChild("btnClick", objBtn);
+        objBtn.show();
+        objBtn.bringToFront();
+		
+		//=======================찜버튼==============================
+ 		var btnZzim = new Button();
+
+		// btnZzim 본인이 직접 init 
+		btnZzim.init("btnZzim", 250, 10, 40, 40); 
+
+		// 메소드로 배경색 설정
+		btnZzim.set_background("white");//#f5a623
+		
+		//이벤트 추가
+		//btnZzim.addEventHandler("onclick", this.fn_ZzimClick, this);
+		
+		//css추가
+		btnZzim.set_borderRadius("10px"); // 버튼도 둥글게 해야 클릭 범위 일치
+        btnZzim.set_cursor("pointer");    // 마우스 손가락 모양
+        btnZzim.u_Row = i; 
+		
+		// 카드(objDiv)의 form에 추가
+		objDiv.form.addChild("btnZzim", btnZzim);
+
+		// 화면에 보여주기
+		btnZzim.show();
+		btnZzim.bringToFront();
+		
+		//=======================추천 비추천버튼 추가==============================
+		var btnGood = new Button();
+		var btnBad = new Button();
+
+		// 추천 비추천 버튼init 
+		btnGood.init("btnZzim", 10, 250, 40, 40);
+		btnBad.init("btnZzim", 60, 250, 40, 40);
+
+		// 메소드로 배경색 설정
+		btnGood.set_background("blue");
+		btnGood.set_text("추천");
+		btnGood.set_color("white");
+		
+		btnBad.set_background("red");
+		btnBad.set_text("비추천");
+		btnBad.set_color("white");
+		
+		//이벤트 추가
+		//btnGood.addEventHandler("onclick", this.fn_GoodClick, this);
+		//btnBad.addEventHandler("onclick", this.fn_BadClick, this);
+		
+		//css추가
+		btnGood.set_borderRadius("10px"); // 버튼도 둥글게 해야 클릭 범위 일치
+        btnGood.set_cursor("pointer");    // 마우스 손가락 모양
+        btnGood.u_Row = i; 
+		
+		btnBad.set_borderRadius("10px"); // 버튼도 둥글게 해야 클릭 범위 일치
+        btnBad.set_cursor("pointer");    // 마우스 손가락 모양
+        btnBad.u_Row = i; 
+		// 카드(objDiv)의 form에 추가
+		objDiv.form.addChild("btnGood", btnGood);
+		objDiv.form.addChild("btnBad", btnBad);
+
+		// 화면에 보여주기
+		btnGood.show();
+		btnGood.bringToFront();
+		
+		btnBad.show();
+		btnBad.bringToFront();
+    }
+    
+    // 페이징 버튼 위치 자동 조정
+    var nPageTop = nStartY + (2 * (nCardH + nGapY)) + 10;
+    
+    if (this.isValidObject("divPage")) {
+        this.divPage.set_top(nPageTop);
+        this.divPage.bringToFront();
+    }
+	
+	this.resetScroll();//마술
+};
 
 //홈화면 돌아가기
 this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
@@ -184,7 +262,36 @@ this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	this.parent.parent.divWork.set_url("Main::work.xfdl");
 };
 
-]]></Script>
+//================================================페이징처리===================================================
+this.fnPagingSetting = function ()
+{
+    var nTotalCount = nexacro.toNumber(this.dsPagingInfo.getColumn(0, "totalCount"));
+    var nRecords = 8;
+    var nPage = nexacro.toNumber(this.fvPage);
+	alert(nTotalCount);
+    
+    //CmmPaging.xfdl의 함수호출
+    this.divPage.form.fnCreatePage("fnPagingCallback", nTotalCount, nRecords, nPage, 10);
+};
+
+this.fnPagingCallback = function(nPage, nRecordsOffset)
+{
+	this.fvPage = nPage; 				
+	this.fvRecordsOffset = nRecordsOffset;
+	
+	this.fnSearch(); //조회함수호출
+};
+
+//=================================================콜백함수==================================================
+this.fnCallback = function (svcId, errCd, errMsg)
+{
+	if(svcId == "getMyZzimList")
+	{
+		this.fnPagingSetting();
+		this.fn_drawCards();
+	}
+	
+};]]></Script>
     <Objects>
       <Dataset id="dsExample">
         <ColumnInfo>
@@ -247,7 +354,15 @@ this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
           <Row/>
         </Rows>
       </Dataset>
-      <Dataset id="dsSearch"/>
+      <Dataset id="dsSearch">
+        <ColumnInfo>
+          <Column id="records" type="INT" size="256"/>
+          <Column id="page" type="INT" size="256"/>
+          <Column id="recordsOffset" type="INT" size="256"/>
+          <Column id="pageCount" type="INT" size="256"/>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
       <Dataset id="dsMyZzimList">
         <ColumnInfo>
           <Column id="POST_ID" type="STRING" size="256"/>
@@ -256,6 +371,11 @@ this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
           <Column id="PHOTO_URL" type="STRING" size="256"/>
           <Column id="REG_DATE" type="STRING" size="256"/>
           <Column id="LOGIN_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsPagingInfo">
+        <ColumnInfo>
+          <Column id="totalCount" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
     </Objects>

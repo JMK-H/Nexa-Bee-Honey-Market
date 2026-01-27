@@ -19,7 +19,7 @@
 	var sTitle = this.gfnGetWord("popup.modal");	// 모달팝업
 	var oArg = {paramCode:"abcd", paramNum:12345, paramDataset:this.dsTest};
 	//trace("팝업 전 : " + JSON.stringify(oArg));
-	var oOption = {title:sTitle, titlebar: false};	//top, left를 지정하지 않으면 가운데정렬 //"top=20,left=370"
+	var oOption = {title:sTitle, titlebar: false};	//top, left를 지정하지 않으면 가운데정렬
 	var sPopupCallBack = "fnPopupCallback";
 	this.gfnOpenPopup( "staFindId","Login::ggul1110pu.xfdl",oArg,sPopupCallBack,oOption);
 };
