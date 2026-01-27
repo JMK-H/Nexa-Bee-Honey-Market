@@ -6,7 +6,7 @@
         <Static id="RNf" taborder="0" text="꿀꺼억" left="50" top="50" right="50" height="50" cssclass="PopupTitle"/>
         <TextField id="tfId" taborder="1" labeltext="아이디" left="50" top="120" height="56" right="50" helpertext="아이디를 입력하세요." displaynulltext="아이디를 입력하세요." cssclass="FindId"/>
         <TextField id="tfPassword" taborder="2" labeltext="비밀번호" left="50" top="181" height="56" right="50" helpertext="비밀번호를 입력하세요." visible="true" onchanged="TextField00_00_onchanged" inputtype="password" displaynulltext="비밀번호를 입력하세요." cssclass="FindId"/>
-        <Button id="btnLogin" taborder="3" text="로그인" left="50" top="252" width="300" height="40" cssclass="Login" onclick="btnLogin_onclick" borderRadius="10px"/>
+        <Button id="btnLogin" taborder="3" text="로그인" left="50" top="252" width="300" height="40" cssclass="Login" onclick="btnLogin_onclick" borderRadius="10px" background=""/>
         <Button id="btnSignup" taborder="4" text="회원가입" left="50" top="306" width="300" height="40" onclick="btnSignup_onclick" borderRadius="10px"/>
         <Div id="Div00" taborder="5" left="50" top="400" height="72" background="beige" right="50" borderRadius="10px"/>
         <Static id="staFindId" taborder="6" text="아이디를 잊었나요?" left="50" top="365" width="140" height="23" cssclass="ForgotIdPw" onclick="Static00_onclick"/>
