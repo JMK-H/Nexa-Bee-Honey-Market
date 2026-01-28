@@ -4,6 +4,61 @@
     <Layouts>
       <Layout height="730" mobileorientation="landscape" width="1600">
         <Div id="divPage" taborder="1" text="Div00" left="408" width="784" url="Cmm::CmmPaging.xfdl" border="1px solid #e84133" height="40" bottom="0"/>
+        <Grid id="Grid00" taborder="1" left="1250" top="535" width="346" height="190" binddataset="dsCurrentItem">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row band="head" size="24"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="POST_ID"/>
+                <Cell col="1" text="USER_ID"/>
+                <Cell col="2" text="TITLE"/>
+                <Cell col="3" text="CONTENT"/>
+                <Cell col="4" text="PRICE"/>
+                <Cell col="5" text="PURCHASE_URL"/>
+                <Cell col="6" text="PHOTO_URL"/>
+                <Cell col="7" text="REG_DATE"/>
+                <Cell col="8" text="CATEGORY_ID"/>
+                <Cell col="9" text="IS_WISH"/>
+                <Cell col="10" text="LIKE_CNT"/>
+                <Cell col="11" text="UNLIKE_CNT"/>
+                <Cell col="12" text="MY_LIKE_STATE"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:POST_ID"/>
+                <Cell col="1" text="bind:USER_ID"/>
+                <Cell col="2" text="bind:TITLE"/>
+                <Cell col="3" text="bind:CONTENT"/>
+                <Cell col="4" text="bind:PRICE"/>
+                <Cell col="5" text="bind:PURCHASE_URL"/>
+                <Cell col="6" text="bind:PHOTO_URL"/>
+                <Cell col="7" text="bind:REG_DATE"/>
+                <Cell col="8" text="bind:CATEGORY_ID"/>
+                <Cell col="9" text="bind:IS_WISH"/>
+                <Cell col="10" text="bind:LIKE_CNT"/>
+                <Cell col="11" text="bind:UNLIKE_CNT"/>
+                <Cell col="12" text="bind:MY_LIKE_STATE"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
       </Layout>
     </Layouts>
     <Objects>
@@ -19,6 +74,9 @@
           <Column id="REG_DATE" type="STRING" size="256"/>
           <Column id="CATEGORY_ID" type="STRING" size="256"/>
           <Column id="IS_WISH" type="STRING" size="256"/>
+          <Column id="LIKE_CNT" type="STRING" size="256"/>
+          <Column id="UNLIKE_CNT" type="STRING" size="256"/>
+          <Column id="MY_LIKE_STATE" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
       <Dataset id="dsPagingInfo">
@@ -41,6 +99,13 @@
           <Column id="WISH_ID" type="STRING" size="256"/>
           <Column id="LOGIN_ID" type="STRING" size="256"/>
           <Column id="POST_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsGB">
+        <ColumnInfo>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+          <Column id="POST_ID" type="STRING" size="256"/>
+          <Column id="STATE_CODE" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
     </Objects>
@@ -194,7 +259,22 @@ this.fn_drawCards = function ()
         
         objDiv.form.addChild("stPrice", objStPrice);
         objStPrice.show();
-
+		
+		//추천, 비추천 sta
+        var objGB = new Static();
+        // 이미지 바로 밑
+        objGB.init("staGB", 60, 250, 80, 40);
+        
+        objGB.set_text(objDs.getColumn(i, "LIKE_CNT")+" / "+objDs.getColumn(i, "UNLIKE_CNT"));
+        objGB.set_font("bold 14px 'Malgun Gothic'");
+        objGB.set_color("#333333");
+        objGB.set_verticalAlign("top");
+        objGB.set_wordWrap("char");
+		objGB.set_background("black");
+        
+        objDiv.form.addChild("staGB", objGB);
+        objGB.show();
+		
         // 투명 클릭 버튼으로 덮기
         var objBtn = new Button();
         objBtn.init("btnClick", 0, 0, null, null, 0, 0);
@@ -247,20 +327,49 @@ this.fn_drawCards = function ()
 
 		// 추천 비추천 버튼init 
 		btnGood.init("btnZzim", 10, 250, 40, 40);
-		btnBad.init("btnZzim", 60, 250, 40, 40);
-
-		// 메소드로 배경색 설정
-		btnGood.set_background("blue");
-		btnGood.set_text("추천");
-		btnGood.set_color("white");
-		
-		btnBad.set_background("red");
-		btnBad.set_text("비추천");
-		btnBad.set_color("white");
+		btnBad.init("btnZzim", 150, 250, 40, 40);
 		
 		//이벤트 추가 수정필요
 		btnGood.addEventHandler("onclick", this.fn_GoodClick, this);
 		btnBad.addEventHandler("onclick", this.fn_BadClick, this);
+		
+		// 메소드로 배경색 설정
+		
+		if(objDs.getColumn(i,"MY_LIKE_STATE")=="B") //비추 누른 상태
+		{
+			//비추 눌리고
+			btnBad.set_background("red");
+			btnBad.set_text("비추천");
+			btnBad.set_color("white");
+			//추천 안눌린
+			btnGood.set_background("white");
+			btnGood.set_text("추천");
+			btnGood.set_color("black");
+			
+		}
+		else if(objDs.getColumn(i,"MY_LIKE_STATE")=="G") //추천 누른 상태
+		{
+			//추천 눌리고
+			btnGood.set_background("blue");
+			btnGood.set_text("추천");
+			btnGood.set_color("white");
+			//비추 안눌린
+			btnBad.set_background("gray");
+			btnBad.set_text("비추천");
+			btnBad.set_color("white");
+		}
+		else //둘다 안누른 상태
+		{
+			//둘 다 안눌린
+			this.btnGStatus=false;
+			this.btnBStatus=false;
+			btnGood.set_background("white");
+			btnGood.set_text("추천");
+			btnGood.set_color("black");
+			btnBad.set_background("gray");
+			btnBad.set_text("비추천");
+			btnBad.set_color("white");
+		}
 		
 		//css추가
 		btnGood.set_borderRadius("10px"); // 버튼도 둥글게 해야 클릭 범위 일치
@@ -349,19 +458,91 @@ this.fn_ZzimClick = function (obj:nexacro.Button, e:nexacro.ClickEventInfo)//찜
 this.fn_GoodClick = function (obj:nexacro.Button, e:nexacro.ClickEventInfo)//추천버튼 클릭
 {
 	var nRow = obj.u_Row;
-	var sTitle = this.dsCurrentItem.getColumn(nRow, "TITLE");
-	//디버깅용
-	trace("클릭한 상품 행: " + nRow + " / 상품명: " + sTitle);
-	alert("[" + sTitle + "] 상품을 추천하셨습니다.");
+	var sState = this.dsCurrentItem.getColumn(nRow, "MY_LIKE_STATE"); //if문에서 쓸 G, B가져오기
+	var sPostId  = this.dsCurrentItem.getColumn(nRow, "POST_ID"); //dsGB에 담아 보낼정보
+    var sLoginId = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ID"); //dsGB에 담아 보낼정보
+	
+	//보낼 ds비우기
+	this.dsGB.clearData();
+	//한줄 추가
+	var nAddRow = this.dsGB.addRow();
+	//정보 넣기
+	this.dsGB.setColumn(nAddRow, "POST_ID",  sPostId);
+	this.dsGB.setColumn(nAddRow, "LOGIN_ID", sLoginId);
+	alert("정보는 다 넣었니");
+	if(sState == "G") //눌려있던거 취소
+	{
+		this.dsGB.setColumn(nAddRow, "STATE_CODE", 100);
+		//delete
+	}
+	else if(sState =="B") //비추 눌려있으면
+	{
+		alert("추천 / 비추천을 동시에 할 수 없습니다.") //gfn alert로 대체할것
+		return;
+	}
+	else //안눌려져있던거 추천
+	{
+		//insert
+		this.dsGB.setColumn(nAddRow, "STATE_CODE", 10);
+	}
+	
+	var strSvcUrl = "nexa/savePostLike.do";
+	var inData = "dsGB=dsGB";
+	var strArg = "";
+	var outData = "";
+
+	this.gfnTransaction("savePostLike"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);		
 };
 
 this.fn_BadClick = function (obj:nexacro.Button, e:nexacro.ClickEventInfo)//비추천버튼 클릭
 {
 	var nRow = obj.u_Row;
-	var sTitle = this.dsCurrentItem.getColumn(nRow, "TITLE");
-	//디버깅용
-	trace("클릭한 상품 행: " + nRow + " / 상품명: " + sTitle);
-	alert("[" + sTitle + "] 상품을 비추천하셨습니다.");
+	var sState = this.dsCurrentItem.getColumn(nRow, "MY_LIKE_STATE"); //if문에서 쓸 G, B가져오기
+	var sPostId  = this.dsCurrentItem.getColumn(nRow, "POST_ID"); //dsGB에 담아 보낼정보
+    var sLoginId = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ID"); //dsGB에 담아 보낼정보
+	
+	//보낼 ds비우기
+	this.dsGB.clearData();
+	//한줄 추가
+	var nAddRow = this.dsGB.addRow();
+	//정보 넣기
+	this.dsGB.setColumn(nAddRow, "POST_ID",  sPostId);
+	this.dsGB.setColumn(nAddRow, "LOGIN_ID", sLoginId);
+	
+	if(sState == "B") //눌려있던거 취소
+	{
+		this.dsGB.setColumn(nAddRow, "STATE_CODE", 200);
+		//delete
+	}
+	else if(sState =="G") //추천 눌려있으면
+	{
+		alert("추천 / 비추천을 동시에 할 수 없습니다.") //gfn alert로 대체할것
+		return;
+	}
+	else //안눌려져있던거 추천
+	{
+		//insert
+		this.dsGB.setColumn(nAddRow, "STATE_CODE", 20);
+	}
+	
+	var strSvcUrl = "nexa/savePostLike.do";
+	var inData = "dsGB=dsGB";
+	var strArg = "";
+	var outData = "";
+
+	this.gfnTransaction("savePostLike"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
 };
 
 
@@ -380,11 +561,15 @@ this.fnCallback = function (svcID, errorCode, errorMsg)
 	}
 	else if(svcID == "getZzimList")
 	{
-		alert("찜 메뉴 선택 트랜잭션 콜백 실행");
+		//alert("찜 메뉴 선택 트랜잭션 콜백 실행");
 	}
 	else if(svcID == "deleteZzimList")
 	{
-		alert("찜 메뉴 취소 트랜잭션 콜백 실행");
+		//alert("찜 메뉴 취소 트랜잭션 콜백 실행");
+	}
+	else if(svcID == "savePostLike")
+	{
+		this.fnSearch();
 	}
 };
 //================================================페이징처리===================================================

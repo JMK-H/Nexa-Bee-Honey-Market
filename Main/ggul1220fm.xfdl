@@ -300,59 +300,6 @@ this.fnCallback = function (svcId, errCd, errMsg)
           <Column id="location_name" type="STRING" size="256"/>
           <Column id="class_user_cnt" type="STRING" size="256"/>
         </ColumnInfo>
-        <Rows>
-          <Row>
-            <Col id="fileimg">A</Col>
-            <Col id="class_no">1</Col>
-            <Col id="location_name">서울1</Col>
-            <Col id="class_user_cnt">10</Col>
-          </Row>
-          <Row>
-            <Col id="fileimg">B</Col>
-            <Col id="class_no">2</Col>
-            <Col id="location_name">서울1</Col>
-            <Col id="class_user_cnt">11</Col>
-          </Row>
-          <Row>
-            <Col id="fileimg">C</Col>
-            <Col id="class_no">3</Col>
-            <Col id="location_name">서울1</Col>
-            <Col id="class_user_cnt">12</Col>
-          </Row>
-          <Row>
-            <Col id="fileimg">D</Col>
-            <Col id="class_no">4</Col>
-            <Col id="location_name">서울1</Col>
-            <Col id="class_user_cnt">13</Col>
-          </Row>
-          <Row>
-            <Col id="fileimg">E</Col>
-            <Col id="class_no">5</Col>
-            <Col id="location_name">서울1</Col>
-            <Col id="class_user_cnt">14</Col>
-          </Row>
-          <Row>
-            <Col id="fileimg">F</Col>
-            <Col id="class_no">6</Col>
-            <Col id="location_name">서울1</Col>
-            <Col id="class_user_cnt">15</Col>
-          </Row>
-          <Row>
-            <Col id="fileimg">G</Col>
-            <Col id="class_no">7</Col>
-            <Col id="location_name">서울1</Col>
-            <Col id="class_user_cnt">17</Col>
-          </Row>
-          <Row>
-            <Col id="fileimg">H</Col>
-            <Col id="class_no">8</Col>
-            <Col id="location_name">서울1</Col>
-            <Col id="class_user_cnt">18</Col>
-          </Row>
-          <Row/>
-          <Row/>
-          <Row/>
-        </Rows>
       </Dataset>
       <Dataset id="dsSearch">
         <ColumnInfo>
