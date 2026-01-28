@@ -3068,6 +3068,7 @@
         <Column id="LOGIN_EMAIL" type="STRING" size="256"/>
         <Column id="LOGIN_STATUS" type="STRING" size="256"/>
         <Column id="LOGIN_DATE" type="STRING" size="256"/>
+        <Column id="LOGIN_ROLE" type="STRING" size="256"/>
       </ColumnInfo>
     </Dataset>
   </Datasets>

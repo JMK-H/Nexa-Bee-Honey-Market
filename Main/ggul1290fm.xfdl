@@ -180,7 +180,7 @@ this.fn_drawCards = function ()
         // 상품명
         var objStName = new Static();
         // 이미지 바로 밑
-        objStName.init("stName", 10, 200, 280, 40);
+        objStName.init("stName", 10, 200, 280, 35);
         
         objStName.set_text(objDs.getColumn(i, "TITLE"));
         objStName.set_font("bold 14px 'Malgun Gothic'");
@@ -212,10 +212,12 @@ this.fn_drawCards = function ()
         
         objGB.set_text(objDs.getColumn(i, "LIKE_CNT")+" / "+objDs.getColumn(i, "UNLIKE_CNT"));
         objGB.set_font("bold 14px 'Malgun Gothic'");
-        objGB.set_color("#333333");
+        objGB.set_color("balck");
         objGB.set_verticalAlign("top");
         objGB.set_wordWrap("char");
-		objGB.set_background("black");
+		objGB.set_background("white");
+		objGB.set_textAlign("center");         // 가로 중앙 정렬
+		objGB.set_verticalAlign("middle");
         
         objDiv.form.addChild("staGB", objGB);
         objGB.show();

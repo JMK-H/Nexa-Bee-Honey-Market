@@ -92,8 +92,6 @@ this.fnCallback = function (svcID, errCd, errMsg)
 {
 	if(svcID == "getAdvList")
 	{
-		alert("이미지 불러오기 트랜잭션 콜백")
-		var dsAdImageCount = this.dsAdImage.getColCount();
 		this.imgVAdv1.set_image(this.dsAdImage.getColumn(0, "ADV_URL"));
 		this.imgVAdv2.set_image(this.dsAdImage.getColumn(1, "ADV_URL"));
 		this.imgVAdv3.set_image(this.dsAdImage.getColumn(2, "ADV_URL"));
