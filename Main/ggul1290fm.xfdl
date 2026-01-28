@@ -4,61 +4,6 @@
     <Layouts>
       <Layout height="730" mobileorientation="landscape" width="1600">
         <Div id="divPage" taborder="1" text="Div00" left="408" width="784" url="Cmm::CmmPaging.xfdl" border="1px solid #e84133" height="40" bottom="0"/>
-        <Grid id="Grid00" taborder="1" left="1250" top="535" width="346" height="190" binddataset="dsCurrentItem">
-          <Formats>
-            <Format id="default">
-              <Columns>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-              </Columns>
-              <Rows>
-                <Row band="head" size="24"/>
-                <Row size="24"/>
-              </Rows>
-              <Band id="head">
-                <Cell text="POST_ID"/>
-                <Cell col="1" text="USER_ID"/>
-                <Cell col="2" text="TITLE"/>
-                <Cell col="3" text="CONTENT"/>
-                <Cell col="4" text="PRICE"/>
-                <Cell col="5" text="PURCHASE_URL"/>
-                <Cell col="6" text="PHOTO_URL"/>
-                <Cell col="7" text="REG_DATE"/>
-                <Cell col="8" text="CATEGORY_ID"/>
-                <Cell col="9" text="IS_WISH"/>
-                <Cell col="10" text="LIKE_CNT"/>
-                <Cell col="11" text="UNLIKE_CNT"/>
-                <Cell col="12" text="MY_LIKE_STATE"/>
-              </Band>
-              <Band id="body">
-                <Cell text="bind:POST_ID"/>
-                <Cell col="1" text="bind:USER_ID"/>
-                <Cell col="2" text="bind:TITLE"/>
-                <Cell col="3" text="bind:CONTENT"/>
-                <Cell col="4" text="bind:PRICE"/>
-                <Cell col="5" text="bind:PURCHASE_URL"/>
-                <Cell col="6" text="bind:PHOTO_URL"/>
-                <Cell col="7" text="bind:REG_DATE"/>
-                <Cell col="8" text="bind:CATEGORY_ID"/>
-                <Cell col="9" text="bind:IS_WISH"/>
-                <Cell col="10" text="bind:LIKE_CNT"/>
-                <Cell col="11" text="bind:UNLIKE_CNT"/>
-                <Cell col="12" text="bind:MY_LIKE_STATE"/>
-              </Band>
-            </Format>
-          </Formats>
-        </Grid>
       </Layout>
     </Layouts>
     <Objects>
@@ -338,37 +283,23 @@ this.fn_drawCards = function ()
 		if(objDs.getColumn(i,"MY_LIKE_STATE")=="B") //비추 누른 상태
 		{
 			//비추 눌리고
-			btnBad.set_background("red");
-			btnBad.set_text("비추천");
-			btnBad.set_color("white");
+			btnBad.set_icon("imagerc::btnNGoods.png");
 			//추천 안눌린
-			btnGood.set_background("white");
-			btnGood.set_text("추천");
-			btnGood.set_color("black");
+			btnGood.set_icon("imagerc::btnGoodns.png");
 			
 		}
 		else if(objDs.getColumn(i,"MY_LIKE_STATE")=="G") //추천 누른 상태
 		{
 			//추천 눌리고
-			btnGood.set_background("blue");
-			btnGood.set_text("추천");
-			btnGood.set_color("white");
+			btnGood.set_icon("imagerc::btnGoods.png");
 			//비추 안눌린
-			btnBad.set_background("gray");
-			btnBad.set_text("비추천");
-			btnBad.set_color("white");
+			btnBad.set_icon("imagerc::btnNGoodns.png");
 		}
 		else //둘다 안누른 상태
 		{
 			//둘 다 안눌린
-			this.btnGStatus=false;
-			this.btnBStatus=false;
-			btnGood.set_background("white");
-			btnGood.set_text("추천");
-			btnGood.set_color("black");
-			btnBad.set_background("gray");
-			btnBad.set_text("비추천");
-			btnBad.set_color("white");
+			btnGood.set_icon("imagerc::btnGoodns.png");
+			btnBad.set_icon("imagerc::btnNGoodns.png");
 		}
 		
 		//css추가
@@ -469,7 +400,7 @@ this.fn_GoodClick = function (obj:nexacro.Button, e:nexacro.ClickEventInfo)//추
 	//정보 넣기
 	this.dsGB.setColumn(nAddRow, "POST_ID",  sPostId);
 	this.dsGB.setColumn(nAddRow, "LOGIN_ID", sLoginId);
-	alert("정보는 다 넣었니");
+	
 	if(sState == "G") //눌려있던거 취소
 	{
 		this.dsGB.setColumn(nAddRow, "STATE_CODE", 100);

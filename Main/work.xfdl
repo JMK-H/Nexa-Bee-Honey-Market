@@ -3,11 +3,11 @@
   <Form id="work" width="1600" height="650" titletext="New Form" background="#f9f9f9" onload="work_onload">
     <Layouts>
       <Layout height="650" width="1600">
-        <ImageViewer id="ImageViewer00" taborder="0" text="ImageViewer00" left="0.00%" bottom="63.41%" right="0.00%" top="0.00%"/>
-        <Static id="staUserName" taborder="1" text="나의 찜목록 &gt;" left="1.00%" top="37.44%" width="206" height="54" onclick="staUserName_onclick"/>
-        <Div id="Div00" taborder="2" text="Div00" left="6.92%" top="300" width="24%" height="292" borderRadius="20px"/>
-        <Div id="Div00_00" taborder="3" text="Div00" left="38.00%" top="300" width="24%" height="292" borderRadius="20px"/>
-        <Div id="Div00_00_00" taborder="4" text="Div00" left="68.00%" top="300" width="24%" height="292" borderRadius="20px"/>
+        <Static id="staUserName" taborder="0" text="나의 찜목록 &gt;" left="1.00%" top="43.38%" width="206" height="54" onclick="staUserName_onclick"/>
+        <Div id="Div00" taborder="1" text="Div00" left="6.92%" top="300" width="24%" height="292" borderRadius="20px"/>
+        <Div id="Div00_00" taborder="2" text="Div00" left="38.00%" top="300" width="24%" height="292" borderRadius="20px"/>
+        <Div id="Div00_00_00" taborder="3" text="Div00" left="68.00%" top="300" width="24%" height="292" borderRadius="20px"/>
+        <Div id="Div01" taborder="4" text="Div01" left="0" top="0" height="280" right="0" url="Main::ggul1410fm.xfdl"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[

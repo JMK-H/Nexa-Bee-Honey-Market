@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="SampleStep" width="1600" height="280" titletext="스텝" onload="form_onload" onstepchanged="SampleStep_onstepchanged" ontimer="SampleStep_ontimer" stepshowtype="always">
+    <Layouts>
+      <Layout height="280" mobileorientation="landscape" width="1600" stepcount="3">
+        <Button id="btn02" taborder="1" left="10" top="10" width="30" height="30" onclick="btnPre_onclick" positionstep="1" cssclass="btn_WF_ShuttleL"/>
+        <Button id="btn01" taborder="0" top="10" width="30" height="30" positionstep="1" onclick="btnNext_onclick" left="42" cssclass="btn_WF_ShuttleR"/>
+        <ImageViewer id="imgVAdv3" taborder="4" text="" left="0" top="0" positionstep="2" right="0" bottom="0"/>
+        <ImageViewer id="imgVAdv2" taborder="5" text="" left="0" top="0" positionstep="1" right="0" bottom="0"/>
+        <ImageViewer id="imgVAdv1" taborder="6" text="" left="0" top="0" right="0" bottom="0"/>
+        <Button id="btn03" taborder="2" top="10" width="30" height="30" positionstep="0" onclick="btnNext_onclick" left="10" cssclass="btn_WF_ShuttleR"/>
+        <Button id="btn04" taborder="3" left="10" top="10" width="30" height="30" onclick="btnPre_onclick" positionstep="2" cssclass="btn_WF_ShuttleL"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  Nexacro Professional Training Couse
+*  @MenuPath    개발가이드 > 컴포넌트 및 연동 > step
+*  @FileName 	SampleStep_Sub.xfdl 
+*  @Creator 	TOBESOFT Education
+*  @CreateDate 	2025/01/03
+*  @Desction    
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2025/01/03     		 TOBESOFT Education	 	  	최초 생성 
+*******************************************************************************
+*/
+
+
+
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+this.fvStep = 0;
+this.elapseTime = 3000;
+
+/************************************************************************************************
+ * FORM EVENT 영역(onload, onbeforeclose)
+ ************************************************************************************************/
+/**
+ * @description 화면 onload시 처리내역(필수)
+*/
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.stepselector.visible = false;
+	this.stepshowtype = "action";
+	
+	this.setTimer(0, this.elapseTime);
+	
+	//사진 가져오기 트랜잭션 날리기
+	var strSvcUrl = "nexa/getAdvList.do";
+	var inData = "";
+	var strArg = "";
+	var outData = "dsAdImage=dsAdImage";
+
+	this.gfnTransaction("getAdvList"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+};
+
+this.SampleStep_ontimer = function(obj:nexacro.Form,e:nexacro.TimerEventInfo)
+{
+	if (e.timerid == 0){
+		if (this.fvStep == 2) {
+			this.fvStep = 0;
+			this.stepselector.stepindex = 0;
+		}
+		else {
+			this.stepselector.stepindex = (++this.fvStep);
+		}
+	}
+};
+
+this.btnPre_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//this.killTimer(0);
+	this.stepselector.stepindex = (--this.fvStep);
+};
+
+this.btnNext_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//this.killTimer(0);
+	this.stepselector.stepindex = (++this.fvStep);
+};
+
+//============================================콜백함수========================================================
+this.fnCallback = function (svcID, errCd, errMsg)
+{
+	if(svcID == "getAdvList")
+	{
+		alert("이미지 불러오기 트랜잭션 콜백")
+		var dsAdImageCount = this.dsAdImage.getColCount();
+		this.imgVAdv1.set_image(this.dsAdImage.getColumn(0, "ADV_URL"));
+		this.imgVAdv2.set_image(this.dsAdImage.getColumn(1, "ADV_URL"));
+		this.imgVAdv3.set_image(this.dsAdImage.getColumn(2, "ADV_URL"));
+	}
+};]]></Script>
+    <Objects>
+      <Dataset id="dsAdImage">
+        <ColumnInfo>
+          <Column id="ADV_URL" type="STRING" size="256"/>
+          <Column id="ADV_NAME" type="STRING" size="256"/>
+          <Column id="ADV_SEQ" type="STRING" size="256"/>
+          <Column id="ADV_YN" type="STRING" size="256"/>
+          <Column id="ADV_REG_DT" type="STRING" size="256"/>
+          <Column id="ADV_START_DT" type="STRING" size="256"/>
+          <Column id="ADV_END_DT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>
