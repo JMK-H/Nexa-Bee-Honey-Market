@@ -5,32 +5,27 @@
       <Layout height="730" width="1600">
         <Static id="Static00" taborder="0" text="내가 찜한 꿀템 &gt;" left="1.31%" top="6.10%" width="206" height="53" cssclass="WorkTitle" onclick="Static00_onclick"/>
         <Button id="Button00" taborder="1" text="메인으로" left="36" top="10" width="148" height="38" onclick="Button00_onclick" borderRadius="10px" cssclass="Login"/>
-        <Static id="Static01" taborder="2" text="총 n개의 아이템을 찜했습니다." left="44" top="88" width="208" height="60" cssclass="PopupSubTitle"/>
-        <Div id="divPage" taborder="3" text="Div00" left="403" width="777" height="112" background="brown" url="Cmm::CmmPaging.xfdl" bottom="0"/>
+        <Static id="staZzimCount" taborder="2" text="총 n개의 아이템을 찜했습니다." left="696" top="20" width="208" height="60" cssclass="PopupSubTitle"/>
+        <Div id="divPage" taborder="3" text="Div00" left="403" width="777" height="60" background="brown" url="Cmm::CmmPaging.xfdl" bottom="0"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[//==================================================================================================================
 //===================================================다시시작======================================================
 //==================================================================================================================
 
-//화면 로딩될 때
-this.work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
-{
-	this.fnPageInit();//페이징 초기화
-};
-// 
-// this.fn_drawCards() = function ()
-// {
-// 	
-// };
-
-//=======================================페이징 처리 관련 함수들=================================================
-
 this.fvRecords = 8;          // 목록 갯수 (한 페이지에 보여줄 개수)
 this.fvPage = 0;              // 현재 페이지 번호
 this.fvRecordsOffset = 0;     // 시작 rownum (0부터 시작)
 this.fvTotalCount = 0;        // 전체 데이터 갯수 (DB에서 받아와야 함)
 this.fvPageCount = 10;
+
+//화면 로딩될 때
+this.work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.fnPageInit();//페이징 초기화
+};
+
+//=======================================페이징 처리 관련 함수들=================================================
 
  this.fnPageInit = function ()
  {
@@ -64,7 +59,6 @@ this.fnSearch = function ()
  						, strArg
  						, "fnCallback"
  						, true);
-	trace("★ 조회 요청: " + strArg);
 };
 
 //==================================== div, 버튼, 이미지 뷰어, static 동적생성=======================================
@@ -89,12 +83,12 @@ this.fn_drawCards = function ()
     
 
     // 디자인
-    var nCardW   = 300;   // 카드 가로
-    var nCardH   = 300;   // 카드 세로
+    var nCardW   = 200;   // 카드 가로
+    var nCardH   = 200;   // 카드 세로
     var nGapX    = 25;    // 가로 간격
     var nGapY    = 25;    // 세로 간격
-    var nStartX  = 140;   // 시작 위치
-    var nStartY  = 20;    // 시작 위치
+    var nStartX  = 350;   // 시작 위치
+    var nStartY  = 120;    // 시작 위치
     var nColCnt  = 4;     // 한 줄에 4개
     
     var nCnt = objDs.getRowCount();
@@ -126,7 +120,7 @@ this.fn_drawCards = function ()
         // 이미지 뷰어
         var objImg = new ImageViewer();
         // Left:10, Top:10, Width:280, Height:180
-        objImg.init("imgView", 10, 10, 280, 180); 
+        objImg.init("imgView", 10, 10, 180, 120); 
         
         objImg.set_image(objDs.getColumn(i, "PHOTO_URL"));
         objImg.set_stretch("fit");
@@ -139,7 +133,7 @@ this.fn_drawCards = function ()
         // 상품명
         var objStName = new Static();
         // 이미지 바로 밑
-        objStName.init("stName", 10, 200, 280, 40);
+        objStName.init("stName", 10, 135, 180, 20);
         
         objStName.set_text(objDs.getColumn(i, "TITLE"));
         objStName.set_font("bold 14px 'Malgun Gothic'");
@@ -153,7 +147,7 @@ this.fn_drawCards = function ()
 
         // 가격
         var objStPrice = new Static();
-        objStPrice.init("stPrice", 10, 250, 280, 30);
+        objStPrice.init("stPrice", 10, 160, 180, 20);
         
         var nPrice = objDs.getColumn(i, "PRICE");
         objStPrice.set_text(nexacro.toNumber(nPrice).toLocaleString() + "원");
@@ -180,17 +174,17 @@ this.fn_drawCards = function ()
         objBtn.show();
         objBtn.bringToFront();
 		
-		//=======================찜버튼==============================
+		//=======================삭제버튼==============================
  		var btnZzim = new Button();
 
 		// btnZzim 본인이 직접 init 
-		btnZzim.init("btnZzim", 250, 10, 40, 40); 
+		btnZzim.init("btnZzim", 160, 10, 26, 26); 
 
 		// 메소드로 배경색 설정
 		btnZzim.set_background("white");//#f5a623
 		
 		//이벤트 추가
-		//btnZzim.addEventHandler("onclick", this.fn_ZzimClick, this);
+		btnZzim.addEventHandler("onclick", this.fn_ZzimClick, this);
 		
 		//css추가
 		btnZzim.set_borderRadius("10px"); // 버튼도 둥글게 해야 클릭 범위 일치
@@ -205,44 +199,44 @@ this.fn_drawCards = function ()
 		btnZzim.bringToFront();
 		
 		//=======================추천 비추천버튼 추가==============================
-		var btnGood = new Button();
-		var btnBad = new Button();
-
-		// 추천 비추천 버튼init 
-		btnGood.init("btnZzim", 10, 250, 40, 40);
-		btnBad.init("btnZzim", 60, 250, 40, 40);
-
-		// 메소드로 배경색 설정
-		btnGood.set_background("blue");
-		btnGood.set_text("추천");
-		btnGood.set_color("white");
-		
-		btnBad.set_background("red");
-		btnBad.set_text("비추천");
-		btnBad.set_color("white");
-		
-		//이벤트 추가
-		//btnGood.addEventHandler("onclick", this.fn_GoodClick, this);
-		//btnBad.addEventHandler("onclick", this.fn_BadClick, this);
-		
-		//css추가
-		btnGood.set_borderRadius("10px"); // 버튼도 둥글게 해야 클릭 범위 일치
-        btnGood.set_cursor("pointer");    // 마우스 손가락 모양
-        btnGood.u_Row = i; 
-		
-		btnBad.set_borderRadius("10px"); // 버튼도 둥글게 해야 클릭 범위 일치
-        btnBad.set_cursor("pointer");    // 마우스 손가락 모양
-        btnBad.u_Row = i; 
-		// 카드(objDiv)의 form에 추가
-		objDiv.form.addChild("btnGood", btnGood);
-		objDiv.form.addChild("btnBad", btnBad);
-
-		// 화면에 보여주기
-		btnGood.show();
-		btnGood.bringToFront();
-		
-		btnBad.show();
-		btnBad.bringToFront();
+// 		var btnGood = new Button();
+// 		var btnBad = new Button();
+// 
+// 		// 추천 비추천 버튼init 
+// 		btnGood.init("btnZzim", 10, 250, 40, 40);
+// 		btnBad.init("btnZzim", 60, 250, 40, 40);
+// 
+// 		// 메소드로 배경색 설정
+// 		btnGood.set_background("blue");
+// 		btnGood.set_text("추천");
+// 		btnGood.set_color("white");
+// 		
+// 		btnBad.set_background("red");
+// 		btnBad.set_text("비추천");
+// 		btnBad.set_color("white");
+// 		
+// 		//이벤트 추가
+// 		//btnGood.addEventHandler("onclick", this.fn_GoodClick, this);
+// 		//btnBad.addEventHandler("onclick", this.fn_BadClick, this);
+// 		
+// 		//css추가
+// 		btnGood.set_borderRadius("10px"); // 버튼도 둥글게 해야 클릭 범위 일치
+//         btnGood.set_cursor("pointer");    // 마우스 손가락 모양
+//         btnGood.u_Row = i; 
+// 		
+// 		btnBad.set_borderRadius("10px"); // 버튼도 둥글게 해야 클릭 범위 일치
+//         btnBad.set_cursor("pointer");    // 마우스 손가락 모양
+//         btnBad.u_Row = i; 
+// 		// 카드(objDiv)의 form에 추가
+// 		objDiv.form.addChild("btnGood", btnGood);
+// 		objDiv.form.addChild("btnBad", btnBad);
+// 
+// 		// 화면에 보여주기
+// 		btnGood.show();
+// 		btnGood.bringToFront();
+// 		
+// 		btnBad.show();
+// 		btnBad.bringToFront();
     }
     
     // 페이징 버튼 위치 자동 조정
@@ -261,6 +255,43 @@ this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.parent.parent.divWork.set_url("Main::work.xfdl");
 };
+//==============================================클릭 이벤트===================================================
+this.fn_ZzimClick = function(obj:nexacro.Button, e:nexacro.ClickEventInfo)
+{
+    var nRow = obj.u_Row;
+    var sPostId = this.dsMyZzimList.getColumn(nRow, "POST_ID");
+    var sLoginId = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ID");
+    var currentPage = nexacro.toNumber(this.fvPage)
+	
+    if(!this.confirm("찜 목록에서 삭제하시겠습니까?")) return;
+    
+    // 현재 화면에 뿌려진 데이터가 딱 1개 남았고, 
+    // 내가 지금 1페이지가 아니라면 (2페이지 이상이라면)
+    if (this.dsMyZzimList.getRowCount() == 1 && currentPage >= 1) 
+    {
+        // 페이지 번호를 하나 줄이고
+        this.fvPage = this.fvPage - 1; 
+        
+        // 오프셋DB 시작위치도 8만큼fvRecords 뒤로 뺌
+        this.fvRecordsOffset = this.fvRecordsOffset - this.fvRecords;
+    }
+    
+    
+    var strSvcUrl = "nexa/deleteMyZzim.do";
+    var inData    = "";
+    var outData   = "";
+    var strArg    = "pLoginId=" + nexacro.wrapQuote(sLoginId) + 
+                    " pPostId=" + nexacro.wrapQuote(sPostId);
+    
+    // 콜백에서 fnSearch()를 부르면, 위에서 조정한 페이지 번호로 조회합니다!
+    this.gfnTransaction("deleteZzim"
+						, strSvcUrl
+						, inData
+						, outData
+						, strArg
+						, "fnCallback"
+						, true);
+};
 
 //================================================페이징처리===================================================
 this.fnPagingSetting = function ()
@@ -268,8 +299,13 @@ this.fnPagingSetting = function ()
     var nTotalCount = nexacro.toNumber(this.dsPagingInfo.getColumn(0, "totalCount"));
     var nRecords = 8;
     var nPage = nexacro.toNumber(this.fvPage);
-	alert(nTotalCount);
     
+	//"n개의 상품을 찜했습니다 sta 동적변경
+	this.staZzimCount.set_usedecorate(true);
+	this.staZzimCount.set_text("<fs v='11'><fc v='#888888'>총 </fc>" 
+                         + "<fc v='#F5A623'>" + nTotalCount + "</fc>" 
+                         + "<fc v='#888888'>개의 상품을 찜했습니다.</fc></fs>");
+	
     //CmmPaging.xfdl의 함수호출
     this.divPage.form.fnCreatePage("fnPagingCallback", nTotalCount, nRecords, nPage, 10);
 };
@@ -290,7 +326,10 @@ this.fnCallback = function (svcId, errCd, errMsg)
 		this.fnPagingSetting();
 		this.fn_drawCards();
 	}
-	
+	else if(svcId == "deleteZzim")
+	{
+		this.fnSearch(); 
+	}
 };]]></Script>
     <Objects>
       <Dataset id="dsExample">
