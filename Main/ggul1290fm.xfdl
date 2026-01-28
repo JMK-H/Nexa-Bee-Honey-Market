@@ -216,7 +216,7 @@ this.fn_drawCards = function ()
 		// btnZzim 본인이 직접 init 
 		btnZzim.init("btnZzim", 250, 10, 40, 40); 
 
-		// 메소드로 배경색 설정
+		// 배경색 설정
 		btnZzim.set_background("white");//#f5a623
 		
 		//이벤트 추가
