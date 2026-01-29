@@ -168,7 +168,7 @@ this.fn_drawCards = function ()
         var objImg = new ImageViewer();
         // Left:10, Top:10, Width:280, Height:180
         objImg.init("imgView", 10, 10, 280, 180); 
-        
+		trace(objDs.getColumn(i, "PHOTO_URL"));
         objImg.set_image(objDs.getColumn(i, "PHOTO_URL"));
         objImg.set_stretch("fit");
         objImg.set_borderRadius("15px 15px 0px 0px"); // 이미지 윗부분도 살짝 둥글게
@@ -267,6 +267,31 @@ this.fn_drawCards = function ()
 		// 화면에 보여주기
 		btnZzim.show();
 		btnZzim.bringToFront();
+		
+		//=======================신고버튼 추가==============================
+		var btnReport = new Button();
+
+		// btnZzim 본인이 직접 init 
+		btnReport.init("btnReport", 10, 10, 40, 40); 
+
+		// 배경색 설정
+		btnReport.set_background("white");//#f5a623
+		
+		//이벤트 추가
+		btnReport.addEventHandler("onclick", this.fn_ReportClick, this);
+		
+		//css추가
+		btnReport.set_borderRadius("10px"); // 버튼도 둥글게 해야 클릭 범위 일치
+        btnReport.set_cursor("pointer");    // 마우스 손가락 모양
+        btnReport.u_Row = i; 
+		btnReport.set_icon("imagerc::btnReport.png");
+		
+		// 카드(objDiv)의 form에 추가
+		objDiv.form.addChild("btnReport", btnReport);
+
+		// 화면에 보여주기
+		btnReport.show();
+		btnReport.bringToFront();
 		
 		//=======================추천 비추천버튼 추가==============================
 		var btnGood = new Button();
@@ -386,6 +411,33 @@ this.fn_ZzimClick = function (obj:nexacro.Button, e:nexacro.ClickEventInfo)//찜
 						, strArg
 						, "fnCallback"
 						, true);
+};
+
+//신고버튼 클릭이벤트
+this.fn_ReportClick = function (obj:nexacro.Button, e:nexacro.ClickEventInfo)
+{
+	var nRow = obj.u_Row;
+	//눌린 신고 POST_ID 이름 가져오기
+	var sPostId = this.dsCurrentItem.getColumn(nRow, "POST_ID"); 
+	
+	//신고자 이름 가져오기
+	var objApp = nexacro.getApplication();
+	var sLoginId = objApp.gdsLoginUser.getColumn(0, "LOGIN_ID");
+	
+	//신고창에서 띄울 사진url, 제목, 가격 가져오기
+	var sImageUrl = this.dsCurrentItem.getColumn(nRow, "PHOTO_URL"); 
+	var sTitle = this.dsCurrentItem.getColumn(nRow, "TITLE"); 
+	var sPrice = this.dsCurrentItem.getColumn(nRow, "PRICE"); 
+	
+	//신고창 열기
+	var sPopupId = "sReportPopup"; //Popup ID
+	var sUrl = "Main::ggul1430pu.xfdl"; //팝업 URL
+	var oArg = {sPostId:sPostId, sLoginId:sLoginId, sImageUrl:sImageUrl, sTitle:sTitle, sPrice:sPrice}; //전달값
+	var sPopupCallback = "fnCallPopup";
+	var oOption = {title:"모달리스 팝업" ,titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
+
+	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
+
 };
 
 this.fn_GoodClick = function (obj:nexacro.Button, e:nexacro.ClickEventInfo)//추천버튼 클릭

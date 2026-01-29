@@ -3,7 +3,7 @@
   <Form id="ggulin1110fm" width="400" height="500" background="#ffffff">
     <Layouts>
       <Layout height="500" mobileorientation="landscape" width="400">
-        <Static id="RNf" taborder="0" text="꿀꺼억" left="50" top="50" right="50" height="50" cssclass="PopupTitle"/>
+        <Static id="RNf" taborder="0" text="🍯꿀꺼억" left="50" top="50" right="50" height="50" cssclass="PopupTitle"/>
         <TextField id="tfId" taborder="1" labeltext="아이디" left="50" top="120" height="56" right="50" helpertext="아이디를 입력하세요." displaynulltext="아이디를 입력하세요." cssclass="FindId"/>
         <TextField id="tfPassword" taborder="2" labeltext="비밀번호" left="50" top="181" height="56" right="50" helpertext="비밀번호를 입력하세요." visible="true" onchanged="TextField00_00_onchanged" inputtype="password" displaynulltext="비밀번호를 입력하세요." cssclass="FindId"/>
         <Button id="btnLogin" taborder="3" text="로그인" left="50" top="252" width="300" height="40" cssclass="Login" onclick="btnLogin_onclick" borderRadius="10px" background=""/>
@@ -104,14 +104,16 @@ this.fnCallback = function (svcId, errCd, errMsg)
 
         if(objDs.rowcount > 0)//로그인 성공시
         {
-			trace("####################"+objDs.rowcount);
-			// [디버깅 반복문 시작]
+			// 디버깅 반복문 시작
 			for (var i = 0; i < objDs.getColCount(); i++) 
 			{
 				var colId = objDs.getColID(i); // 컬럼명 꺼내기
 				var colVal = objDs.getColumn(0, i); // 0번째 행의 값 꺼내기
 				trace(colId + " : " + colVal);
 			}
+			
+			//로그인 누르면 div붙어있는 메인 폼 리로드
+			objApp.mainframe.VFrameSet00.MainCF.form.reload();
 			
 			//로그아웃시 이전에 입력된 정보창 지우기
 			this.tfId.set_value("");//아이디 지우기

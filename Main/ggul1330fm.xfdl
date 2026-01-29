@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="ContentAdmin" width="1000" height="720" titletext="컨텐츠 관리" background="#f7f7f7" onload="ContentAdmin_onload">
+    <Layouts>
+      <Layout height="720" width="1000">
+        <Static id="staTitle" taborder="0" text="📝 컨텐츠 관리" left="30" top="30" width="200" height="30" font="bold 20px 'Malgun Gothic'" color="#ff9900"/>
+        <Static id="staSubTitle" taborder="1" text="신고된 게시물 4건" left="30" top="65" width="200" height="20" font="14px 'Malgun Gothic'" color="#666666"/>
+        <ListView id="lstReport" taborder="2" left="30" top="100" right="30" bottom="30" binddataset="dsReportPosts" bandinitstatus="expand" border="0px none" background="transparent">
+          <Formats>
+            <Format id="default">
+              <Band id="body" width="100%" height="230" background="#ffffff" border="1px solid #dbdee2" border_bottom="20px solid #f7f7f7" borderRadius="15px">
+                <Cell id="CellReportCnt" left="30" top="25" width="100" height="25" text="expr:&quot;🚩 신고 &quot;+REPORT_CNT+&quot;건&quot;" font="bold 14px 'Malgun Gothic'" color="#ff5e5e" border="0px none"/>
+                <Cell id="CellReason" left="140" top="25" width="110" height="28" background="#ffeceb" color="#ff4d4d" borderRadius="14px" textAlign="center" font="bold 12px 'Malgun Gothic'" border="0px none" text="bind:REPORT_REASON"/>
+                <Cell id="CellTitle" left="30" top="70" right="30" height="40" text="bind:TITLE" font="bold 18px 'Malgun Gothic'" color="#333333" border="0px none"/>
+                <Cell id="CellMeta" left="30" top="115" right="30" height="25" text="expr:&quot;작성자: &quot;+LOGIN_NAME+&quot; • &quot;+REPORT_DATE" font="14px 'Malgun Gothic'" color="#999999" border="0px none"/>
+                <Cell id="CellBtnView" left="30" top="165" width="130" height="40" displaytype="buttoncontrol" edittype="button" text="👁 상세보기" background="#ff9900" border="0px none" color="#ffffff" borderRadius="8px" font="bold 14px 'Malgun Gothic'"/>
+                <Cell id="CellBtnDelete" left="175" top="165" width="110" height="40" displaytype="buttoncontrol" edittype="button" text="🗑 삭제" background="#ff5e5e" border="0px none" color="#ffffff" borderRadius="8px" font="bold 14px 'Malgun Gothic'"/>
+                <Cell id="CellBtnIgnore" left="300" top="165" width="120" height="40" displaytype="buttoncontrol" edittype="button" text="🛡 신고 무시" background="#2ecc71" border="0px none" color="#ffffff" borderRadius="8px" font="bold 14px 'Malgun Gothic'"/>
+                <Cell id="Cell00" left="1" top="149" width="940" height="3" edittype="text"/>
+              </Band>
+            </Format>
+          </Formats>
+        </ListView>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsReport">
+        <ColumnInfo>
+          <Column id="REPORT_CNT" type="STRING" size="256"/>
+          <Column id="REPORT_REASON" type="STRING" size="256"/>
+          <Column id="TITLE" type="STRING" size="256"/>
+          <Column id="REPORT_DATE" type="STRING" size="256"/>
+          <Column id="POST_ID" type="STRING" size="256"/>
+          <Column id="USER_ID" type="STRING" size="256"/>
+          <Column id="REPORT_STATUS" type="STRING" size="256"/>
+          <Column id="LOGIN_NAME" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="REPORT_CNT">🚩 신고 8건</Col>
+            <Col id="REPORT_REASON">욕설/비방</Col>
+            <Col id="TITLE">욕설 포함된 리뷰입니다. 기분이 나쁘네요.</Col>
+            <Col id="REPORT_DATE">작성자: 화난사람  •  청소용품  •  2026-01-05</Col>
+            <Col id="POST_ID">P_2001_005</Col>
+          </Row>
+          <Row>
+            <Col id="REPORT_CNT">🚩 신고 12건</Col>
+            <Col id="REPORT_REASON">부적절한 내용</Col>
+            <Col id="TITLE">부적절한 이미지가 포함되어 있습니다.</Col>
+            <Col id="REPORT_DATE">작성자: 이상한사람  •  전자기기  •  2026-01-04</Col>
+            <Col id="POST_ID">P_6002_011</Col>
+          </Row>
+          <Row>
+            <Col id="REPORT_CNT">🚩 신고 3건</Col>
+            <Col id="REPORT_REASON">도배성 게시물</Col>
+            <Col id="TITLE">같은 글을 계속 올리고 있습니다.</Col>
+            <Col id="REPORT_DATE">작성자: 도배왕  •  여가/캠핑  •  2026-01-03</Col>
+            <Col id="POST_ID">P_4001_002</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsReportPosts">
+        <ColumnInfo>
+          <Column id="POST_ID" type="STRING" size="256"/>
+          <Column id="USER_ID" type="STRING" size="256"/>
+          <Column id="REPORT_CNT" type="STRING" size="256"/>
+          <Column id="TITLE" type="STRING" size="256"/>
+          <Column id="REPORT_REASON" type="STRING" size="256"/>
+          <Column id="REPORT_STATUS" type="STRING" size="256"/>
+          <Column id="LOGIN_NAME" type="STRING" size="256"/>
+          <Column id="REPORT_DATE" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+          <Row/>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.ContentAdmin_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	var strSvcUrl = "nexa/getReportPostsList.do";
+	var inData = "";
+	var strArg = "";
+	var outData = "dsReportPosts=dsReportPosts";
+	this.gfnTransaction("getReportUsersList"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+};
+
+//===============================콜백 함수============================================
+this.fnCallback = function (svcID, errCd, errMsg)
+{
+	if(svcID == "getReportUsersList") //정보 불러오기 콜백
+	{
+		//총 신고건수 동적변경
+		this.staSubTitle.set_text("신고 총 "+this.dsReportPosts.getRowCount()+"건");
+	}
+};]]></Script>
+  </Form>
+</FDL>

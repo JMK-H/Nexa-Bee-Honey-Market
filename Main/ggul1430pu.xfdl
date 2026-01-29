@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="ReportPopup" width="400" height="360" titletext="게시글 신고하기" background="#ffffff" border="1px solid #cccccc" onload="ggul1430pu_onload" borderRadius="20px">
+    <Layouts>
+      <Layout height="360" width="400">
+        <Static id="staTitle" taborder="0" text="🚨 게시글 신고하기" left="20" top="20" width="200" height="30" font="bold 16px 'Malgun Gothic'" color="#ff9900"/>
+        <Static id="staCardBg" taborder="1" left="20" top="65" right="20" height="100" background="#fff9f0" border="1px solid #fae5d3" borderRadius="10px"/>
+        <ImageViewer id="imgProduct" taborder="2" left="35" top="80" width="70" height="70" border="1px solid #e0e0e0" stretch="fit" borderRadius="5px" text=""/>
+        <Static id="staProductName" taborder="3" text="무선 청소기 대박 추천!" left="120" top="80" right="35" height="45" font="bold 13px 'Malgun Gothic'" color="#333333"/>
+        <Static id="staLabel" taborder="4" text="신고 사유를 선택해주세요 &lt;fc v='#ff0000'&gt;*&lt;/fc&gt;" left="20" top="190" width="200" height="20" font="bold 12px 'Malgun Gothic'" color="#333333" usedecorate="true"/>
+        <Combo id="cboReason" taborder="5" text="" left="20" top="220" right="20" height="40" displaynulltext="사유를 선택해주세요" innerdataset="dsReason" codecolumn="CODE" datacolumn="NAME" border="1px solid #ff9900" borderRadius="5px" itemheight="35"/>
+        <Button id="btnCancel" taborder="6" text="취소" left="20" bottom="20" width="175" height="45" background="#ffffff" border="1px solid #dddddd" borderRadius="5px" color="#666666" font="13px 'Malgun Gothic'" cursor="pointer" onclick="btnClose_onclick"/>
+        <Button id="btnSubmit" taborder="7" text="신고 제출" right="20" bottom="20" width="175" height="45" background="#f39c12" border="0px none" borderRadius="5px" color="#ffffff" font="bold 13px 'Malgun Gothic'" cursor="pointer" onclick="btnSubmit_onclick"/>
+        <Static id="staPrice" taborder="8" text="Static00" left="120" top="120" width="245" height="25" color="#ff9900" font="bold 14px 'Malgun Gothic'"/>
+        <Button id="Button00" taborder="9" left="349" top="20" width="31" height="30" onclick="btnClose_onclick" cssclass="Login" borderRadius="30px" text="X"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsReason">
+        <ColumnInfo>
+          <Column id="CODE" type="STRING" size="256"/>
+          <Column id="NAME" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="CODE">R01</Col>
+            <Col id="NAME">욕설/비방/혐오</Col>
+          </Row>
+          <Row>
+            <Col id="CODE">R02</Col>
+            <Col id="NAME">광고/홍보/스팸</Col>
+          </Row>
+          <Row>
+            <Col id="CODE">R03</Col>
+            <Col id="NAME">부적절한 게시물</Col>
+          </Row>
+          <Row>
+            <Col id="CODE">R04</Col>
+            <Col id="NAME">도배성 게시물</Col>
+          </Row>
+          <Row>
+            <Col id="CODE">R99</Col>
+            <Col id="NAME">기타</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsReport">
+        <ColumnInfo>
+          <Column id="POST_ID" type="STRING" size="256"/>
+          <Column id="USER_ID" type="STRING" size="256"/>
+          <Column id="REPORT_REASON" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsInsert">
+        <ColumnInfo>
+          <Column id="POST_ID" type="STRING" size="256"/>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+          <Column id="REPORT_REASON" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[this.reportCnt ="";
+
+this.ggul1430pu_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	//팝업 띄울때 신고한 게시글 PK, 신고자 ID PK, 이미지 경로, post타이틀, 가격 받기
+	var sPostId = this.getOwnerFrame().sPostId;
+	var sLoginId = this.getOwnerFrame().sLoginId; 
+	var sImageUrl = this.getOwnerFrame().sImageUrl;
+	var sTitle = this.getOwnerFrame().sTitle;
+	var sPrice = this.getOwnerFrame().sPrice;
+	
+	//사진, 가격, 제목 붙이기
+	this.imgProduct.set_image(sImageUrl);
+	this.staProductName.set_text(sTitle);
+	this.staPrice.set_text(nexacro.toNumber(sPrice).toLocaleString() + "원");
+	
+	//넘길 데이터셋에 미리 담기
+	this.dsInsert.clearData();//일단 비우고
+	var nRow = this.dsInsert.addRow();
+	this.dsInsert.setColumn(nRow, "POST_ID", sPostId);
+	this.dsInsert.setColumn(nRow, "LOGIN_ID", sLoginId);
+};
+
+this.btnSubmit_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sReason = this.cboReason.value;
+	this.dsInsert.setColumn(0, "REPORT_REASON", sReason);
+	
+	var strSvcUrl = "nexa/insertReport.do";
+	var inData = "dsInsert=dsInsert";
+	var strArg = "";
+	var outData = "reportCnt=reportCnt";
+
+	this.gfnTransaction("insertReport"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+};
+
+this.btnClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.close();
+};
+
+
+//========================================콜백함수==============================================
+
+this.fnCallback = function (svcID, errCd, errMsg)
+{
+	if(svcID == "insertReport")
+	{
+		if(this.reportCnt==1)
+		{alert("중복신고를 할 수 없습니다.");}
+		else
+		{alert("신고접수가 완료되었습니다.");}
+		this.close(); //성공하든 실패하든 창닫기
+	}
+};
+]]></Script>
+  </Form>
+</FDL>

@@ -1,12 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="ggul1210fm" width="1600" height="80" titletext="New Form" background="#ffffff" stepshowtype="always">
+  <Form id="ggul1210fm" width="1600" height="80" titletext="New Form" background="#ffffff" stepshowtype="always" onload="ggul1210fm_onload">
     <Layouts>
       <Layout height="80" mobileorientation="landscape" width="1600">
-        <Button id="btnMenu" taborder="0" left="200" top="30" width="30" height="20" border="0px none" onclick="btnMenu_onclick" background="url('imagerc::Gemini_Generated_Image_s14ec0s14ec0s14e.png') no-repeat center"/>
-        <Button id="btnUser" taborder="1" top="23" height="35" border="0px none" background="url('imagerc::개인정보.png') no-repeat right center" width="20" right="220" onclick="btnUser_onclick"/>
-        <Button id="btnZzim" taborder="2" top="25" width="30" height="30" background="url('imagerc::찜아이콘ns.png') no-repeat center" border="0px none" right="260" onclick="btnZzim_onclick"/>
-        <Static id="staTitle" taborder="3" text="꿀꺼억" left="500" top="0" width="600" height="80" cssclass="PopupTitle" onclick="staTitle_onclick"/>
+        <Button id="btnMenu" taborder="0" left="200" top="30" width="30" height="20" border="0px none" onclick="btnMenu_onclick" background="url('imagerc::Gemini_Generated_Image_s14ec0s14ec0s14e.png') no-repeat center" cursor="pointer"/>
+        <Button id="btnUser" taborder="1" top="23" height="35" border="0px none" background="url('imagerc::개인정보.png') no-repeat right center" width="20" right="220" onclick="btnUser_onclick" text="" cursor="pointer"/>
+        <Button id="btnZzim" taborder="2" top="25" width="30" height="30" background="url('imagerc::찜아이콘ns.png') no-repeat center" border="0px none" right="260" onclick="btnZzim_onclick" cursor="pointer"/>
+        <Static id="staTitle" taborder="3" text="🍯꿀꺼억" left="500" top="0" width="600" height="80" cssclass="PopupTitle"/>
+        <Button id="btnAdmin" taborder="4" text="" top="23" height="35" visible="false" onclick="btnAdmin_onclick" right="167" width="30" background="url('imagerc::btnAdmin2.png') no-repeat left top" border="0px none" cursor="pointer"/>
+        <Button id="btnHome" taborder="5" text="" left="720" top="0" width="170" height="80" background="transparent" border="0px none" onclick="Button00_onclick" cursor="pointer"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[var objAni="";
@@ -14,19 +16,19 @@ var nWidth = "";
 var objDim = "";
 this.btnMenu_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {	
-	// 1. 기존 애니메이션이 동작 중이면 중단 (중복 방지)
+	// 기존 애니메이션이 동작 중이면 중단 (중복 방지)
     if (!this.ani00) 
 	{
 		objAni = new nexacro.Animation("ani00", this); 
 		this.addChild("ani00", objAni);
 		
-		// 2. 애니메이션 오브젝트 생성 (ID, 지속시간: 0.3초)
+		// 애니메이션 오브젝트 생성 (ID, 지속시간: 0.3초)
 		// 가속도 효과 (부드럽게)
 		objAni.set_duration(300); // 300ms (0.3초) 동안 동작
 		objAni.set_easing("easeInQuad");
 	}
 
-    // 3. 현재 상태에 따라 목표치 설정
+    // 현재 상태에 따라 목표치 설정
     if(this.parent.parent.divLeft.getOffsetWidth() > 0) {
         nWidth = 0;      // 닫기
     } else {
@@ -34,10 +36,10 @@ this.btnMenu_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
     }
 	
 	objAni.removeTarget("aniTarget01");
-    // 4. 애니메이션 대상 속성 추가 (너비와 Work 영역의 위치를 동시에!)
+    // 애니메이션 대상 속성 추가 (너비와 Work 영역의 위치를 동시에!)
     objAni.addTarget("aniTarget01", this.parent.parent.divLeft, "width:" + nWidth);
 
-    // 5. 실행
+    // 실행
     objAni.play();
 
 };
@@ -60,16 +62,47 @@ this.btnUser_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
 };
 
-this.staTitle_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.parent.parent.divWork.set_url("Main::work.xfdl");
+};
+//=============================================관리자 전용 버튼==================================================
+this.btnAdmin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var objApp = nexacro.getApplication();
+	var userRole = objApp.gdsLoginUser.getColumn(0, "LOGIN_ROLE");
+	
+	var sPopupId = "sAdminPopup"; //Popup ID
+	var sUrl = "Main::ggul1420pu.xfdl"; //팝업 URL
+	var oArg = {userRole:userRole}; //전달값
+	var sPopupCallback = "fnCallPopup";
+	var oOption = {title:"모달 팝업", titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
+
+	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
+
 };
 
 //==================================================콜백함수===============================================
 
 this.fnCallback = function ()
 {
-	this.parent.parent.divWork.set_url("Main::work.xfdl");
-};]]></Script>
+	//this.parent.parent.divWork.set_url("Main::work.xfdl"); divWork 초기 화면으로 돌리기
+};
+this.ggul1210fm_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	//글로벌 데이터셋 접근가능하게 함
+    var objApp = nexacro.getApplication();
+    var objDs = objApp.gdsLoginUser; 
+	//현재 로그인한사람 권한 뽑기
+	var userRole = objDs.getColumn(0, "LOGIN_ROLE")
+	
+	if(userRole >=1 )//관리자 이상이면 버튼보이게
+	{
+		this.btnAdmin.set_visible(true);
+	}
+};
+
+
+]]></Script>
   </Form>
 </FDL>
