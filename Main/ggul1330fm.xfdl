@@ -10,55 +10,67 @@
             <Format id="default">
               <Band id="body" width="100%" height="230" background="#ffffff" border="1px solid #dbdee2" border_bottom="20px solid #f7f7f7" borderRadius="15px">
                 <Cell id="CellReportCnt" left="30" top="25" width="100" height="25" text="expr:&quot;🚩 신고 &quot;+REPORT_CNT+&quot;건&quot;" font="bold 14px 'Malgun Gothic'" color="#ff5e5e" border="0px none"/>
-                <Cell id="CellReason" left="140" top="25" width="110" height="28" background="#ffeceb" color="#ff4d4d" borderRadius="14px" textAlign="center" font="bold 12px 'Malgun Gothic'" border="0px none" text="bind:REPORT_REASON"/>
+                <Cell id="CellReason" left="140" top="25" width="120" height="28" background="#ffeceb" color="#ff4d4d" borderRadius="14px" textAlign="center" font="bold 12px 'Malgun Gothic'" border="0px none" text="bind:REPORT_REASON" displaytype="combotext" combodataset="dsReason" combocodecol="CODE" combodatacol="NAME"/>
                 <Cell id="CellTitle" left="30" top="70" right="30" height="40" text="bind:TITLE" font="bold 18px 'Malgun Gothic'" color="#333333" border="0px none"/>
-                <Cell id="CellMeta" left="30" top="115" right="30" height="25" text="expr:&quot;작성자: &quot;+LOGIN_NAME+&quot; • &quot;+REPORT_DATE" font="14px 'Malgun Gothic'" color="#999999" border="0px none"/>
+                <Cell id="CellMeta" left="30" top="115" right="589" height="25" text="expr:&quot;작성자: &quot;+LOGIN_NAME+&quot; • &quot;+REPORT_DATE" font="14px 'Malgun Gothic'" color="#999999" border="0px none"/>
                 <Cell id="CellBtnView" left="30" top="165" width="130" height="40" displaytype="buttoncontrol" edittype="button" text="👁 상세보기" background="#ff9900" border="0px none" color="#ffffff" borderRadius="8px" font="bold 14px 'Malgun Gothic'"/>
                 <Cell id="CellBtnDelete" left="175" top="165" width="110" height="40" displaytype="buttoncontrol" edittype="button" text="🗑 삭제" background="#ff5e5e" border="0px none" color="#ffffff" borderRadius="8px" font="bold 14px 'Malgun Gothic'"/>
                 <Cell id="CellBtnIgnore" left="300" top="165" width="120" height="40" displaytype="buttoncontrol" edittype="button" text="🛡 신고 무시" background="#2ecc71" border="0px none" color="#ffffff" borderRadius="8px" font="bold 14px 'Malgun Gothic'"/>
                 <Cell id="Cell00" left="1" top="149" width="940" height="3" edittype="text"/>
+                <Cell id="Cell01" left="372" top="115" width="138" height="25" displaytype="combotext" text="bind:CATEGORY_ID" combodataset="ds_menu" combocodecol="MENU_ID" combodatacol="MENU_NAME" border="0px none" color="#999999" font="14px 'Malgun Gothic'"/>
               </Band>
             </Format>
           </Formats>
         </ListView>
+        <Grid id="Grid00" taborder="3" left="465" top="33" width="485" height="195" binddataset="dsReportPosts">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row band="head" size="24"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="POST_ID"/>
+                <Cell col="1" text="USER_ID"/>
+                <Cell col="2" text="REPORT_CNT"/>
+                <Cell col="3" text="TITLE"/>
+                <Cell col="4" text="REPORT_REASON"/>
+                <Cell col="5" text="REPORT_STATUS"/>
+                <Cell col="6" text="LOGIN_NAME"/>
+                <Cell col="7" text="REPORT_DATE"/>
+                <Cell col="8" text="CATEGORY_ID"/>
+                <Cell col="9" text="REPORT_COMMEND"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:POST_ID"/>
+                <Cell col="1" text="bind:USER_ID"/>
+                <Cell col="2" text="bind:REPORT_CNT"/>
+                <Cell col="3" text="bind:TITLE"/>
+                <Cell col="4" text="bind:REPORT_REASON"/>
+                <Cell col="5" text="bind:REPORT_STATUS"/>
+                <Cell col="6" text="bind:LOGIN_NAME"/>
+                <Cell col="7" text="bind:REPORT_DATE"/>
+                <Cell col="8" text="bind:CATEGORY_ID"/>
+                <Cell col="9" text="bind:REPORT_COMMEND"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
       </Layout>
     </Layouts>
     <Objects>
-      <Dataset id="dsReport">
-        <ColumnInfo>
-          <Column id="REPORT_CNT" type="STRING" size="256"/>
-          <Column id="REPORT_REASON" type="STRING" size="256"/>
-          <Column id="TITLE" type="STRING" size="256"/>
-          <Column id="REPORT_DATE" type="STRING" size="256"/>
-          <Column id="POST_ID" type="STRING" size="256"/>
-          <Column id="USER_ID" type="STRING" size="256"/>
-          <Column id="REPORT_STATUS" type="STRING" size="256"/>
-          <Column id="LOGIN_NAME" type="STRING" size="256"/>
-        </ColumnInfo>
-        <Rows>
-          <Row>
-            <Col id="REPORT_CNT">🚩 신고 8건</Col>
-            <Col id="REPORT_REASON">욕설/비방</Col>
-            <Col id="TITLE">욕설 포함된 리뷰입니다. 기분이 나쁘네요.</Col>
-            <Col id="REPORT_DATE">작성자: 화난사람  •  청소용품  •  2026-01-05</Col>
-            <Col id="POST_ID">P_2001_005</Col>
-          </Row>
-          <Row>
-            <Col id="REPORT_CNT">🚩 신고 12건</Col>
-            <Col id="REPORT_REASON">부적절한 내용</Col>
-            <Col id="TITLE">부적절한 이미지가 포함되어 있습니다.</Col>
-            <Col id="REPORT_DATE">작성자: 이상한사람  •  전자기기  •  2026-01-04</Col>
-            <Col id="POST_ID">P_6002_011</Col>
-          </Row>
-          <Row>
-            <Col id="REPORT_CNT">🚩 신고 3건</Col>
-            <Col id="REPORT_REASON">도배성 게시물</Col>
-            <Col id="TITLE">같은 글을 계속 올리고 있습니다.</Col>
-            <Col id="REPORT_DATE">작성자: 도배왕  •  여가/캠핑  •  2026-01-03</Col>
-            <Col id="POST_ID">P_4001_002</Col>
-          </Row>
-        </Rows>
-      </Dataset>
       <Dataset id="dsReportPosts">
         <ColumnInfo>
           <Column id="POST_ID" type="STRING" size="256"/>
@@ -69,10 +81,199 @@
           <Column id="REPORT_STATUS" type="STRING" size="256"/>
           <Column id="LOGIN_NAME" type="STRING" size="256"/>
           <Column id="REPORT_DATE" type="STRING" size="256"/>
+          <Column id="CATEGORY_ID" type="STRING" size="256"/>
+          <Column id="REPORT_COMMEND" type="STRING" size="256"/>
         </ColumnInfo>
         <Rows>
           <Row/>
           <Row/>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsReason">
+        <ColumnInfo>
+          <Column id="CODE" type="STRING" size="256"/>
+          <Column id="NAME" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="CODE">R01</Col>
+            <Col id="NAME">욕설/비방/혐오</Col>
+          </Row>
+          <Row>
+            <Col id="CODE">R02</Col>
+            <Col id="NAME">광고/홍보/스팸</Col>
+          </Row>
+          <Row>
+            <Col id="CODE">R03</Col>
+            <Col id="NAME">부적절한 게시물</Col>
+          </Row>
+          <Row>
+            <Col id="CODE">R04</Col>
+            <Col id="NAME">도배성 게시물</Col>
+          </Row>
+          <Row>
+            <Col id="CODE">R99</Col>
+            <Col id="NAME">기타</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_menu">
+        <ColumnInfo>
+          <Column id="MENU_ID" type="STRING" size="256"/>
+          <Column id="MENU_NAME" type="STRING" size="256"/>
+          <Column id="MENU_LEVEL" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="MENU_ID">10</Col>
+            <Col id="MENU_NAME">주방용품</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">1001</Col>
+            <Col id="MENU_NAME">냄비/프라이팬</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">1002</Col>
+            <Col id="MENU_NAME">칼/도마/조리도구</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">1003</Col>
+            <Col id="MENU_NAME">그릇/홈세트</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">1004</Col>
+            <Col id="MENU_NAME">주방가전</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">20</Col>
+            <Col id="MENU_NAME">청소용품</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">2001</Col>
+            <Col id="MENU_NAME">청소기/필터</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">2002</Col>
+            <Col id="MENU_NAME">밀대/걸레</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">2003</Col>
+            <Col id="MENU_NAME">세탁세제</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">2004</Col>
+            <Col id="MENU_NAME">휴지통/분리수거</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">30</Col>
+            <Col id="MENU_NAME">차용품</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">3001</Col>
+            <Col id="MENU_NAME">세차/광택용품</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">3002</Col>
+            <Col id="MENU_NAME">차량용 방향제</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">3003</Col>
+            <Col id="MENU_NAME">거치대/충전기</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">3004</Col>
+            <Col id="MENU_NAME">카매트/시트</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">40</Col>
+            <Col id="MENU_NAME">여가</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">4001</Col>
+            <Col id="MENU_NAME">캠핑/등산</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">4002</Col>
+            <Col id="MENU_NAME">헬스/요가</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">4003</Col>
+            <Col id="MENU_NAME">여행가방/캐리어</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">4004</Col>
+            <Col id="MENU_NAME">악기/취미용품</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">50</Col>
+            <Col id="MENU_NAME">생활용품</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">5001</Col>
+            <Col id="MENU_NAME">수건/타월</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">5002</Col>
+            <Col id="MENU_NAME">욕실/목욕용품</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">5003</Col>
+            <Col id="MENU_NAME">수납/정리함</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">5004</Col>
+            <Col id="MENU_NAME">화장지/물티슈</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">60</Col>
+            <Col id="MENU_NAME">전자기기</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">6001</Col>
+            <Col id="MENU_NAME">노트북/PC</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">6002</Col>
+            <Col id="MENU_NAME">모바일/태블릿</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">6003</Col>
+            <Col id="MENU_NAME">영상/음향가전</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">6004</Col>
+            <Col id="MENU_NAME">키보드/마우스</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
         </Rows>
       </Dataset>
     </Objects>

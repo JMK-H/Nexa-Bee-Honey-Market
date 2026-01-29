@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="ReportPopup" width="400" height="360" titletext="게시글 신고하기" background="#ffffff" border="1px solid #cccccc" onload="ggul1430pu_onload" borderRadius="20px">
+  <Form id="ReportPopup" width="400" height="400" titletext="게시글 신고하기" background="#ffffff" border="1px solid #cccccc" onload="ggul1430pu_onload" borderRadius="20px">
     <Layouts>
-      <Layout height="360" width="400">
+      <Layout height="400" width="400">
         <Static id="staTitle" taborder="0" text="🚨 게시글 신고하기" left="20" top="20" width="200" height="30" font="bold 16px 'Malgun Gothic'" color="#ff9900"/>
         <Static id="staCardBg" taborder="1" left="20" top="65" right="20" height="100" background="#fff9f0" border="1px solid #fae5d3" borderRadius="10px"/>
         <ImageViewer id="imgProduct" taborder="2" left="35" top="80" width="70" height="70" border="1px solid #e0e0e0" stretch="fit" borderRadius="5px" text=""/>
@@ -13,6 +13,7 @@
         <Button id="btnSubmit" taborder="7" text="신고 제출" right="20" bottom="20" width="175" height="45" background="#f39c12" border="0px none" borderRadius="5px" color="#ffffff" font="bold 13px 'Malgun Gothic'" cursor="pointer" onclick="btnSubmit_onclick"/>
         <Static id="staPrice" taborder="8" text="Static00" left="120" top="120" width="245" height="25" color="#ff9900" font="bold 14px 'Malgun Gothic'"/>
         <Button id="Button00" taborder="9" left="349" top="20" width="31" height="30" onclick="btnClose_onclick" cssclass="Login" borderRadius="30px" text="X"/>
+        <Edit id="edtCmd" taborder="10" left="20" top="278" width="360" height="40" displaynulltext="불편한 이유를 말해주세요 (100자 이내)" border="1px solid #ff9900" borderRadius="5px"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -44,18 +45,12 @@
           </Row>
         </Rows>
       </Dataset>
-      <Dataset id="dsReport">
-        <ColumnInfo>
-          <Column id="POST_ID" type="STRING" size="256"/>
-          <Column id="USER_ID" type="STRING" size="256"/>
-          <Column id="REPORT_REASON" type="STRING" size="256"/>
-        </ColumnInfo>
-      </Dataset>
       <Dataset id="dsInsert">
         <ColumnInfo>
           <Column id="POST_ID" type="STRING" size="256"/>
           <Column id="LOGIN_ID" type="STRING" size="256"/>
           <Column id="REPORT_REASON" type="STRING" size="256"/>
+          <Column id="REPORT_COMMEND" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
     </Objects>
@@ -85,7 +80,9 @@ this.ggul1430pu_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 this.btnSubmit_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	var sReason = this.cboReason.value;
+	var sCommend = this.edtCmd.value;
 	this.dsInsert.setColumn(0, "REPORT_REASON", sReason);
+	this.dsInsert.setColumn(0, "REPORT_COMMEND", sCommend);
 	
 	var strSvcUrl = "nexa/insertReport.do";
 	var inData = "dsInsert=dsInsert";
