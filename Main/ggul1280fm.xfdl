@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="BoardWrite" width="1600" height="960" titletext="꿀템 등록하기" background="#f7f7f7" onload="BoardWrite_onload">
+    <Layouts>
+      <Layout height="960" mobileorientation="landscape" width="1600">
+        <Static id="StaBgCard" taborder="0" left="460" top="30" background="#ffffff" borderRadius="20px" border="1px solid #eeeeee" boxShadow="0px 5px 15px rgba(0,0,0,0.05)" text="" height="910" width="710"/>
+        <Static id="StaTitleIcon" taborder="1" text="✏️" left="490" top="70" width="40" height="40" font="30px 'Malgun Gothic'"/>
+        <Static id="StaTitle" taborder="2" text="꿀템 등록하기" left="540" top="72" width="200" height="40" font="bold 24px 'Malgun Gothic'" color="#333333"/>
+        <Static id="StaSubTitle" taborder="3" text="나만의 꿀템을 공유해주세요!" left="490" top="115" width="300" height="20" font="14px 'Malgun Gothic'" color="#888888"/>
+        <Static id="StaUploadLabel" taborder="4" text="이미지 첨부" left="490" top="160" width="100" height="20" font="13px 'Malgun Gothic'" color="#555555"/>
+        <Static id="StaUploadBox" taborder="5" left="490" top="190" height="150" background="#ffffff" border="2px dashed #dddddd" borderRadius="10px" text="" width="650"/>
+        <Static id="StaUploadIcon" taborder="6" text="⬆️" left="720" top="230" width="200" height="40" textAlign="center" font="24px 'Malgun Gothic'" color="#bbbbbb"/>
+        <Static id="StaUploadText" taborder="7" text="클릭하여 이미지 업로드&#13;&#10;여러 이미지 선택 가능" left="720" top="270" width="200" height="40" textAlign="center" font="13px 'Malgun Gothic'" color="#999999"/>
+        <Button id="btnFileUpload" taborder="8" left="490" top="190" height="150" background="transparent" border="0px none" cursor="pointer" onclick="btnFileUpload_onclick" text="" width="650"/>
+        <Static id="StaLbTitle" taborder="9" text="제목 *" left="490" top="370" width="100" height="20" font="13px 'Malgun Gothic'" color="#333333"/>
+        <Edit id="edtTitle" taborder="10" left="490" top="400" height="50" displaynulltext="꿀템의 제목을 입력하세요" background="#f9f9f9" border="0px none" borderRadius="8px" padding="0px 15px" font="14px 'Malgun Gothic'" width="650"/>
+        <Static id="StaLbCat" taborder="11" text="카테고리 선택 *" left="490" top="470" width="120" height="20" font="13px 'Malgun Gothic'" color="#333333"/>
+        <Static id="StaArrow" taborder="12" text="›" top="500" right="100" width="30" height="50" font="bold 20px 'Malgun Gothic'" color="#aaaaaa" textAlign="center"/>
+        <Static id="StaLbPlace" taborder="13" text="구매처" left="490" top="570" width="100" height="20" font="13px 'Malgun Gothic'" color="#333333"/>
+        <Edit id="edtPlace" taborder="14" left="490" top="600" width="311" height="50" displaynulltext="예: 쿠팡, 다이소" background="#f9f9f9" border="0px none" borderRadius="8px" padding="0px 15px" font="14px 'Malgun Gothic'"/>
+        <Static id="StaLbPrice" taborder="15" text="구매 가격" left="815" top="570" width="100" height="20" font="13px 'Malgun Gothic'" color="#333333"/>
+        <MaskEdit id="mskPrice" taborder="16" left="815" top="600" height="50" format="#,###" type="number" displaynulltext="예: 15,000원" background="#f9f9f9" border="0px none" borderRadius="8px" padding="0px 15px" font="14px 'Malgun Gothic'" width="325"/>
+        <Static id="StaLbContent" taborder="17" text="내용 *" left="490" top="670" width="100" height="20" font="13px 'Malgun Gothic'" color="#333333"/>
+        <TextArea id="txaContent" taborder="18" left="490" top="700" height="150" displaynulltext="꿀템에 대한 상세한 설명을 작성해주세요&#13;&#10;&#13;&#10;- 어떤 점이 좋은가요?&#13;&#10;- 사용 후기는 어떤가요?" background="#f9f9f9" border="0px none" borderRadius="8px" padding="15px" font="14px 'Malgun Gothic'" width="650"/>
+        <Button id="btnReg" taborder="19" text="등록하기 🍯" left="490" top="870" height="50" borderRadius="10px" font="bold 14px 'Malgun Gothic'" color="#ffffff" cursor="pointer" boxShadow="0px 3px 5px rgba(255, 204, 0, 0.3)" onclick="btnReg_onclick" cssclass="Login" width="650"/>
+        <Combo id="cboCategory" taborder="20" text="Combo00" left="490" top="500" width="650" height="50" borderRadius="8px" border="1px solid #eeeeee" background="#ffffff" innerdataset="ds_menu" codecolumn="MENU_ID" datacolumn="MENU_NAME"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <FileDialog id="FileDialog00" onclose="FileDialog00_onclose"/>
+      <Dataset id="ds_menu">
+        <ColumnInfo>
+          <Column id="MENU_ID" type="STRING" size="256"/>
+          <Column id="MENU_NAME" type="STRING" size="256"/>
+          <Column id="MENU_LEVEL" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="MENU_ID">10</Col>
+            <Col id="MENU_NAME">주방용품</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">1001</Col>
+            <Col id="MENU_NAME">냄비/프라이팬</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">1002</Col>
+            <Col id="MENU_NAME">칼/도마/조리도구</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">1003</Col>
+            <Col id="MENU_NAME">그릇/홈세트</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">1004</Col>
+            <Col id="MENU_NAME">주방가전</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">20</Col>
+            <Col id="MENU_NAME">청소용품</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">2001</Col>
+            <Col id="MENU_NAME">청소기/필터</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">2002</Col>
+            <Col id="MENU_NAME">밀대/걸레</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">2003</Col>
+            <Col id="MENU_NAME">세탁세제</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">2004</Col>
+            <Col id="MENU_NAME">휴지통/분리수거</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">30</Col>
+            <Col id="MENU_NAME">차용품</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">3001</Col>
+            <Col id="MENU_NAME">세차/광택용품</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">3002</Col>
+            <Col id="MENU_NAME">차량용 방향제</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">3003</Col>
+            <Col id="MENU_NAME">거치대/충전기</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">3004</Col>
+            <Col id="MENU_NAME">카매트/시트</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">40</Col>
+            <Col id="MENU_NAME">여가</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">4001</Col>
+            <Col id="MENU_NAME">캠핑/등산</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">4002</Col>
+            <Col id="MENU_NAME">헬스/요가</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">4003</Col>
+            <Col id="MENU_NAME">여행가방/캐리어</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">4004</Col>
+            <Col id="MENU_NAME">악기/취미용품</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">50</Col>
+            <Col id="MENU_NAME">생활용품</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">5001</Col>
+            <Col id="MENU_NAME">수건/타월</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">5002</Col>
+            <Col id="MENU_NAME">욕실/목욕용품</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">5003</Col>
+            <Col id="MENU_NAME">수납/정리함</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">5004</Col>
+            <Col id="MENU_NAME">화장지/물티슈</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">60</Col>
+            <Col id="MENU_NAME">전자기기</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">6001</Col>
+            <Col id="MENU_NAME">노트북/PC</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">6002</Col>
+            <Col id="MENU_NAME">모바일/태블릿</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">6003</Col>
+            <Col id="MENU_NAME">영상/음향가전</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">6004</Col>
+            <Col id="MENU_NAME">키보드/마우스</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+    
+    this.BoardWrite_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+    {
+        // 화면 로드 시 초기화 할 것들
+        this.edtTitle.setFocus();
+    };
+
+    // 1. 이미지 업로드 클릭
+    this.btnFileUpload_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+    {
+        // 아까 준모님이 배운 그 코드!
+        this.FileDialog00.open("이미지 선택", 1, "%MYDOCUMENT%", "이미지 파일(*.jpg;*.png)|*.jpg;*.png");
+    };
+
+    // 2. 카테고리 클릭
+    this.btnCategory_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+    {
+        // 여기에 PopupDiv로 카테고리 목록 띄우면 완벽합니다!
+        alert("카테고리 선택 팝업을 띄우세요!");
+    };
+
+    // 3. 등록하기 버튼
+    this.btnReg_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+    {
+        // 유효성 검사
+        if(!this.edtTitle.value) {
+            alert("제목을 입력해주세요!");
+            this.edtTitle.setFocus();
+            return;
+        }
+        if(!this.txaContent.value) {
+            alert("내용을 입력해주세요!");
+            this.txaContent.setFocus();
+            return;
+        }
+        
+        alert("꿀템 등록 완료! 🍯");
+    };
+
+    // 4. 취소 버튼
+    this.btnCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+    {
+        if(confirm("작성을 취소하고 나가시겠습니까?")) {
+            this.close();
+        }
+    };
+    
+    // 파일 선택 후 처리
+    this.FileDialog00_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialogEventInfo)
+    {
+    	if(e.reason == 1) { // Load
+            var sFileName = e.virtualfiles[0].filename;
+            // 박스 안에 파일명 보여주기
+            this.StaUploadText.set_text("선택됨: " + sFileName);
+            this.StaUploadIcon.set_text("✅");
+            this.StaUploadBox.set_border("2px solid #ffcc00"); // 선택되면 테두리 노란색으로 변경
+    	}
+    };
+    
+    ]]></Script>
+  </Form>
+</FDL>
