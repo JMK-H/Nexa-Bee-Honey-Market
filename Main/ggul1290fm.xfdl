@@ -6,54 +6,6 @@
         <Div id="divPage" taborder="1" text="Div00" left="408" width="784" url="Cmm::CmmPaging.xfdl" border="1px solid #e84133" height="40" bottom="0"/>
       </Layout>
     </Layouts>
-    <Objects>
-      <Dataset id="dsCurrentItem">
-        <ColumnInfo>
-          <Column id="POST_ID" type="STRING" size="256"/>
-          <Column id="USER_ID" type="STRING" size="256"/>
-          <Column id="TITLE" type="STRING" size="256"/>
-          <Column id="CONTENT" type="STRING" size="256"/>
-          <Column id="PRICE" type="STRING" size="256"/>
-          <Column id="PURCHASE_URL" type="STRING" size="256"/>
-          <Column id="PHOTO_URL" type="STRING" size="256"/>
-          <Column id="REG_DATE" type="STRING" size="256"/>
-          <Column id="CATEGORY_ID" type="STRING" size="256"/>
-          <Column id="IS_WISH" type="STRING" size="256"/>
-          <Column id="LIKE_CNT" type="STRING" size="256"/>
-          <Column id="UNLIKE_CNT" type="STRING" size="256"/>
-          <Column id="MY_LIKE_STATE" type="STRING" size="256"/>
-        </ColumnInfo>
-      </Dataset>
-      <Dataset id="dsPagingInfo">
-        <ColumnInfo>
-          <Column id="totalCount" type="STRING" size="256"/>
-        </ColumnInfo>
-      </Dataset>
-      <Dataset id="dsSearch">
-        <ColumnInfo>
-          <Column id="records" type="INT" size="256"/>
-          <Column id="page" type="INT" size="256"/>
-          <Column id="recordsOffset" type="INT" size="256"/>
-          <Column id="pageCount" type="INT" size="256"/>
-          <Column id="categoryId" type="STRING" size="256"/>
-          <Column id="LOGIN_ID" type="STRING" size="256"/>
-        </ColumnInfo>
-      </Dataset>
-      <Dataset id="dsZzim">
-        <ColumnInfo>
-          <Column id="WISH_ID" type="STRING" size="256"/>
-          <Column id="LOGIN_ID" type="STRING" size="256"/>
-          <Column id="POST_ID" type="STRING" size="256"/>
-        </ColumnInfo>
-      </Dataset>
-      <Dataset id="dsGB">
-        <ColumnInfo>
-          <Column id="LOGIN_ID" type="STRING" size="256"/>
-          <Column id="POST_ID" type="STRING" size="256"/>
-          <Column id="STATE_CODE" type="STRING" size="256"/>
-        </ColumnInfo>
-      </Dataset>
-    </Objects>
     <Script type="xscript5.1"><![CDATA[
 this.ggul1290fm_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {				
@@ -364,9 +316,23 @@ this.fn_divClick = function(obj:nexacro.Button, e:nexacro.ClickEventInfo)//카�
 {
     var nRow = obj.u_Row;
     var sTitle = this.dsCurrentItem.getColumn(nRow, "TITLE");
-    //디버깅용
-    trace("클릭한 상품 행: " + nRow + " / 상품명: " + sTitle);
-    alert("[" + sTitle + "] 상품을 선택하셨습니다.");
+	var sImageUrl = this.dsCurrentItem.getColumn(nRow, "PHOTO_URL");
+	var sDate = this.dsCurrentItem.getColumn(nRow, "REG_DATE");
+	var sPrice = this.dsCurrentItem.getColumn(nRow, "PRICE");
+	var sWriter = this.dsCurrentItem.getColumn(nRow, "USER_ID");
+	var sCommend = this.dsCurrentItem.getColumn(nRow, "POST_COMMEND");
+	var sCategoryId = this.dsCurrentItem.getColumn(nRow, "CATEGORY_ID"); //넘기는 것 아님
+	var sCategoryName = this.ds_menu.lookup("MENU_ID", sCategoryId, "MENU_NAME");
+	
+	var sPopupId = "sDetail"; //Popup ID
+	var sUrl = "Main::ggul1300pu.xfdl"; //팝업 URL
+	var oArg = {sTitle:sTitle, sImageUrl:sImageUrl, sDate:sDate, sPrice:sPrice, sWriter:sWriter,
+				sCommend:sCommend, sCategoryName:sCategoryName}; //전달값
+	var sPopupCallback = "fnCallPopup";
+	var oOption = {title:"모달 팝업", titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
+
+	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
+
 };
 
 this.fn_ZzimClick = function (obj:nexacro.Button, e:nexacro.ClickEventInfo)//찜버튼 클릭
@@ -575,5 +541,213 @@ this.fnPagingCallback = function(nPage, nRecordsOffset)
 	
 	this.fnSearch(); //조회함수호출
 };]]></Script>
+    <Objects>
+      <Dataset id="dsCurrentItem">
+        <ColumnInfo>
+          <Column id="POST_ID" type="STRING" size="256"/>
+          <Column id="USER_ID" type="STRING" size="256"/>
+          <Column id="TITLE" type="STRING" size="256"/>
+          <Column id="CONTENT" type="STRING" size="256"/>
+          <Column id="PRICE" type="STRING" size="256"/>
+          <Column id="PURCHASE_URL" type="STRING" size="256"/>
+          <Column id="PHOTO_URL" type="STRING" size="256"/>
+          <Column id="REG_DATE" type="STRING" size="256"/>
+          <Column id="CATEGORY_ID" type="STRING" size="256"/>
+          <Column id="IS_WISH" type="STRING" size="256"/>
+          <Column id="LIKE_CNT" type="STRING" size="256"/>
+          <Column id="UNLIKE_CNT" type="STRING" size="256"/>
+          <Column id="MY_LIKE_STATE" type="STRING" size="256"/>
+          <Column id="POST_COMMEND" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsPagingInfo">
+        <ColumnInfo>
+          <Column id="totalCount" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsSearch">
+        <ColumnInfo>
+          <Column id="records" type="INT" size="256"/>
+          <Column id="page" type="INT" size="256"/>
+          <Column id="recordsOffset" type="INT" size="256"/>
+          <Column id="pageCount" type="INT" size="256"/>
+          <Column id="categoryId" type="STRING" size="256"/>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsZzim">
+        <ColumnInfo>
+          <Column id="WISH_ID" type="STRING" size="256"/>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+          <Column id="POST_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsGB">
+        <ColumnInfo>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+          <Column id="POST_ID" type="STRING" size="256"/>
+          <Column id="STATE_CODE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_menu">
+        <ColumnInfo>
+          <Column id="MENU_ID" type="STRING" size="256"/>
+          <Column id="MENU_NAME" type="STRING" size="256"/>
+          <Column id="MENU_LEVEL" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="MENU_ID">10</Col>
+            <Col id="MENU_NAME">주방용품</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">1001</Col>
+            <Col id="MENU_NAME">냄비/프라이팬</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">1002</Col>
+            <Col id="MENU_NAME">칼/도마/조리도구</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">1003</Col>
+            <Col id="MENU_NAME">그릇/홈세트</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">1004</Col>
+            <Col id="MENU_NAME">주방가전</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">20</Col>
+            <Col id="MENU_NAME">청소용품</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">2001</Col>
+            <Col id="MENU_NAME">청소기/필터</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">2002</Col>
+            <Col id="MENU_NAME">밀대/걸레</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">2003</Col>
+            <Col id="MENU_NAME">세탁세제</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">2004</Col>
+            <Col id="MENU_NAME">휴지통/분리수거</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">30</Col>
+            <Col id="MENU_NAME">차용품</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">3001</Col>
+            <Col id="MENU_NAME">세차/광택용품</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">3002</Col>
+            <Col id="MENU_NAME">차량용 방향제</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">3003</Col>
+            <Col id="MENU_NAME">거치대/충전기</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">3004</Col>
+            <Col id="MENU_NAME">카매트/시트</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">40</Col>
+            <Col id="MENU_NAME">여가</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">4001</Col>
+            <Col id="MENU_NAME">캠핑/등산</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">4002</Col>
+            <Col id="MENU_NAME">헬스/요가</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">4003</Col>
+            <Col id="MENU_NAME">여행가방/캐리어</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">4004</Col>
+            <Col id="MENU_NAME">악기/취미용품</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">50</Col>
+            <Col id="MENU_NAME">생활용품</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">5001</Col>
+            <Col id="MENU_NAME">수건/타월</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">5002</Col>
+            <Col id="MENU_NAME">욕실/목욕용품</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">5003</Col>
+            <Col id="MENU_NAME">수납/정리함</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">5004</Col>
+            <Col id="MENU_NAME">화장지/물티슈</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">60</Col>
+            <Col id="MENU_NAME">전자기기</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">6001</Col>
+            <Col id="MENU_NAME">노트북/PC</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">6002</Col>
+            <Col id="MENU_NAME">모바일/태블릿</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">6003</Col>
+            <Col id="MENU_NAME">영상/음향가전</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">6004</Col>
+            <Col id="MENU_NAME">키보드/마우스</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
   </Form>
 </FDL>

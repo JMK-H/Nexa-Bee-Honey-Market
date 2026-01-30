@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Work_Img" width="1280" height="720" titletext="New Form">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <ImageViewer id="imgPhoto" taborder="0" left="21" top="18" width="157" height="188" stretch="fixaspectratio"/>
+        <Button id="btnSelect" taborder="1" text="이미지 선택" left="21" top="214" width="160" height="27" cssclass="btn_WF_LineRed" onclick="btnSelect_onclick"/>
+        <Edit id="edtId" taborder="2" left="198" top="21" width="174" height="33" displaynulltext="아이디"/>
+        <Edit id="edtName" taborder="3" left="198" top="59" width="174" height="33" displaynulltext="성명"/>
+        <Button id="btnSave" taborder="4" text="등록" left="199" top="142" width="174" height="33" cssclass="btn_WF_FillBlue" onclick="btnSave_onclick"/>
+        <Grid id="grd00" taborder="5" left="26" top="292" width="709" height="176" binddataset="dsImgEmp" autofittype="col">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row band="head" size="24"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="EMP_ID"/>
+                <Cell col="1" text="EMP_NAME"/>
+                <Cell col="2" text="EMP_IMG"/>
+                <Cell col="3" text="IMAGE_ID"/>
+                <Cell col="4" text="IMAGE_NAME"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:EMP_ID"/>
+                <Cell col="1" text="bind:EMP_NAME"/>
+                <Cell col="2" text="bind:EMP_IMG"/>
+                <Cell col="3" text="bind:IMAGE_ID"/>
+                <Cell col="4" text="bind:IMAGE_NAME"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="btn02" taborder="6" text="조회" left="200" top="182" width="170" height="29" onclick="btn02_onclick"/>
+        <ImageViewer id="img01" taborder="7" text="img01" left="274" top="506" width="201" height="181" image="url('http://172.10.14.127:8088/edupack_egov/upload/nexa_file/emblem_Doosan.png')"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <FileDialog id="FileDialog00" onclose="FileDialog00_onclose"/>
+      <FileUpTransfer id="FileUpTransfer00" onsuccess="FileUpTransfer00_onsuccess"/>
+      <Dataset id="dsFile">
+        <ColumnInfo>
+          <Column id="file_id" type="STRING" size="256"/>
+          <Column id="file_name" type="STRING" size="256"/>
+          <Column id="file_size" type="STRING" size="256"/>
+          <Column id="file_type" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsImgEmp">
+        <ColumnInfo>
+          <Column id="EMP_ID" type="STRING" size="256"/>
+          <Column id="EMP_NAME" type="STRING" size="256"/>
+          <Column id="EMP_IMG" type="STRING" size="256"/>
+          <Column id="IMAGE_ID" type="STRING" size="256"/>
+          <Column id="IMAGE_NAME" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Bind>
+      <BindItem id="item0" compid="edtId" propid="value" datasetid="dsImgEmp" columnid="EMP_ID"/>
+      <BindItem id="item1" compid="edtName" propid="value" datasetid="dsImgEmp" columnid="EMP_NAME"/>
+    </Bind>
+    <Script type="xscript5.1"><![CDATA[
+this.btnSelect_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.FileDialog00.open("이미지 선택", 1, "%MYDOCUMENT%");
+};
+
+this.FileDialog00_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialogEventInfo)
+{
+	var objFile = e.virtualfiles[0];
+	var sFileName = objFile.filename;
+	
+	// . 뒤에 확장자 체크 \. - 마침표 찾기, $ - 끝부분, /i -  대소문자 구분없이, test - 대조, ? - e가 있어도 되고 없어도 되고(jpg, jpeg)
+	if(!/\.(jpe?g|png|gif)$/i.test(sFileName)){
+		alert("이미지 파일을 선택하세요");
+		return;
+	}
+	
+	this.FileUpTransfer00.clearFileList();
+	this.FileUpTransfer00.addFile(sFileName, objFile);
+	
+	var nRow = this.dsImgEmp.addRow();
+	this.dsImgEmp.setColumn(nRow, "EMP_ID", "AA"+nRow);
+	this.dsImgEmp.setColumn(nRow, "EMP_NAME", "NAME"+nRow);
+	this.dsImgEmp.setColumn(nRow, "EMP_IMG", sFileName);	
+	this.dsImgEmp.setColumn(nRow, "IMAGE_ID", sFileName);
+	this.dsImgEmp.setColumn(nRow, "IMAGE_NAME", sFileName);
+	
+	
+	//  미리보기 기능
+	if(nexacro._Browser == "Runtime") {
+		this.imgPhoto.image = "URL('file://"+ objFile.fullpath + "')";
+	} else {
+		var reader = new FileReader();
+		reader.targetForm = this;
+		/*
+			FileReader는 파일을 읽는 도구이기 때문에, 주로 다음 상황을 기다립니다.
+			대상.addEventListener("사건의 종류", 실행할_함수)
+			load: 파일을 다 읽었을 때 (성공!)
+			error: 파일을 읽다가 에러가 났을 때
+			progress: 파일을 읽고 있는 중일 때 (진행 중...) 
+		*/		
+		reader.addEventListener("load",
+								 function() 
+								 { 
+									this.targetForm.imgPhoto.image = this.result; 
+								 }, 
+								 false
+								);
+		reader.readAsDataURL(objFile._handle);						
+	
+	}
+};
+
+this.btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sUrl = "SvcUrl::nexa/uploadFile.do";
+	this.FileUpTransfer00.setPostData("userDir", "P02\\P029");
+	this.FileUpTransfer00.upload(sUrl)
+};
+
+this.FileUpTransfer00_onsuccess = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferEventInfo)
+{
+	var objDs = e.datasets[0];	
+	var nRow = this.dsFile.findRow("file_name", objDs.getColumn(0, "file_name"));
+	this.dsFile.setColumn(nRow, "file_id"  , objDs.getColumn(0, "file_id"));
+	this.dsFile.setColumn(nRow, "file_size", objDs.getColumn(0, "file_size"));
+
+	this.dsImgEmp.setColumn(0, "EMP_IMG", objDs.getColumn(0, "file_id"));	
+	
+	this.fn_SaveImgEmp();
+	
+};
+
+
+this.fn_SaveImgEmp = function ()
+{
+	var strSvcUrl = "nexa/saveImgEmp.do";
+	var inData    = "saveEmp=dsImgEmp:U";
+	var outData   = "";
+	var strArg    = "";
+
+	this.gfnTransaction("save", strSvcUrl, inData, outData, strArg, "fnCallback", true);
+};
+this.btn02_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var strSvcUrl = "nexa/getImgEmp.do";
+	var inData    = "";
+	var outData   = "dsImgEmp=out_emp";
+	var strArg    = "";
+
+	this.gfnTransaction("select", strSvcUrl, inData, outData, strArg, "fnCallback", true);
+};
+
+
+this.sUploadUrl = this.gfnGetServerUrl() + "upload/p02/P029/";	//http://localhost:8088/edupack_egov/ upload\p02\P029
+this.fnCallback = function(id, errCode, errMsg)
+{
+	if(errCode < 0) {
+		this.alert(errMsg);
+		return ;
+	}
+	
+	if(id == "save") {
+		this.alert("저장성공");
+	} else if (id == "select") {
+		this.img01.image = this.sUploadUrl + this.dsImgEmp.getColumn(0, "IMAGE_ID");
+	}
+};
+]]></Script>
+  </Form>
+</FDL>

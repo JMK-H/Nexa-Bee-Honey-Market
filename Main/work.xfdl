@@ -6,7 +6,11 @@
         <Static id="staUserName" taborder="0" text="나의 찜목록 &gt;" left="1.00%" top="43.38%" width="206" height="54" onclick="staUserName_onclick"/>
         <Div id="Div00" taborder="1" text="Div00" left="6.92%" top="300" width="24%" height="292" borderRadius="20px"/>
         <Div id="Div00_00" taborder="2" text="Div00" left="38.00%" top="300" width="24%" height="292" borderRadius="20px"/>
-        <Div id="Div00_00_00" taborder="3" text="Div00" left="68.00%" top="300" width="24%" height="292" borderRadius="20px"/>
+        <Div id="Div00_00_00" taborder="3" text="Div00" left="68.00%" top="300" width="24%" height="292" borderRadius="20px">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
         <Div id="Div01" taborder="4" text="Div01" left="0" top="0" height="280" right="0" url="Main::ggul1410fm.xfdl"/>
       </Layout>
     </Layouts>
@@ -52,6 +56,22 @@ this.staUserName_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
 	this.staUserName.set_usedecorate(true);
     this.staUserName.set_text("<fc v='#F5A623'>" + objDs.getColumn(0,"LOGIN_NICKNAME") + "</fc>" 
                             + "<fc v='#888888'> 의 찜목록</fc>");
+};
+
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	// 1. 띄울 팝업Div 이름 (예: this.pdivMenu)
+    var objPopup = this.PopupDiv00;
+    
+    // 2. 위치 계산 (버튼 위로 띄우기 위해 높이만큼 뺍니다)
+    // x좌표: 0 (버튼 왼쪽 라인에 맞춤)
+    // y좌표: -160 (팝업 높이 + 여백만큼 위로 올림)
+    var nX = 0;
+    var nY = -1 * (parseInt(objPopup.height) + 10); 
+    
+    // 3. 팝업 띄우기 (이 함수가 핵심!)
+    // trackPopupByComponent(기준컴포넌트, x, y, [width, height], [callback])
+    objPopup.trackPopupByComponent(obj, nX, nY);
 };
 ]]></Script>
   </Form>

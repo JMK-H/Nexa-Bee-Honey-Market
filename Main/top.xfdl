@@ -9,6 +9,8 @@
         <Static id="staTitle" taborder="3" text="🍯꿀꺼억" left="500" top="0" width="600" height="80" cssclass="PopupTitle"/>
         <Button id="btnAdmin" taborder="4" text="" top="23" height="35" visible="false" onclick="btnAdmin_onclick" right="167" width="30" background="url('imagerc::btnAdmin2.png') no-repeat left top" border="0px none" cursor="pointer"/>
         <Button id="btnHome" taborder="5" text="" left="720" top="0" width="170" height="80" background="transparent" border="0px none" onclick="Button00_onclick" cursor="pointer"/>
+        <PopupDiv id="pDivUserInfo" text="PopupDiv00" visible="false" left="1210" top="60" width="180" height="260" url="Main::ggul1230pu.xfdl"/>
+        <PopupDiv id="pDivAdmin" text="PopupDiv00" visible="false" left="1415" top="65" width="220" height="250" url="Main::ggul1420pu.xfdl"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[var objAni="";
@@ -53,13 +55,11 @@ this.btnZzim_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 
 this.btnUser_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	var sPopupId = "ChangeUserPopup"; //Popup ID
-	var sUrl = "Main::ggul1230pu.xfdl"; //팝업 URL
-	var oArg = ""; //전달값
-	var sPopupCallback = "fnCallback";
-	var oOption = {title:"회원정보 변경", titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
-
-	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
+	var objPopupDiv = this.pDivUserInfo; 
+	var nX = 0;
+	var nY = obj.height; 
+	// 문법: trackPopupByComponent(기준컴포넌트, 가로이동, 세로이동, [너비], [높이], [콜백])
+	objPopupDiv.trackPopupByComponent(obj, nX, nY);
 };
 
 this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
@@ -69,16 +69,16 @@ this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 //=============================================관리자 전용 버튼==================================================
 this.btnAdmin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	var objApp = nexacro.getApplication();
-	var userRole = objApp.gdsLoginUser.getColumn(0, "LOGIN_ROLE");
-	
-	var sPopupId = "sAdminPopup"; //Popup ID
-	var sUrl = "Main::ggul1420pu.xfdl"; //팝업 URL
-	var oArg = {userRole:userRole}; //전달값
-	var sPopupCallback = "fnCallPopup";
-	var oOption = {title:"모달 팝업", titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
-
-	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
+	var sUserRole = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ROLE");
+	var objPopupDiv = this.pDivAdmin; 
+	var nX = -50;
+	var nY = obj.height; 
+	// 문법: trackPopupByComponent(기준컴포넌트, 가로이동, 세로이동, [너비], [높이], [콜백])
+	if(sUserRole<=1)
+	{
+		this.pDivAdmin.height = "135px";
+	}
+	objPopupDiv.trackPopupByComponent(obj, nX, nY);
 
 };
 

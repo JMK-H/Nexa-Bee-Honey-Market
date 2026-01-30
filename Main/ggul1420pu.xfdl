@@ -1,21 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="ggul1230pu" width="500" height="300" titletext="New Form" borderRadius="20px" border="none" background="beige" onload="ggul1230pu_onload">
+  <Form id="ggul1230pu" width="220" height="250" titletext="관리자 메뉴" background="#ffffff" border="1px solid #ffcc00" borderRadius="10px" onload="ggul1230pu_onload">
     <Layouts>
-      <Layout height="300" mobileorientation="landscape" width="500">
-        <Static id="staTitle" taborder="0" text="회원 관리화면" left="150" top="0" height="60" cssclass="ChangeUserTitle" textAlign="center" right="150"/>
-        <Button id="Button00" taborder="1" left="440" top="15" width="31" height="30" onclick="Button00_onclick" cssclass="Login" borderRadius="30px" text="X"/>
-        <Button id="btnDashBoard" taborder="2" text="관리자 대시보드" left="60" top="63" width="185" height="98" cssclass="Login" borderRadius="20px" onclick="btnDashBoard_onclick"/>
-        <Button id="btnPostMgmt" taborder="3" text="컨텐츠 관리" left="259" top="63" width="185" height="98" cssclass="Login" borderRadius="20px" onclick="btnPostMgmt_onclick"/>
-        <Button id="btnUserMgmt" taborder="4" text="회원 관리" left="60" top="172" width="185" height="98" cssclass="Login" borderRadius="20px" visible="false"/>
-        <Button id="btnCategoryAdd" taborder="5" text="카테고리 추가" left="259" top="174" width="185" height="98" cssclass="Login" borderRadius="20px" visible="false"/>
+      <Layout height="250" width="220">
+        <Static id="StaHeader" taborder="0" left="0" top="0" right="0" height="40" background="#fff9e6" borderRadius="9px 9px 0px 0px" border="0px none"/>
+        <Static id="StaTitle" taborder="1" text="⚙️ 관리자 기능" left="15" top="0" width="150" height="40" font="bold 12px 'Malgun Gothic'" color="#ffaa00" verticalAlign="middle"/>
+        <Button id="btnDashBoard" taborder="2" text="📊 대시보드" left="0" top="45" right="0" height="40" background="transparent" border="0px none" color="#333333" font="13px 'Malgun Gothic'" cursor="pointer" onmouseenter="fn_Btn_onmouseenter" onmouseleave="fn_Btn_onmouseleave" onclick="btnDashBoard_onclick"/>
+        <Button id="btnPostMgmt" taborder="3" text="📝 컨텐츠 관리" left="0" top="85" right="0" height="40" background="transparent" border="0px none" color="#333333" font="13px 'Malgun Gothic'" cursor="pointer" onmouseenter="fn_Btn_onmouseenter" onmouseleave="fn_Btn_onmouseleave" onclick="btnPostMgmt_onclick"/>
+        <Static id="StaLine" taborder="4" left="10" top="128" right="10" height="1" background="#eeeeee" visible="false"/>
+        <Button id="btnUserMgmt" taborder="5" text="👥 회원 관리" left="0" top="135" right="0" height="40" background="transparent" border="0px none" color="#554400" font="bold 13px 'Malgun Gothic'" cursor="pointer" onmouseenter="fn_Btn_onmouseenter" onmouseleave="fn_Btn_onmouseleave" visible="false" onclick="fn_Menu_onclick"/>
+        <Button id="btnCategoryAdd" taborder="6" text="🏷️ 카테고리 설정" left="0" top="175" right="0" height="40" background="transparent" border="0px none" color="#554400" font="bold 13px 'Malgun Gothic'" cursor="pointer" onmouseenter="fn_Btn_onmouseenter" onmouseleave="fn_Btn_onmouseleave" visible="false" onclick="fn_Menu_onclick"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
 this.ggul1230pu_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	//어떤 관리자가 누른건지 1,2 중 하나 받아옴
-	var userRole = this.getOwnerFrame().userRole;
+	//var userRole = this.getOwnerFrame().userRole;
+	var userRole = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ROLE");
 	
 	if(userRole >=2 )//마스터면
 	{
@@ -24,23 +26,17 @@ this.ggul1230pu_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	}
 	else if(userRole >=1 )//준회원이면
 	{
-		this.btnDashBoard.set_height("200px");
-		this.btnPostMgmt.set_height("200px");
+		this.height = "130px";
 	}
 };
 
-//닫기 버튼
-this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
-	this.close();
-};
 
 //대시보드 관리버튼
 this.btnDashBoard_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	var objApp = nexacro.getApplication();
 	objApp.mainframe.VFrameSet00.MainCF.form.divWork.set_url("Main::ggul1310fm.xfdl");
-	this.close();
+	this.parent.closePopup();
 };
 
 //컨텐츠관리 버튼
@@ -48,7 +44,7 @@ this.btnPostMgmt_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	var objApp = nexacro.getApplication();
 	objApp.mainframe.VFrameSet00.MainCF.form.divWork.set_url("Main::ggul1330fm.xfdl");
-	this.close();
+	this.parent.closePopup();
 };
 ]]></Script>
   </Form>

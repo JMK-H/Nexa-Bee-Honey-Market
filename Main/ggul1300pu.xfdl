@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Form_ReportDetail" width="800" height="500" titletext="상세보기" background="#ffffff" border="1px solid #ffcc00" borderRadius="10px" onload="Form_ReportDetail_onload">
+    <Layouts>
+      <Layout height="500" mobileorientation="landscape" width="800">
+        <ImageViewer id="ImgPost" taborder="0" left="20" top="20" width="350" bottom="20" stretch="fixaspectratio" border="1px solid #eeeeee" borderRadius="10px" image="url('theme://images/img_sample_cleaning.png')" text="이미지 없음"/>
+        <Static id="StaCategory" taborder="1" text="청소용품" left="390" top="20" width="80" height="24" background="#fff9e6" color="#ffaa00" borderRadius="12px" textAlign="center" font="bold 12px 'Malgun Gothic'"/>
+        <Static id="StaDate" taborder="2" text="2025-12-26" left="480" top="22" width="100" height="20" color="#999999" font="12px 'Malgun Gothic'"/>
+        <Static id="StaTitle" taborder="3" text="무선 청소기 대박 추천!" left="390" top="55" right="20" height="55" font="bold 20px 'Malgun Gothic'" color="#333333" wordWrap="char" verticalAlign="top"/>
+        <Static id="StaPrice" taborder="4" text="499,000원" left="390" top="110" right="20" height="30" font="bold 24px 'Malgun Gothic'" color="#ff8800"/>
+        <Static id="StaticLine" taborder="5" left="390" top="150" right="20" height="2" background="#f0f0f0"/>
+        <Static id="StaReporterInfo" taborder="6" text="ㅇㅇㅇ" left="390" top="170" right="20" height="25" color="black" font="bold 13px 'Malgun Gothic'"/>
+        <TextArea id="TxtReportCommend" taborder="7" left="390" top="200" right="20" bottom="80" background="#fffdf5" border="1px solid #ffe08c" borderRadius="5px" color="#555555" font="13px 'Malgun Gothic'" padding="10px" wordWrap="char" readonly="true" value="이 사람 계속 같은 글만 올립니다. 업자 같아요. 제재 부탁드립니다."/>
+        <Button id="Button00" taborder="8" text="닫기" left="680" top="440" width="100" height="40" cssclass="Login" onclick="Button00_onclick" borderRadius="10px"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.Form_ReportDetail_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	//부모에게서 받은 파라미터 받기
+	var sTitle = this.getOwnerFrame().sTitle;
+	var sImageUrl = this.getOwnerFrame().sImageUrl; 
+	var sDate = this.getOwnerFrame().sDate;
+	var sWriter = this.getOwnerFrame().sWriter;
+	var sPrice = this.getOwnerFrame().sPrice;
+	var sCategoryName = this.getOwnerFrame().sCategoryName;
+	var sCommend = this.getOwnerFrame().sCommend;
+	
+	//컴포넌트에 값 넣기
+	this.StaTitle.set_text(sTitle);
+	this.ImgPost.set_image(sImageUrl);
+	this.StaDate.set_text(sDate);
+	this.StaReporterInfo.set_text("👤글쓴이: "+sWriter);
+	this.StaPrice.set_text(sPrice+"원");
+	this.StaCategory.set_text("sCategoryName");
+	this.TxtReportCommend.set_value(sCommend);
+};
+
+this.BtnClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.close();
+};
+]]></Script>
+  </Form>
+</FDL>

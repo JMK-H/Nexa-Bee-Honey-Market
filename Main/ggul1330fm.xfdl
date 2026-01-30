@@ -5,69 +5,23 @@
       <Layout height="720" width="1000">
         <Static id="staTitle" taborder="0" text="📝 컨텐츠 관리" left="30" top="30" width="200" height="30" font="bold 20px 'Malgun Gothic'" color="#ff9900"/>
         <Static id="staSubTitle" taborder="1" text="신고된 게시물 4건" left="30" top="65" width="200" height="20" font="14px 'Malgun Gothic'" color="#666666"/>
-        <ListView id="lstReport" taborder="2" left="30" top="100" right="30" bottom="30" binddataset="dsReportPosts" bandinitstatus="expand" border="0px none" background="transparent">
+        <ListView id="lstReport" taborder="2" left="30" top="100" right="30" bottom="30" binddataset="dsReportPosts" bandinitstatus="expand" border="0px none" background="transparent" oncellclick="lstReport_oncellclick">
           <Formats>
             <Format id="default">
               <Band id="body" width="100%" height="230" background="#ffffff" border="1px solid #dbdee2" border_bottom="20px solid #f7f7f7" borderRadius="15px">
                 <Cell id="CellReportCnt" left="30" top="25" width="100" height="25" text="expr:&quot;🚩 신고 &quot;+REPORT_CNT+&quot;건&quot;" font="bold 14px 'Malgun Gothic'" color="#ff5e5e" border="0px none"/>
                 <Cell id="CellReason" left="140" top="25" width="120" height="28" background="#ffeceb" color="#ff4d4d" borderRadius="14px" textAlign="center" font="bold 12px 'Malgun Gothic'" border="0px none" text="bind:REPORT_REASON" displaytype="combotext" combodataset="dsReason" combocodecol="CODE" combodatacol="NAME"/>
-                <Cell id="CellTitle" left="30" top="70" right="30" height="40" text="bind:TITLE" font="bold 18px 'Malgun Gothic'" color="#333333" border="0px none"/>
-                <Cell id="CellMeta" left="30" top="115" right="589" height="25" text="expr:&quot;작성자: &quot;+LOGIN_NAME+&quot; • &quot;+REPORT_DATE" font="14px 'Malgun Gothic'" color="#999999" border="0px none"/>
-                <Cell id="CellBtnView" left="30" top="165" width="130" height="40" displaytype="buttoncontrol" edittype="button" text="👁 상세보기" background="#ff9900" border="0px none" color="#ffffff" borderRadius="8px" font="bold 14px 'Malgun Gothic'"/>
-                <Cell id="CellBtnDelete" left="175" top="165" width="110" height="40" displaytype="buttoncontrol" edittype="button" text="🗑 삭제" background="#ff5e5e" border="0px none" color="#ffffff" borderRadius="8px" font="bold 14px 'Malgun Gothic'"/>
-                <Cell id="CellBtnIgnore" left="300" top="165" width="120" height="40" displaytype="buttoncontrol" edittype="button" text="🛡 신고 무시" background="#2ecc71" border="0px none" color="#ffffff" borderRadius="8px" font="bold 14px 'Malgun Gothic'"/>
+                <Cell id="CellTitle" left="30" top="60" right="30" height="40" text="bind:TITLE" font="bold 18px 'Malgun Gothic'" color="#333333" border="0px none"/>
+                <Cell id="CellMeta" left="30" top="115" right="589" height="25" text="expr:&quot;신고자: &quot;+LOGIN_NAME+&quot; • &quot;+REPORT_DATE" font="14px 'Malgun Gothic'" color="#999999" border="0px none"/>
+                <Cell id="CellBtnView" left="30" top="165" width="130" height="40" displaytype="buttoncontrol" edittype="button" text="👁 상세보기" background="#ff9900" border="0px none" color="#ffffff" borderRadius="8px" font="bold 14px 'Malgun Gothic'" cursor="pointer"/>
+                <Cell id="CellBtnDelete" left="175" top="165" width="110" height="40" displaytype="buttoncontrol" edittype="button" text="🗑 삭제" border="0px none" color="#ffffff" borderRadius="8px" font="bold 14px 'Malgun Gothic'" background="#ff5e5e" cursor="pointer"/>
+                <Cell id="CellBtnIgnore" left="300" top="165" width="120" height="40" displaytype="buttoncontrol" edittype="button" text="🛡 신고 무시" background="#2ecc71" border="0px none" color="#ffffff" borderRadius="8px" font="bold 14px 'Malgun Gothic'" cursor="pointer"/>
                 <Cell id="Cell00" left="1" top="149" width="940" height="3" edittype="text"/>
                 <Cell id="Cell01" left="372" top="115" width="138" height="25" displaytype="combotext" text="bind:CATEGORY_ID" combodataset="ds_menu" combocodecol="MENU_ID" combodatacol="MENU_NAME" border="0px none" color="#999999" font="14px 'Malgun Gothic'"/>
               </Band>
             </Format>
           </Formats>
         </ListView>
-        <Grid id="Grid00" taborder="3" left="465" top="33" width="485" height="195" binddataset="dsReportPosts">
-          <Formats>
-            <Format id="default">
-              <Columns>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-              </Columns>
-              <Rows>
-                <Row band="head" size="24"/>
-                <Row size="24"/>
-              </Rows>
-              <Band id="head">
-                <Cell text="POST_ID"/>
-                <Cell col="1" text="USER_ID"/>
-                <Cell col="2" text="REPORT_CNT"/>
-                <Cell col="3" text="TITLE"/>
-                <Cell col="4" text="REPORT_REASON"/>
-                <Cell col="5" text="REPORT_STATUS"/>
-                <Cell col="6" text="LOGIN_NAME"/>
-                <Cell col="7" text="REPORT_DATE"/>
-                <Cell col="8" text="CATEGORY_ID"/>
-                <Cell col="9" text="REPORT_COMMEND"/>
-              </Band>
-              <Band id="body">
-                <Cell text="bind:POST_ID"/>
-                <Cell col="1" text="bind:USER_ID"/>
-                <Cell col="2" text="bind:REPORT_CNT"/>
-                <Cell col="3" text="bind:TITLE"/>
-                <Cell col="4" text="bind:REPORT_REASON"/>
-                <Cell col="5" text="bind:REPORT_STATUS"/>
-                <Cell col="6" text="bind:LOGIN_NAME"/>
-                <Cell col="7" text="bind:REPORT_DATE"/>
-                <Cell col="8" text="bind:CATEGORY_ID"/>
-                <Cell col="9" text="bind:REPORT_COMMEND"/>
-              </Band>
-            </Format>
-          </Formats>
-        </Grid>
       </Layout>
     </Layouts>
     <Objects>
@@ -83,6 +37,8 @@
           <Column id="REPORT_DATE" type="STRING" size="256"/>
           <Column id="CATEGORY_ID" type="STRING" size="256"/>
           <Column id="REPORT_COMMEND" type="STRING" size="256"/>
+          <Column id="PRICE" type="STRING" size="256"/>
+          <Column id="PHOTO_URL" type="STRING" size="256"/>
         </ColumnInfo>
         <Rows>
           <Row/>
@@ -292,6 +248,68 @@ this.ContentAdmin_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 						, "fnCallback"
 						, true);
 };
+//그리드뷰 버튼 클릭할때
+this.lstReport_oncellclick = function(obj:nexacro.ListView,e:nexacro.ListViewClickEventInfo)
+{
+	//현제 누른 행이 몇 번째 행인가, 그의 POST_ID
+	var nRow = e.row;
+	var sPostId = this.dsReportPosts.getColumn(nRow, "POST_ID");
+	
+	//삭제버튼 CellBtnDelete, 무시하기버튼 CellBtnIgnore, 상세보기버튼 CellBtnView
+	//trace("e.bandid"+e.bandid+"e.cellid"+e.cellid)
+	if(e.cellid == "CellBtnView") //상세버튼이면
+	{
+		var sTitle = this.dsReportPosts.getColumn(nRow, "TITLE");
+		var sCategoryId = this.dsReportPosts.getColumn(nRow, "CATEGORY_ID");
+		var sCategoryName = this.ds_menu.lookup("MENU_ID", sCategoryId, "MENU_NAME");
+		var sWriter = this.dsReportPosts.getColumn(nRow, "USER_ID");
+		var sReporter = this.dsReportPosts.getColumn(nRow, "LOGIN_NAME");
+		var sReportDate = this.dsReportPosts.getColumn(nRow, "REPORT_DATE");
+		var sPrice = this.dsReportPosts.getColumn(nRow, "PRICE");
+		var sPhotoUrl = this.dsReportPosts.getColumn(nRow, "PHOTO_URL");
+		var sReportCommend = this.dsReportPosts.getColumn(nRow, "REPORT_COMMEND");
+		
+		var sPopupId = "sViewFm"; //Popup ID
+		var sUrl = "Main::ggul1440pu.xfdl"; //팝업 URL
+		var oArg = {sTitle:sTitle, sCategoryName:sCategoryName, sReporter:sReporter, sReportDate:sReportDate,
+					sPrice:sPrice, sPhotoUrl:sPhotoUrl, sReportCommend:sReportCommend, sWriter:sWriter}; //전달값
+		var sPopupCallback = "fnCallPopup";
+		var oOption = {title:"모달 팝업", titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
+
+		this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
+
+	}
+	else if(e.cellid == "CellBtnDelete") //삭제버튼이면
+	{
+		var strSvcUrl = "nexa/deleteReportPost.do";
+		var inData = "";
+		var strArg = "sPostId="+sPostId;
+		var outData = "";
+
+		this.gfnTransaction("deleteReportPost"
+							, strSvcUrl
+							, inData //이클립스받기=넥사크로주기
+							, outData //넥사크로받기=이클립스주기
+							, strArg
+							, "fnCallback"
+							, true);
+	}
+	else if(e.cellid == "CellBtnIgnore")//무시하기버튼이면
+	{
+		var strSvcUrl = "nexa/deleteIgnorePost.do";
+		var inData = "";
+		var strArg = "sPostId="+sPostId;
+		var outData = "";
+
+		this.gfnTransaction("deleteIgnorePost"
+							, strSvcUrl
+							, inData //이클립스받기=넥사크로주기
+							, outData //넥사크로받기=이클립스주기
+							, strArg
+							, "fnCallback"
+							, true);
+	}
+};
 
 //===============================콜백 함수============================================
 this.fnCallback = function (svcID, errCd, errMsg)
@@ -301,6 +319,12 @@ this.fnCallback = function (svcID, errCd, errMsg)
 		//총 신고건수 동적변경
 		this.staSubTitle.set_text("신고 총 "+this.dsReportPosts.getRowCount()+"건");
 	}
-};]]></Script>
+	else if(svcID == "deleteReportPost" || svcID == "deleteIgnorePost")
+	{
+		this.reload();
+	}
+};
+
+]]></Script>
   </Form>
 </FDL>
