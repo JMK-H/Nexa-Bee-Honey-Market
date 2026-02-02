@@ -54,43 +54,6 @@
             </Format>
           </Formats>
         </Grid>
-        <Grid id="Grid00" taborder="4" left="600" top="443" width="441" height="120" binddataset="dsLoginUsers">
-          <Formats>
-            <Format id="default">
-              <Columns>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-              </Columns>
-              <Rows>
-                <Row band="head" size="24"/>
-                <Row size="24"/>
-              </Rows>
-              <Band id="head">
-                <Cell text="LOGIN_ID"/>
-                <Cell col="1" text="LOGIN_NICKNAME"/>
-                <Cell col="2" text="LOGIN_DATE"/>
-                <Cell col="3" text="LOGIN_LIKE_CNT"/>
-                <Cell col="4" text="LOGIN_UNLIKE_CNT"/>
-                <Cell col="5" text="LOGIN_REPORT_CNT"/>
-                <Cell col="6" text="LOGIN_STATUS"/>
-              </Band>
-              <Band id="body">
-                <Cell text="bind:LOGIN_ID"/>
-                <Cell col="1" text="bind:LOGIN_NICKNAME"/>
-                <Cell col="2" text="bind:LOGIN_DATE"/>
-                <Cell col="3" text="bind:LOGIN_LIKE_CNT"/>
-                <Cell col="4" text="bind:LOGIN_UNLIKE_CNT"/>
-                <Cell col="5" text="bind:LOGIN_REPORT_CNT"/>
-                <Cell col="6" text="bind:LOGIN_STATUS"/>
-              </Band>
-            </Format>
-          </Formats>
-        </Grid>
       </Layout>
     </Layouts>
     <Objects>
