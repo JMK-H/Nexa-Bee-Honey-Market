@@ -285,7 +285,7 @@ this.FileDialog00_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialog
 this.btnReg_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	var sUploadUrl = "SvcUrl::nexaProject/uploadFile.do"; 
-	this.FileUpTransfer00.setPostData("userDir", "..\\src\\main\\webapp\\images");//P02\\P028, ..\\src\\main\\webapp\\images
+	this.FileUpTransfer00.setPostData("userDir", "");//P02\\P028, ..\\src\\main\\webapp\\images
     this.FileUpTransfer00.upload(sUploadUrl);
 };
 //파일등록 콜백
