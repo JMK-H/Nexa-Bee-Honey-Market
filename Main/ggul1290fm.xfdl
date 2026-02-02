@@ -120,8 +120,8 @@ this.fn_drawCards = function ()
         var objImg = new ImageViewer();
         // Left:10, Top:10, Width:280, Height:180
         objImg.init("imgView", 10, 10, 280, 180); 
-		trace(objDs.getColumn(i, "PHOTO_URL"));
-        objImg.set_image(objDs.getColumn(i, "PHOTO_URL"));
+		trace("/edupack_egov/images/"+objDs.getColumn(i, "PHOTO_URL"));
+        objImg.set_image("/edupack_egov/images/"+objDs.getColumn(i, "PHOTO_URL"));
         objImg.set_stretch("fit");
         objImg.set_borderRadius("15px 15px 0px 0px"); // 이미지 윗부분도 살짝 둥글게
         objImg.set_border("0px none"); // 이미지는 테두리 없는 게 깔끔함

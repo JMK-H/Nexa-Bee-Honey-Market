@@ -78,6 +78,7 @@ this.FileDialog00_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialog
 {
 	var objFile = e.virtualfiles[0];
 	var sFileName = objFile.filename;
+	alert(sFileName);
 	
 	// . 뒤에 확장자 체크 \. - 마침표 찾기, $ - 끝부분, /i -  대소문자 구분없이, test - 대조, ? - e가 있어도 되고 없어도 되고(jpg, jpeg)
 	if(!/\.(jpe?g|png|gif)$/i.test(sFileName)){
