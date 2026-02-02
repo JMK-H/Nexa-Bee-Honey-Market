@@ -254,6 +254,7 @@ this.lstReport_oncellclick = function(obj:nexacro.ListView,e:nexacro.ListViewCli
 	//현제 누른 행이 몇 번째 행인가, 그의 POST_ID
 	var nRow = e.row;
 	var sPostId = this.dsReportPosts.getColumn(nRow, "POST_ID");
+	var sUserId = this.dsReportPosts.getColumn(nRow, "USER_ID");
 	
 	//삭제버튼 CellBtnDelete, 무시하기버튼 CellBtnIgnore, 상세보기버튼 CellBtnView
 	//trace("e.bandid"+e.bandid+"e.cellid"+e.cellid)
@@ -283,7 +284,7 @@ this.lstReport_oncellclick = function(obj:nexacro.ListView,e:nexacro.ListViewCli
 	{
 		var strSvcUrl = "nexa/deleteReportPost.do";
 		var inData = "";
-		var strArg = "sPostId="+sPostId;
+		var strArg = "sPostId="+sPostId+" sUserId=" + sUserId;
 		var outData = "";
 
 		this.gfnTransaction("deleteReportPost"

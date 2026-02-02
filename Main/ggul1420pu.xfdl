@@ -46,6 +46,14 @@ this.btnPostMgmt_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	objApp.mainframe.VFrameSet00.MainCF.form.divWork.set_url("Main::ggul1330fm.xfdl");
 	this.parent.closePopup();
 };
+
+//회원관리버튼
+this.fn_Menu_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var objApp = nexacro.getApplication();
+	objApp.mainframe.VFrameSet00.MainCF.form.divWork.set_url("Main::ggul1320fm.xfdl");
+	this.parent.closePopup();
+};
 ]]></Script>
   </Form>
 </FDL>

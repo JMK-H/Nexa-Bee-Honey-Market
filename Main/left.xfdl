@@ -3,11 +3,11 @@
   <Form id="left" width="300" height="820" titletext="New Form">
     <Layouts>
       <Layout height="820" width="300">
-        <Grid id="gridMenu" taborder="0" left="0" top="0" right="0" bottom="0" binddataset="ds_menu" autofittype="col" treeusecheckbox="false" treeinitstatus="collapse,null" cssclass="QuickMenu" border="0px none" oncellclick="gridMenu_oncellclick">
+        <Grid id="gridMenu" taborder="0" left="0" top="0" right="0" bottom="0" binddataset="ds_menu" autofittype="col" treeusecheckbox="false" treeinitstatus="collapse,null" cssclass="QuickMenu" border="0px none" oncellclick="gridMenu_oncellclick" treeuseline="false" treeuseimage="false">
           <Formats>
             <Format id="default">
               <Columns>
-                <Column size="80"/>
+                <Column size="273"/>
               </Columns>
               <Rows>
                 <Row size="55"/>

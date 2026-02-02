@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="ggul1320fm" width="1280" height="720" titletext="회원 관리" background="#ffffff" onload="ggul1320fm_onload">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <Static id="stTitle" taborder="0" text="🛡️ 회원 관리" left="30" top="30" width="250" height="40" font="bold 26px/normal 'Malgun Gothic', 'Noto Sans KR'" color="#333333"/>
+        <Static id="stSubTitle" taborder="2" text="총 10명의 회원" left="32" top="80" width="150" height="20" font="14px/normal 'Malgun Gothic'" color="#888888"/>
+        <Div id="divSearch" taborder="3" text="" left="950" top="30" width="300" height="40" background="#f5f5f5" border="0px none" borderRadius="20px">
+          <Layouts>
+            <Layout>
+              <Static id="stIcon" taborder="0" text="🔍" left="15" top="8" width="30" height="24"/>
+              <Edit id="edtSearch" taborder="1" left="45" top="5" width="230" height="30" background="transparent" border="0px none" displaynulltext="아이디 또는 닉네임 검색..."/>
+              <Button id="Button00" taborder="2" text="검색" left="216" top="5" width="74" height="30" cssclass="Login" borderRadius="0px 20px 20px 0px" onclick="divSearch_Button00_onclick" cursor="pointer"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Grid id="grdMembers" taborder="1" left="30" top="120" width="1220" height="550" binddataset="dsLoginUsers" autofittype="col" useselcolor="false" border="1px solid #eeeeee" griduserproperty="!sort,!rowfix,!colfix,!filter,!initial,export" oncellclick="grdMembers_oncellclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="150"/>
+                <Column size="150"/>
+                <Column size="120"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="103"/>
+                <Column size="85"/>
+                <Column size="100"/>
+              </Columns>
+              <Rows>
+                <Row size="50" band="head"/>
+                <Row size="60"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="아이디" font="14px 'Malgun Gothic'" color="#888888" background="#ffffff" border="0px none, 0px none, 1px solid #eeeeee, 0px none"/>
+                <Cell col="1" text="닉네임" font="14px 'Malgun Gothic'" color="#888888" background="#ffffff" border="0px none, 0px none, 1px solid #eeeeee, 0px none"/>
+                <Cell col="2" text="가입일" font="14px 'Malgun Gothic'" color="#888888" background="#ffffff" border="0px none, 0px none, 1px solid #eeeeee, 0px none"/>
+                <Cell col="3" text="추천수" font="14px 'Malgun Gothic'" color="#888888" background="#ffffff" border="0px none, 0px none, 1px solid #eeeeee, 0px none"/>
+                <Cell col="4" text="비추천수" font="14px 'Malgun Gothic'" color="#888888" background="#ffffff" border="0px none, 0px none, 1px solid #eeeeee, 0px none"/>
+                <Cell col="5" text="신고 게시글 수" font="14px 'Malgun Gothic'" color="#888888" background="#ffffff" border="0px none, 0px none, 1px solid #eeeeee, 0px none"/>
+                <Cell col="6" text="상태" font="14px 'Malgun Gothic'" color="#888888" background="#ffffff" border="0px none, 0px none, 1px solid #eeeeee, 0px none"/>
+                <Cell col="7" text="관리" font="14px 'Malgun Gothic'" color="#888888" background="#ffffff" border="0px none, 0px none, 1px solid #eeeeee, 0px none"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:LOGIN_ID" font="15px 'Malgun Gothic'" color="#333333" padding="0px 0px 0px 20px" border="0px none, 0px none, 1px solid #f9f9f9, 0px none"/>
+                <Cell col="1" text="bind:LOGIN_NICKNAME" font="bold 15px 'Malgun Gothic'" color="#333333" border="0px none, 0px none, 1px solid #f9f9f9, 0px none"/>
+                <Cell col="2" text="bind:LOGIN_DATE" font="14px 'Malgun Gothic'" color="#888888" border="0px none, 0px none, 1px solid #f9f9f9, 0px none"/>
+                <Cell col="3" text="bind:LOGIN_LIKE_CNT" font="bold 15px 'Malgun Gothic'" color="#007bff" border="0px none, 0px none, 1px solid #f9f9f9, 0px none"/>
+                <Cell col="4" text="bind:LOGIN_UNLIKE_CNT" font="14px 'Malgun Gothic'" color="#ff6b6b" border="0px none, 0px none, 1px solid #f9f9f9, 0px none"/>
+                <Cell col="5" text="bind:LOGIN_REPORT_CNT" font="14px 'Malgun Gothic'" color="#ff6b6b" border="0px none, 0px none, 1px solid #f9f9f9, 0px none"/>
+                <Cell col="6" text="bind:LOGIN_STATUS" displaytype="text" font="bold 13px 'Malgun Gothic'" textAlign="center" border="0px none" background="expr:status=='활동중'?'#e8f8f0':'#fff0f0'" color="expr:status=='활동중'?'#20c997':'#fa5252'" borderRadius="20px" padding="0px 3px"/>
+                <Cell col="7" text="expr:LOGIN_STATUS=='ACTIVE' ? '정지' : '해제'&quot;" displaytype="buttoncontrol" edittype="button" padding="10px 20px" border="0px none" background="#ffffff" font="13px 'Malgun Gothic'" color="expr:action=='정지'?'#fa5252':'#20c997'" cursor="pointer"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Grid id="Grid00" taborder="4" left="600" top="443" width="441" height="120" binddataset="dsLoginUsers">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row band="head" size="24"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="LOGIN_ID"/>
+                <Cell col="1" text="LOGIN_NICKNAME"/>
+                <Cell col="2" text="LOGIN_DATE"/>
+                <Cell col="3" text="LOGIN_LIKE_CNT"/>
+                <Cell col="4" text="LOGIN_UNLIKE_CNT"/>
+                <Cell col="5" text="LOGIN_REPORT_CNT"/>
+                <Cell col="6" text="LOGIN_STATUS"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:LOGIN_ID"/>
+                <Cell col="1" text="bind:LOGIN_NICKNAME"/>
+                <Cell col="2" text="bind:LOGIN_DATE"/>
+                <Cell col="3" text="bind:LOGIN_LIKE_CNT"/>
+                <Cell col="4" text="bind:LOGIN_UNLIKE_CNT"/>
+                <Cell col="5" text="bind:LOGIN_REPORT_CNT"/>
+                <Cell col="6" text="bind:LOGIN_STATUS"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsLoginUsers">
+        <ColumnInfo>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+          <Column id="LOGIN_NICKNAME" type="STRING" size="256"/>
+          <Column id="LOGIN_DATE" type="STRING" size="256"/>
+          <Column id="LOGIN_LIKE_CNT" type="STRING" size="256"/>
+          <Column id="LOGIN_UNLIKE_CNT" type="STRING" size="256"/>
+          <Column id="LOGIN_REPORT_CNT" type="STRING" size="256"/>
+          <Column id="LOGIN_STATUS" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsSearch">
+        <ColumnInfo>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.ggul1320fm_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	var strSvcUrl = "nexa/getUserList.do";
+	var inData = "";
+	var strArg = "";
+	var outData = "dsLoginUsers=dsLoginUsers";
+
+	this.gfnTransaction("getUserList"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+};
+
+this.grdMembers_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if(e.col!=7){return;} //7열, 버튼 있는 열 아니면 return
+	
+	
+	
+};
+
+this.divSearch_Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+
+	this.dsSearch.clearData();
+	var nRow = this.dsSearch.addRow();
+	var sSearch = this.divSearch.form.edtSearch.value;
+	this.dsSearch.setColumn(nRow,"LOGIN_ID", sSearch);
+	
+	var strSvcUrl = "nexa/getSearchUserList.do";
+	var inData = "dsSearch=dsSearch";
+	var strArg = "";
+	var outData = "dsLoginUsers=dsLoginUsers";
+
+	this.gfnTransaction("getSearchUserList"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+};
+
+//==============================================콜백함수======================================================================
+this.fnCallback = function (svdID, errCd, errMsg)
+{
+	if(svdID == "getUserList")
+	{
+	
+	}
+	else if(svdID == "getSearchUserList")
+	{
+	
+	}
+};
+
+
+]]></Script>
+  </Form>
+</FDL>

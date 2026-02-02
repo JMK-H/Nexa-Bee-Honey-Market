@@ -24,46 +24,6 @@
         <Combo id="cboCategory" taborder="19" text="Combo00" left="490" top="640" width="650" height="50" borderRadius="8px" border="1px solid #eeeeee" background="#ffffff" innerdataset="ds_menu" codecolumn="MENU_ID" datacolumn="MENU_NAME"/>
         <ImageViewer id="imgPhoto" taborder="20" left="490" top="190" width="650" height="290" background="transparent"/>
         <Button id="btnFileUpload" taborder="8" left="490" top="190" height="290" background="transparent" border="0px none" cursor="pointer" onclick="btnFileUpload_onclick" text="" width="650"/>
-        <Grid id="Grid00" taborder="21" left="78" top="411" width="362" height="184" binddataset="dsImgEmp">
-          <Formats>
-            <Format id="default">
-              <Columns>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-              </Columns>
-              <Rows>
-                <Row band="head" size="24"/>
-                <Row size="24"/>
-              </Rows>
-              <Band id="head">
-                <Cell text="LOGIN_ID"/>
-                <Cell col="1" text="TITLE"/>
-                <Cell col="2" text="CONTENT"/>
-                <Cell col="3" text="PRICE"/>
-                <Cell col="4" text="PURCHASE_URL"/>
-                <Cell col="5" text="PHOTO_URL"/>
-                <Cell col="6" text="POST_COMMEND"/>
-                <Cell col="7" text="CATEGORY_ID"/>
-              </Band>
-              <Band id="body">
-                <Cell text="bind:LOGIN_ID"/>
-                <Cell col="1" text="bind:TITLE"/>
-                <Cell col="2" text="bind:CONTENT"/>
-                <Cell col="3" text="bind:PRICE"/>
-                <Cell col="4" text="bind:PURCHASE_URL"/>
-                <Cell col="5" text="bind:PHOTO_URL"/>
-                <Cell col="6" text="bind:POST_COMMEND"/>
-                <Cell col="7" text="bind:CATEGORY_ID"/>
-              </Band>
-            </Format>
-          </Formats>
-        </Grid>
       </Layout>
     </Layouts>
     <Objects>

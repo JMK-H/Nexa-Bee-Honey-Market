@@ -3229,6 +3229,10 @@
 {
 	color: #26752b;
 }
+.Grid.QuickMenu .body .row .cell
+{
+	color : red;
+}
 ]]></CSSData>
   <CSSData type="desktop"><![CDATA[]]></CSSData>
   <CSSData type="mobile_large"><![CDATA[]]></CSSData>
