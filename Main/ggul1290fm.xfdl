@@ -10,6 +10,21 @@
 this.ggul1290fm_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {				
 	this.fnPageInit();//페이징 초기화
+	
+	this.ds_menu.clearData();
+	
+	var strSvcUrl = "nexa/getMenuList.do";
+	var inData = "";
+	var strArg = "";
+	var outData = "ds_menu=ds_menu";
+
+	this.gfnTransaction("getMenuList"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
 };
 //=======================================페이징 처리 관련 함수들=================================================
 

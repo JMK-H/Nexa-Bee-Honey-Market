@@ -239,7 +239,7 @@ this.ContentAdmin_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	var strSvcUrl = "nexa/getReportPostsList.do";
 	var inData = "";
 	var strArg = "";
-	var outData = "dsReportPosts=dsReportPosts";
+	var outData = "dsReportPosts=dsReportPosts ds_menu=ds_menu";
 	this.gfnTransaction("getReportUsersList"
 						, strSvcUrl
 						, inData //이클립스받기=넥사크로주기

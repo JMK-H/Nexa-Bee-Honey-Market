@@ -57,7 +57,6 @@ this.BtnPw_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 this.fn_Menu_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	var objApp = nexacro.getApplication();
-	alert(objApp.mainframe.VFrameSet00.MainCF.formurl);
 	objApp.mainframe.VFrameSet00.MainCF.form.divWork.url="Main::ggul1280fm.xfdl";
 	this.parent.closePopup();
 };

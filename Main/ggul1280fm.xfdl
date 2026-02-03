@@ -10,7 +10,7 @@
         <Static id="StaUploadLabel" taborder="4" text="이미지 첨부" left="490" top="160" width="100" height="20" font="13px 'Malgun Gothic'" color="#555555"/>
         <Static id="StaUploadBox" taborder="5" left="490" top="190" height="290" background="transparent" border="2px dashed #dddddd" borderRadius="10px" text="" width="650"/>
         <Static id="StaUploadIcon" taborder="6" text="⬆️" left="720" top="230" width="200" height="180" textAlign="center" font="24px 'Malgun Gothic'" color="#bbbbbb"/>
-        <Static id="StaUploadText" taborder="7" text="클릭하여 이미지 업로드&#13;&#10;여러 이미지 선택 가능" left="720" top="270" width="200" height="180" textAlign="center" font="13px 'Malgun Gothic'" color="#999999"/>
+        <Static id="StaUploadText" taborder="7" text="클릭하여 이미지 업로드" left="720" top="270" width="200" height="180" textAlign="center" font="13px 'Malgun Gothic'" color="#999999"/>
         <Static id="StaLbTitle" taborder="9" text="제목 *" left="490" top="510" width="100" height="20" font="13px 'Malgun Gothic'" color="#333333"/>
         <Edit id="edtTitle" taborder="10" left="490" top="540" height="50" displaynulltext="꿀템의 제목을 입력하세요" background="#f9f9f9" border="0px none" borderRadius="8px" padding="0px 15px" font="14px 'Malgun Gothic'" width="650"/>
         <Static id="StaLbCat" taborder="11" text="카테고리 선택 *" left="490" top="610" width="120" height="20" font="13px 'Malgun Gothic'" color="#333333"/>
@@ -21,7 +21,7 @@
         <Static id="StaLbContent" taborder="16" text="내용 *" left="490" top="810" width="100" height="20" font="13px 'Malgun Gothic'" color="#333333"/>
         <TextArea id="txaContent" taborder="17" left="490" top="840" height="150" displaynulltext="꿀템에 대한 상세한 설명을 작성해주세요&#13;&#10;&#13;&#10;- 어떤 점이 좋은가요?&#13;&#10;- 사용 후기는 어떤가요?" background="#f9f9f9" border="0px none" borderRadius="8px" padding="15px" font="14px 'Malgun Gothic'" width="650"/>
         <Button id="btnReg" taborder="18" text="등록하기 🍯" left="490" top="1010" height="50" borderRadius="10px" font="bold 14px 'Malgun Gothic'" color="#ffffff" cursor="pointer" boxShadow="0px 3px 5px rgba(255, 204, 0, 0.3)" onclick="btnReg_onclick" cssclass="Login" width="650"/>
-        <Combo id="cboCategory" taborder="19" text="Combo00" left="490" top="640" width="650" height="50" borderRadius="8px" border="1px solid #eeeeee" background="#ffffff" innerdataset="ds_menu" codecolumn="MENU_ID" datacolumn="MENU_NAME"/>
+        <Combo id="cboCategory" taborder="19" text="Combo00" left="490" top="640" width="650" height="50" borderRadius="8px" border="1px solid #eeeeee" background="#ffffff" innerdataset="ds_combo" codecolumn="MENU_ID" datacolumn="MENU_NAME" onitemchanged="cboCategory_onitemchanged"/>
         <ImageViewer id="imgPhoto" taborder="20" left="490" top="190" width="650" height="290" background="transparent"/>
         <Button id="btnFileUpload" taborder="8" left="490" top="190" height="290" background="transparent" border="0px none" cursor="pointer" onclick="btnFileUpload_onclick" text="" width="650"/>
       </Layout>
@@ -200,8 +200,36 @@
           <Column id="CATEGORY_ID" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
+      <Dataset id="ds_combo">
+        <ColumnInfo>
+          <Column id="MENU_ID" type="STRING" size="256"/>
+          <Column id="MENU_NAME" type="STRING" size="256"/>
+          <Column id="MENU_LEVEL" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
     </Objects>
-    <Script type="xscript5.1"><![CDATA[
+    <Script type="xscript5.1"><![CDATA[this.BoardWrite_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{   
+    // 메뉴를 필터링해서 복사해서 콤보에 불필요한 목록 빼기
+    this.ds_combo.copyData(this.ds_menu);
+    this.ds_combo.filter("parseInt(MENU_ID) > 100"); 
+	
+	this.ds_menu.clearData();
+	
+	var strSvcUrl = "nexa/getMenuList.do";
+	var inData = "";
+	var strArg = "";
+	var outData = "ds_menu=ds_menu";
+
+	this.gfnTransaction("getMenuList"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+};
+
 this.btnFileUpload_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.FileDialog00.open("이미지 선택", 1, "%MYDOCUMENT%");
@@ -211,7 +239,6 @@ this.FileDialog00_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialog
 {
 	var objFile = e.virtualfiles[0];
 	var sFileName = objFile.filename; //이름 가져오기
-	alert(sFileName);
 	
 	if(!/\.(jpe?g|png|gif)$/i.test(sFileName)){
 		alert("이미지 파일을 선택하세요");
@@ -251,7 +278,6 @@ this.btnReg_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 //파일등록 콜백
 this.FileUpTransfer00_onsuccess = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferEventInfo)
 {
-	alert("콜백 들어옴");
 	var objDs = e.datasets[0];	
 	var sSaveFileName = objDs.getColumn(0, "FILE_ID");
 	var sUserId = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ID");
@@ -290,9 +316,11 @@ this.fnCallback = function (svdID, errCd, errMsg)
 {
 	if(svdID == "saveItem")
 	{
-		alert("DB에 저장 성공");
+		
 	}
-};]]></Script>
+};
+
+]]></Script>
     <Bind>
       <BindItem id="item0" compid="edtTitle" propid="value" datasetid="dsImgEmp" columnid="TITLE"/>
       <BindItem id="item1" compid="cboCategory" propid="value" datasetid="dsImgEmp" columnid="CATEGORY_ID"/>

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="left" width="300" height="820" titletext="New Form">
+  <Form id="left" width="300" height="820" titletext="New Form" onload="left_onload">
     <Layouts>
       <Layout height="820" width="300">
         <Grid id="gridMenu" taborder="0" left="0" top="0" right="0" bottom="0" binddataset="ds_menu" autofittype="col" treeusecheckbox="false" treeinitstatus="collapse,null" cssclass="QuickMenu" border="0px none" oncellclick="gridMenu_oncellclick" treeuseline="false" treeuseimage="false">
@@ -182,6 +182,25 @@
       </Dataset>
     </Objects>
     <Script type="xscript5.1"><![CDATA[var objAni="";
+
+this.left_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.ds_menu.clearData();
+	
+	var strSvcUrl = "nexa/getMenuList.do";
+	var inData = "";
+	var strArg = "";
+	var outData = "ds_menu=ds_menu";
+
+	this.gfnTransaction("getMenuList"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+};
+
 this.gridMenu_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
 	//눌린게 대메뉴냐 소메뉴냐 구분하기위해
@@ -232,7 +251,13 @@ this.gridMenu_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventIn
     }
 };
 
-
-]]></Script>
+//============================================콜백함수==================================================
+this.fnCallback = function (svcID, errCd, errMsg)
+{
+	if(svcID =="getMenuList")
+	{
+		
+	}
+};]]></Script>
   </Form>
 </FDL>

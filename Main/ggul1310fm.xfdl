@@ -258,11 +258,12 @@
     <Script type="xscript5.1"><![CDATA[
 this.Dashboard_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
+	this.ds_menu.clearData();
 	//===================================정보 받아오기 트랜잭션 날리기=========================
 	var strSvcUrl = "nexa/getDashBoard.do";
 	var inData = "";
 	var strArg = "";
-	var outData = "dsSummary=dsSummary dsTopPosts=dsTopPosts dsRecentMembers=dsRecentMembers";
+	var outData = "dsSummary=dsSummary dsTopPosts=dsTopPosts dsRecentMembers=dsRecentMembers ds_menu=ds_menu";
 
 	this.gfnTransaction("getDashBoard"
 						, strSvcUrl
@@ -271,6 +272,7 @@ this.Dashboard_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 						, strArg
 						, "fnCallback"
 						, true);
+	
 };
 
 //=========================================콜백함수====================================================

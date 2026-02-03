@@ -18,6 +18,8 @@ var nWidth = "";
 var objDim = "";
 this.btnMenu_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {	
+	this.parent.parent.divLeft.form.reload();
+
 	// 기존 애니메이션이 동작 중이면 중단 (중복 방지)
     if (!this.ani00) 
 	{
