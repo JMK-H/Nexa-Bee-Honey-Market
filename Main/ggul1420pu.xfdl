@@ -9,7 +9,7 @@
         <Button id="btnPostMgmt" taborder="3" text="📝 컨텐츠 관리" left="0" top="85" right="0" height="40" background="transparent" border="0px none" color="#333333" font="13px 'Malgun Gothic'" cursor="pointer" onmouseenter="fn_Btn_onmouseenter" onmouseleave="fn_Btn_onmouseleave" onclick="btnPostMgmt_onclick"/>
         <Static id="StaLine" taborder="4" left="10" top="128" right="10" height="1" background="#eeeeee" visible="false"/>
         <Button id="btnUserMgmt" taborder="5" text="👥 회원 관리" left="0" top="135" right="0" height="40" background="transparent" border="0px none" color="#554400" font="bold 13px 'Malgun Gothic'" cursor="pointer" onmouseenter="fn_Btn_onmouseenter" onmouseleave="fn_Btn_onmouseleave" visible="false" onclick="fn_Menu_onclick"/>
-        <Button id="btnCategoryAdd" taborder="6" text="🏷️ 카테고리 설정" left="0" top="175" right="0" height="40" background="transparent" border="0px none" color="#554400" font="bold 13px 'Malgun Gothic'" cursor="pointer" onmouseenter="fn_Btn_onmouseenter" onmouseleave="fn_Btn_onmouseleave" visible="false" onclick="fn_Menu_onclick"/>
+        <Button id="btnCategoryAdd" taborder="6" text="🏷️ 카테고리 설정" left="0" top="175" right="0" height="40" background="transparent" border="0px none" color="#554400" font="bold 13px 'Malgun Gothic'" cursor="pointer" onmouseenter="fn_Btn_onmouseenter" onmouseleave="fn_Btn_onmouseleave" visible="false" onclick="btnCategoryAdd_onclick"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
@@ -52,6 +52,14 @@ this.fn_Menu_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	var objApp = nexacro.getApplication();
 	objApp.mainframe.VFrameSet00.MainCF.form.divWork.set_url("Main::ggul1320fm.xfdl");
+	this.parent.closePopup();
+};
+
+//메뉴추가버튼(카테고리설정)
+this.btnCategoryAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var objApp = nexacro.getApplication();
+	objApp.mainframe.VFrameSet00.MainCF.form.divWork.set_url("Main::ggul1340fm.xfdl");
 	this.parent.closePopup();
 };
 ]]></Script>

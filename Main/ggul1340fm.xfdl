@@ -1,0 +1,412 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="QuickMenuMgr" width="1000" height="900" titletext="퀵메뉴 관리" onload="QuickMenuMgr_onload" background="#f7f7f7">
+    <Layouts>
+      <Layout height="900" mobileorientation="landscape" width="1000">
+        <Div id="divLeft" taborder="0" text="" left="20" top="20" width="400" bottom="20" background="#ffffff" border="1px solid #e0e0e0" borderRadius="10px" boxShadow="0px 2px 5px #e0e0e0">
+          <Layouts>
+            <Layout>
+              <Static id="stTitle" taborder="0" text="📑 현재 퀵메뉴" left="20" top="15" width="200" height="30" font="bold 16px 'Malgun Gothic'" color="#ff9900"/>
+              <Grid id="grdMenu" taborder="1" left="20" top="60" right="20" binddataset="ds_menu" autofittype="col" treeusecheckbox="false" treeinitstatus="expand" treeusebutton="use" treeuseimage="false" border="0px none" cssclass="QuickMenu" treeuseline="false" height="800" oncellclick="divLeft_grdMenu_oncellclick">
+                <Formats>
+                  <Format id="default">
+                    <Columns>
+                      <Column size="280"/>
+                      <Column size="50"/>
+                    </Columns>
+                    <Rows>
+                      <Row size="62"/>
+                    </Rows>
+                    <Band id="body">
+                      <Cell displaytype="treeitemcontrol" edittype="tree" treelevel="bind:MENU_LEVEL" text="bind:MENU_NAME" font="14px 'Malgun Gothic'" cssclass="cell_tree"/>
+                      <Cell col="1" displaytype="buttoncontrol" text="🗑️" font="14px 'Malgun Gothic'" color="#ff5555" cursor="pointer"/>
+                    </Band>
+                  </Format>
+                </Formats>
+              </Grid>
+              <Static id="Static00" taborder="2" left="20" top="50" right="20" height="1" background="#eeeeee"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divRight1" taborder="1" text="" left="440" top="20" right="20" height="140" background="#ffffff" border="1px solid #e0e0e0" borderRadius="10px" boxShadow="0px 2px 5px #e0e0e0">
+          <Layouts>
+            <Layout>
+              <Static id="stTitle" taborder="0" text="+ 카테고리 추가" left="20" top="15" width="200" height="30" font="bold 16px 'Malgun Gothic'" color="#333333"/>
+              <Static id="Static00" taborder="1" left="20" top="50" right="20" height="1" background="#eeeeee"/>
+              <Edit id="edtNewCategory" taborder="2" left="20" top="70" height="40" right="110" displaynulltext="새 카테고리 이름 입력" font="14px 'Malgun Gothic'" background="#f9f9f9" border="1px solid #dddddd" borderRadius="5px" padding="0px 10px"/>
+              <Button id="btnAddCategory" taborder="3" text="+ 추가" top="70" width="80" height="40" right="20" color="#ffffff" font="bold 14px 'Malgun Gothic'" borderRadius="5px" cursor="pointer" onclick="divRight1_btnAddCategory_onclick" cssclass="Login"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divRight2" taborder="2" text="" left="440" top="180" right="20" height="200" background="#ffffff" border="1px solid #e0e0e0" borderRadius="10px" boxShadow="0px 2px 5px #e0e0e0">
+          <Layouts>
+            <Layout>
+              <Static id="stTitle" taborder="0" text="+ 상세목록 추가" left="20" top="15" width="200" height="30" font="bold 16px 'Malgun Gothic'" color="#333333"/>
+              <Static id="Static00" taborder="1" left="20" top="50" right="20" height="1" background="#eeeeee"/>
+              <Static id="stLabel1" taborder="2" text="카테고리 선택" left="20" top="65" width="120" height="20" font="12px 'Malgun Gothic'" color="#666666"/>
+              <Combo id="cboParentCategory" taborder="3" left="20" top="90" right="20" height="40" innerdataset="ds_categoryCbo" codecolumn="MENU_ID" datacolumn="MENU_NAME" font="14px 'Malgun Gothic'" border="1px solid #dddddd" borderRadius="5px"/>
+              <Edit id="edtNewItem" taborder="4" left="20" top="140" height="40" right="110" displaynulltext="상세목록 이름 입력" font="14px 'Malgun Gothic'" background="#f9f9f9" border="1px solid #dddddd" borderRadius="5px" padding="0px 10px"/>
+              <Button id="btnAddItem" taborder="5" text="+ 추가" top="140" width="80" height="40" right="20" color="#ffffff" font="bold 14px 'Malgun Gothic'" borderRadius="5px" cursor="pointer" onclick="divRight2_btnAddItem_onclick" cssclass="Login"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divRight3" taborder="3" text="" left="440" top="400" right="20" height="200" background="#ffffff" border="1px solid #e0e0e0" borderRadius="10px" boxShadow="0px 2px 5px #e0e0e0">
+          <Layouts>
+            <Layout>
+              <Static id="stTitle" taborder="0" text="✏️ 카테고리 이름 변경" left="20" top="15" width="200" height="30" font="bold 16px 'Malgun Gothic'" color="#333333"/>
+              <Static id="Static00" taborder="1" left="20" top="50" right="20" height="1" background="#eeeeee"/>
+              <Static id="stLabel1" taborder="2" text="카테고리 선택" left="20" top="65" width="120" height="20" font="12px 'Malgun Gothic'" color="#666666"/>
+              <Combo id="cboRenameCategory" taborder="3" left="20" top="90" right="20" height="40" innerdataset="ds_categoryCbo" codecolumn="MENU_ID" datacolumn="MENU_NAME" font="14px 'Malgun Gothic'" border="1px solid #dddddd" borderRadius="5px" onitemchanged="divRight3_cboRenameCategory_onitemchanged"/>
+              <Edit id="edtRename" taborder="4" left="20" top="140" height="40" right="110" displaynulltext="변경할 이름 입력" font="14px 'Malgun Gothic'" background="#f9f9f9" border="1px solid #dddddd" borderRadius="5px" padding="0px 10px"/>
+              <Button id="btnRename" taborder="5" text="변경" top="140" width="80" height="40" right="20" color="#ffffff" font="bold 14px 'Malgun Gothic'" borderRadius="5px" cursor="pointer" onclick="divRight3_btnRename_onclick" cssclass="Login"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divRight3_00" taborder="4" text="" left="440" top="620" right="20" height="200" background="#ffffff" border="1px solid #e0e0e0" borderRadius="10px" boxShadow="0px 2px 5px #e0e0e0">
+          <Layouts>
+            <Layout>
+              <Static id="stTitle" taborder="0" text="✏️ 상세목록 이름 변경" left="20" top="15" width="200" height="30" font="bold 16px 'Malgun Gothic'" color="#333333"/>
+              <Static id="Static00" taborder="1" left="20" top="50" right="20" height="1" background="#eeeeee"/>
+              <Static id="stLabel1" taborder="2" text="카테고리 선택" left="20" top="65" width="120" height="20" font="12px 'Malgun Gothic'" color="#666666"/>
+              <Combo id="cboRenameCategory" taborder="3" left="20" top="90" right="20" height="40" innerdataset="ds_detailCbo" codecolumn="MENU_ID" datacolumn="MENU_NAME" font="14px 'Malgun Gothic'" border="1px solid #dddddd" borderRadius="5px" onitemchanged="divRight3_cboRenameCategory_onitemchanged"/>
+              <Edit id="edtRename" taborder="4" left="20" top="140" height="40" right="110" displaynulltext="변경할 이름 입력" font="14px 'Malgun Gothic'" background="#f9f9f9" border="1px solid #dddddd" borderRadius="5px" padding="0px 10px"/>
+              <Button id="btnRename" taborder="5" text="변경" top="140" width="80" height="40" right="20" color="#ffffff" font="bold 14px 'Malgun Gothic'" borderRadius="5px" cursor="pointer" cssclass="Login" onclick="divRight3_00_btnRename_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_menu">
+        <ColumnInfo>
+          <Column id="MENU_ID" type="STRING" size="256"/>
+          <Column id="MENU_NAME" type="STRING" size="256"/>
+          <Column id="MENU_LEVEL" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="MENU_ID">10</Col>
+            <Col id="MENU_NAME">주방용품 (3)</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">1001</Col>
+            <Col id="MENU_NAME">냄비/프라이팬</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">1002</Col>
+            <Col id="MENU_NAME">칼/도마</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">1003</Col>
+            <Col id="MENU_NAME">그릇</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">20</Col>
+            <Col id="MENU_NAME">청소용품 (3)</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">2001</Col>
+            <Col id="MENU_NAME">청소기</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">2002</Col>
+            <Col id="MENU_NAME">걸레</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">2003</Col>
+            <Col id="MENU_NAME">세제</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">30</Col>
+            <Col id="MENU_NAME">차관리 (3)</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">3001</Col>
+            <Col id="MENU_NAME">세차용품</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">3002</Col>
+            <Col id="MENU_NAME">방향제</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">3003</Col>
+            <Col id="MENU_NAME">거치대</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">99</Col>
+            <Col id="MENU_NAME">이거 추가함 (3)</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">9901</Col>
+            <Col id="MENU_NAME">추</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">9902</Col>
+            <Col id="MENU_NAME">추추</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">9903</Col>
+            <Col id="MENU_NAME">츠츠츠</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsEditEmp">
+        <ColumnInfo>
+          <Column id="MENU_ID" type="STRING" size="256"/>
+          <Column id="MENU_NAME" type="STRING" size="256"/>
+          <Column id="MENU_LEVEL" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_categoryCbo">
+        <ColumnInfo>
+          <Column id="MENU_NAME" type="STRING" size="256"/>
+          <Column id="MENU_ID" type="STRING" size="256"/>
+          <Column id="MENU_LEVEL" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_detailCbo">
+        <ColumnInfo>
+          <Column id="MENU_NAME" type="STRING" size="256"/>
+          <Column id="MENU_ID" type="STRING" size="256"/>
+          <Column id="MENU_LEVEL" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.QuickMenuMgr_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.ds_menu.clearData();
+	
+	var strSvcUrl = "nexa/getMenuList.do";
+	var inData = "";
+	var strArg = "";
+	var outData = "ds_menu=ds_menu";
+
+	this.gfnTransaction("getMenuList"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+};
+//=====================================삭제버튼 이벤트====================================================
+this.divLeft_grdMenu_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if(e.col != 1){return;} //버튼 아니면 튕기기
+	
+	var nDsRow = this.ds_menu.rowposition; //실제 인덱스(행번호)
+	var sMenuLevel = this.ds_menu.getColumn(nDsRow, "MENU_LEVEL"); // 0 또는 1 소제목 대제목 분류용
+    var sMenuId    = this.ds_menu.getColumn(nDsRow, "MENU_ID");    // 삭제할 ID
+    var sMenuName  = this.ds_menu.getColumn(nDsRow, "MENU_NAME");  // 보여줄 이름
+	
+	if(parseInt(sMenuLevel) >= 1) //소제목이면 단순삭제
+	{
+		var sMsg = "상세목록 [" + sMenuName + "] 을(를) 삭제하시겠습니까?";
+        if(confirm(sMsg)) 
+		{
+            this.fn_DeleteMenu(sMenuId);
+        }
+	}
+	else //대제목이면 소제목 몇 개 인지 고지하고 삭제
+	{
+        var nChildCnt = this.ds_menu.getCaseCount("String(MENU_ID).indexOf('" + sMenuId + "') == 0") - 1;
+
+        var sMsg = "";
+        
+        if(nChildCnt > 0) {
+            // 자식이 있으면 무서운 경고
+            sMsg = "⚠️ [" + sMenuName + "] 카테고리를 삭제하시겠습니까?\n\n"
+                 + "포함된 하위 메뉴 " + nChildCnt + "건도 모두 삭제됩니다.\n"
+                 + "(이 작업은 되돌릴 수 없습니다!)";
+        } else {
+            // 자식이 없으면 상세목록 삭제와같이
+            sMsg = "[" + sMenuName + "] 카테고리를 삭제하시겠습니까?";
+        }
+
+        if(confirm(sMsg)) {
+            this.fn_DeleteMenu(sMenuId);
+        }
+	}
+};
+
+this.fn_DeleteMenu = function(sMenuId) //대제목 소제목 삭제 트랜잭션 날리기 메서드
+{
+    this.dsEditEmp.clearData();
+    var nRow = this.dsEditEmp.addRow();
+    this.dsEditEmp.setColumn(nRow, "MENU_ID", sMenuId); 
+
+    var strSvcUrl = "nexa/deleteMenu.do";
+    var inData    = "dsEditEmp=dsEditEmp";
+    
+    // 삭제 후엔 반드시 화면 새로고침(reload) 해서 깔끔하게 정리
+    this.gfnTransaction("deleteMenu"
+						, strSvcUrl
+						, inData
+						, ""
+						, ""
+						, "fnCallback"
+						, true);
+};
+
+//====================================카테고리 추가 버튼 이벤트===========================================
+this.divRight1_btnAddCategory_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sNewCategoryName = this.divRight1.form.edtNewCategory.value; //사용자가 입력한 새 카테고리 이름
+	
+	this.dsEditEmp.clearData();
+	var nRow = this.dsEditEmp.addRow();
+	this.dsEditEmp.setColumn(nRow, "MENU_LEVEL", "0");
+	this.dsEditEmp.setColumn(nRow, "MENU_NAME", sNewCategoryName);
+	//쿼리문에서 알맞게 10이면 그다음 20을 넣어주는 로직
+	
+	var strSvcUrl = "nexa/addMenuCategory.do";
+	var inData = "dsEditEmp=dsEditEmp";
+	var strArg = "";
+	var outData = "";
+
+	this.gfnTransaction("addMenuCategory"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+	
+};
+
+//====================================상세목록 추가 버튼 클릭 이벤트========================================
+this.divRight2_btnAddItem_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sNewDetailName = this.divRight2.form.edtNewItem.value; //사용자가 입력한 새 카테고리 이름
+	var sNewCategoryId = this.divRight2.form.cboParentCategory.value; //콤보에서 선택당한 값 ex)30, 20, 10
+	
+	this.dsEditEmp.clearData();
+	var nRow = this.dsEditEmp.addRow();
+	this.dsEditEmp.setColumn(nRow, "MENU_LEVEL", "1");
+	this.dsEditEmp.setColumn(nRow, "MENU_NAME", sNewDetailName);
+	this.dsEditEmp.setColumn(nRow, "MENU_ID", sNewCategoryId); //콤보에서 선택당한 값 ex)30, 20, 10담기
+	
+	var strSvcUrl = "nexa/addMenuDetail.do";
+	var inData = "dsEditEmp=dsEditEmp";
+	var strArg = "";
+	var outData = "";
+
+	this.gfnTransaction("addMenuDetail"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+};
+//=======================================카테고리(대제목) 글 변경 버튼====================================
+
+this.divRight3_btnRename_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sMenuId = this.divRight3.form.cboRenameCategory.value; //콤보에서 선택당한 값 ex)30, 20, 10
+    var sMenuName = this.divRight3.form.edtRename.value; //사용자가 입력한 변경할 카테고리 이름
+	
+	// 유효성 검사
+    if(this.gfnIsNull(sMenuId)) {
+        alert("변경할 대상을 선택해주세요.");
+        return;
+    }
+    if(this.gfnIsNull(sMenuName)) {
+        alert("변경할 이름을 입력해주세요.");
+        return;
+    }
+	
+	this.fn_UpdateMenuName(sMenuId, sMenuName);
+};
+//=======================================상세목록(소제목) 글 변경 버튼====================================
+this.divRight3_00_btnRename_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sMenuId = this.divRight3_00.form.cboRenameCategory.value; //콤보에서 선택당한 값 ex)3001, 2003, 1005
+	var sMenuName = this.divRight3_00.form.edtRename.value; //사용자가 입력한 변경할 카테고리 이름
+	// 유효성 검사
+    if(this.gfnIsNull(sMenuId)) {
+        alert("변경할 대상을 선택해주세요.");
+        return;
+    }
+    if(this.gfnIsNull(sMenuName)) {
+        alert("변경할 이름을 입력해주세요.");
+        return;
+    }
+	
+	this.fn_UpdateMenuName(sMenuId, sMenuName);
+};
+
+//제목 이름변경 트랜잭션 날리는 함수
+this.fn_UpdateMenuName = function(sMenuId, sMenuName) 
+{
+    // 데이터셋 초기화 및 세팅
+    this.dsEditEmp.clearData();
+    var nRow = this.dsEditEmp.addRow();
+    
+    this.dsEditEmp.setColumn(nRow, "MENU_ID",   sMenuId);
+    this.dsEditEmp.setColumn(nRow, "MENU_NAME", sMenuName);
+	
+	var strSvcUrl = "nexa/updateMenuName.do";
+	var inData = "dsEditEmp=dsEditEmp";
+	var strArg = "";
+	var outData = ""
+
+	this.gfnTransaction("updateMenuName"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+};
+
+//=======================================콜백함수=============================================
+this.fnCallback = function (svcID, errCd, errMsg)
+{
+	if(svcID == "addMenuCategory")
+	{
+		this.reload();
+	}
+	else if(svcID=="getMenuList")
+	{
+		this.ds_categoryCbo.copyData(this.ds_menu); //대제목만 (대제목만 콤보에 연결하도록 ds복사)
+		this.ds_categoryCbo.filter("MENU_LEVEL == '0'");
+		
+		this.ds_detailCbo.copyData(this.ds_menu); //상세목록(소제목만 콤보에 연결하도록 ds복사)
+		this.ds_detailCbo.filter("MENU_LEVEL == '1'");
+	}
+	else if(svcID=="addMenuDetail")//상세목록 추가시
+	{
+		this.reload();
+	}
+	else if(svcID == "deleteMenu") //목록 삭제시
+	{
+		this.reload();
+	}
+	else if(svcID="updateMenuName") //대제목, 소제목 이름 변경시
+	{
+		this.reload();
+	}
+};
+
+
+]]></Script>
+  </Form>
+</FDL>
