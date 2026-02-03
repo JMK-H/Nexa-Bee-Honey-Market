@@ -68,7 +68,7 @@
               <Static id="stTitle" taborder="0" text="✏️ 상세목록 이름 변경" left="20" top="15" width="200" height="30" font="bold 16px 'Malgun Gothic'" color="#333333"/>
               <Static id="Static00" taborder="1" left="20" top="50" right="20" height="1" background="#eeeeee"/>
               <Static id="stLabel1" taborder="2" text="카테고리 선택" left="20" top="65" width="120" height="20" font="12px 'Malgun Gothic'" color="#666666"/>
-              <Combo id="cboRenameCategory" taborder="3" left="20" top="90" right="20" height="40" innerdataset="ds_detailCbo" codecolumn="MENU_ID" datacolumn="MENU_NAME" font="14px 'Malgun Gothic'" border="1px solid #dddddd" borderRadius="5px" onitemchanged="divRight3_cboRenameCategory_onitemchanged"/>
+              <Combo id="cboRenameCategory" taborder="3" left="20" top="90" right="20" height="40" innerdataset="ds_detailCbo" codecolumn="MENU_ID" datacolumn="MENU_NAME" font="14px 'Malgun Gothic'" border="1px solid #dddddd" borderRadius="5px" onitemchanged="divRight3_cboRenameCategory_onitemchanged" displayrowcount="20"/>
               <Edit id="edtRename" taborder="4" left="20" top="140" height="40" right="110" displaynulltext="변경할 이름 입력" font="14px 'Malgun Gothic'" background="#f9f9f9" border="1px solid #dddddd" borderRadius="5px" padding="0px 10px"/>
               <Button id="btnRename" taborder="5" text="변경" top="140" width="80" height="40" right="20" color="#ffffff" font="bold 14px 'Malgun Gothic'" borderRadius="5px" cursor="pointer" cssclass="Login" onclick="divRight3_00_btnRename_onclick"/>
             </Layout>
