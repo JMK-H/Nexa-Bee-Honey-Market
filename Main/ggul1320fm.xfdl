@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="ggul1320fm" width="1280" height="720" titletext="회원 관리" background="#ffffff" onload="ggul1320fm_onload">
+  <Form id="ggul1320fm" width="1600" height="720" titletext="회원 관리" background="#ffffff" onload="ggul1320fm_onload">
     <Layouts>
-      <Layout height="720" width="1280">
-        <Static id="stTitle" taborder="0" text="🛡️ 회원 관리" left="30" top="30" width="250" height="40" font="bold 26px/normal 'Malgun Gothic', 'Noto Sans KR'" color="#333333"/>
-        <Static id="stSubTitle" taborder="2" text="총 10명의 회원" left="32" top="80" width="150" height="20" font="14px/normal 'Malgun Gothic'" color="#888888"/>
-        <Div id="divSearch" taborder="3" text="" left="950" top="30" width="300" height="40" background="#f5f5f5" border="0px none" borderRadius="20px">
+      <Layout height="720" width="1600">
+        <Static id="stTitle" taborder="0" text="🛡️ 회원 관리" left="180" top="30" width="250" height="40" font="bold 26px/normal 'Malgun Gothic', 'Noto Sans KR'" color="#333333"/>
+        <Static id="stSubTitle" taborder="2" text="총 10명의 회원" left="182" top="80" width="150" height="20" font="14px/normal 'Malgun Gothic'" color="#888888"/>
+        <Div id="divSearch" taborder="3" text="" left="1100" top="30" width="300" height="40" background="#f5f5f5" border="0px none" borderRadius="20px">
           <Layouts>
             <Layout>
               <Static id="stIcon" taborder="0" text="🔍" left="15" top="8" width="30" height="24"/>
@@ -14,17 +14,18 @@
             </Layout>
           </Layouts>
         </Div>
-        <Grid id="grdMembers" taborder="1" left="30" top="120" width="1220" height="550" binddataset="dsLoginUsers" autofittype="col" useselcolor="false" border="1px solid #eeeeee" griduserproperty="!sort,!rowfix,!colfix,!filter,!initial,export" oncellclick="grdMembers_oncellclick">
+        <Grid id="grdMembers" taborder="1" left="180" top="120" width="1220" height="550" binddataset="dsLoginUsers" autofittype="col" useselcolor="false" border="1px solid #eeeeee" griduserproperty="!sort,!rowfix,!colfix,!filter,!initial,export" oncellclick="grdMembers_oncellclick" onheadclick="grdMembers_onheadclick">
           <Formats>
             <Format id="default">
               <Columns>
                 <Column size="150"/>
                 <Column size="150"/>
                 <Column size="120"/>
+                <Column size="70"/>
+                <Column size="70"/>
                 <Column size="100"/>
-                <Column size="100"/>
-                <Column size="103"/>
                 <Column size="85"/>
+                <Column size="185"/>
                 <Column size="100"/>
               </Columns>
               <Rows>
@@ -39,7 +40,8 @@
                 <Cell col="4" text="비추천수" font="14px 'Malgun Gothic'" color="#888888" background="#ffffff" border="0px none, 0px none, 1px solid #eeeeee, 0px none"/>
                 <Cell col="5" text="신고 게시글 수" font="14px 'Malgun Gothic'" color="#888888" background="#ffffff" border="0px none, 0px none, 1px solid #eeeeee, 0px none"/>
                 <Cell col="6" text="상태" font="14px 'Malgun Gothic'" color="#888888" background="#ffffff" border="0px none, 0px none, 1px solid #eeeeee, 0px none"/>
-                <Cell col="7" text="관리" font="14px 'Malgun Gothic'" color="#888888" background="#ffffff" border="0px none, 0px none, 1px solid #eeeeee, 0px none"/>
+                <Cell col="7" text="정지 해제일" font="14px 'Malgun Gothic'" color="#888888" background="#ffffff" border="0px none, 0px none, 1px solid #eeeeee, 0px none"/>
+                <Cell col="8" text="관리" font="14px 'Malgun Gothic'" color="#888888" background="#ffffff" border="0px none, 0px none, 1px solid #eeeeee, 0px none"/>
               </Band>
               <Band id="body">
                 <Cell text="bind:LOGIN_ID" font="15px 'Malgun Gothic'" color="#333333" padding="0px 0px 0px 20px" border="0px none, 0px none, 1px solid #f9f9f9, 0px none"/>
@@ -48,8 +50,9 @@
                 <Cell col="3" text="bind:LOGIN_LIKE_CNT" font="bold 15px 'Malgun Gothic'" color="#007bff" border="0px none, 0px none, 1px solid #f9f9f9, 0px none"/>
                 <Cell col="4" text="bind:LOGIN_UNLIKE_CNT" font="14px 'Malgun Gothic'" color="#ff6b6b" border="0px none, 0px none, 1px solid #f9f9f9, 0px none"/>
                 <Cell col="5" text="bind:LOGIN_REPORT_CNT" font="14px 'Malgun Gothic'" color="#ff6b6b" border="0px none, 0px none, 1px solid #f9f9f9, 0px none"/>
-                <Cell col="6" text="bind:LOGIN_STATUS" displaytype="text" font="bold 13px 'Malgun Gothic'" textAlign="center" border="0px none" background="expr:status=='활동중'?'#e8f8f0':'#fff0f0'" color="expr:status=='활동중'?'#20c997':'#fa5252'" borderRadius="20px" padding="0px 3px"/>
-                <Cell col="7" text="expr:LOGIN_STATUS=='ACTIVE' ? '정지' : '해제'&quot;" displaytype="buttoncontrol" edittype="button" padding="10px 20px" border="0px none" background="#ffffff" font="13px 'Malgun Gothic'" color="expr:action=='정지'?'#fa5252':'#20c997'" cursor="pointer"/>
+                <Cell col="6" text="expr:LOGIN_STATUS &gt;= comp.parent.sToday ? &quot;정지됨&quot; : &quot;활동중&quot;" displaytype="text" font="bold 13px 'Malgun Gothic'" textAlign="center" border="0px none" borderRadius="20px" padding="0px 3px" cssclass="expr:LOGIN_STATUS &gt;= comp.parent.sToday ? &quot;cell_Inactivate&quot;: &quot;cell_Activate&quot;"/>
+                <Cell col="7" text="bind:LOGIN_STATUS" displaytype="calendarcontrol" font="bold 13px 'Malgun Gothic'" textAlign="center" border="0px none" borderRadius="20px" padding="0px 3px" edittype="date"/>
+                <Cell col="8" displaytype="buttoncontrol" edittype="button" padding="10px 20px" border="0px none" background="#ffffff" font="13px 'Malgun Gothic'" color="expr:action=='정지'?'#fa5252':'#20c997'" cursor="pointer" text="저장"/>
               </Band>
             </Format>
           </Formats>
@@ -74,12 +77,17 @@
       <Dataset id="dsSearch">
         <ColumnInfo>
           <Column id="LOGIN_ID" type="STRING" size="256"/>
+          <Column id="LOGIN_STATUS" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
     </Objects>
-    <Script type="xscript5.1"><![CDATA[
+    <Script type="xscript5.1"><![CDATA[this.sToday = ""; //오늘날짜 저장
+
+
 this.ggul1320fm_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
+	this.sToday = this.gfnGetDate(); //오늘날짜 저장하는 메서드
+	
 	var strSvcUrl = "nexa/getUserList.do";
 	var inData = "";
 	var strArg = "";
@@ -94,12 +102,39 @@ this.ggul1320fm_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 						, true);
 };
 
+this.gfnGetDate = function() 
+{
+    var objDate = new Date();
+    var sYear  = objDate.getFullYear().toString();
+    var sMonth = (objDate.getMonth()+1).toString().padLeft(2, "0");
+    var sDay   = objDate.getDate().toString().padLeft(2, "0");
+    return sYear + sMonth + sDay;
+};
+
 this.grdMembers_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
-	if(e.col!=7){return;} //7열, 버튼 있는 열 아니면 return
-	
-	
-	
+	if(!(e.col==8 || e.col==7)){return;} //7,8 열, 달력, 버튼 있는 열 아니면 return
+	var sLoginStatus = this.dsLoginUsers.getColumn(e.row, "LOGIN_STATUS");
+	var sLoginId = this.dsLoginUsers.getColumn(e.row, "LOGIN_ID");
+	if(e.col == 8 && confirm("저장하시겠습니까?")) //버튼이면
+	{
+		this.dsSearch.clearData();
+		var nRow = this.dsSearch.addRow();
+		this.dsSearch.setColumn(nRow, "LOGIN_ID", sLoginId);
+		this.dsSearch.setColumn(nRow, "LOGIN_STATUS", sLoginStatus);
+		var strSvcUrl = "nexa/uploadUserData.do";
+		var inData = "dsSearch=dsSearch";
+		var strArg = "";
+		var outData = "";
+
+		this.gfnTransaction("uploadUserData"
+							, strSvcUrl
+							, inData //이클립스받기=넥사크로주기
+							, outData //넥사크로받기=이클립스주기
+							, strArg
+							, "fnCallback"
+							, true);
+	}
 };
 
 this.divSearch_Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
@@ -124,16 +159,78 @@ this.divSearch_Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEve
 						, true);
 };
 
-//==============================================콜백함수======================================================================
-this.fnCallback = function (svdID, errCd, errMsg)
+//==============================================정렬관련====================================================================
+
+this.grdMembers_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
-	if(svdID == "getUserList")
-	{
+    // 클릭한게 체크박스나 다른거면 정렬 안함
+    if (e.col == 7) return; 
 	
+    
+    // 정렬 함수 호출
+    this.fn_GridSort(obj, e);
+};
+
+this.fn_GridSort = function(objGrid, e)
+{
+    var objDs = objGrid.getBindDataset(); // 그리드에 연결된 데이터셋 가져오기
+    
+    var sColId = objGrid.getCellProperty("body", e.col, "text");
+    if (this.gfnIsNull(sColId)) return; // 바인딩 안된 컬럼이면 패스
+    sColId = sColId.replace("bind:", ""); 
+    
+   
+    var sHeadText = objGrid.getCellProperty("head", e.col, "text");
+    if (this.gfnIsNull(sHeadText)) sHeadText = "";
+    
+    // 다른 컬럼들의 화살표는 싹 지우기 (초기화)
+    for (var i = 0; i < objGrid.getCellCount("head"); i++) {
+        var sText = objGrid.getCellProperty("head", i, "text");
+        if (!this.gfnIsNull(sText)) {
+            sText = sText.replace("▲", "").replace("▼", "");
+            objGrid.setCellProperty("head", i, "text", sText);
+        }
+    }
+
+    if (sHeadText.indexOf("▲") > -1) {
+        objDs.set_keystring("S:-" + sColId); 
+        objGrid.setCellProperty("head", e.col, "text", sHeadText.replace("▲", "▼"));
+    } 
+    else {
+        // 내림차순이거나 정렬 안된 상태면 오름차순으로 변경
+        objDs.set_keystring("S:+" + sColId);
+        // 원래 텍스트 뒤에 화살표 추가
+        sHeadText = sHeadText.replace("▼", ""); // ▼ 있으면 제거
+        objGrid.setCellProperty("head", e.col, "text", sHeadText + "▲");
+    }
+};
+
+this.gfnIsNull = function(sValue)
+{
+    if (new String(sValue).valueOf() == "undefined") return true;
+    if (sValue == null) return true;
+    var v_ChkStr = new String(sValue);
+    if (v_ChkStr == null) return true;
+    if (v_ChkStr.toString().length == 0) return true;
+    return false;
+};
+
+//==============================================콜백함수======================================================================
+this.fnCallback = function (svcID, errCd, errMsg)
+{
+	if(svcID == "getUserList")
+	{
+		var nCount = this.dsLoginUsers.getRowCount();
+		this.stSubTitle.text = "총 "+nCount+"명의 회원"
 	}
-	else if(svdID == "getSearchUserList")
+	else if(svcID == "getSearchUserList")
 	{
-	
+		var nCount = this.dsLoginUsers.getRowCount();
+		this.stSubTitle.text = "총 "+nCount+"명의 회원"
+	}
+	else if(svcID == "uploadUserData")
+	{
+		alert("회원정보가 저장되었습니다");
 	}
 };
 

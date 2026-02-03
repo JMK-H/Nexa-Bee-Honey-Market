@@ -3233,6 +3233,22 @@
 {
 	color : red;
 }
+.Grid.cell_Activate
+{
+}
+.Grid.cell_Activate .body .row .cell
+{
+	background : #e6fcf5;
+	color : #087f5b;
+}
+.Grid.cell_Inactivate
+{
+}
+.Grid.cell_Inactivate .body .row .cell
+{
+	background : #fff5f5;
+	color : #c92a2a;
+}
 ]]></CSSData>
   <CSSData type="desktop"><![CDATA[]]></CSSData>
   <CSSData type="mobile_large"><![CDATA[]]></CSSData>

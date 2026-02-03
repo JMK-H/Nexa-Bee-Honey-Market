@@ -101,7 +101,7 @@ this.fnCallback = function (svcId, errCd, errMsg)
 		//글로벌 데이터셋 접근가능하게 함
         var objApp = nexacro.getApplication();
         var objDs = objApp.gdsLoginUser;
-
+		
         if(objDs.rowcount > 0)//로그인 성공시
         {
 			// 디버깅 반복문 시작
@@ -121,10 +121,31 @@ this.fnCallback = function (svcId, errCd, errMsg)
 			
 			//로그인 성공시 메인화면으로 전환
 			objApp.mainframe.VFrameSet00.set_separatesize("0,*"); 
+			
+			//정지기간 비교용 오늘 날짜 만들기
+			var objDate = new Date();
+			var sYear   = objDate.getFullYear().toString();
+			var sMonth  = (objDate.getMonth()+1).toString().padLeft(2, "0"); 
+			var sDay    = objDate.getDate().toString().padLeft(2, "0");
+			
+			var sToday  = sYear + sMonth + sDay;
+			var sBanDate = objDs.getColumn(0, "LOGIN_STATUS");//정지일 가져오기
+			if (sBanDate >= sToday) { //만약 정지일 안지났으면
+				
+				var sDateView = sBanDate.substring(0,4) + "-" + sBanDate.substring(4,6) + "-" + sBanDate.substring(6,8);
+				alert("회원님은 [" + sDateView + "] 까지 정지 상태입니다.");
+				
+				
+				this.dsCurrentUser.clearData(); 
+				nexacro.getApplication().gdsLoginUser.clearData();
+				objApp.mainframe.VFrameSet00.set_separatesize("*,0");
+				return;
+			}
         }
         else //로그인 실패
         {
 			this.tfPassword.set_value("");//비번창 지우기
+			alert("아이디와 비밀번호를 다시 확인해주세요");
         }
     }
 };]]></Script>

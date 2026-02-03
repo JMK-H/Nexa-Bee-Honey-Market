@@ -5,12 +5,13 @@
       <Layout height="586" width="500">
         <Static id="StaCategory" taborder="0" text="청소용품" left="20" top="20" width="80" height="26" background="#ffaa00" color="#ffffff" borderRadius="13px" textAlign="center" font="bold 12px 'Malgun Gothic'"/>
         <Static id="StaTitle" taborder="1" text="무선 청소기 대박 추천합니다!" left="27" top="50" right="20" height="26" font="bold 18px 'Malgun Gothic'" color="#333333"/>
-        <Static id="StaMetaInfo" taborder="2" text="👤 꿀유저1   📅 2025-12-26   💰 499,000원" left="20" top="85" right="20" height="20" color="#666666" font="13px 'Malgun Gothic'" onclick="StaMetaInfo_onclick"/>
+        <Static id="StaMetaInfo" taborder="2" text="👤 꿀유저1   📅 2025-12-26 " left="20" top="85" right="300" height="20" color="#666666" font="13px 'Malgun Gothic'" onclick="StaMetaInfo_onclick"/>
         <Static id="StaticLine" taborder="3" left="20" top="85" right="20" height="1" background="#eeeeee"/>
         <ImageViewer id="ImgPost" taborder="4" left="20" top="110" right="20" height="280" stretch="fixaspectratio" border="1px solid #e0e0e0" borderRadius="10px" image="url('theme://images/img_sample_cleaning.png')"/>
         <Static id="StaReportHeader" taborder="5" left="20" top="410" right="20" height="40" background="#ffbb00" border="0px none" text="🚨 신고자: jmk (신고사유: 부적절한 홍보)" padding="0px 0px 0px 15px" color="#ffffff" font="bold 14px 'Malgun Gothic'" borderRadius="10px 10px 0px 0px"/>
         <TextArea id="TxtReportCommend" taborder="6" left="20" top="445" right="20" height="120" background="#fff9e6" border="1px solid #ffbb00" color="#554400" font="14px 'Malgun Gothic'" padding="10px" wordWrap="char" readonly="true" value="이 게시물은 허위 매물이며, 스팸성 홍보를 포함하고 있습니다. 가격도 말도 안 되게 비싸게 올려놨네요. 확인 부탁드립니다." borderRadius="0px 0px 10px 10px"/>
         <Button id="btnClose" taborder="7" left="440" top="15" width="31" height="30" cssclass="Login" borderRadius="30px" text="X" onclick="Button00_onclick"/>
+        <Static id="StaMetaInfo00" taborder="8" text="💰 sPrice원" left="210" top="85" right="110" height="20" color="#666666" font="13px 'Malgun Gothic'" onclick="StaMetaInfo_onclick"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -43,7 +44,8 @@ this.PopupReportDetail_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInf
 	
 	this.StaTitle.set_text(sTitle);
 	this.StaCategory.set_text(sCategoryName);
-	this.StaMetaInfo.set_text("👤 "+sWriter+" 📅 "+sReportDate+" 💰 "+sPrice+"원");
+	this.StaMetaInfo.set_text("👤 "+sWriter+" 📅 "+sReportDate);
+	this.StaMetaInfo00.set_text("💰 "+nexacro.toNumber(sPrice).toLocaleString() + "원");
 	this.StaReportHeader.set_text("🚨 신고자: "+sReporter);
 	this.ImgPost.set_image(sPhotoUrl);
 	this.TxtReportCommend.set_value(sReportCommend);

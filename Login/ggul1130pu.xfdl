@@ -243,7 +243,7 @@ this.fn_writeUserData = function () //데이터셋에 현재 텍스트필드에 
 		this.dsUser.setColumn(nRow, "LOGIN_NICKNAME", this.txfNickname.value);
 		this.dsUser.setColumn(nRow, "LOGIN_PW", this.txfCheckPw.value);
 		this.dsUser.setColumn(nRow, "LOGIN_EMAIL", this.txfEmail.value);
-		this.dsUser.setColumn(nRow, "LOGIN_STATUS", "ACTIVE"); //0은 활동중, 1은 정지 예정
+		this.dsUser.setColumn(nRow, "LOGIN_STATUS", "20260101"); 
 		this.dsUser.setColumn(nRow, "LOGIN_DATE", sToday);
 };
 

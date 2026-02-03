@@ -31,7 +31,7 @@ this.Form_ReportDetail_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInf
 	this.ImgPost.set_image(sImageUrl);
 	this.StaDate.set_text(sDate);
 	this.StaReporterInfo.set_text("👤글쓴이: "+sWriter);
-	this.StaPrice.set_text(sPrice+"원");
+	this.StaPrice.set_text(nexacro.toNumber(sPrice).toLocaleString() + "원"); //가격 포멧시켜주기
 	this.StaCategory.set_text(sCategoryName);
 	this.TxtReportCommend.set_value(sCommend);
 };
