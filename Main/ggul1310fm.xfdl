@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="Dashboard" width="1600" height="850" titletext="관리자 대시보드" background="#f7f8fa" onload="Dashboard_onload">
+  <Form id="Dashboard" width="1600" height="1000" titletext="관리자 대시보드" background="#f7f8fa" onload="Dashboard_onload">
     <Layouts>
-      <Layout height="850" mobileorientation="landscape" width="1600">
+      <Layout height="1000" mobileorientation="landscape" width="1600">
         <Static id="staHeader" taborder="0" text="관리자 대시보드 " left="290" top="30" width="300" height="40" font="bold 24px 'Malgun Gothic'" color="#333333"/>
         <Static id="staSubHeader" taborder="1" text="꿀꺼억 커뮤니티 관리 현황" left="290" top="75" width="300" height="20" font="14px 'Malgun Gothic'" color="#888888"/>
         <Static id="bgCard1" taborder="2" left="290" top="120" width="230" height="120" background="#ffffff" borderRadius="15px" border="1px solid #e0e0e0"/>
@@ -37,36 +37,53 @@
         <Static id="staWorstPostTitle" taborder="31" text="비추합니다. 가성비 별로임" left="830" top="350" width="250" height="25" font="bold 16px 'Malgun Gothic'" color="#333333"/>
         <Static id="staWorstPostWriter" taborder="32" text="작성자: 냉정한리뷰  •  주방용품" left="830" top="385" width="290" height="20" font="12px 'Malgun Gothic'" color="#888888"/>
         <Static id="staWorstScore" taborder="33" text="👎 156" left="1110" top="360" width="100" height="30" font="bold 20px 'Malgun Gothic'" color="#e74c3c" textAlign="right"/>
-        <Static id="bgGrid" taborder="34" left="290" top="480" width="960" height="300" background="#ffffff" borderRadius="15px" border="1px solid #e0e0e0"/>
-        <Static id="staGridTitle" taborder="35" text="👥 최근 가입 회원" left="310" top="500" width="200" height="30" font="bold 16px 'Malgun Gothic'" color="#333333"/>
-        <Grid id="grdMembers" taborder="36" left="310" top="540" width="920" height="220" binddataset="dsRecentMembers" autofittype="col" border="0px none" formatting="0">
+        <Static id="bgGrid" taborder="34" left="290" top="480" width="960" height="480" background="#ffffff" borderRadius="15px" border="1px solid #e0e0e0"/>
+        <Static id="staGridTitle" taborder="35" text="👥 광고배너 관리" left="310" top="500" width="200" height="30" font="bold 16px 'Malgun Gothic'" color="#333333"/>
+        <Grid id="Grid00" taborder="36" left="312" top="546" width="918" height="205" binddataset="dsOutAdv" autofittype="col" oncellclick="Grid00_oncellclick">
           <Formats>
             <Format id="default">
               <Columns>
-                <Column size="150"/>
-                <Column size="150"/>
-                <Column size="150"/>
+                <Column size="48"/>
+                <Column size="250"/>
                 <Column size="100"/>
+                <Column size="120"/>
+                <Column size="121"/>
+                <Column size="55"/>
+                <Column size="55"/>
               </Columns>
               <Rows>
                 <Row size="40" band="head"/>
                 <Row size="40"/>
               </Rows>
               <Band id="head">
-                <Cell text="아이디" border="0px none, 0px none, 1px solid #f0f0f0, 0px none" font="bold 12px 'Malgun Gothic'" color="#888888" textAlign="left"/>
-                <Cell col="1" text="닉네임" border="0px none, 0px none, 1px solid #f0f0f0, 0px none" font="bold 12px 'Malgun Gothic'" color="#888888" textAlign="left"/>
-                <Cell col="2" text="가입일" border="0px none, 0px none, 1px solid #f0f0f0, 0px none" font="bold 12px 'Malgun Gothic'" color="#888888" textAlign="center"/>
-                <Cell col="3" text="상태" border="0px none, 0px none, 1px solid #f0f0f0, 0px none" font="bold 12px 'Malgun Gothic'" color="#888888" textAlign="center"/>
+                <Cell text="NO"/>
+                <Cell col="1" text="광고 제목 (배너명)" font="bold 13px 'Malgun Gothic'" background="#f7f7f7" color="#555555"/>
+                <Cell col="2" text="게시 상태" font="bold 13px 'Malgun Gothic'" background="#f7f7f7" color="#555555"/>
+                <Cell col="3" text="시작일" font="bold 13px 'Malgun Gothic'" background="#f7f7f7" color="#555555"/>
+                <Cell col="4" text="종료일" font="bold 13px 'Malgun Gothic'" background="#f7f7f7" color="#555555"/>
+                <Cell col="5" colspan="2" text="관리" font="bold 13px 'Malgun Gothic'" background="#f7f7f7" color="#555555"/>
               </Band>
               <Band id="body">
-                <Cell text="bind:LOGIN_ID" border="0px none, 0px none, 1px solid #f6f6f6, 0px none" font="13px 'Malgun Gothic'" color="#333333" padding="0px 0px 0px 10px" selectbackground="#fff5e0" selectcolor="#333333"/>
-                <Cell col="1" text="bind:LOGIN_NICKNAME" border="0px none, 0px none, 1px solid #f6f6f6, 0px none" font="13px 'Malgun Gothic'" color="#333333" selectbackground="#fff5e0" selectcolor="#333333"/>
-                <Cell col="2" text="bind:LOGIN_DATE" border="0px none, 0px none, 1px solid #f6f6f6, 0px none" font="12px 'Arial'" color="#666666" textAlign="center" selectbackground="#fff5e0" selectcolor="#333333"/>
-                <Cell col="3" text="bind:LOGIN_STATUS" border="0px none, 0px none, 1px solid #f6f6f6, 0px none" textAlign="center" font="bold 12px 'Malgun Gothic'" displaytype="text" color="expr:LOGIN_STATUS=='ACTIVE' || LOGIN_STATUS=='활동중' ?'#2ecc71':'#e74c3c'" selectbackground="#fff5e0" selectcolor="#333333"/>
+                <Cell text="expr:currow + 1"/>
+                <Cell col="1" text="bind:ADV_NAME"/>
+                <Cell col="2" text="bind:ADV_YN" edittype="combo" displaytype="combocontrol" combodataset="ds_yn" combocodecol="CODE" combodatacol="NAME"/>
+                <Cell col="3" text="bind:ADV_START_DT" displaytype="calendarcontrol" edittype="date"/>
+                <Cell col="4" text="bind:ADV_END_DT" displaytype="calendarcontrol" edittype="date"/>
+                <Cell col="5" displaytype="buttoncontrol" edittype="button" text="저장"/>
+                <Cell col="6" displaytype="buttoncontrol" edittype="button" text="삭제"/>
               </Band>
             </Format>
           </Formats>
         </Grid>
+        <Button id="Button00" taborder="41" text="광고 추가" left="1070" top="790" width="120" height="150" borderRadius="15px" cssclass="Login" onclick="Button00_onclick"/>
+        <Static id="StaLbTitle" taborder="42" text="제목 *" left="693" top="767" width="100" height="20" font="13px 'Malgun Gothic'" color="#333333"/>
+        <Edit id="edtTitle" taborder="43" left="685" top="795" height="50" displaynulltext="꿀템의 제목을 입력하세요" background="#f9f9f9" border="0px none" borderRadius="8px" padding="0px 15px" font="14px 'Malgun Gothic'" width="305"/>
+        <Static id="StaLbDate" taborder="44" text="광고 기한 *" left="693" top="868" width="100" height="20" font="13px 'Malgun Gothic'" color="#333333"/>
+        <Edit id="edtEndDate" taborder="45" left="683" top="892" width="311" height="50" displaynulltext="예: 20260918" background="#f9f9f9" border="0px none" borderRadius="8px" padding="0px 15px" font="14px 'Malgun Gothic'"/>
+        <Static id="StaUploadIcon" taborder="39" text="⬆️" left="312" top="782" width="310" height="140" textAlign="center" font="24px 'Malgun Gothic'" color="#bbbbbb" borderRadius="10px"/>
+        <Static id="StaUploadText" taborder="38" text="클릭하여 이미지 업로드" left="313" top="822" width="318" height="131" textAlign="center" font="13px 'Malgun Gothic'" color="#999999" borderRadius="10px"/>
+        <ImageViewer id="imgPhoto" taborder="37" text="" left="312" top="778" width="310" height="171" color="transparent" background="transparent" borderRadius="10px"/>
+        <Button id="btnFileUpload" taborder="40" left="312" top="778" height="171" background="transparent" border="0px none" cursor="pointer" onclick="btnFileUpload_onclick" text="" width="318" color="transparent" borderRadius="10px"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -254,6 +271,44 @@
           </Row>
         </Rows>
       </Dataset>
+      <FileDialog id="FileDialog00" onclose="FileDialog00_onclose"/>
+      <FileUpTransfer id="FileUpTransfer00" onsuccess="FileUpTransfer00_onsuccess" onerror="FileUpTransfer00_onerror"/>
+      <Dataset id="dsInAdv">
+        <ColumnInfo>
+          <Column id="ADV_URL" type="STRING" size="256"/>
+          <Column id="ADV_NAME" type="STRING" size="256"/>
+          <Column id="ADV_END_DT" type="STRING" size="256"/>
+          <Column id="ADV_YN" type="STRING" size="256"/>
+          <Column id="ADV_START_DT" type="STRING" size="256"/>
+          <Column id="ADV_SEQ" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsOutAdv">
+        <ColumnInfo>
+          <Column id="ADV_NAME" type="STRING" size="256"/>
+          <Column id="ADV_YN" type="STRING" size="256"/>
+          <Column id="ADV_START_DT" type="STRING" size="256"/>
+          <Column id="ADV_END_DT" type="STRING" size="256"/>
+          <Column id="ADV_URL" type="STRING" size="256"/>
+          <Column id="ADV_SEQ" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_yn">
+        <ColumnInfo>
+          <Column id="CODE" type="STRING" size="256"/>
+          <Column id="NAME" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="CODE">Y</Col>
+            <Col id="NAME">게시중</Col>
+          </Row>
+          <Row>
+            <Col id="CODE">N</Col>
+            <Col id="NAME">숨김</Col>
+          </Row>
+        </Rows>
+      </Dataset>
     </Objects>
     <Script type="xscript5.1"><![CDATA[
 this.Dashboard_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
@@ -263,7 +318,7 @@ this.Dashboard_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	var strSvcUrl = "nexa/getDashBoard.do";
 	var inData = "";
 	var strArg = "";
-	var outData = "dsSummary=dsSummary dsTopPosts=dsTopPosts dsRecentMembers=dsRecentMembers ds_menu=ds_menu";
+	var outData = "dsSummary=dsSummary dsTopPosts=dsTopPosts dsRecentMembers=dsRecentMembers ds_menu=ds_menu dsOutAdv=dsOutAdv";
 
 	this.gfnTransaction("getDashBoard"
 						, strSvcUrl
@@ -273,6 +328,161 @@ this.Dashboard_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 						, "fnCallback"
 						, true);
 	
+};
+//==========================================광고 사진 올리기 버튼=====================================
+
+this.btnFileUpload_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.FileDialog00.open("이미지 선택", 1, "%MYDOCUMENT%");
+};
+
+this.FileDialog00_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialogEventInfo)
+{
+	var objFile = e.virtualfiles[0];
+	var sFileName = objFile.filename; //이름 가져오기
+	
+	if(!/\.(jpe?g|png|gif)$/i.test(sFileName)){
+		alert("이미지 파일을 선택하세요");
+		return;
+	}
+	//FileUpTransfer00 비우고 사진 이름과 이미지 파일 담기
+	this.FileUpTransfer00.clearFileList();
+	this.FileUpTransfer00.addFile(sFileName, objFile);
+	
+	if(nexacro._Browser == "Runtime") {
+		this.imgPhoto.image = "URL('file://"+ objFile.fullpath + "')";
+	} else {
+		var reader = new FileReader();
+		reader.targetForm = this;		
+		reader.addEventListener("load",
+								 function() 
+								 { 
+									this.targetForm.imgPhoto.image = this.result; 
+								 }, 
+								 false
+								);
+		reader.readAsDataURL(objFile._handle);						
+	
+	}
+}
+
+//최종 등록 버튼
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sUploadUrl = "SvcUrl::nexaProject/uploadFile.do"; 
+	this.FileUpTransfer00.setPostData("userDir", "");//P02\\P028, ..\\src\\main\\webapp\\images
+    this.FileUpTransfer00.upload(sUploadUrl);
+};
+
+//파일등록 콜백
+this.FileUpTransfer00_onsuccess = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferEventInfo)
+{
+	alert("파일등록 콜백 들어옴")
+	var objDs = e.datasets[0];	
+	var sSaveFileName = objDs.getColumn(0, "FILE_ID");//파일이름
+	var sAdverTitle = this.edtTitle.value;//광고 이름 사용자 입력으로 대체
+	var sEndDate = this.edtEndDate.value; //8자리로 입력받기
+	
+	this.dsInAdv.clearData();
+	var nRow = this.dsInAdv.addRow();
+	this.dsInAdv.setColumn(0, "ADV_URL", sSaveFileName);
+	this.dsInAdv.setColumn(0, "ADV_NAME", sAdverTitle);
+	this.dsInAdv.setColumn(0, "ADV_END_DT", sEndDate);
+	//트랜잭션 날리기
+	var strSvcUrl = "nexa/addAdvList.do";
+	var inData = "dsInAdv=dsInAdv";
+	var strArg = "";
+	var outData = "";
+
+	this.gfnTransaction("addAdvList"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+	this.reload();
+};
+
+this.FileUpTransfer00_onerror = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferErrorEventInfo)
+{
+    trace("========== [업로드 실패!] ==========");
+    trace("에러 코드 : " + e.errormsg);
+    trace("에러 내용 : " + e.errortype);
+};
+//==========================그리드에서 변동사항 적용 버튼 클릭 이벤트==============================
+
+this.Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	// 클릭한게 버튼 아니면 작동 안 함
+    if (!(e.col == 5 || e.col==6)) {return}; 
+	if(e.col==5) //저장
+	{
+		this.dsInAdv.clearData();
+		var nRow = this.dsInAdv.addRow();
+		
+		var sAdvYn = this.dsOutAdv.getColumn(e.row, "ADV_YN");
+		this.dsInAdv.setColumn(nRow, "ADV_YN", sAdvYn);
+		if(this.fn_CheckActiveCount()>5 )
+		{
+			this.dsOutAdv.setColumn(e.row, "ADV_YN", "N");
+			alert("게시중인 광고는 5개를 초과할 수 없습니다")
+			return;
+		}
+		
+		var sAdvUrl = this.dsOutAdv.getColumn(e.row, "ADV_URL");
+		this.dsInAdv.setColumn(nRow, "ADV_URL", sAdvUrl);
+		var sAdvStartDt = this.dsOutAdv.getColumn(e.row, "ADV_START_DT");
+		this.dsInAdv.setColumn(nRow, "ADV_START_DT", sAdvStartDt);
+		var sAdvEndDt = this.dsOutAdv.getColumn(e.row, "ADV_END_DT");
+		this.dsInAdv.setColumn(nRow, "ADV_END_DT", sAdvEndDt);
+		var sAdvSeq = this.dsOutAdv.getColumn(e.row, "ADV_SEQ");
+		this.dsInAdv.setColumn(nRow, "ADV_SEQ", sAdvSeq);
+		
+		var strSvcUrl = "nexa/uploadAdvData.do";
+		var inData = "dsInAdv=dsInAdv";
+		var strArg = "";
+		var outData = "";
+
+		this.gfnTransaction("uploadAdvData"
+							, strSvcUrl
+							, inData //이클립스받기=넥사크로주기
+							, outData //넥사크로받기=이클립스주기
+							, strArg
+							, "fnCallback"
+							, true);
+	}
+	else if(e.col==6)//삭제
+	{
+		this.dsInAdv.clearData();
+		var nRow = this.dsInAdv.addRow();
+		
+		var sAdvSeq = this.dsOutAdv.getColumn(e.row, "ADV_SEQ");
+		this.dsInAdv.setColumn(nRow, "ADV_SEQ", sAdvSeq);
+		var sAdvUrl = this.dsOutAdv.getColumn(e.row, "ADV_URL");
+		this.dsInAdv.setColumn(nRow, "ADV_URL", sAdvUrl);
+		
+		var strSvcUrl = "nexa/deleteAdvList.do";
+		var inData = "dsInAdv=dsInAdv";
+		var strArg = "";
+		var outData = "";
+
+		this.gfnTransaction("deleteAdvList"
+							, strSvcUrl
+							, inData //이클립스받기=넥사크로주기
+							, outData //넥사크로받기=이클립스주기
+							, strArg
+							, "fnCallback"
+							, true);
+	}
+};
+//=======================게시중 5개로 제한할 함수 'Y'인 상태의 갯수 리턴===========================
+
+this.fn_CheckActiveCount = function()
+{
+    var nActiveCnt = this.dsOutAdv.getCaseCount("ADV_YN == 'Y'");
+    
+    return nActiveCnt;
 };
 
 //=========================================콜백함수====================================================
@@ -309,6 +519,22 @@ this.fnCallback = function (svcID, errCd, errMsg)
 		this.staWorstPostWriter.set_text("작성자: " +this.dsTopPosts.getColumn(nRow, "USER_ID")+" • "+ bigsCategoryId +" • "+ sCategoryName  );
 		
 	}
-};]]></Script>
+	else if(svcID=="uploadAdvData")
+	{
+		alert("저장되었습니다.");
+	}
+	else if(svcID=="deleteAdvList") //광고 삭제
+	{
+		alert("삭제되었습니다.")
+		this.reload();
+	}
+};
+
+
+]]></Script>
+    <Bind>
+      <BindItem id="item0" compid="edtTitle" propid="value" datasetid="dsImgEmp" columnid="TITLE"/>
+      <BindItem id="item1" compid="edtEndDate" propid="value" datasetid="dsImgEmp" columnid="PURCHASE_URL"/>
+    </Bind>
   </Form>
 </FDL>

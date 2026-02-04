@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="SampleStep" width="1600" height="280" titletext="스텝" onload="form_onload" onstepchanged="SampleStep_onstepchanged" ontimer="SampleStep_ontimer" stepshowtype="always">
+  <Form id="SampleStep" width="1600" height="280" titletext="스텝" onload="form_onload" onstepchanged="SampleStep_onstepchanged" ontimer="Dashboard_ontimer" stepshowtype="always">
     <Layouts>
-      <Layout height="280" mobileorientation="landscape" width="1600" stepcount="3">
+      <Layout height="280" mobileorientation="landscape" width="1600" stepcount="5">
         <Button id="btn02" taborder="1" left="10" top="10" width="30" height="30" onclick="btnPre_onclick" positionstep="1" cssclass="btn_WF_ShuttleL"/>
         <Button id="btn01" taborder="0" top="10" width="30" height="30" positionstep="1" onclick="btnNext_onclick" left="42" cssclass="btn_WF_ShuttleR"/>
         <ImageViewer id="imgVAdv3" taborder="4" text="" left="0" top="0" positionstep="2" right="0" bottom="0"/>
@@ -12,91 +12,67 @@
         <Button id="btn04" taborder="3" left="10" top="10" width="30" height="30" onclick="btnPre_onclick" positionstep="2" cssclass="btn_WF_ShuttleL"/>
       </Layout>
     </Layouts>
-    <Script type="xscript5.1"><![CDATA[/**
-*  Nexacro Professional Training Couse
-*  @MenuPath    개발가이드 > 컴포넌트 및 연동 > step
-*  @FileName 	SampleStep_Sub.xfdl 
-*  @Creator 	TOBESOFT Education
-*  @CreateDate 	2025/01/03
-*  @Desction    
-************** 소스 수정 이력 ***********************************************
-*  date          		Modifier                Description
-*******************************************************************************
-*  2025/01/03     		 TOBESOFT Education	 	  	최초 생성 
-*******************************************************************************
-*/
-
-
-
-/************************************************************************************************
- * FORM 변수 선언 영역
- ************************************************************************************************/
+    <Script type="xscript5.1"><![CDATA[
 this.fvStep = 0;
-this.elapseTime = 3000;
+this.fvMaxStep = 5; 
 
-/************************************************************************************************
- * FORM EVENT 영역(onload, onbeforeclose)
- ************************************************************************************************/
-/**
- * @description 화면 onload시 처리내역(필수)
-*/
+//화면 로드 및 트랜잭션 
 this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	this.stepselector.visible = false;
-	this.stepshowtype = "action";
-	
-	this.setTimer(0, this.elapseTime);
-	
-	//사진 가져오기 트랜잭션 날리기
-	var strSvcUrl = "nexa/getAdvList.do";
-	var inData = "";
-	var strArg = "";
-	var outData = "dsAdImage=dsAdImage";
-
-	this.gfnTransaction("getAdvList"
-						, strSvcUrl
-						, inData //이클립스받기=넥사크로주기
-						, outData //넥사크로받기=이클립스주기
-						, strArg
-						, "fnCallback"
-						, true);
+    // 트랜잭션 호출
+    var strSvcUrl = "nexa/getAdvList.do";
+    var outData = "dsAdImage=dsAdImage"; 
+    this.gfnTransaction("getAdvList", strSvcUrl, "", outData, "", "fnCallback", true);
 };
 
-this.SampleStep_ontimer = function(obj:nexacro.Form,e:nexacro.TimerEventInfo)
-{
-	if (e.timerid == 0){
-		if (this.fvStep == 2) {
-			this.fvStep = 0;
-			this.stepselector.stepindex = 0;
-		}
-		else {
-			this.stepselector.stepindex = (++this.fvStep);
-		}
-	}
-};
-
-this.btnPre_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
-	//this.killTimer(0);
-	this.stepselector.stepindex = (--this.fvStep);
-};
-
-this.btnNext_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
-	//this.killTimer(0);
-	this.stepselector.stepindex = (++this.fvStep);
-};
-
-//============================================콜백함수========================================================
+//콜백 함수
 this.fnCallback = function (svcID, errCd, errMsg)
 {
-	if(svcID == "getAdvList")
-	{
-		this.imgVAdv1.set_image(this.dsAdImage.getColumn(0, "ADV_URL"));
-		this.imgVAdv2.set_image(this.dsAdImage.getColumn(1, "ADV_URL"));
-		this.imgVAdv3.set_image(this.dsAdImage.getColumn(2, "ADV_URL"));
-	}
-};]]></Script>
+    if(svcID == "getAdvList")
+    {
+        var nRealDataCnt = this.dsAdImage.rowcount; // 실제 데이터 개수 (예: 2개)
+        if(nRealDataCnt == 0) return;
+        
+        // 디자인된 Step 개수(5개)만큼 반복문을 돌림
+        for(var i=0; i < this.fvMaxStep; i++)
+        {
+            var nDataIdx = i % nRealDataCnt;
+            
+            var sUrl = this.dsAdImage.getColumn(nDataIdx, "ADV_URL");
+            var sCompId = "imgDynamic_" + i; 
+            
+            var objImg = new ImageViewer();
+            objImg.init(sCompId, 0, 0, null, null, 0, 0);
+            
+            objImg.set_positionstep(i);   // 0, 1, 2, 3, 4 페이지에 배치
+            objImg.set_image(sUrl);
+            objImg.set_stretch("fixaspectratio"); 
+            objImg.set_border("0px none");
+
+            this.addChild(sCompId, objImg); 
+            objImg.show();
+        }
+        
+        // 타이머 시작
+        this.setTimer(777, 3000);
+    }
+};
+
+//타이머 (5개 다 돌면 다시 0으로)
+this.Dashboard_ontimer = function(obj:nexacro.Form,e:nexacro.TimerEventInfo)
+{
+    if (e.timerid == 777) {
+        this.fvStep++;
+        
+        // 5페이지 넘어가면 다시 0페이지로
+        if (this.fvStep >= this.fvMaxStep) {
+            this.fvStep = 0;
+        }
+        
+        this.stepselector.stepindex = this.fvStep;
+    }
+};
+]]></Script>
     <Objects>
       <Dataset id="dsAdImage">
         <ColumnInfo>

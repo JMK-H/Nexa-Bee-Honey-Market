@@ -71,7 +71,7 @@ this.fnSearch = function ()
                         , "fnCallback"       // 콜백 함수
                         , true);             // 비동기 여부
                         
-    trace("★ 조회 요청: " + strArg);
+
 	
 };
 

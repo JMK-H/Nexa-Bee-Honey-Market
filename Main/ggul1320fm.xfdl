@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="ggul1320fm" width="1600" height="720" titletext="회원 관리" background="#ffffff" onload="ggul1320fm_onload">
+  <Form id="ggul1320fm" width="1600" height="720" titletext="회원 관리" background="#ffffff" onload="ggul1320fm_onload" color="#ffffff" border="1px solid #1E653D">
     <Layouts>
       <Layout height="720" width="1600">
         <Static id="stTitle" taborder="0" text="🛡️ 회원 관리" left="180" top="30" width="250" height="40" font="bold 26px/normal 'Malgun Gothic', 'Noto Sans KR'" color="#333333"/>
         <Static id="stSubTitle" taborder="2" text="총 10명의 회원" left="182" top="80" width="150" height="20" font="14px/normal 'Malgun Gothic'" color="#888888"/>
-        <Div id="divSearch" taborder="3" text="" left="1100" top="30" width="300" height="40" background="#f5f5f5" border="0px none" borderRadius="20px">
+        <Div id="divSearch" taborder="3" text="" left="1100" top="30" width="300" height="40" background="#f5f5f5" border="0px none" borderRadius="10px">
           <Layouts>
             <Layout>
               <Static id="stIcon" taborder="0" text="🔍" left="15" top="8" width="30" height="24"/>
               <Edit id="edtSearch" taborder="1" left="45" top="5" width="230" height="30" background="transparent" border="0px none" displaynulltext="아이디 또는 닉네임 검색..."/>
-              <Button id="Button00" taborder="2" text="검색" left="216" top="5" width="74" height="30" cssclass="Login" borderRadius="0px 20px 20px 0px" onclick="divSearch_Button00_onclick" cursor="pointer"/>
+              <Button id="Button00" taborder="2" text="검색" left="216" top="5" width="74" height="30" cssclass="Login" borderRadius="0px 10px 10px 0px" onclick="divSearch_Button00_onclick" cursor="pointer"/>
             </Layout>
           </Layouts>
         </Div>
@@ -57,6 +57,7 @@
             </Format>
           </Formats>
         </Grid>
+        <Button id="btnExcelExport" taborder="4" text="📥 엑셀 다운로드 / 전체 목록 엑셀 저장" left="1100" top="75" width="300" height="40" borderRadius="10px" onclick="btnExcelExport_onclick" background="#217346"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -80,6 +81,7 @@
           <Column id="LOGIN_STATUS" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
+      <ExcelExportObject id="xExport"/>
     </Objects>
     <Script type="xscript5.1"><![CDATA[this.sToday = ""; //오늘날짜 저장
 
@@ -205,6 +207,41 @@ this.fn_GridSort = function(objGrid, e)
     }
 };
 
+//========================================엑셀 내보내기==========================================
+
+this.btnExcelExport_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//엑셀 내보내기 객체 세팅 (ID: xExport)
+    this.xExport.clear();
+    
+    // 2. 파일 형식 및 이름 설정
+    this.xExport.set_exporttype(nexacro.ExportTypes.EXCEL2007); // .xlsx 형식
+    this.xExport.set_exportfilename("회원목록_" + this.gfnGetDate()); // 파일명 (예: 회원목록_20240520)
+    
+    //XENI 서버 주소 설정
+    this.xExport.set_exporturl("http://172.10.14.134:8088/edupack_egov/XExportImport.do");
+	//"http://172.10.14.134:8088/edupack_egov/XExportImport.do"
+	//"http://localhost:8088/nexacro-xeni/XExportImport" 안되면 아래
+	//"http://localhost:8088/edupack_egov/XExportImport.do"
+    
+    // 그리드 매핑 (어떤 그리드를 내보낼 건지)
+    // addExportItem(타입, 그리드ID, 엑셀시트위치)
+    this.xExport.addExportItem(nexacro.ExportItemTypes.GRID, this.grdMembers, "Sheet1!A1");
+    
+    // 5. 내보내기 실행
+    this.xExport.exportData();
+};
+
+this.xExport_onsuccess = function(obj:nexacro.ExcelExportObject,e:nexacro.ExcelExportEventInfo)
+{
+    alert("엑셀 다운로드가 완료되었습니다.");
+};
+
+this.xExport_onerror = function(obj:nexacro.ExcelExportObject,e:nexacro.ExcelExportErrorEventInfo)
+{
+    alert("다운로드 실패: " + e.errormsg);
+};
+
 this.gfnIsNull = function(sValue)
 {
     if (new String(sValue).valueOf() == "undefined") return true;
@@ -233,8 +270,6 @@ this.fnCallback = function (svcID, errCd, errMsg)
 		alert("회원정보가 저장되었습니다");
 	}
 };
-
-
 ]]></Script>
   </Form>
 </FDL>

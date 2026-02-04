@@ -1,17 +1,46 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="work" width="1600" height="650" titletext="New Form" background="#f9f9f9" onload="work_onload">
+  <Form id="work" width="1600" height="1500" titletext="New Form" background="#f9f9f9" onload="work_onload">
     <Layouts>
-      <Layout height="650" width="1600">
-        <Static id="staUserName" taborder="0" text="나의 찜목록 &gt;" left="1.00%" top="43.38%" width="206" height="54" onclick="staUserName_onclick"/>
-        <Div id="Div00" taborder="1" text="Div00" left="6.92%" top="300" width="24%" height="292" borderRadius="20px"/>
-        <Div id="Div00_00" taborder="2" text="Div00" left="38.00%" top="300" width="24%" height="292" borderRadius="20px"/>
-        <Div id="Div00_00_00" taborder="3" text="Div00" left="68.00%" top="300" width="24%" height="292" borderRadius="20px">
+      <Layout height="1500" width="1600">
+        <Div id="divSearch" taborder="5" left="415" top="40" width="770" height="60" background="#ffffff" borderRadius="30px" formscrolltype="none" boxShadow="0px 4px 15px rgba(0,0,0,0.05)" border="1px solid #e0e0e0" text="">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="1" left="90" top="15" width="1" height="30" background="#dddddd"/>
+              <Button id="btnSearch" taborder="0" text="" top="10" right="10" width="40" height="36" borderRadius="15px" color="#ffffff" font="normal 700 30px/normal &quot;Malgun Gothic&quot;" cursor="pointer" textAlign="center" verticalAlign="middle" background="url('imagerc::Search.png') no-repeat left top" onclick="divSearch_btnSearch_onclick"/>
+              <Button id="btnHome" taborder="2" text="🍯" left="19" top="9" width="61" height="36" background="transparent" border="0px none" onclick="Button00_onclick" cursor="pointer" font="normal 30px/normal &quot;Arial&quot;"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="staUserName" taborder="0" text="ㅇㅇㅇ꿀벌님 환영합니다." left="divSearch:45" top="35" width="350" height="32" onclick="staUserName_onclick" font="normal 15px/normal &quot;Arial&quot;"/>
+        <Div id="Div00" taborder="1" text="Div00" left="6.88%" top="580" width="24%" height="292" borderRadius="20px"/>
+        <Div id="Div00_00" taborder="2" text="Div00" left="38.00%" top="580" width="24%" height="292" borderRadius="20px"/>
+        <Div id="Div00_00_00" taborder="3" text="Div00" left="68.00%" top="570" width="24%" height="292" borderRadius="20px">
           <Layouts>
             <Layout/>
           </Layouts>
         </Div>
-        <Div id="Div01" taborder="4" text="Div01" left="0" top="0" height="280" right="0" url="Main::ggul1410fm.xfdl"/>
+        <Div id="Div01" taborder="4" text="Div01" left="0" top="140" height="420" right="0" url="Main::ggul1410fm.xfdl">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+        <Edit id="edtSearchKeyword" taborder="6" left="510" top="50" height="40" right="480" border="0px none" background="transparent" color="#333333" font="14px 'Malgun Gothic'" displaynulltext="검색어를 입력해주세요"/>
+        <Div id="divFooter" taborder="7" left="0" top="1030" width="98.75%" height="470" color="#888888" font="normal 13px/20px 'Malgun Gothic'" text="">
+          <Layouts>
+            <Layout>
+              <Static id="staLink01" taborder="0" text="꿀페이&#13;&#10;팀문화&#13;&#10;서비스 소개&#13;&#10;블로그&#13;&#10;채용" left="450" top="40" width="120" height="120" font="bold 13px 'Malgun Gothic'" color="#999999" verticalAlign="top"/>
+              <Static id="staLink02" taborder="1" text="부동산&#13;&#10;중고차&#13;&#10;알바/과외/레슨&#13;&#10;동네업체&#13;&#10;동네생활&#13;&#10;모임&#13;&#10;채팅하기" left="600" top="40" width="120" height="160" font="bold 13px 'Malgun Gothic'" color="#999999" verticalAlign="top"/>
+              <Static id="staLink03" taborder="2" text="제휴 문의&#13;&#10;광고 문의" left="750" top="40" width="120" height="120" font="bold 13px 'Malgun Gothic'" color="#999999" verticalAlign="top"/>
+              <Static id="staLink04" taborder="3" text="United States ↗&#13;&#10;United Kingdom ↗&#13;&#10;日本 ↗" left="900" top="40" width="150" height="120" font="normal 13px 'Malgun Gothic'" color="#999999" verticalAlign="top"/>
+              <Static id="staInquiryTitle" taborder="4" text="문의" left="450" top="180" width="100" height="20" font="bold 13px 'Malgun Gothic'" color="#999999"/>
+              <Static id="staInquiryList" taborder="5" text="IR&#13;&#10;PR&#13;&#10;고객센터" left="450" top="210" width="100" height="70" font="bold 13px 'Malgun Gothic'" color="#999999" verticalAlign="top"/>
+              <Static id="staLine" taborder="6" left="50" top="290" right="50" height="1" background="#333333"/>
+              <Static id="staCompanyInfo" taborder="7" text="(주) 꿀벌마켓&#13;&#10;대표 김준모  |  사업자번호 375-97-00082&#13;&#10;직업정보제공사업 신고번호 J1200038274016&#13;&#10;통신판매업 신고번호 2021-서울서초-2875&#13;&#10;주소 서울특별시 강남구 봉은사로 617, 3층 (꿀벌서비스)&#13;&#10;전화 1544-9796  |  고객문의 jmklove123@naver.com" left="50" top="310" width="600" height="120" font="normal 12px/18px 'Malgun Gothic'" color="#666666" verticalAlign="top"/>
+              <Static id="staPolicy" taborder="8" text="이용약관     개인정보처리방침     운영정책     위치기반서비스 이용약관     이용자보호 비전과 계획     청소년보호정책" left="50" top="430" width="800" height="30" font="normal 12px 'Malgun Gothic'" color="#888888"/>
+            </Layout>
+          </Layouts>
+        </Div>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
@@ -21,6 +50,9 @@ this.work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	//글로벌 데이터셋 접근가능하게 함
 	var objApp = nexacro.getApplication();
 	var objDs = objApp.gdsLoginUser;
+	this.staUserName.set_usedecorate(true);
+    this.staUserName.set_text("<fc v='#F5A623'>" + objDs.getColumn(0,"LOGIN_NICKNAME") + "</fc>" 
+                            + "<fc v='#888888'> 꿀벌님 환영합니다</fc>");
     
     // 이미 데이터가 있으면 즉시 실행
     if(objDs.rowcount > 0) {
@@ -40,7 +72,7 @@ this.fn_setNick = function()
     
     if(nickname) {
         this.staUserName.set_usedecorate(true);
-        this.staUserName.set_text("<fc v='#F5A623'>" + nickname + "</fc><fc v='#888888'> 의 찜목록</fc>");
+        this.staUserName.set_text("<fc v='#F5A623'>" + nickname + "</fc><fc v='#888888'> 꿀벌님 환영합니다.</fc>");
         
         // 한 번 그렸으면 감시자 해제 (성능 최적화)
         objDs.removeEventHandler("onvaluechanged", this.fn_setNick, this);
@@ -52,10 +84,7 @@ this.staUserName_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
 	//글로벌 데이터셋 접근가능하게 함
 	var objApp = nexacro.getApplication();
 	var objDs = objApp.gdsLoginUser;
-	trace(objDs.getColumn(0,"LOGIN_NICKNAME"));
-	this.staUserName.set_usedecorate(true);
-    this.staUserName.set_text("<fc v='#F5A623'>" + objDs.getColumn(0,"LOGIN_NICKNAME") + "</fc>" 
-                            + "<fc v='#888888'> 의 찜목록</fc>");
+	
 };
 
 this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
@@ -72,6 +101,14 @@ this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
     // 3. 팝업 띄우기 (이 함수가 핵심!)
     // trackPopupByComponent(기준컴포넌트, x, y, [width, height], [callback])
     objPopup.trackPopupByComponent(obj, nX, nY);
+};
+
+//==================================================검색버튼 눌렀을때==========================================================
+this.divSearch_btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var objApp = nexacro.getApplication();
+	objApp.gv_Search = this.edtSearchKeyword.value;
+	this.parent.parent.divWork.url = "Main::ggul1450fm.xfdl";	
 };
 ]]></Script>
   </Form>

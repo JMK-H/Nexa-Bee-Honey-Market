@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="SearchResult" width="1600" height="1450" titletext="검색 결과" background="#ffffff" onload="form_onload">
+    <Layouts>
+      <Layout height="1450" width="1600">
+        <Static id="staResultTitle" taborder="0" text="&quot;닌텐도&quot; 검색 결과" left="230" top="120" width="800" height="40" font="bold 24px 'Malgun Gothic'" color="#111111"/>
+        <Static id="staLine01" taborder="1" left="30" top="180" right="70" height="1" background="#eeeeee"/>
+        <Div id="divFilter" taborder="2" left="40" top="200" width="274" height="650" text="">
+          <Layouts>
+            <Layout>
+              <Static id="staReset" taborder="0" text="초기화" right="0" top="5" width="50" height="20" font="normal 12px 'Malgun Gothic'" color="#999999" cursor="pointer" textDecoration="underline"/>
+              <Static id="staPriceTitle" taborder="1" text="가격" left="0" top="0" width="100" height="30" font="bold 16px 'Malgun Gothic'" color="#111111"/>
+              <Button id="btnPrice02" taborder="2" text="5,000원 이하" left="0" top="36" width="120" height="36" borderRadius="18px" background="#ffffff" border="1px solid #dddddd" color="#333333" font="13px 'Malgun Gothic'" cursor="pointer"/>
+              <Button id="btnPrice03" taborder="3" text="10,000원 이하" left="0" top="82" width="130" height="36" borderRadius="18px" background="#ffffff" border="1px solid #dddddd" color="#333333" font="13px 'Malgun Gothic'" cursor="pointer"/>
+              <Button id="btnPrice04" taborder="4" text="20,000원 이하" left="0" top="128" width="130" height="36" borderRadius="18px" background="#ffffff" border="1px solid #dddddd" color="#333333" font="13px 'Malgun Gothic'" cursor="pointer"/>
+              <Edit id="edtPriceMin" taborder="5" left="0" top="230" width="110" height="40" borderRadius="8px" border="1px solid #dddddd" displaynulltext="0"/>
+              <Static id="staRange" taborder="6" text="~" left="120" top="230" width="20" height="40" textAlign="center" color="#999999"/>
+              <Edit id="edtPriceMax" taborder="7" left="150" top="230" width="110" height="40" borderRadius="8px" border="1px solid #dddddd" displaynulltext="최대"/>
+              <Button id="btnApply" taborder="8" text="적용하기" left="-5" top="291" width="264" height="29" borderRadius="10px" cssclass="Login"/>
+              <Button id="btnPrice05" taborder="9" text="50,000원 이하" left="0" top="174" width="130" height="33" borderRadius="18px" background="#ffffff" border="1px solid #dddddd" color="#333333" font="13px 'Malgun Gothic'" cursor="pointer"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divList" taborder="3" left="340" top="200" width="1200" height="1160" text="">
+          <Layouts>
+            <Layout>
+              <Div id="divItem00" taborder="0" left="0" top="0" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
+                <Layouts>
+                  <Layout>
+                    <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+                    <Static id="staTitle" taborder="1" text="닌텐도 스위치 OLED 풀박스 팝니다 (상태 S급)" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
+                    <Static id="staPrice" taborder="2" text="350,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
+                    <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="divItem01" taborder="1" left="300" top="0" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
+                <Layouts>
+                  <Layout>
+                    <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+                    <Static id="staTitle" taborder="1" text="닌텐도 칩 모동숲 마리오 팝니다" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
+                    <Static id="staPrice" taborder="2" text="40,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
+                    <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="divItem02" taborder="2" left="600" top="0" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
+                <Layouts>
+                  <Layout>
+                    <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+                    <Static id="staTitle" taborder="1" text="젤다의 전설 티어스 오브 더 킹덤" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
+                    <Static id="staPrice" taborder="2" text="50,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
+                    <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="divItem03" taborder="3" left="900" top="0" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
+                <Layouts>
+                  <Layout>
+                    <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+                    <Static id="staTitle" taborder="1" text="닌텐도 본체 부품용" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
+                    <Static id="staPrice" taborder="2" text="5,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
+                    <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="divItem04" taborder="4" left="1" top="390" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer" width="280">
+                <Layouts>
+                  <Layout>
+                    <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+                    <Static id="staTitle" taborder="1" text="닌텐도 스위치 OLED 풀박스 팝니다 (상태 S급)" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
+                    <Static id="staPrice" taborder="2" text="350,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
+                    <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="divItem05" taborder="5" left="300" top="391" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer" width="280">
+                <Layouts>
+                  <Layout>
+                    <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+                    <Static id="staTitle" taborder="1" text="닌텐도 스위치 OLED 풀박스 팝니다 (상태 S급)" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
+                    <Static id="staPrice" taborder="2" text="350,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
+                    <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="divItem06" taborder="6" left="601" top="390" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer" width="280">
+                <Layouts>
+                  <Layout>
+                    <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+                    <Static id="staTitle" taborder="1" text="닌텐도 스위치 OLED 풀박스 팝니다 (상태 S급)" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
+                    <Static id="staPrice" taborder="2" text="350,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
+                    <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="divItem07" taborder="7" left="901" top="391" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer" width="280">
+                <Layouts>
+                  <Layout>
+                    <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+                    <Static id="staTitle" taborder="1" text="닌텐도 스위치 OLED 풀박스 팝니다 (상태 S급)" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
+                    <Static id="staPrice" taborder="2" text="350,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
+                    <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="divItem08" taborder="8" left="1" top="780" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer" width="280">
+                <Layouts>
+                  <Layout>
+                    <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+                    <Static id="staTitle" taborder="1" text="닌텐도 스위치 OLED 풀박스 팝니다 (상태 S급)" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
+                    <Static id="staPrice" taborder="2" text="350,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
+                    <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="divItem09" taborder="9" left="301" top="780" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer" width="280">
+                <Layouts>
+                  <Layout>
+                    <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+                    <Static id="staTitle" taborder="1" text="닌텐도 스위치 OLED 풀박스 팝니다 (상태 S급)" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
+                    <Static id="staPrice" taborder="2" text="350,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
+                    <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="divItem10" taborder="10" left="602" top="780" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer" width="280">
+                <Layouts>
+                  <Layout>
+                    <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+                    <Static id="staTitle" taborder="1" text="닌텐도 스위치 OLED 풀박스 팝니다 (상태 S급)" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
+                    <Static id="staPrice" taborder="2" text="350,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
+                    <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="divItem11" taborder="11" left="902" top="780" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer" width="280">
+                <Layouts>
+                  <Layout>
+                    <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+                    <Static id="staTitle" taborder="1" text="닌텐도 스위치 OLED 풀박스 팝니다 (상태 S급)" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
+                    <Static id="staPrice" taborder="2" text="350,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
+                    <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divPage" taborder="4" text="Div00" left="388" width="784" url="Cmm::CmmPaging.xfdl" border="1px solid #e84133" height="40" top="1410"/>
+        <Div id="divSearch" taborder="5" left="395" top="40" width="770" height="60" background="#ffffff" borderRadius="30px" formscrolltype="none" boxShadow="0px 4px 15px rgba(0,0,0,0.05)" border="1px solid #e0e0e0" text="">
+          <Layouts>
+            <Layout>
+              <Static id="Static00" taborder="1" left="90" top="15" width="1" height="30" background="#dddddd"/>
+              <Button id="btnSearch" taborder="0" text="" top="10" right="10" width="40" height="36" borderRadius="15px" color="#ffffff" font="normal 700 30px/normal &quot;Malgun Gothic&quot;" cursor="pointer" textAlign="center" verticalAlign="middle" background="url('imagerc::Search.png') no-repeat left top" onclick="divSearch_btnSearch_onclick"/>
+              <Button id="btnHome" taborder="2" text="🍯" left="19" top="9" width="61" height="36" background="transparent" border="0px none" onclick="Button00_onclick" cursor="pointer" font="normal 30px/normal &quot;Arial&quot;"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Edit id="edtSearchKeyword" taborder="6" left="490" top="50" height="40" right="500" border="0px none" background="transparent" color="#333333" font="14px 'Malgun Gothic'" displaynulltext="검색어를 입력해주세요"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsSearch">
+        <ColumnInfo>
+          <Column id="records" type="INT" size="256"/>
+          <Column id="page" type="INT" size="256"/>
+          <Column id="recordsOffset" type="INT" size="256"/>
+          <Column id="pageCount" type="INT" size="256"/>
+          <Column id="SEARCH" type="STRING" size="256"/>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsCurrentItem">
+        <ColumnInfo>
+          <Column id="POST_ID" type="STRING" size="256"/>
+          <Column id="USER_ID" type="STRING" size="256"/>
+          <Column id="TITLE" type="STRING" size="256"/>
+          <Column id="CONTENT" type="STRING" size="256"/>
+          <Column id="PRICE" type="STRING" size="256"/>
+          <Column id="PURCHASE_URL" type="STRING" size="256"/>
+          <Column id="PHOTO_URL" type="STRING" size="256"/>
+          <Column id="REG_DATE" type="STRING" size="256"/>
+          <Column id="CATEGORY_ID" type="STRING" size="256"/>
+          <Column id="IS_WISH" type="STRING" size="256"/>
+          <Column id="LIKE_CNT" type="STRING" size="256"/>
+          <Column id="UNLIKE_CNT" type="STRING" size="256"/>
+          <Column id="MY_LIKE_STATE" type="STRING" size="256"/>
+          <Column id="POST_COMMEND" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsPagingInfo">
+        <ColumnInfo>
+          <Column id="totalCount" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[//=======================================페이징 처리 관련 함수들=================================================
+
+this.fvRecords = 12;          // 목록 갯수 (한 페이지에 보여줄 개수)
+this.fvPage = 0;              // 현재 페이지 번호
+this.fvRecordsOffset = 0;     // 시작 rownum (0부터 시작)
+this.fvTotalCount = 0;        // 전체 데이터 갯수 (DB에서 받아와야 함)
+this.fvPageCount = 10;
+
+ this.fnPageInit = function ()
+ {
+ 	//pagin info init setting
+	this.fvRecords=12;                                //목록갯수
+	this.fvPage=0;	 								 //페이지번호
+	this.fvRecordsOffset=0;							 //시작rownum
+	this.fvPageCount = 10;							 //실제표출페이지갯수
+	
+	this.fnSearch();
+ };
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.fnPageInit();//페이징 초기화
+	this.staResultTitle.text = "'"+nexacro.getApplication().gv_Search+"'"+" 검색 결과"
+	
+	
+	var strSvcUrl = "nexa/getMenuList.do";
+	var inData = "";
+	var strArg = "";
+	var outData = "ds_menu=ds_menu";
+
+	this.gfnTransaction("getMenuList"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+};
+
+this.fnSearch = function ()
+{
+	// 현재 선택된 카테고리 ID 가져오기
+    var objApp = nexacro.getApplication();
+    var sSearch = objApp.gv_Search; //검색한 문자열 받아오기
+	var sLoginId = objApp.gdsLoginUser.getColumn(0,"LOGIN_ID");
+	
+	this.dsSearch.clearData();
+	var nRow = this.dsSearch.addRow();
+	this.dsSearch.setColumn(nRow, "records", this.fvRecords);
+	this.dsSearch.setColumn(nRow, "recordsOffset", this.fvRecordsOffset);
+	this.dsSearch.setColumn(nRow, "SEARCH", sSearch);
+	this.dsSearch.setColumn(nRow, "LOGIN_ID", sLoginId);
+	
+	var strSvcUrl = "nexa/selectSearchPaging.do";
+	var inData = "dsSearch=dsSearch";
+	var strArg = "";
+	var outData = "dsCurrentItem=dsCurrentItem dsPagingInfo=dsPagingInfo";
+
+	this.gfnTransaction("selectSearchPaging"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+};
+
+this.fnPagingSetting = function ()
+{
+    var nTotalCount = nexacro.toNumber(this.dsPagingInfo.getColumn(0, "totalCount"));
+    var nRecords = 12;
+    var nPage = nexacro.toNumber(this.fvPage);
+    
+    //CmmPaging.xfdl의 함수호출
+    this.divPage.form.fnCreatePage("fnPagingCallback", nTotalCount, nRecords, nPage, 10);
+};
+//==================================================카드한테 값 부여하는 함수================================================
+this.fn_SetResultData = function()
+{
+    var nTotalCnt = this.dsCurrentItem.rowcount; // 현재 페이지에 추출된 아이템 수
+    var nDivCnt = 12; // 화면에 만들어둔 Div 개수
+
+    for(var i=0; i<nDivCnt; i++)
+    {
+        //Div 컴포넌트 찾기
+        var sDivId = "divItem" + ((i < 10) ? "0" + i : i);
+        var objDiv = this.divList.form.components[sDivId];
+        
+        // 만약 Div를 덜 만들었다면 에러 안 나게 건너뜀
+        if(objDiv == undefined) continue;
+
+        // 데이터가 있는 경우 (보여주고 값 넣기)
+        if(i < nTotalCnt) 
+        {
+            objDiv.set_visible(true); // 보인다
+            
+            // 데이터셋에서 값 꺼내기
+            var sTitle = this.dsCurrentItem.getColumn(i, "TITLE");
+            var nPrice = this.dsCurrentItem.getColumn(i, "PRICE");
+            var sLoc   = this.dsCurrentItem.getColumn(i, "USER_ID"); 
+            var sDate  = this.dsCurrentItem.getColumn(i, "REG_DATE");
+            var sImgUrl = this.dsCurrentItem.getColumn(i, "PHOTO_URL");
+            
+            var sFullImgUrl = sImgUrl; 
+
+            // 안쪽 컴포넌트에 값
+            objDiv.form.staTitle.set_text(sTitle);
+            
+            // 가격 3자리 콤마 찍기
+            var sFormatPrice = nexacro.toNumber(nPrice).toLocaleString() + "원";
+            objDiv.form.staPrice.set_text(sFormatPrice);
+            
+            // 글쓴이/날짜 조합
+            objDiv.form.staLoc.set_text(sLoc + " · " + sDate);
+            
+            // 이미지 세팅
+            objDiv.form.imgView.set_image(sFullImgUrl);
+            
+            // 나중에 클릭했을 때 상세페이지 가기 위해 DIV에 POST_ID를 숨김
+            var sPostId = this.dsCurrentItem.getColumn(i, "POST_ID");
+            objDiv.postId = sPostId; 
+        }
+        // 데이터가 없는 경우 숨기기
+        else 
+        {
+            objDiv.set_visible(false); // 데이터 없으면 빈 박스 숨김
+        }
+    }
+};
+//=========================================검색버튼 눌렀을시===============================================================
+
+this.divSearch_btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var objApp = nexacro.getApplication();
+	objApp.gv_Search = this.edtSearchKeyword.value;
+	this.reload();
+};
+
+//==========================================콜백함수====================================================================
+this.fnCallback = function (svcID, errCd, errMsg)
+{
+	if(svcID=="selectSearchPaging")
+	{
+		this.fnPagingSetting();
+		this.fn_SetResultData();
+	}
+};
+
+this.fnPagingCallback = function(nPage, nRecordsOffset)
+{
+	this.fvPage = nPage; 				
+	this.fvRecordsOffset = nRecordsOffset;
+	
+	this.fnSearch(); //조회함수호출
+};
+
+]]></Script>
+  </Form>
+</FDL>

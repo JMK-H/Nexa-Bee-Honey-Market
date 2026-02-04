@@ -3076,6 +3076,7 @@
     <Variable id="gv_var1" initval="App Variable Value1"/>
     <Variable id="gvLogIn"/>
     <Variable id="gv_MenuId"/>
+    <Variable id="gv_Search"/>
   </Variables>
   <DataObjects/>
 </AppVariables>

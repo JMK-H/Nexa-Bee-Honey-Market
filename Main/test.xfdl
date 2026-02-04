@@ -1,44 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="test" width="1280" height="720" titletext="New Form">
+  <Form id="FooterComponent" width="1600" height="400" titletext="Dark Footer" background="#ffffff">
     <Layouts>
-      <Layout height="720" width="1280">
-        <Grid id="Grid00" taborder="0" left="125" top="46" width="375" height="222" binddataset="ds_users">
-          <Formats>
-            <Format id="default">
-              <Columns>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-              </Columns>
-              <Rows>
-                <Row band="head" size="24"/>
-                <Row size="24"/>
-              </Rows>
-              <Band id="head">
-                <Cell text="LOGIN_ID"/>
-                <Cell col="1" text="LOGIN_PW"/>
-                <Cell col="2" text="LOGIN_NAME"/>
-                <Cell col="3" text="LOGIN_NICKNAME"/>
-                <Cell col="4" text="LOGIN_EMAIL"/>
-                <Cell col="5" text="LOGIN_STATUS"/>
-              </Band>
-              <Band id="body">
-                <Cell text="bind:LOGIN_ID"/>
-                <Cell col="1" text="bind:LOGIN_PW"/>
-                <Cell col="2" text="bind:LOGIN_NAME"/>
-                <Cell col="3" text="bind:LOGIN_NICKNAME"/>
-                <Cell col="4" text="bind:LOGIN_EMAIL"/>
-                <Cell col="5" text="bind:LOGIN_STATUS"/>
-              </Band>
-            </Format>
-          </Formats>
-        </Grid>
-        <Button id="Button00" taborder="1" text="조회" left="552" top="64" width="114" height="79" onclick="Button00_onclick"/>
-        <Button id="Button01" taborder="2" text="중복체크" left="554" top="173" width="114" height="54" onclick="Button01_onclick"/>
+      <Layout height="400" width="1600">
+        <Div id="divFooter" taborder="0" left="0" top="0" width="100%" height="380" background="antiquewhite" color="#888888" font="normal 13px/20px 'Malgun Gothic'">
+          <Layouts>
+            <Layout>
+              <Static id="staLink01" taborder="0" text="당근페이&#13;&#10;팀문화&#13;&#10;서비스 소개&#13;&#10;블로그&#13;&#10;채용" left="450" top="40" width="120" height="120" font="bold 13px 'Malgun Gothic'" color="#cccccc" verticalAlign="top"/>
+              <Static id="staLink02" taborder="1" text="부동산&#13;&#10;중고차&#13;&#10;알바/과외/레슨&#13;&#10;동네업체&#13;&#10;동네생활&#13;&#10;모임&#13;&#10;채팅하기" left="600" top="40" width="120" height="160" font="bold 13px 'Malgun Gothic'" color="#cccccc" verticalAlign="top"/>
+              <Static id="staLink03" taborder="2" text="제휴 문의&#13;&#10;광고 문의" left="750" top="40" width="120" height="120" font="bold 13px 'Malgun Gothic'" color="#cccccc" verticalAlign="top"/>
+              <Static id="staLink04" taborder="3" text="United States ↗&#13;&#10;United Kingdom ↗&#13;&#10;日本 ↗" left="900" top="40" width="150" height="120" font="normal 13px 'Malgun Gothic'" color="#888888" verticalAlign="top"/>
+              <Static id="staInquiryTitle" taborder="4" text="문의" left="450" top="180" width="100" height="20" font="bold 13px 'Malgun Gothic'" color="#cccccc"/>
+              <Static id="staInquiryList" taborder="5" text="IR&#13;&#10;PR&#13;&#10;고객센터" left="450" top="210" width="100" height="70" font="bold 13px 'Malgun Gothic'" color="#cccccc" verticalAlign="top"/>
+              <Static id="staLine" taborder="6" left="50" top="290" right="50" height="1" background="#333333"/>
+              <Static id="staCompanyInfo" taborder="7" text="(주) 당근마켓&#13;&#10;대표 김용현, 황도연  |  사업자번호 375-87-00088&#13;&#10;직업정보제공사업 신고번호 J1200020200016&#13;&#10;통신판매업 신고번호 2021-서울서초-2875&#13;&#10;호스팅 사업자 Amazon Web Service(AWS)&#13;&#10;주소 서울특별시 구로구 디지털로 300, 10층 (당근서비스)&#13;&#10;전화 1544-9796  |  고객문의 cs@daangnservice.com" left="50" top="310" width="600" height="120" font="normal 12px/18px 'Malgun Gothic'" color="#666666" verticalAlign="top"/>
+              <Static id="staPolicy" taborder="8" text="이용약관     개인정보처리방침     운영정책     위치기반서비스 이용약관     이용자보호 비전과 계획     청소년보호정책" left="50" top="430" width="800" height="30" font="normal 12px 'Malgun Gothic'" color="#888888"/>
+              <Static id="staPolicy_Refined" taborder="9" text="이용약관    |    개인정보처리방침    |    운영정책    |    위치기반서비스 이용약관" left="50" bottom="20" width="600" height="20" font="bold 12px 'Malgun Gothic'" color="#aaaaaa"/>
+            </Layout>
+          </Layouts>
+        </Div>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
@@ -82,17 +62,5 @@ this.fnCallback = function ()
 	alert(this.id_count);
 };
 ]]></Script>
-    <Objects>
-      <Dataset id="ds_users">
-        <ColumnInfo>
-          <Column id="LOGIN_ID" type="STRING" size="256"/>
-          <Column id="LOGIN_PW" type="STRING" size="256"/>
-          <Column id="LOGIN_NAME" type="STRING" size="256"/>
-          <Column id="LOGIN_NICKNAME" type="STRING" size="256"/>
-          <Column id="LOGIN_EMAIL" type="STRING" size="256"/>
-          <Column id="LOGIN_STATUS" type="STRING" size="256"/>
-        </ColumnInfo>
-      </Dataset>
-    </Objects>
   </Form>
 </FDL>
