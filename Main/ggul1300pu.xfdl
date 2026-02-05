@@ -11,7 +11,8 @@
         <Static id="StaticLine" taborder="5" left="390" top="150" right="20" height="2" background="#f0f0f0"/>
         <Static id="StaReporterInfo" taborder="6" text="ㅇㅇㅇ" left="390" top="170" right="20" height="25" color="black" font="bold 13px 'Malgun Gothic'"/>
         <TextArea id="TxtReportCommend" taborder="7" left="390" top="200" right="20" bottom="80" background="#fffdf5" border="1px solid #ffe08c" borderRadius="5px" color="#555555" font="13px 'Malgun Gothic'" padding="10px" wordWrap="char" readonly="true" value="쉽게 망가지지 않아요" onchanged="TxtReportCommend_onchanged"/>
-        <Button id="Button00" taborder="8" text="닫기" left="680" top="440" width="100" height="40" cssclass="Login" onclick="Button00_onclick" borderRadius="10px"/>
+        <Button id="Button00" taborder="8" text="닫기" left="560" top="440" width="100" height="40" onclick="Button00_onclick" borderRadius="5px" background="#ffffff" border="1px solid #999999" font="14px 'Malgun Gothic'"/>
+        <Button id="btnBuy" taborder="9" text="구매요청" left="680" top="440" width="100" height="40" borderRadius="5px" border="1px solid #999999" font="14px 'Malgun Gothic'" cssclass="Login" onclick="btnBuy_onclick"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
@@ -19,12 +20,15 @@ this.Form_ReportDetail_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInf
 {
 	//부모에게서 받은 파라미터 받기
 	var sTitle = this.getOwnerFrame().sTitle;
+	var sPostId = this.getOwnerFrame().sPostId;
 	var sImageUrl = this.getOwnerFrame().sImageUrl; 
 	var sDate = this.getOwnerFrame().sDate;
 	var sWriter = this.getOwnerFrame().sWriter;
 	var sPrice = this.getOwnerFrame().sPrice;
 	var sCategoryName = this.getOwnerFrame().sCategoryName;
 	var sCommend = this.getOwnerFrame().sCommend;
+	var sStatus = this.getOwnerFrame().sStatus; //예약중, 구매가능 등
+	var sBuyerId =  this.getOwnerFrame().sBuyerId; //구매자
 	
 	//컴포넌트에 값 넣기
 	this.StaTitle.set_text(sTitle);
@@ -34,12 +38,130 @@ this.Form_ReportDetail_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInf
 	this.StaCategory.set_text(sCategoryName);
 	this.TxtReportCommend.set_value(sCommend);
 	this.ImgPost.set_image(sImageUrl);
+	
+	this.fn_SetButtonState(sStatus, sWriter, sBuyerId); //구매요청 버튼 css조절
+};
+//구매요청 버튼 css조절 메서드
+this.fn_SetButtonState = function(sStatus, sSellerId, sBuyerId)
+{
+    // 내 로그인 ID 가져오기
+    var objApp = nexacro.getApplication();
+    var sMyId  = objApp.gdsLoginUser.getColumn(0, "LOGIN_ID");
+    
+    // 내가 판매자(주인)일 때 -> 구매 버튼 숨기기
+    if (sMyId == sSellerId) {
+        this.btnBuy.set_visible(false); 
+        return;
+    }
+    
+    this.btnBuy.set_visible(true); // 일단 보임
+    
+    // 상태별 디자인 변경
+    if (sStatus == "ING") {
+        // [판매중]
+        this.btnBuy.set_enable(true);
+        this.btnBuy.set_text("구매 요청");
+        this.btnBuy.set_background("#f5a623");
+    }
+    else if (sStatus == "RESERVED") {
+        // 예약중
+        if (sMyId == sBuyerId) {
+            // 내가 예약함 -> 승인 대기
+            this.btnBuy.set_enable(false);
+            this.btnBuy.set_text("승인 대기중");
+            this.btnBuy.set_background("#666666"); 
+        } else {
+            // 남이 예약함 -> 구매 불가
+            this.btnBuy.set_enable(false);
+            this.btnBuy.set_text("예약 불가");
+            this.btnBuy.set_background("#dddddd"); 
+        }
+    }
+    else if (sStatus == "END") {
+        //판매완료
+        this.btnBuy.set_enable(false);
+        this.btnBuy.set_text("판매 완료");
+        this.btnBuy.set_background("#d00611"); 
+    }
+};
+
+//구매하기 버튼
+this.btnBuy_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var objApp = nexacro.getApplication();
+    
+    var nPrice  = nexacro.toNumber(this.getOwnerFrame().sPrice);
+    var nMyCash = nexacro.toNumber(objApp.gdsLoginUser.getColumn(0, "LOGIN_CASH"));
+    
+    if (nMyCash < nPrice) {
+        var nNeed = nPrice - nMyCash;
+        this.alert("잔액이 부족합니다.\n(부족한 금액: " + nexacro.toNumber(nNeed).toLocaleString() + "원)");
+        return;
+    }
+    if (!this.confirm("정말 구매를 요청하시겠습니까?\n(확인 시 잔액이 차감됩니다.)")) {
+        return;
+    }
+    //트랜잭션 쏘기	
+    this.fn_RequestPurchase(nPrice);
+};
+
+//구매하기 트랜잭션
+this.fn_RequestPurchase = function(nPrice)
+{
+    var objApp = nexacro.getApplication();
+    var sLoginId = objApp.gdsLoginUser.getColumn(0, "LOGIN_ID");
+	var sPostId = this.getOwnerFrame().sPostId;
+    
+	this.dsInData.clearData();
+	var nRow = this.dsInData.addRow();
+	this.dsInData.setColumn(nRow, "LOGIN_ID", sLoginId);
+	this.dsInData.setColumn(nRow, "POST_ID", sPostId)
+	
+    var strSvcUrl = "nexa/requestPurchase.do";
+    var inData = "dsInData=dsInData";
+    var strArg = "";
+    var outData = "";
+
+    this.gfnTransaction("requestPurchase"
+    					, strSvcUrl
+    					, inData //이클립스받기=넥사크로주기
+    					, outData //넥사크로받기=이클립스주기
+    					, strArg
+    					, "fnCallback"
+    					, true);
 };
 
 this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.close();
 };
+
+
+//=================================================트랜잭션 콜백=====================================================
+
+this.fnCallback = function (svcID, errCd, errMsg)
+{
+	if(svcID=="requestPurchase")
+	{
+		this.alert("예약이 완료되었습니다!\n판매자가 승인하면 거래가 확정됩니다.");
+        
+        var objApp = nexacro.getApplication();
+        var nCurCash = nexacro.toNumber(objApp.gdsLoginUser.getColumn(0, "LOGIN_CASH"));
+        var nPrice   = nexacro.toNumber(this.getOwnerFrame().sPrice);
+        objApp.gdsLoginUser.setColumn(0, "LOGIN_CASH", nCurCash - nPrice);
+        
+        this.close();
+    
+	}
+};
 ]]></Script>
+    <Objects>
+      <Dataset id="dsInData">
+        <ColumnInfo>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+          <Column id="POST_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
   </Form>
 </FDL>

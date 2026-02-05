@@ -293,14 +293,6 @@ this.fnCallback = function (svcId, errCd, errMsg)
 	}
 };]]></Script>
     <Objects>
-      <Dataset id="dsExample">
-        <ColumnInfo>
-          <Column id="fileimg" type="STRING" size="256"/>
-          <Column id="class_no" type="STRING" size="256"/>
-          <Column id="location_name" type="STRING" size="256"/>
-          <Column id="class_user_cnt" type="STRING" size="256"/>
-        </ColumnInfo>
-      </Dataset>
       <Dataset id="dsSearch">
         <ColumnInfo>
           <Column id="records" type="INT" size="256"/>
@@ -318,6 +310,8 @@ this.fnCallback = function (svcId, errCd, errMsg)
           <Column id="PHOTO_URL" type="STRING" size="256"/>
           <Column id="REG_DATE" type="STRING" size="256"/>
           <Column id="LOGIN_ID" type="STRING" size="256"/>
+          <Column id="BUYER_ID" type="STRING" size="256"/>
+          <Column id="POST_STATUS" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
       <Dataset id="dsPagingInfo">

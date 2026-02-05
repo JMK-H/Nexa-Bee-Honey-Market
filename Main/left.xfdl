@@ -18,7 +18,7 @@
             </Format>
           </Formats>
         </Grid>
-        <Div id="Div00" taborder="1" text="Div00" left="0" top="0" height="160" right="0" url="Main::ggul1460fm.xfdl" border="1px solid #f5a623" borderRadius="10px"/>
+        <Div id="Div00" taborder="1" text="Div00" left="0" top="0" height="160" right="0" url="Main::ggul1460fm.xfdl" border="1px solid #f5a623" borderRadius="10px" formscrolltype="none" formscrollbartype="none none"/>
       </Layout>
     </Layouts>
     <Objects>

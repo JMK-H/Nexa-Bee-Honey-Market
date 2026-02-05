@@ -193,6 +193,8 @@
           <Column id="UNLIKE_CNT" type="STRING" size="256"/>
           <Column id="MY_LIKE_STATE" type="STRING" size="256"/>
           <Column id="POST_COMMEND" type="STRING" size="256"/>
+          <Column id="BUYER_ID" type="STRING" size="256"/>
+          <Column id="POST_STATUS" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
       <Dataset id="dsPagingInfo">
@@ -776,6 +778,7 @@ this.fn_ZzimClick = function (obj:nexacro.Button, e:nexacro.ClickEventInfo)//찜
 this.divList_btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	var nRow = obj.u_row;
+	var sPostId = this.dsCurrentItem.getColumn(nRow, "POST_ID");
     var sTitle = this.dsCurrentItem.getColumn(nRow, "TITLE");
 	var sImageUrl = this.dsCurrentItem.getColumn(nRow, "PHOTO_URL");
 	var sDate = this.dsCurrentItem.getColumn(nRow, "REG_DATE");
@@ -784,11 +787,13 @@ this.divList_btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInf
 	var sCommend = this.dsCurrentItem.getColumn(nRow, "POST_COMMEND");
 	var sCategoryId = this.dsCurrentItem.getColumn(nRow, "CATEGORY_ID"); //넘기는 것 아님
 	var sCategoryName = this.ds_menu.lookup("MENU_ID", sCategoryId, "MENU_NAME");
+	var sStatus = this.dsCurrentItem.getColumn(nRow, "POST_STATUS");
+	var sBuyerId = this.dsCurrentItem.getColumn(nRow, "BUYER_ID");
 	
 	var sPopupId = "sDetail"; //Popup ID
 	var sUrl = "Main::ggul1300pu.xfdl"; //팝업 URL
 	var oArg = {sTitle:sTitle, sImageUrl:sImageUrl, sDate:sDate, sPrice:sPrice, sWriter:sWriter,
-				sCommend:sCommend, sCategoryName:sCategoryName}; //전달값
+				sCommend:sCommend, sCategoryName:sCategoryName, sStatus:sStatus, sBuyerId:sBuyerId, sPostId:sPostId}; //전달값
 	var sPopupCallback = "fnCallPopup";
 	var oOption = {title:"모달 팝업", titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
 
@@ -813,6 +818,16 @@ this.fnPagingCallback = function(nPage, nRecordsOffset)
 	
 	this.fnSearch(); //조회함수호출
 };
-]]></Script>
+//==============================================팝업 콜백==========================================================
+
+this.fnCallPopup = function (svcID, rtn)
+{
+   
+	if(svcID == "sDetail")
+	{
+		this.fnSearch();
+	}
+
+};]]></Script>
   </Form>
 </FDL>
