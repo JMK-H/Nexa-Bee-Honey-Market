@@ -5,19 +5,22 @@
       <Layout height="1450" width="1600">
         <Static id="staResultTitle" taborder="0" text="&quot;닌텐도&quot; 검색 결과" left="230" top="120" width="800" height="40" font="bold 24px 'Malgun Gothic'" color="#111111"/>
         <Static id="staLine01" taborder="1" left="30" top="180" right="70" height="1" background="#eeeeee"/>
-        <Div id="divFilter" taborder="2" left="40" top="200" width="274" height="650" text="">
+        <Div id="divFilter" taborder="2" left="26" top="185" width="274" height="650" text="">
           <Layouts>
             <Layout>
-              <Static id="staReset" taborder="0" text="초기화" right="0" top="5" width="50" height="20" font="normal 12px 'Malgun Gothic'" color="#999999" cursor="pointer" textDecoration="underline"/>
-              <Static id="staPriceTitle" taborder="1" text="가격" left="0" top="0" width="100" height="30" font="bold 16px 'Malgun Gothic'" color="#111111"/>
-              <Button id="btnPrice02" taborder="2" text="5,000원 이하" left="0" top="36" width="120" height="36" borderRadius="18px" background="#ffffff" border="1px solid #dddddd" color="#333333" font="13px 'Malgun Gothic'" cursor="pointer"/>
-              <Button id="btnPrice03" taborder="3" text="10,000원 이하" left="0" top="82" width="130" height="36" borderRadius="18px" background="#ffffff" border="1px solid #dddddd" color="#333333" font="13px 'Malgun Gothic'" cursor="pointer"/>
-              <Button id="btnPrice04" taborder="4" text="20,000원 이하" left="0" top="128" width="130" height="36" borderRadius="18px" background="#ffffff" border="1px solid #dddddd" color="#333333" font="13px 'Malgun Gothic'" cursor="pointer"/>
-              <Edit id="edtPriceMin" taborder="5" left="0" top="230" width="110" height="40" borderRadius="8px" border="1px solid #dddddd" displaynulltext="0"/>
-              <Static id="staRange" taborder="6" text="~" left="120" top="230" width="20" height="40" textAlign="center" color="#999999"/>
-              <Edit id="edtPriceMax" taborder="7" left="150" top="230" width="110" height="40" borderRadius="8px" border="1px solid #dddddd" displaynulltext="최대"/>
-              <Button id="btnApply" taborder="8" text="적용하기" left="-5" top="291" width="264" height="29" borderRadius="10px" cssclass="Login"/>
-              <Button id="btnPrice05" taborder="9" text="50,000원 이하" left="0" top="174" width="130" height="33" borderRadius="18px" background="#ffffff" border="1px solid #dddddd" color="#333333" font="13px 'Malgun Gothic'" cursor="pointer"/>
+              <Static id="staSortTitle" taborder="1" text="정렬" left="15" top="5" width="100" height="30" font="bold 14px 'Malgun Gothic'" color="#111111" onclick="divFilter_staSortTitle_onclick"/>
+              <Button id="btnSortAsc" taborder="2" text="낮은가격순" left="5" top="40" width="125" height="36" borderRadius="5px" border="1px solid #dddddd" background="#ffffff" cursor="pointer" onclick="divFilter_btnSortAsc_onclick"/>
+              <Button id="btnSortDesc" taborder="3" text="높은가격순" left="145" top="40" width="125" height="36" borderRadius="5px" border="1px solid #dddddd" background="#ffffff" cursor="pointer" onclick="divFilter_btnSortDesc_onclick"/>
+              <Static id="staReset" taborder="0" text="초기화" right="5" top="5" width="50" height="20" font="normal 12px 'Malgun Gothic'" color="#999999" cursor="pointer" textDecoration="underline" onclick="divFilter_staReset_onclick"/>
+              <Static id="staPriceTitle" taborder="1" text="가격" left="15" top="91" width="100" height="30" font="bold 14px 'Malgun Gothic'" color="#111111"/>
+              <Button id="btnPrice02" taborder="2" text="5,000원 이하" left="15" top="131" width="120" height="36" borderRadius="18px" background="#ffffff" border="1px solid #dddddd" color="#333333" font="13px 'Malgun Gothic'" cursor="pointer" u_price="5000" onclick="btnPricePreset_onclick"/>
+              <Button id="btnPrice03" taborder="3" text="10,000원 이하" left="15" top="177" width="130" height="36" borderRadius="18px" background="#ffffff" border="1px solid #dddddd" color="#333333" font="13px 'Malgun Gothic'" cursor="pointer" u_price="10000" onclick="btnPricePreset_onclick"/>
+              <Button id="btnPrice04" taborder="4" text="20,000원 이하" left="15" top="223" width="130" height="36" borderRadius="18px" background="#ffffff" border="1px solid #dddddd" color="#333333" font="13px 'Malgun Gothic'" cursor="pointer" u_price="20000" onclick="btnPricePreset_onclick"/>
+              <Edit id="edtPriceMin" taborder="5" left="15" top="321" width="110" height="40" borderRadius="8px" border="1px solid #dddddd" displaynulltext="0"/>
+              <Static id="staRange" taborder="6" text="~" left="126" top="321" width="20" height="40" textAlign="center" color="#999999"/>
+              <Edit id="edtPriceMax" taborder="7" left="150" top="321" width="110" height="40" borderRadius="8px" border="1px solid #dddddd" displaynulltext="최대"/>
+              <Button id="btnApply" taborder="8" text="적용하기" left="15" top="382" width="245" height="29" borderRadius="10px" cssclass="Login" onclick="divFilter_btnApply_onclick"/>
+              <Button id="btnPrice05" taborder="9" text="50,000원 이하" left="15" top="269" width="130" height="33" borderRadius="18px" background="#ffffff" border="1px solid #dddddd" color="#333333" font="13px 'Malgun Gothic'" cursor="pointer" u_price="50000" onclick="btnPricePreset_onclick"/>
             </Layout>
           </Layouts>
         </Div>
@@ -27,7 +30,7 @@
               <Div id="divItem00" taborder="0" left="0" top="0" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
                 <Layouts>
                   <Layout>
-                    <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+                    <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none" text=""/>
                     <Static id="staTitle" taborder="1" text="닌텐도 스위치 OLED 풀박스 팝니다 (상태 S급)" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
                     <Static id="staPrice" taborder="2" text="350,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
                     <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
@@ -169,6 +172,9 @@
           <Column id="pageCount" type="INT" size="256"/>
           <Column id="SEARCH" type="STRING" size="256"/>
           <Column id="LOGIN_ID" type="STRING" size="256"/>
+          <Column id="MAX_PRICE" type="STRING" size="256"/>
+          <Column id="MIN_PRICE" type="STRING" size="256"/>
+          <Column id="SORT_TYPE" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
       <Dataset id="dsCurrentItem">
@@ -202,6 +208,11 @@ this.fvPage = 0;              // 현재 페이지 번호
 this.fvRecordsOffset = 0;     // 시작 rownum (0부터 시작)
 this.fvTotalCount = 0;        // 전체 데이터 갯수 (DB에서 받아와야 함)
 this.fvPageCount = 10;
+this.fv_selectedMaxPrice = ""; //선택된 가격변수필터
+this.fv_selectedMinPrice = "";
+this.fv_currBtn = null;
+this.fv_currSortBtn = null;
+this.fv_sortType = "DATE"; //기본정렬은 날짜순
 
  this.fnPageInit = function ()
  {
@@ -246,6 +257,9 @@ this.fnSearch = function ()
 	this.dsSearch.setColumn(nRow, "recordsOffset", this.fvRecordsOffset);
 	this.dsSearch.setColumn(nRow, "SEARCH", sSearch);
 	this.dsSearch.setColumn(nRow, "LOGIN_ID", sLoginId);
+	this.dsSearch.setColumn(nRow, "MAX_PRICE", this.fv_selectedMaxPrice);
+	this.dsSearch.setColumn(nRow, "MIN_PRICE", this.fv_selectedMinPrice);
+	this.dsSearch.setColumn(nRow, "SORT_TYPE", this.fv_sortType);
 	
 	var strSvcUrl = "nexa/selectSearchPaging.do";
 	var inData = "dsSearch=dsSearch";
@@ -329,6 +343,162 @@ this.divSearch_btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEv
 {
 	var objApp = nexacro.getApplication();
 	objApp.gv_Search = this.edtSearchKeyword.value;
+	this.fvPage = 0;
+    this.fvRecordsOffset = 0;
+    
+    this.fnSearch();
+};
+//========================================낮은 가격순, 높은 가격순 클릭이벤트===================
+//낮은가격순
+this.divFilter_btnSortAsc_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{  
+	//이미 눌려있던 버튼 누르면
+    if (this.fv_currSortBtn == obj) 
+    {
+        this.fv_sortType = "DATE";
+		this.fv_currSortBtn = null;
+        this.fn_setSortButtonStyle(null); 
+    } 
+    else 
+    {
+        this.fv_sortType = "ASC";
+		this.fv_currSortBtn = obj;
+        this.fn_setSortButtonStyle(obj);    
+    }
+	
+    
+    this.fvPage = 0;
+    this.fvRecordsOffset = 0;
+    this.fnSearch();
+};
+
+//높은가격순
+this.divFilter_btnSortDesc_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+     // Descending
+    
+    //이미 눌려있던 버튼 누르면
+    if (this.fv_currSortBtn == obj) 
+    {
+        this.fv_sortType = "DATE";
+		this.fv_currSortBtn = null;
+        this.fn_setSortButtonStyle(null); 
+    } 
+    else 
+    {
+        this.fv_sortType = "DESC";
+		this.fv_currSortBtn = obj;
+        this.fn_setSortButtonStyle(obj);    
+    } 
+    
+    this.fvPage = 0;
+    this.fvRecordsOffset = 0;
+    this.fnSearch();
+};
+
+// 버튼 스타일 관리 함수
+this.fn_setSortButtonStyle = function(objSelectedBtn)
+{
+
+    var arrBtns = [
+        this.divFilter.form.btnSortAsc,
+        this.divFilter.form.btnSortDesc
+    ];
+    
+    for(var i=0; i<arrBtns.length; i++) {
+        arrBtns[i].set_background("#ffffff");          
+        arrBtns[i].set_border("1px solid #e0e0e0");     
+        arrBtns[i].set_color("#555555");                
+        arrBtns[i].set_font("normal 13px 'Malgun Gothic'"); 
+    }
+    
+    if(objSelectedBtn != null) {
+        objSelectedBtn.set_background("#fff8ed");
+        
+        objSelectedBtn.set_border("1px solid #d98205"); 
+        objSelectedBtn.set_color("#d98205");            
+        
+        objSelectedBtn.set_font("bold 13px 'Malgun Gothic'"); 
+    }
+};
+//==========================================가격필터버튼 클릭이벤트==============================
+
+this.btnPricePreset_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+    var nClickPrice = obj.u_price; 
+    
+	//이미 눌려있던 버튼 누르면
+    if (this.fv_currBtn == obj) 
+    {
+        this.fv_selectedMaxPrice = "";
+		this.fv_currBtn = null;
+        this.fn_setButtonStyle(null);  
+        
+    } 
+    else 
+    {
+        this.fv_selectedMaxPrice = nClickPrice;
+		this.fv_currBtn = obj;
+        this.fn_setButtonStyle(obj);         
+    }
+    this.divFilter.form.edtPriceMin.value = "";
+	this.divFilter.form.edtPriceMax.value = ""
+    this.fvPage = 0;
+    this.fvRecordsOffset = 0;
+    this.fnSearch(); 
+}
+
+// 버튼 스타일 관리 함수
+this.fn_setButtonStyle = function(objSelectedBtn)
+{
+
+    var arrBtns = [
+        this.divFilter.form.btnPrice05, 
+        this.divFilter.form.btnPrice02, 
+        this.divFilter.form.btnPrice03, 
+        this.divFilter.form.btnPrice04
+    ];
+    
+    for(var i=0; i<arrBtns.length; i++) {
+        arrBtns[i].set_background("#ffffff");          
+        arrBtns[i].set_border("1px solid #e0e0e0");     
+        arrBtns[i].set_color("#555555");                
+        arrBtns[i].set_font("normal 13px 'Malgun Gothic'"); 
+    }
+    
+    if(objSelectedBtn != null) {
+        objSelectedBtn.set_background("#fff8ed");
+        
+        objSelectedBtn.set_border("1px solid #d98205"); 
+        objSelectedBtn.set_color("#d98205");            
+        
+        objSelectedBtn.set_font("bold 13px 'Malgun Gothic'"); 
+    }
+};
+//=======================================사용자 입력 가격 필터 조회 버튼========================
+
+this.divFilter_btnApply_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sInputMin = this.divFilter.form.edtPriceMin.value;
+    var sInputMax = this.divFilter.form.edtPriceMax.value;
+	
+	if(this.gfnIsNull(sInputMin)) sInputMin = "";
+    if(this.gfnIsNull(sInputMax)) sInputMax = "";
+	
+	this.fv_selectedMinPrice = sInputMin;
+    this.fv_selectedMaxPrice = sInputMax;
+	
+	this.fv_currBtn = null;
+	this.fn_setButtonStyle(null);
+	
+	this.fvPage = 0;
+    this.fvRecordsOffset = 0;
+    this.fnSearch();
+	
+};
+
+this.divFilter_staReset_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
 	this.reload();
 };
 
@@ -349,7 +519,6 @@ this.fnPagingCallback = function(nPage, nRecordsOffset)
 	
 	this.fnSearch(); //조회함수호출
 };
-
 ]]></Script>
   </Form>
 </FDL>
