@@ -27,17 +27,7 @@
         <Div id="divList" taborder="3" left="340" top="200" width="1200" height="1160" text="">
           <Layouts>
             <Layout>
-              <Div id="divItem00" taborder="0" left="0" top="0" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
-                <Layouts>
-                  <Layout>
-                    <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none" text=""/>
-                    <Static id="staTitle" taborder="1" text="닌텐도 스위치 OLED 풀박스 팝니다 (상태 S급)" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
-                    <Static id="staPrice" taborder="2" text="350,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
-                    <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
-                  </Layout>
-                </Layouts>
-              </Div>
-              <Div id="divItem01" taborder="1" left="300" top="0" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
+              <Div id="divItem01" taborder="0" left="300" top="0" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
                 <Layouts>
                   <Layout>
                     <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
@@ -47,7 +37,7 @@
                   </Layout>
                 </Layouts>
               </Div>
-              <Div id="divItem02" taborder="2" left="600" top="0" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
+              <Div id="divItem02" taborder="1" left="600" top="0" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
                 <Layouts>
                   <Layout>
                     <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
@@ -57,7 +47,7 @@
                   </Layout>
                 </Layouts>
               </Div>
-              <Div id="divItem03" taborder="3" left="900" top="0" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
+              <Div id="divItem03" taborder="2" left="900" top="0" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
                 <Layouts>
                   <Layout>
                     <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
@@ -67,7 +57,7 @@
                   </Layout>
                 </Layouts>
               </Div>
-              <Div id="divItem04" taborder="4" left="1" top="390" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer" width="280">
+              <Div id="divItem04" taborder="3" left="1" top="390" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer" width="280">
                 <Layouts>
                   <Layout>
                     <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
@@ -77,7 +67,7 @@
                   </Layout>
                 </Layouts>
               </Div>
-              <Div id="divItem05" taborder="5" left="300" top="391" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer" width="280">
+              <Div id="divItem05" taborder="4" left="300" top="391" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer" width="280">
                 <Layouts>
                   <Layout>
                     <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
@@ -87,7 +77,7 @@
                   </Layout>
                 </Layouts>
               </Div>
-              <Div id="divItem06" taborder="6" left="601" top="390" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer" width="280">
+              <Div id="divItem06" taborder="5" left="601" top="390" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer" width="280">
                 <Layouts>
                   <Layout>
                     <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
@@ -97,7 +87,7 @@
                   </Layout>
                 </Layouts>
               </Div>
-              <Div id="divItem07" taborder="7" left="901" top="391" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer" width="280">
+              <Div id="divItem07" taborder="6" left="901" top="391" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer" width="280">
                 <Layouts>
                   <Layout>
                     <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
@@ -107,7 +97,7 @@
                   </Layout>
                 </Layouts>
               </Div>
-              <Div id="divItem08" taborder="8" left="1" top="780" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer" width="280">
+              <Div id="divItem08" taborder="7" left="1" top="780" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer" width="280">
                 <Layouts>
                   <Layout>
                     <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
@@ -117,7 +107,7 @@
                   </Layout>
                 </Layouts>
               </Div>
-              <Div id="divItem09" taborder="9" left="301" top="780" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer" width="280">
+              <Div id="divItem09" taborder="8" left="301" top="780" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer" width="280">
                 <Layouts>
                   <Layout>
                     <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
@@ -127,7 +117,7 @@
                   </Layout>
                 </Layouts>
               </Div>
-              <Div id="divItem10" taborder="10" left="602" top="780" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer" width="280">
+              <Div id="divItem10" taborder="9" left="602" top="780" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer" width="280">
                 <Layouts>
                   <Layout>
                     <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
@@ -137,12 +127,22 @@
                   </Layout>
                 </Layouts>
               </Div>
-              <Div id="divItem11" taborder="11" left="902" top="780" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer" width="280">
+              <Div id="divItem11" taborder="10" left="902" top="780" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer" width="280">
                 <Layouts>
                   <Layout>
                     <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
                     <Static id="staTitle" taborder="1" text="닌텐도 스위치 OLED 풀박스 팝니다 (상태 S급)" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
                     <Static id="staPrice" taborder="2" text="350,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
+                    <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
+                  </Layout>
+                </Layouts>
+              </Div>
+              <Div id="divItem00" taborder="11" left="1" top="0" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
+                <Layouts>
+                  <Layout>
+                    <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+                    <Static id="staTitle" taborder="1" text="닌텐도 칩 모동숲 마리오 팝니다" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
+                    <Static id="staPrice" taborder="2" text="40,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
                     <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
                   </Layout>
                 </Layouts>
@@ -198,6 +198,172 @@
       <Dataset id="dsPagingInfo">
         <ColumnInfo>
           <Column id="totalCount" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_menu">
+        <ColumnInfo>
+          <Column id="MENU_ID" type="STRING" size="256"/>
+          <Column id="MENU_NAME" type="STRING" size="256"/>
+          <Column id="MENU_LEVEL" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="MENU_ID">10</Col>
+            <Col id="MENU_NAME">주방용품</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">1001</Col>
+            <Col id="MENU_NAME">냄비/프라이팬</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">1002</Col>
+            <Col id="MENU_NAME">칼/도마/조리도구</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">1003</Col>
+            <Col id="MENU_NAME">그릇/홈세트</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">1004</Col>
+            <Col id="MENU_NAME">주방가전</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">20</Col>
+            <Col id="MENU_NAME">청소용품</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">2001</Col>
+            <Col id="MENU_NAME">청소기/필터</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">2002</Col>
+            <Col id="MENU_NAME">밀대/걸레</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">2003</Col>
+            <Col id="MENU_NAME">세탁세제</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">2004</Col>
+            <Col id="MENU_NAME">휴지통/분리수거</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">30</Col>
+            <Col id="MENU_NAME">차용품</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">3001</Col>
+            <Col id="MENU_NAME">세차/광택용품</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">3002</Col>
+            <Col id="MENU_NAME">차량용 방향제</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">3003</Col>
+            <Col id="MENU_NAME">거치대/충전기</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">3004</Col>
+            <Col id="MENU_NAME">카매트/시트</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">40</Col>
+            <Col id="MENU_NAME">여가</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">4001</Col>
+            <Col id="MENU_NAME">캠핑/등산</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">4002</Col>
+            <Col id="MENU_NAME">헬스/요가</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">4003</Col>
+            <Col id="MENU_NAME">여행가방/캐리어</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">4004</Col>
+            <Col id="MENU_NAME">악기/취미용품</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">50</Col>
+            <Col id="MENU_NAME">생활용품</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">5001</Col>
+            <Col id="MENU_NAME">수건/타월</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">5002</Col>
+            <Col id="MENU_NAME">욕실/목욕용품</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">5003</Col>
+            <Col id="MENU_NAME">수납/정리함</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">5004</Col>
+            <Col id="MENU_NAME">화장지/물티슈</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">60</Col>
+            <Col id="MENU_NAME">전자기기</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">6001</Col>
+            <Col id="MENU_NAME">노트북/PC</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">6002</Col>
+            <Col id="MENU_NAME">모바일/태블릿</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">6003</Col>
+            <Col id="MENU_NAME">영상/음향가전</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">6004</Col>
+            <Col id="MENU_NAME">키보드/마우스</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsZzim">
+        <ColumnInfo>
+          <Column id="WISH_ID" type="STRING" size="256"/>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+          <Column id="POST_ID" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
     </Objects>
@@ -310,7 +476,7 @@ this.fn_SetResultData = function()
             var sLoc   = this.dsCurrentItem.getColumn(i, "USER_ID"); 
             var sDate  = this.dsCurrentItem.getColumn(i, "REG_DATE");
             var sImgUrl = this.dsCurrentItem.getColumn(i, "PHOTO_URL");
-            
+			
             var sFullImgUrl = sImgUrl; 
 
             // 안쪽 컴포넌트에 값
@@ -343,6 +509,7 @@ this.divSearch_btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEv
 {
 	var objApp = nexacro.getApplication();
 	objApp.gv_Search = this.edtSearchKeyword.value;
+
 	this.fvPage = 0;
     this.fvRecordsOffset = 0;
     
@@ -442,7 +609,8 @@ this.btnPricePreset_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventIn
         this.fn_setButtonStyle(obj);         
     }
     this.divFilter.form.edtPriceMin.value = "";
-	this.divFilter.form.edtPriceMax.value = ""
+	this.divFilter.form.edtPriceMax.value = "";
+	this.fv_selectedMinPrice = "";
     this.fvPage = 0;
     this.fvRecordsOffset = 0;
     this.fnSearch(); 
@@ -501,6 +669,131 @@ this.divFilter_staReset_onclick = function(obj:nexacro.Static,e:nexacro.ClickEve
 {
 	this.reload();
 };
+//=====================================찜 버튼 동적생성=========================================
+this.drawZzimBtn = function (fvRecords)
+{
+    for(var i = 0; i < fvRecords; i++)
+    {
+        var sDivId = "divItem" + ((i < 10) ? "0" + i : i);
+        var objDiv = this.divList.form.components[sDivId];
+        
+        if (objDiv == undefined || objDiv.visible == false) continue;
+        var btnDetail = objDiv.form.components["btnDetail"];
+        
+        if (btnDetail == undefined)
+        {
+            btnDetail = new Button();
+            btnDetail.init("btnDetail", 0, 0, null, null, 0, 0);
+            
+            // 스타일투명
+            btnDetail.set_background("transparent");
+            btnDetail.set_border("0px none");
+            btnDetail.set_cursor("pointer"); // 손가락 모양
+            
+            // 이벤트 연결
+            btnDetail.addEventHandler("onclick", this.divList_btn00_onclick, this);
+            
+            objDiv.form.addChild("btnDetail", btnDetail);
+            btnDetail.show();
+        }
+        btnDetail.u_row = i;
+        btnDetail.bringToFront();
+
+        var btnZzim = objDiv.form.components["btnZzim"];
+        var sIsWish = this.dsCurrentItem.getColumn(i, "IS_WISH");
+        var sIconUrl = (sIsWish == "1") ? "imagerc::Select.png" : "imagerc::NoSelect.png";
+
+        if (btnZzim == undefined)
+        {
+            btnZzim = new Button();
+            // 위치: 우측 상단 (오른쪽에서 10px, 위에서 10px)
+            btnZzim.init("btnZzim", null, 10, 40, 40, 10, null);
+            
+            btnZzim.set_background("white");
+            btnZzim.set_borderRadius("50px");
+            btnZzim.set_cursor("pointer");
+            
+            btnZzim.addEventHandler("onclick", this.fn_ZzimClick, this);
+            
+            objDiv.form.addChild("btnZzim", btnZzim);
+            btnZzim.show();
+        }
+        
+        btnZzim.u_Row = i;
+        btnZzim.set_icon(sIconUrl);
+
+        btnZzim.bringToFront();
+    }
+};
+//찜 클릭이벤트
+this.fn_ZzimClick = function (obj:nexacro.Button, e:nexacro.ClickEventInfo)//찜버튼 클릭
+{
+	var nRow = obj.u_Row;
+	var sTitle = this.dsCurrentItem.getColumn(nRow, "TITLE");
+	var sPostId = this.dsCurrentItem.getColumn(nRow, "POST_ID");
+	var sLoginId = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ID");
+
+	//데이터셋에 POST_ID, LOGIN_ID넣기
+	this.dsZzim.clearData(); // 기존 데이터 삭제
+	var nRow = this.dsZzim.addRow(); //한 행 추가
+	
+	this.dsZzim.setColumn(nRow, "LOGIN_ID", sLoginId);
+	this.dsZzim.setColumn(nRow, "POST_ID", sPostId);
+	
+	//버튼 css 설정
+	var currentIcon = obj.icon;
+	var strSvcUrl = "";
+	var ID = "";
+	if(currentIcon == "imagerc::Select.png") //찜취소 누르기
+	{
+		obj.set_icon("imagerc::NoSelect.png");
+		strSvcUrl = "nexa/deleteZzimList.do";
+		ID = "deleteZzimList"
+	}
+	else //찜누르기
+	{
+		//트랜잭션 날리기
+		obj.set_icon("imagerc::Select.png");
+		strSvcUrl = "nexa/getZzimList.do";
+		ID="getZzimList";
+	}
+	var inData = "dsZzim=dsZzim:U";
+	var strArg = "";
+	var outData = "";
+
+	this.gfnTransaction( ID
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+};
+
+
+//=====================================품목 상세보기==============================================
+
+this.divList_btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var nRow = obj.u_row;
+    var sTitle = this.dsCurrentItem.getColumn(nRow, "TITLE");
+	var sImageUrl = this.dsCurrentItem.getColumn(nRow, "PHOTO_URL");
+	var sDate = this.dsCurrentItem.getColumn(nRow, "REG_DATE");
+	var sPrice = this.dsCurrentItem.getColumn(nRow, "PRICE");
+	var sWriter = this.dsCurrentItem.getColumn(nRow, "USER_ID");
+	var sCommend = this.dsCurrentItem.getColumn(nRow, "POST_COMMEND");
+	var sCategoryId = this.dsCurrentItem.getColumn(nRow, "CATEGORY_ID"); //넘기는 것 아님
+	var sCategoryName = this.ds_menu.lookup("MENU_ID", sCategoryId, "MENU_NAME");
+	
+	var sPopupId = "sDetail"; //Popup ID
+	var sUrl = "Main::ggul1300pu.xfdl"; //팝업 URL
+	var oArg = {sTitle:sTitle, sImageUrl:sImageUrl, sDate:sDate, sPrice:sPrice, sWriter:sWriter,
+				sCommend:sCommend, sCategoryName:sCategoryName}; //전달값
+	var sPopupCallback = "fnCallPopup";
+	var oOption = {title:"모달 팝업", titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
+
+	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
+};
 
 //==========================================콜백함수====================================================================
 this.fnCallback = function (svcID, errCd, errMsg)
@@ -509,6 +802,7 @@ this.fnCallback = function (svcID, errCd, errMsg)
 	{
 		this.fnPagingSetting();
 		this.fn_SetResultData();
+		this.drawZzimBtn(this.fvRecords);
 	}
 };
 

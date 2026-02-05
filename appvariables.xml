@@ -3069,6 +3069,7 @@
         <Column id="LOGIN_STATUS" type="STRING" size="256"/>
         <Column id="LOGIN_DATE" type="STRING" size="256"/>
         <Column id="LOGIN_ROLE" type="STRING" size="256"/>
+        <Column id="LOGIN_CASH" type="STRING" size="256"/>
       </ColumnInfo>
     </Dataset>
   </Datasets>
@@ -3076,7 +3077,7 @@
     <Variable id="gv_var1" initval="App Variable Value1"/>
     <Variable id="gvLogIn"/>
     <Variable id="gv_MenuId"/>
-    <Variable id="gv_Search"/>
+    <Variable id="gv_Search" initval=""/>
   </Variables>
   <DataObjects/>
 </AppVariables>

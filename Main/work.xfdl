@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="work" width="1600" height="1500" titletext="New Form" background="#f9f9f9" onload="work_onload">
+  <Form id="work" width="1600" height="2250" titletext="New Form" background="#f9f9f9" onload="work_onload">
     <Layouts>
-      <Layout height="1500" width="1600">
-        <Div id="divSearch" taborder="5" left="415" top="40" width="770" height="60" background="#ffffff" borderRadius="30px" formscrolltype="none" boxShadow="0px 4px 15px rgba(0,0,0,0.05)" border="1px solid #e0e0e0" text="">
+      <Layout height="2250" width="1600">
+        <Div id="divSearch" taborder="2" left="415" top="40" width="770" height="60" background="#ffffff" borderRadius="30px" formscrolltype="none" boxShadow="0px 4px 15px rgba(0,0,0,0.05)" border="1px solid #e0e0e0" text="">
           <Layouts>
             <Layout>
               <Static id="Static00" taborder="1" left="90" top="15" width="1" height="30" background="#dddddd"/>
@@ -13,20 +13,13 @@
           </Layouts>
         </Div>
         <Static id="staUserName" taborder="0" text="ㅇㅇㅇ꿀벌님 환영합니다." left="divSearch:45" top="35" width="350" height="32" onclick="staUserName_onclick" font="normal 15px/normal &quot;Arial&quot;"/>
-        <Div id="Div00" taborder="1" text="Div00" left="6.88%" top="580" width="24%" height="292" borderRadius="20px"/>
-        <Div id="Div00_00" taborder="2" text="Div00" left="38.00%" top="580" width="24%" height="292" borderRadius="20px"/>
-        <Div id="Div00_00_00" taborder="3" text="Div00" left="68.00%" top="570" width="24%" height="292" borderRadius="20px">
+        <Div id="Div01" taborder="1" text="Div01" left="0" top="140" height="420" right="0" url="Main::ggul1410fm.xfdl">
           <Layouts>
             <Layout/>
           </Layouts>
         </Div>
-        <Div id="Div01" taborder="4" text="Div01" left="0" top="140" height="420" right="0" url="Main::ggul1410fm.xfdl">
-          <Layouts>
-            <Layout/>
-          </Layouts>
-        </Div>
-        <Edit id="edtSearchKeyword" taborder="6" left="510" top="50" height="40" right="480" border="0px none" background="transparent" color="#333333" font="14px 'Malgun Gothic'" displaynulltext="검색어를 입력해주세요"/>
-        <Div id="divFooter" taborder="7" left="0" top="1030" width="98.75%" height="470" color="#888888" font="normal 13px/20px 'Malgun Gothic'" text="">
+        <Edit id="edtSearchKeyword" taborder="3" left="510" top="50" height="40" right="480" border="0px none" background="transparent" color="#333333" font="14px 'Malgun Gothic'" displaynulltext="검색어를 입력해주세요"/>
+        <Div id="divFooter" taborder="4" left="10" top="1770" width="98.75%" height="470" color="#888888" font="normal 13px/20px 'Malgun Gothic'" text="">
           <Layouts>
             <Layout>
               <Static id="staLink01" taborder="0" text="꿀페이&#13;&#10;팀문화&#13;&#10;서비스 소개&#13;&#10;블로그&#13;&#10;채용" left="450" top="40" width="120" height="120" font="bold 13px 'Malgun Gothic'" color="#999999" verticalAlign="top"/>
@@ -41,6 +34,108 @@
             </Layout>
           </Layouts>
         </Div>
+        <Div id="divItem00" taborder="5" left="30" top="690" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
+          <Layouts>
+            <Layout>
+              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+              <Static id="staTitle" taborder="1" text="닌텐도 칩 모동숲 마리오 팝니다" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
+              <Static id="staPrice" taborder="2" text="40,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
+              <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divItem01" taborder="6" left="325" top="690" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
+          <Layouts>
+            <Layout>
+              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+              <Static id="staTitle" taborder="1" text="닌텐도 칩 모동숲 마리오 팝니다" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
+              <Static id="staPrice" taborder="2" text="40,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
+              <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divItem02" taborder="7" left="620" top="690" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
+          <Layouts>
+            <Layout>
+              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+              <Static id="staTitle" taborder="1" text="닌텐도 칩 모동숲 마리오 팝니다" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
+              <Static id="staPrice" taborder="2" text="40,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
+              <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divItem03" taborder="8" left="915" top="691" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
+          <Layouts>
+            <Layout>
+              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+              <Static id="staTitle" taborder="1" text="닌텐도 칩 모동숲 마리오 팝니다" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
+              <Static id="staPrice" taborder="2" text="40,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
+              <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divItem04" taborder="9" left="1210" top="691" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
+          <Layouts>
+            <Layout>
+              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+              <Static id="staTitle" taborder="1" text="닌텐도 칩 모동숲 마리오 팝니다" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
+              <Static id="staPrice" taborder="2" text="40,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
+              <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="staResultTitle" taborder="10" text="꿀벌들이 추천한 &lt;fc v='#f5a623'&gt;BEST 5&lt;/fc&gt; 꿀템" usedecorate="true" left="20" top="580" width="1469" height="90" font="bold 30px 'Malgun Gothic'" color="#111111" textAlign="left"/>
+        <Div id="divItem000" taborder="11" left="30" top="1220" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
+          <Layouts>
+            <Layout>
+              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+              <Static id="staTitle" taborder="1" text="닌텐도 칩 모동숲 마리오 팝니다" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
+              <Static id="staPrice" taborder="2" text="40,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
+              <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divItem001" taborder="12" left="325" top="1220" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
+          <Layouts>
+            <Layout>
+              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+              <Static id="staTitle" taborder="1" text="닌텐도 칩 모동숲 마리오 팝니다" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
+              <Static id="staPrice" taborder="2" text="40,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
+              <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divItem002" taborder="13" left="620" top="1220" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
+          <Layouts>
+            <Layout>
+              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+              <Static id="staTitle" taborder="1" text="닌텐도 칩 모동숲 마리오 팝니다" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
+              <Static id="staPrice" taborder="2" text="40,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
+              <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divItem003" taborder="14" left="915" top="1221" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
+          <Layouts>
+            <Layout>
+              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+              <Static id="staTitle" taborder="1" text="닌텐도 칩 모동숲 마리오 팝니다" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
+              <Static id="staPrice" taborder="2" text="40,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
+              <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="divItem004" taborder="15" left="1210" top="1221" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
+          <Layouts>
+            <Layout>
+              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+              <Static id="staTitle" taborder="1" text="닌텐도 칩 모동숲 마리오 팝니다" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
+              <Static id="staPrice" taborder="2" text="40,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
+              <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="staResultTitle00" taborder="16" text="나의 &lt;fc v='#f5a623'&gt;찜&lt;/fc&gt; 리스트" usedecorate="true" left="31" top="1110" width="1180" height="90" font="bold 30px 'Malgun Gothic'" color="#111111" textAlign="left"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
@@ -50,6 +145,26 @@ this.work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	//글로벌 데이터셋 접근가능하게 함
 	var objApp = nexacro.getApplication();
 	var objDs = objApp.gdsLoginUser;
+
+	//===================================BEST 5, 내 찜목록 5개 가져오기=============================
+	var sLoginId = objDs.getColumn(0,"LOGIN_ID");
+	
+	var strSvcUrl = "nexa/getBest5NMyZzimList.do";
+	var inData = "";
+	var strArg = "sLoginId="+sLoginId;
+	var outData = "dsBest5List=dsBest5List dsMyZzimList=dsMyZzimList";
+
+	this.gfnTransaction("getBest5NMyZzimList"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+	
+	
+	objApp.gv_Search = "";
+	
 	this.staUserName.set_usedecorate(true);
     this.staUserName.set_text("<fc v='#F5A623'>" + objDs.getColumn(0,"LOGIN_NICKNAME") + "</fc>" 
                             + "<fc v='#888888'> 꿀벌님 환영합니다</fc>");
@@ -103,6 +218,90 @@ this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
     objPopup.trackPopupByComponent(obj, nX, nY);
 };
 
+//=============================================카드에게 값 부여하는 함수=============================================
+
+this.fn_SetResultData = function()
+{
+    var nBestTotalCnt = this.dsBest5List.rowcount; 
+    var nZzimTotalCnt = this.dsMyZzimList.rowcount; 
+    var nDivCnt = 5; 
+
+    for(var i=0; i<nDivCnt; i++) 
+    {
+        var sDivId = "divItem" + ((i < 10) ? "0" + i : i);
+        
+        var objDiv = this.components[sDivId];
+
+        if(objDiv == undefined) continue;
+
+        if(i < nBestTotalCnt) 
+        {
+            objDiv.set_visible(true); 
+            
+            var sTitle  = this.dsBest5List.getColumn(i, "TITLE");
+            var nPrice  = this.dsBest5List.getColumn(i, "PRICE");
+            var sLoc    = this.dsBest5List.getColumn(i, "USER_ID"); 
+            var sDate   = this.dsBest5List.getColumn(i, "REG_DATE");
+            var sImgBlob = this.dsBest5List.getColumn(i, "PHOTO_URL");
+            
+            var sFullImgUrl = sImgBlob;
+
+            objDiv.form.staTitle.set_text(sTitle);
+            var sFormatPrice = nexacro.toNumber(nPrice).toLocaleString() + "원";
+            objDiv.form.staPrice.set_text(sFormatPrice);
+            objDiv.form.staLoc.set_text(sLoc + " · " + sDate);	
+            objDiv.form.imgView.set_image(sFullImgUrl); 
+            
+            objDiv.u_row = i;
+            objDiv.u_type = "BEST"; 
+        }
+        else 
+        {
+            objDiv.set_visible(false); 
+        }
+    }
+
+    for(var i=0; i<nDivCnt; i++) 
+    {
+        var sDivId = "divItem00" + i; 
+        
+        var objDiv = this.components[sDivId];
+
+        if(objDiv == undefined) {
+             trace("찜 컴포넌트 못 찾음: " + sDivId); 
+             continue;
+        }
+
+        if(i < nZzimTotalCnt) 
+        {
+            objDiv.set_visible(true); 
+            
+            var sTitle  = this.dsMyZzimList.getColumn(i, "TITLE");
+            var nPrice  = this.dsMyZzimList.getColumn(i, "PRICE");
+            var sLoc    = this.dsMyZzimList.getColumn(i, "USER_ID"); 
+            var sDate   = this.dsMyZzimList.getColumn(i, "REG_DATE");
+            var sImgBlob = this.dsMyZzimList.getColumn(i, "PHOTO_URL");
+            
+            var sFullImgUrl = sImgBlob;
+            objDiv.form.staTitle.set_text(sTitle);
+            var sFormatPrice = nexacro.toNumber(nPrice).toLocaleString() + "원";
+            objDiv.form.staPrice.set_text(sFormatPrice);
+            
+            if(this.gfnIsNull(sLoc)) objDiv.form.staLoc.set_text(sDate);
+            else objDiv.form.staLoc.set_text(sLoc + " · " + sDate);
+            
+            objDiv.form.imgView.set_image(sFullImgUrl); 
+            
+            objDiv.u_row = i;
+            objDiv.u_type = "ZZIM";
+        }
+        else 
+        {
+            objDiv.set_visible(false); 
+        }
+    }
+};
+
 //==================================================검색버튼 눌렀을때==========================================================
 this.divSearch_btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
@@ -110,6 +309,51 @@ this.divSearch_btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEv
 	objApp.gv_Search = this.edtSearchKeyword.value;
 	this.parent.parent.divWork.url = "Main::ggul1450fm.xfdl";	
 };
-]]></Script>
+//================================================콜백함수===========================================================
+this.fnCallback = function (svcID, errCd, errMsg)
+{
+	if(svcID=="getBest5NMyZzimList")//찜, best5개 가져오기
+	{
+		this.fn_SetResultData();
+	}
+};]]></Script>
+    <Objects>
+      <Dataset id="dsBest5List">
+        <ColumnInfo>
+          <Column id="POST_ID" type="STRING" size="256"/>
+          <Column id="USER_ID" type="STRING" size="256"/>
+          <Column id="TITLE" type="STRING" size="256"/>
+          <Column id="CONTENT" type="STRING" size="256"/>
+          <Column id="PRICE" type="STRING" size="256"/>
+          <Column id="PURCHASE_URL" type="STRING" size="256"/>
+          <Column id="PHOTO_URL" type="STRING" size="256"/>
+          <Column id="REG_DATE" type="STRING" size="256"/>
+          <Column id="CATEGORY_ID" type="STRING" size="256"/>
+          <Column id="IS_WISH" type="STRING" size="256"/>
+          <Column id="LIKE_CNT" type="STRING" size="256"/>
+          <Column id="UNLIKE_CNT" type="STRING" size="256"/>
+          <Column id="MY_LIKE_STATE" type="STRING" size="256"/>
+          <Column id="POST_COMMEND" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsMyZzimList">
+        <ColumnInfo>
+          <Column id="POST_ID" type="STRING" size="256"/>
+          <Column id="USER_ID" type="STRING" size="256"/>
+          <Column id="TITLE" type="STRING" size="256"/>
+          <Column id="CONTENT" type="STRING" size="256"/>
+          <Column id="PRICE" type="STRING" size="256"/>
+          <Column id="PURCHASE_URL" type="STRING" size="256"/>
+          <Column id="PHOTO_URL" type="STRING" size="256"/>
+          <Column id="REG_DATE" type="STRING" size="256"/>
+          <Column id="CATEGORY_ID" type="STRING" size="256"/>
+          <Column id="IS_WISH" type="STRING" size="256"/>
+          <Column id="LIKE_CNT" type="STRING" size="256"/>
+          <Column id="UNLIKE_CNT" type="STRING" size="256"/>
+          <Column id="MY_LIKE_STATE" type="STRING" size="256"/>
+          <Column id="POST_COMMEND" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
   </Form>
 </FDL>

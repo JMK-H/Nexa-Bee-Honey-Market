@@ -1859,6 +1859,8 @@
 .StepControl
 {
 	-nexa-padding : 0px 0px 10px 0px;
+	opacity : 0;
+	
 }
 
 .StepControl .stepitem

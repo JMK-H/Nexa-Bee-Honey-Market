@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="PopCharge" width="400" height="350" titletext="캐시 충전소" onload="PopCharge_onload" background="#ffffff" border="3px solid #f5a623" borderRadius="10px">
+    <Layouts>
+      <Layout height="350" mobileorientation="landscape" width="400">
+        <Static id="staTitle" taborder="0" text="캐시 충전소" left="20" top="20" width="200" height="30" font="bold 18px 'Malgun Gothic'" color="#333333"/>
+        <Static id="staCurrentTitle" taborder="1" text="현재 잔액" left="20" top="70" width="80" height="20" font="14px 'Malgun Gothic'" color="#666666"/>
+        <Static id="staCurBalance" taborder="2" text="0 원" left="110" top="65" width="260" height="30" font="bold 20px 'Malgun Gothic'" color="#f5a623" textAlign="right"/>
+        <Static id="Static00" taborder="3" left="20" top="100" width="360" height="1" border="1px dashed #c0c0c0"/>
+        <Static id="staInputTitle" taborder="4" text="충전할 금액" left="20" top="120" width="100" height="20" font="14px 'Malgun Gothic'" color="#333333"/>
+        <MaskEdit id="mskAmount" taborder="5" left="20" top="150" width="360" height="50" format="#,###" font="bold 24px 'Malgun Gothic'" textAlign="right" padding="0px 10px 0px 0px" displaynulltext="0" type="number"/>
+        <Button id="btnAdd1" taborder="6" text="+ 1만원" left="20" top="210" width="85" height="35" background="#f0f0f0" border="1px solid #d5d5d5" borderRadius="5px" cursor="pointer" onclick="btnAddAmount_onclick" u_price="10000"/>
+        <Button id="btnAdd3" taborder="7" text="+ 3만원" left="112" top="210" width="85" height="35" background="#f0f0f0" border="1px solid #d5d5d5" borderRadius="5px" cursor="pointer" onclick="btnAddAmount_onclick" u_price="30000"/>
+        <Button id="btnAdd5" taborder="8" text="+ 5만원" left="203" top="210" width="85" height="35" background="#f0f0f0" border="1px solid #d5d5d5" borderRadius="5px" cursor="pointer" onclick="btnAddAmount_onclick" u_price="50000"/>
+        <Button id="btnAdd10" taborder="9" text="+ 10만원" left="295" top="210" width="85" height="35" background="#f0f0f0" border="1px solid #d5d5d5" borderRadius="5px" cursor="pointer" onclick="btnAddAmount_onclick" u_price="100000"/>
+        <Button id="btnCancel" taborder="10" text="닫기" left="20" top="280" width="100" height="50" background="#ffffff" border="1px solid #999999" borderRadius="5px" font="14px 'Malgun Gothic'" cursor="pointer" onclick="btnClose_onclick"/>
+        <Button id="btnCharge" taborder="11" text="충전하기" left="130" top="280" width="250" height="50" border="0px none" borderRadius="5px" font="bold 16px 'Malgun Gothic'" color="#ffffff" cursor="pointer" onclick="btnCharge_onclick" cssclass="Login"/>
+        <Static id="staReset" taborder="12" text="초기화" right="21" top="245" width="50" height="20" font="normal 12px 'Malgun Gothic'" color="#999999" cursor="pointer" textDecoration="underline" onclick="divFilter_staReset_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+//로딩될때
+this.PopCharge_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	var objApp = nexacro.getApplication();
+	var sLoginCash = objApp.gdsLoginUser.getColumn(0, "LOGIN_CASH");
+	
+	var sFormatCash = nexacro.toNumber(sLoginCash).toLocaleString(); //3자리마다 구분자 들어감
+	this.staCurBalance.text = sFormatCash+" P";
+};
+
+//닫기버튼 여기서 회원정보창을 reload해야하나?
+this.btnClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.close();
+};
+
+//가격추가 버튼 클릭이벤트
+this.btnAddAmount_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+    var nAddMoney = nexacro.toNumber(obj.u_price);
+    var nPreValue = nexacro.toNumber(this.mskAmount.value, 0);
+    this.mskAmount.set_value(nPreValue + nAddMoney);
+};
+//초기화버튼
+this.divFilter_staReset_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	this.mskAmount.set_value(0);
+};
+
+//충전하기 버튼
+this.btnCharge_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var nAmount = nexacro.toNumber(this.mskAmount.value, 0);
+	if(this.gfnIsNull(nAmount) || nAmount <= 0) {
+        this.alert("충전할 금액을 정확히 입력해주세요.");
+        return;
+    }
+	
+	var sMsg = nexacro.toNumber(nAmount).toLocaleString() + "원을 충전하시겠습니까?";
+    if(!this.confirm(sMsg)) {
+        return; // 취소 누르면 중단
+    }
+	
+	var objApp = nexacro.getApplication();
+	var sLoginId = objApp.gdsLoginUser.getColumn(0, "LOGIN_ID");
+	
+	this.dsInData.clearData();
+	var nRow = this.dsInData.addRow();
+	this.dsInData.setColumn(nRow, "LOGIN_ID", sLoginId);
+	this.dsInData.setColumn(nRow, "LOGIN_CASH", nAmount);
+	
+	var strSvcUrl = "nexa/addUserCash.do";
+	var inData = "dsInData=dsInData";
+	var strArg = "";
+	var outData = "";
+
+	this.gfnTransaction("addUserCash"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+};
+
+//=============================================콜백함수===============================================================
+this.fnCallback = function (svcID, errCd, errMsg)
+{
+	if(svcID=="addUserCash")//캐시충전 트랜잭션
+	{
+		this.close();
+	}
+};]]></Script>
+    <Objects>
+      <Dataset id="dsInData">
+        <ColumnInfo>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+          <Column id="LOGIN_CASH" type="INT" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>
