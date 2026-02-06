@@ -83,8 +83,9 @@ this.fnCallback = function (svcID, errCd, errMsg)
 {
 	if(svcID=="setPostScore")
 	{
-		var sParentForm = this.getOwnerFrame().sParentForm;
-		sParentForm.reload();
+ 		var sParentForm = this.getOwnerFrame().sParentForm;
+		var Row = this.getOwnerFrame().Row;
+		sParentForm.dsBuy_Complete.setColumn(Row, "POST_SCORE", this.fv_nScore);
 		this.close();
 	}
 };]]></Script>

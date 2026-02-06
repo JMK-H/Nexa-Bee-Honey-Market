@@ -586,7 +586,7 @@ this.tabMain_tabPage3_grdMyAll_oncellclick = function(obj:nexacro.Grid,e:nexacro
 	
 	var sPopupId = "sScorePopup"; //Popup ID
 	var sUrl = "Main::ggul1490pu.xfdl"; //팝업 URL
-	var oArg = {sPostId:sPostId, sParentForm: this}; //전달값
+	var oArg = {sPostId:sPostId, sParentForm: this, Row:e.row}; //전달값
 	var sPopupCallback = "fnCallPopup";
 	var oOption = {title:"모달 팝업", titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
 
@@ -598,9 +598,9 @@ this.tabMain_tabPage3_grdMyAll_oncellclick = function(obj:nexacro.Grid,e:nexacro
 //===================================================팝업 콜백================================================
 this.fnCallPopup = function (svcID, rtn)
 {
-	if(svcID=="sScorePopup")
+	if(svcID=="sScorePopup")//후기주는 팝업 닫힐때
 	{
-		this.tabMain.set_tabindex(2);
+		
 	}
 };]]></Script>
   </Form>
