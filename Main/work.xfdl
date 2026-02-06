@@ -306,7 +306,12 @@ this.fn_SetResultData = function()
 this.divSearch_btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	var objApp = nexacro.getApplication();
-	objApp.gv_Search = this.edtSearchKeyword.value;
+	var sSearchKeyword = this.edtSearchKeyword.value;
+	if(sSearchKeyword==undefined)
+	{
+		sSearchKeyword ="";
+	}
+	objApp.gv_Search = sSearchKeyword
 	this.parent.parent.divWork.url = "Main::ggul1450fm.xfdl";	
 };
 //================================================콜백함수===========================================================

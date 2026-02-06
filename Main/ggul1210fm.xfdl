@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="ggul1210fm" width="1600" height="900" titletext="New Form" onload="ggul1210fm_onload">
+  <Form id="ggul1210fm" width="1600" height="900" titletext="전체화면" onload="ggul1210fm_onload">
     <Layouts>
       <Layout height="900" mobileorientation="landscape" width="1600">
         <Div id="divTop" taborder="0" text="Div00" left="0" top="0" height="80" right="0" border="0px none,0px none,1px solid #9e9e9e" url="Main::top.xfdl" formscrolltype="none" formscrollbartype="none"/>

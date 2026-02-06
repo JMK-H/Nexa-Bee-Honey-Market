@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="ggul1490pu" width="300" height="200" titletext="별점후기저장" borderRadius="20px" border="3px solid #f5a623">
+    <Layouts>
+      <Layout height="200" width="300">
+        <ImageViewer id="imgStar1" taborder="0" left="40" top="50" width="40" height="40" image="url('imagerc::star_off.png')" stretch="fit" cursor="pointer" onclick="imgStar_onclick" onmouseenter="imgStar_onmouseenter" border="0px none" onmouseleave="PopReview_onmouseleave"/>
+        <ImageViewer id="imgStar2" taborder="1" left="85" top="50" width="40" height="40" image="url('imagerc::star_off.png')" stretch="fit" cursor="pointer" onclick="imgStar_onclick" onmouseenter="imgStar_onmouseenter" border="0px none" onmouseleave="PopReview_onmouseleave"/>
+        <ImageViewer id="imgStar3" taborder="2" left="130" top="50" width="40" height="40" image="url('imagerc::star_off.png')" stretch="fit" cursor="pointer" onclick="imgStar_onclick" onmouseenter="imgStar_onmouseenter" border="0px none" onmouseleave="PopReview_onmouseleave"/>
+        <ImageViewer id="imgStar4" taborder="3" left="175" top="50" width="40" height="40" image="url('imagerc::star_off.png')" stretch="fit" cursor="pointer" onclick="imgStar_onclick" onmouseenter="imgStar_onmouseenter" border="0px none" onmouseleave="PopReview_onmouseleave"/>
+        <ImageViewer id="imgStar5" taborder="4" left="220" top="50" width="40" height="40" image="url('imagerc::star_off.png')" stretch="fit" cursor="pointer" onclick="imgStar_onclick" onmouseenter="imgStar_onmouseenter" border="0px none" onmouseleave="PopReview_onmouseleave"/>
+        <Button id="btnSave" taborder="5" text="후기 저장" left="160" top="110" width="100" height="40" onclick="btnSave_onclick" cssclass="Login"/>
+        <Button id="btnClose" taborder="6" text="돌아가기" left="40" top="110" width="100" height="40" onclick="btnClose_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.fv_nScore = 0; // 초기값 0점
+
+this.fn_SetStar = function(nPoint)
+{
+    for(var i=1; i<=5; i++)
+    {
+        var objStar = this.components["imgStar" + i];
+        
+        if (i <= nPoint) {
+            objStar.set_image("imagerc::star_on.png"); 
+        } else {
+            objStar.set_image("imagerc::star_off.png");
+        }
+    }
+};
+
+this.PopReview_onmouseleave = function(obj:nexacro.Form,e:nexacro.MouseEventInfo)
+{
+    this.fn_SetStar(this.fv_nScore);
+};
+
+this.imgStar_onmouseenter = function(obj:nexacro.ImageViewer,e:nexacro.MouseEventInfo)
+{
+    var nPoint = parseInt(obj.name.replace("imgStar", ""));
+    this.fn_SetStar(nPoint);
+};
+
+this.imgStar_onclick = function(obj:nexacro.ImageViewer,e:nexacro.ClickEventInfo)
+{
+    var nPoint = parseInt(obj.name.replace("imgStar", ""));
+    this.fv_nScore = nPoint;
+    this.fn_SetStar(nPoint);
+};
+
+//닫기버튼
+this.btnClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.close();
+};
+
+//저장버튼
+this.btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sPostId = this.getOwnerFrame().sPostId;
+	
+	this.dsInData.clearData();
+	var nRow = this.dsInData.addRow();
+	this.dsInData.setColumn(nRow, "POST_SCORE", this.fv_nScore);
+	this.dsInData.setColumn(nRow, "POST_ID", sPostId);
+	
+	
+	var strSvcUrl = "nexa/setPostScore.do";
+	var inData = "dsInData=dsInData";
+	var strArg = "";
+	var outData = "";
+
+	this.gfnTransaction("setPostScore"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+};
+
+//=====================================================콜백함수====================================================
+this.fnCallback = function (svcID, errCd, errMsg)
+{
+	if(svcID=="setPostScore")
+	{
+		var sParentForm = this.getOwnerFrame().sParentForm;
+		sParentForm.reload();
+		this.close();
+	}
+};]]></Script>
+    <Objects>
+      <Dataset id="dsInData">
+        <ColumnInfo>
+          <Column id="POST_SCORE" type="STRING" size="256"/>
+          <Column id="POST_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

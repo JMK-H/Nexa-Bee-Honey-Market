@@ -1,0 +1,607 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="PopMyShop" width="900" height="650" titletext="내 상점 관리" onload="PopMyShop_onload">
+    <Layouts>
+      <Layout height="650" mobileorientation="landscape" width="900">
+        <Static id="staTitle" taborder="0" text="🍯 내 상점 관리" left="20" top="20" width="300" height="40" font="bold 20px 'Malgun Gothic'" color="#333333"/>
+        <Button id="btnClose" taborder="1" text="닫기" top="20" width="80" height="30" right="20" onclick="btnClose_onclick" background="#555555" color="white" borderRadius="5px" cursor="pointer"/>
+        <Tab id="tabMain" taborder="2" tabindex="0" left="20" top="70" right="20" bottom="20" tabbuttonheight="40" selectedtabbuttoncssclass="tab_WF_Select" showextrabutton="false" onchanged="tabMain_onchanged" cssclass="MyPage">
+          <Tabpages>
+            <Tabpage id="tabPage1" text="⏳ 판매 현황" border="0px none">
+              <Layouts>
+                <Layout>
+                  <Static id="staInfo1" taborder="1" text="📢 구매자가 나타났습니다! [승인]을 눌러 거래를 확정하세요." left="5" top="5" width="500" height="30" color="#f5a623" font="bold 12px 'Malgun Gothic'"/>
+                  <Grid id="grdReserved" taborder="0" left="0" top="40" right="0" bottom="0" binddataset="dsSell_Reserved" autofittype="col" oncellclick="grdReserved_oncellclick" border="1px solid #e0e0e0" cssclass="myGridTem">
+                    <Formats>
+                      <Format id="default">
+                        <Columns>
+                          <Column size="190"/>
+                          <Column size="95"/>
+                          <Column size="100"/>
+                          <Column size="80"/>
+                          <Column size="75"/>
+                          <Column size="60"/>
+                          <Column size="60"/>
+                        </Columns>
+                        <Rows>
+                          <Row size="40" band="head"/>
+                          <Row size="30"/>
+                        </Rows>
+                        <Band id="head">
+                          <Cell text="상품명" background="#fff8ed"/>
+                          <Cell col="1" text="가격" background="#fff8ed"/>
+                          <Cell col="2" text="카테고리" background="#fff8ed"/>
+                          <Cell col="3" text="상태" background="#fff8ed"/>
+                          <Cell col="4" text="예약자" background="#fff8ed"/>
+                          <Cell col="5" colspan="2" text="관리" background="#fff8ed"/>
+                        </Band>
+                        <Band id="body">
+                          <Cell text="bind:TITLE"/>
+                          <Cell col="1" text="bind:PRICE"/>
+                          <Cell col="2" text="bind:CATEGORY_ID" displaytype="combotext" combodataset="ds_menu" combodatacol="MENU_NAME" combocodecol="MENU_ID"/>
+                          <Cell col="3" text="bind:POST_STATUS" displaytype="combotext" combodataset="ds_status" combodatacol="VALUE" combocodecol="CODE"/>
+                          <Cell col="4" text="bind:BUYER_ID"/>
+                          <Cell col="5" displaytype="buttoncontrol" text="승인"/>
+                          <Cell col="6" displaytype="buttoncontrol" text="거절"/>
+                        </Band>
+                      </Format>
+                    </Formats>
+                  </Grid>
+                </Layout>
+              </Layouts>
+            </Tabpage>
+            <Tabpage id="tabPage2" text="🛒 구매 현황" border="0px none">
+              <Layouts>
+                <Layout>
+                  <Static id="staInfo2" taborder="1" text="📜 내가 예약했던 물품의 현황입니다." left="5" top="5" width="500" height="30" color="#888888" font="bold 12px 'Malgun Gothic'" onclick="tabMain_tabPage2_staInfo2_onclick"/>
+                  <Grid id="grdComplete" taborder="0" left="0" top="40" right="0" bottom="0" binddataset="dsBuy_Reserved" autofittype="col" border="1px solid #e0e0e0" cssclass="myGridTem">
+                    <Formats>
+                      <Format id="default">
+                        <Columns>
+                          <Column size="190"/>
+                          <Column size="95"/>
+                          <Column size="100"/>
+                          <Column size="75"/>
+                          <Column size="80"/>
+                        </Columns>
+                        <Rows>
+                          <Row size="40" band="head"/>
+                          <Row size="30"/>
+                        </Rows>
+                        <Band id="head">
+                          <Cell text="상품명" background="#fff8ed"/>
+                          <Cell col="1" text="가격" background="#fff8ed"/>
+                          <Cell col="2" text="카테고리" background="#fff8ed"/>
+                          <Cell col="3" text="판매자" background="#fff8ed"/>
+                          <Cell col="4" text="상태" background="#fff8ed"/>
+                        </Band>
+                        <Band id="body">
+                          <Cell text="bind:TITLE"/>
+                          <Cell col="1" text="bind:PRICE"/>
+                          <Cell col="2" text="bind:CATEGORY_ID" displaytype="combotext" combodataset="ds_menu" combodatacol="MENU_NAME" combocodecol="MENU_ID"/>
+                          <Cell col="3" text="bind:USER_ID"/>
+                          <Cell col="4" text="bind:POST_STATUS" displaytype="combotext" combodataset="ds_status" combodatacol="VALUE" combocodecol="CODE"/>
+                        </Band>
+                      </Format>
+                    </Formats>
+                  </Grid>
+                </Layout>
+              </Layouts>
+            </Tabpage>
+            <Tabpage id="tabPage3" text="🛒 구매 내역" border="0px none">
+              <Layouts>
+                <Layout>
+                  <Static id="staInfo3" taborder="1" text="📂 내가 구매한 모든 내역입니다." left="5" top="5" width="500" height="30" color="#888888" font="bold 12px 'Malgun Gothic'"/>
+                  <Grid id="grdMyAll" taborder="0" left="0" top="40" right="0" bottom="0" binddataset="dsBuy_Complete" autofittype="col" border="1px solid #e0e0e0" cssclass="myGridTem" oncellclick="tabMain_tabPage3_grdMyAll_oncellclick">
+                    <Formats>
+                      <Format id="default">
+                        <Columns>
+                          <Column size="190"/>
+                          <Column size="95"/>
+                          <Column size="75"/>
+                          <Column size="100"/>
+                          <Column size="60"/>
+                          <Column size="60"/>
+                        </Columns>
+                        <Rows>
+                          <Row size="40" band="head"/>
+                          <Row size="50"/>
+                        </Rows>
+                        <Band id="head">
+                          <Cell text="상품명" background="#fff8ed"/>
+                          <Cell col="1" text="가격" background="#fff8ed"/>
+                          <Cell col="2" text="판매자" background="#fff8ed"/>
+                          <Cell col="3" text="거래일" background="#fff8ed"/>
+                          <Cell col="4" colspan="2" text="상태" background="#fff8ed"/>
+                        </Band>
+                        <Band id="body">
+                          <Cell text="bind:TITLE" textAlign="left" padding="0px 0px 0px 10px"/>
+                          <Cell col="1" text="bind:PRICE" displaytype="number" textAlign="right" padding="0px 10px 0px 0px"/>
+                          <Cell col="2" text="bind:USER_ID" textAlign="center"/>
+                          <Cell col="3" text="bind:REG_DATE" textAlign="center"/>
+                          <Cell col="4" text="bind:POST_STATUS" color="#d2111b" font="bold 12px 'Malgun Gothic'" textAlign="center" displaytype="combotext" combodataset="ds_status" combodatacol="VALUE" combocodecol="CODE"/>
+                          <Cell col="5" displaytype="buttoncontrol" edittype="button" text="expr:POST_SCORE == null ? &quot;후기작성&quot; : &quot;★ &quot; + POST_SCORE + &quot;점&quot;" cssclass="Login"/>
+                        </Band>
+                      </Format>
+                    </Formats>
+                  </Grid>
+                </Layout>
+              </Layouts>
+            </Tabpage>
+            <Tabpage id="tabPage4" text="📝 내 물품 관리" border="0px none">
+              <Layouts>
+                <Layout>
+                  <Static id="Static00" taborder="0" text="📂 내가 등록한 모든 상품 목록입니다." left="5" top="5" width="500" height="30"/>
+                  <Grid id="Grid00" taborder="1" left="0" top="40" right="0" bottom="0" border="1px solid #e0e0e0" autofittype="col" binddataset="dsMySalesList" cssclass="myGridTem" oncellclick="tabMain_tabPage4_Grid00_oncellclick">
+                    <Formats>
+                      <Format id="default">
+                        <Columns>
+                          <Column size="190"/>
+                          <Column size="95"/>
+                          <Column size="100"/>
+                          <Column size="80"/>
+                          <Column size="75"/>
+                          <Column size="60"/>
+                        </Columns>
+                        <Rows>
+                          <Row size="40" band="head"/>
+                          <Row size="30"/>
+                        </Rows>
+                        <Band id="head">
+                          <Cell text="상품명" background="#fff8ed"/>
+                          <Cell col="1" text="가격" background="#fff8ed"/>
+                          <Cell col="2" text="카테고리" background="#fff8ed"/>
+                          <Cell col="3" text="상태" background="#fff8ed"/>
+                          <Cell col="4" text="구매 희망자" background="#fff8ed"/>
+                          <Cell col="5" text="관리" background="#fff8ed"/>
+                        </Band>
+                        <Band id="body">
+                          <Cell text="bind:TITLE"/>
+                          <Cell col="1" text="bind:PRICE"/>
+                          <Cell col="2" text="bind:CATEGORY_ID" displaytype="combotext" combodataset="ds_menu" combodatacol="MENU_NAME" combocodecol="MENU_ID"/>
+                          <Cell col="3" text="bind:POST_STATUS" displaytype="combotext" combodataset="ds_status" combodatacol="VALUE" combocodecol="CODE"/>
+                          <Cell col="4" text="bind:BUYER_ID"/>
+                          <Cell col="5" displaytype="buttoncontrol" edittype="button" text="삭제"/>
+                        </Band>
+                      </Format>
+                    </Formats>
+                  </Grid>
+                </Layout>
+              </Layouts>
+            </Tabpage>
+          </Tabpages>
+        </Tab>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsMySalesList">
+        <ColumnInfo>
+          <Column id="POST_ID" type="STRING" size="256"/>
+          <Column id="USER_ID" type="STRING" size="256"/>
+          <Column id="TITLE" type="STRING" size="256"/>
+          <Column id="PRICE" type="STRING" size="256"/>
+          <Column id="PURCHASE_URL" type="STRING" size="256"/>
+          <Column id="PHOTO_URL" type="STRING" size="256"/>
+          <Column id="POST_COMMEND" type="STRING" size="256"/>
+          <Column id="REG_DATE" type="STRING" size="256"/>
+          <Column id="CATEGORY_ID" type="STRING" size="256"/>
+          <Column id="POST_STATUS" type="STRING" size="256"/>
+          <Column id="BUYER_ID" type="STRING" size="256"/>
+          <Column id="POST_SCORE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsMyBuyList">
+        <ColumnInfo>
+          <Column id="POST_ID" type="STRING" size="256"/>
+          <Column id="USER_ID" type="STRING" size="256"/>
+          <Column id="TITLE" type="STRING" size="256"/>
+          <Column id="PRICE" type="STRING" size="256"/>
+          <Column id="PURCHASE_URL" type="STRING" size="256"/>
+          <Column id="PHOTO_URL" type="STRING" size="256"/>
+          <Column id="POST_COMMEND" type="STRING" size="256"/>
+          <Column id="REG_DATE" type="STRING" size="256"/>
+          <Column id="CATEGORY_ID" type="STRING" size="256"/>
+          <Column id="POST_STATUS" type="STRING" size="256"/>
+          <Column id="BUYER_ID" type="STRING" size="256"/>
+          <Column id="POST_SCORE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsInfo">
+        <ColumnInfo>
+          <Column id="POST_ID" type="STRING" size="256"/>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+          <Column id="TYPE" type="STRING" size="256"/>
+          <Column id="POST_SCORE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_menu">
+        <ColumnInfo>
+          <Column id="MENU_ID" type="STRING" size="256"/>
+          <Column id="MENU_NAME" type="STRING" size="256"/>
+          <Column id="MENU_LEVEL" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="MENU_ID">10</Col>
+            <Col id="MENU_NAME">주방용품</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">1001</Col>
+            <Col id="MENU_NAME">냄비/프라이팬</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">1002</Col>
+            <Col id="MENU_NAME">칼/도마/조리도구</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">1003</Col>
+            <Col id="MENU_NAME">그릇/홈세트</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">1004</Col>
+            <Col id="MENU_NAME">주방가전</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">20</Col>
+            <Col id="MENU_NAME">청소용품</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">2001</Col>
+            <Col id="MENU_NAME">청소기/필터</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">2002</Col>
+            <Col id="MENU_NAME">밀대/걸레</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">2003</Col>
+            <Col id="MENU_NAME">세탁세제</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">2004</Col>
+            <Col id="MENU_NAME">휴지통/분리수거</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">30</Col>
+            <Col id="MENU_NAME">차용품</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">3001</Col>
+            <Col id="MENU_NAME">세차/광택용품</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">3002</Col>
+            <Col id="MENU_NAME">차량용 방향제</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">3003</Col>
+            <Col id="MENU_NAME">거치대/충전기</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">3004</Col>
+            <Col id="MENU_NAME">카매트/시트</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">40</Col>
+            <Col id="MENU_NAME">여가</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">4001</Col>
+            <Col id="MENU_NAME">캠핑/등산</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">4002</Col>
+            <Col id="MENU_NAME">헬스/요가</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">4003</Col>
+            <Col id="MENU_NAME">여행가방/캐리어</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">4004</Col>
+            <Col id="MENU_NAME">악기/취미용품</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">50</Col>
+            <Col id="MENU_NAME">생활용품</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">5001</Col>
+            <Col id="MENU_NAME">수건/타월</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">5002</Col>
+            <Col id="MENU_NAME">욕실/목욕용품</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">5003</Col>
+            <Col id="MENU_NAME">수납/정리함</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">5004</Col>
+            <Col id="MENU_NAME">화장지/물티슈</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">60</Col>
+            <Col id="MENU_NAME">전자기기</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">6001</Col>
+            <Col id="MENU_NAME">노트북/PC</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">6002</Col>
+            <Col id="MENU_NAME">모바일/태블릿</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">6003</Col>
+            <Col id="MENU_NAME">영상/음향가전</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">6004</Col>
+            <Col id="MENU_NAME">키보드/마우스</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsSell_Reserved">
+        <ColumnInfo>
+          <Column id="POST_ID" type="STRING" size="256"/>
+          <Column id="USER_ID" type="STRING" size="256"/>
+          <Column id="TITLE" type="STRING" size="256"/>
+          <Column id="PRICE" type="STRING" size="256"/>
+          <Column id="PURCHASE_URL" type="STRING" size="256"/>
+          <Column id="PHOTO_URL" type="STRING" size="256"/>
+          <Column id="POST_COMMEND" type="STRING" size="256"/>
+          <Column id="REG_DATE" type="STRING" size="256"/>
+          <Column id="CATEGORY_ID" type="STRING" size="256"/>
+          <Column id="POST_STATUS" type="STRING" size="256"/>
+          <Column id="BUYER_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsBuy_Reserved">
+        <ColumnInfo>
+          <Column id="POST_ID" type="STRING" size="256"/>
+          <Column id="USER_ID" type="STRING" size="256"/>
+          <Column id="TITLE" type="STRING" size="256"/>
+          <Column id="PRICE" type="STRING" size="256"/>
+          <Column id="PURCHASE_URL" type="STRING" size="256"/>
+          <Column id="PHOTO_URL" type="STRING" size="256"/>
+          <Column id="POST_COMMEND" type="STRING" size="256"/>
+          <Column id="REG_DATE" type="STRING" size="256"/>
+          <Column id="CATEGORY_ID" type="STRING" size="256"/>
+          <Column id="POST_STATUS" type="STRING" size="256"/>
+          <Column id="BUYER_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsBuy_Complete">
+        <ColumnInfo>
+          <Column id="POST_ID" type="STRING" size="256"/>
+          <Column id="USER_ID" type="STRING" size="256"/>
+          <Column id="TITLE" type="STRING" size="256"/>
+          <Column id="PRICE" type="STRING" size="256"/>
+          <Column id="PURCHASE_URL" type="STRING" size="256"/>
+          <Column id="PHOTO_URL" type="STRING" size="256"/>
+          <Column id="POST_COMMEND" type="STRING" size="256"/>
+          <Column id="REG_DATE" type="STRING" size="256"/>
+          <Column id="CATEGORY_ID" type="STRING" size="256"/>
+          <Column id="POST_STATUS" type="STRING" size="256"/>
+          <Column id="BUYER_ID" type="STRING" size="256"/>
+          <Column id="POST_SCORE" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="POST_SCORE"></Col>
+          </Row>
+          <Row/>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_status">
+        <ColumnInfo>
+          <Column id="CODE" type="STRING" size="256"/>
+          <Column id="VALUE" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="CODE">ING</Col>
+            <Col id="VALUE">구매가능</Col>
+          </Row>
+          <Row>
+            <Col id="CODE">RESERVED</Col>
+            <Col id="VALUE">예약중</Col>
+          </Row>
+          <Row>
+            <Col id="CODE">END</Col>
+            <Col id="VALUE">구매완료</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.fv_nPrice = 0;//내 물건 팔 때 수락 누르면 잠시 가격 기억해둘 변수
+
+this.PopMyShop_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	var objApp = nexacro.getApplication();
+	var LoginId = objApp.gdsLoginUser.getColumn(0, "LOGIN_ID");
+	this.dsInfo.clearData();
+	var nRow = this.dsInfo.addRow();
+	this.dsInfo.setColumn(nRow, "LOGIN_ID", LoginId);
+	
+	var strSvcUrl = "nexa/getCurrentLoginUserItem.do";
+	var inData = "dsInfo=dsInfo";
+	var strArg = "";
+	var outData = "dsMySalesList=dsMySalesList dsMyBuyList=dsMyBuyList ds_menu=ds_menu";
+
+	this.gfnTransaction("getCurrentLoginUserItem"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+};
+//닫기버튼
+this.btnClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.close();
+};
+
+//버튼 누르기 메서드
+this.grdReserved_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if(!(e.col==5 || e.col==6)) {return;}
+	
+	this.dsInfo.clearData();
+	var nRow = this.dsInfo.addRow();
+	var sPostId = this.dsSell_Reserved.getColumn(e.row, "POST_ID");
+	var sLoginId = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ID");
+	this.dsInfo.setColumn(nRow, "POST_ID", sPostId);
+	this.dsInfo.setColumn(nRow, "LOGIN_ID", sLoginId);
+	
+	if(e.col==5)//승인버튼
+	{
+		this.dsInfo.setColumn(nRow, "TYPE", "END");
+		this.fv_nPrice = this.dsSell_Reserved.getColumn(e.row, "PRICE");
+	}
+	else if(e.col==6)//거절버튼
+	{
+		this.dsInfo.setColumn(nRow, "TYPE", "ING");
+		this.fv_nPrice = 0;
+	}
+	
+	var strSvcUrl = "nexa/acceptOrRejectReserved.do";
+	var inData = "dsInfo=dsInfo";
+	var strArg = "";
+	var outData = "";
+
+	this.gfnTransaction("acceptOrRejectReserved"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+};
+
+//4페이지 클릭이벤트
+this.tabMain_tabPage4_Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if(e.col!=5) {return};
+	
+	this.dsInfo.clearData();
+	var nRow = this.dsInfo.addRow();
+	var sPostId = this.dsMySalesList.getColumn(e.row, "POST_ID");
+	var sPostStatus = this.dsMySalesList.getColumn(e.row, "POST_STATUS");
+	this.dsInfo.setColumn(nRow, "POST_ID", sPostId);
+	this.dsInfo.setColumn(nRow, "TYPE", sPostStatus);
+	
+	var strSvcUrl = "nexa/deleteLoginUserPost.do";
+	var inData = "dsInfo=dsInfo";
+	var strArg = "";
+	var outData = "";
+
+	this.gfnTransaction("deleteLoginUserPost"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+};
+
+//==========================================콜백 메서드==============================================================
+this.fnCallback = function (svcID, errCd, errMsg)
+{
+		if(svcID == "getCurrentLoginUserItem")//온로드에서의 정보 받아오기 트랜잭션
+		{
+			this.dsSell_Reserved.copyData(this.dsMySalesList);   
+			this.dsSell_Reserved.filter("POST_STATUS=='RESERVED'"); 
+			
+			this.dsMySalesList.filter(""); 
+			
+			this.dsBuy_Reserved.copyData(this.dsMyBuyList); 
+			this.dsBuy_Reserved.filter("POST_STATUS=='RESERVED'");  
+			
+			this.dsBuy_Complete.copyData(this.dsMyBuyList);  
+			this.dsBuy_Complete.filter("POST_STATUS=='END'");      
+		}
+		else if(svcID=="acceptOrRejectReserved")//수락이든 거절이든 버튼 누르면 오는 콜백
+		{
+			this.PopMyShop_onload(); //사용자 화면 편의 리로딩
+			if (this.fv_nPrice > 0) //퀵뷰에 있는 회원정보 가격 최신화 로직
+			{
+				var objApp = nexacro.getApplication();
+				var nCurCash = objApp.gdsLoginUser.getColumn(0, "LOGIN_CASH"); 
+				var nNewCash = parseInt(nCurCash) + parseInt(this.fv_nPrice);
+				
+				objApp.gdsLoginUser.setColumn(0, "LOGIN_CASH", nNewCash);
+				
+				this.fv_nPrice = 0;
+				var parentForm = this.getOwnerFrame().parentForm;
+				parentForm.reload();
+			}
+		}
+		else if(svcID=="deleteLoginUserPost")//자신의 게시물 삭제 콜백
+		{
+		
+		}
+};
+
+this.tabMain_tabPage3_grdMyAll_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if(e.col!=5){return;}
+	var sScore = this.dsBuy_Complete.getColumn(e.row, "POST_SCORE");
+	if(sScore){alert("이미 후기를 작성하였습니다."); return};
+	var sPostId = this.dsBuy_Complete.getColumn(e.row, "POST_ID");
+	
+	var sPopupId = "sScorePopup"; //Popup ID
+	var sUrl = "Main::ggul1490pu.xfdl"; //팝업 URL
+	var oArg = {sPostId:sPostId, sParentForm: this}; //전달값
+	var sPopupCallback = "fnCallPopup";
+	var oOption = {title:"모달 팝업", titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
+
+	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
+
+	
+};
+
+//===================================================팝업 콜백================================================
+this.fnCallPopup = function (svcID, rtn)
+{
+	if(svcID=="sScorePopup")
+	{
+		this.tabMain.set_tabindex(2);
+	}
+};]]></Script>
+  </Form>
+</FDL>

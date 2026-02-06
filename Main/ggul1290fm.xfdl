@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="ggul1290fm" width="1600" height="730" titletext="New Form" onload="ggul1290fm_onload" scrolltype="both">
+  <Form id="ggul1290fm" width="1600" height="730" titletext="물품목록" onload="ggul1290fm_onload" scrolltype="both">
     <Layouts>
       <Layout height="730" mobileorientation="landscape" width="1600">
         <Div id="divPage" taborder="1" text="Div00" left="408" width="784" url="Cmm::CmmPaging.xfdl" border="1px solid #e84133" height="40" bottom="0"/>

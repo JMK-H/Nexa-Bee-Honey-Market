@@ -3251,6 +3251,63 @@
 	background : #fff5f5;
 	color : #c92a2a;
 }
+.Tab.MyPage
+{
+}
+.Tab.MyPage .tabbuttonitem
+{
+	background : #ffffff;
+	-nexa-border : 1px solid #f5a623;
+}
+.Tab.MyPage .tabbuttonitem[status=mouseover][userstatus=selected]
+{
+	-nexa-border : 1px solid;
+	background : #f5a623;
+	color : white;
+}
+.Tab.MyPage .tabbuttonitem[status=mouseover]
+{
+	-nexa-border : 1px solid #f5a623;
+	background : #f5a623;
+	color : white;
+}
+.Tab.MyPage .tabbuttonitem[status=focused]
+{
+	-nexa-border : 1px solid;
+	background : #f5a623;
+	color : white;
+}
+.Tab.MyPage .tabbuttonitem[userstatus=selected]
+{
+	-nexa-border : 1px solid #f5a623;
+	background : #f5a623;
+	color : white;
+}
+.Grid.myGridTem
+{
+}
+.Grid.myGridTem .body[status=focused]
+{
+
+}
+.Grid.myGridTem .body .row
+{
+	
+}
+.Grid.myGridTem .body .row .cell[status=focused]
+{
+	background : #ffd170;
+}
+.Grid.myGridTem .body .row .cell[status=mouseover]
+{
+	background : #ffd170;
+	
+}
+.Grid.myGridTem .body .row .cell[userstatus=selected]
+{
+	background : #ffd170;
+	
+}
 ]]></CSSData>
   <CSSData type="desktop"><![CDATA[]]></CSSData>
   <CSSData type="mobile_large"><![CDATA[]]></CSSData>

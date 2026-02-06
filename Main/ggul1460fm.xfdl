@@ -70,6 +70,19 @@ this.fn_SearchMyInfo = function()
 						, true);
 };
 
+//상품관리 팝업띄우기
+this.btnMyShop_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sPopupId = "sPopupId"; //Popup ID
+	var sUrl = "Main::ggul1480pu.xfdl"; //팝업 URL
+	var oArg = {parentForm:this}; //전달값
+	var sPopupCallback = "fnCallPopup";
+	var oOption = {title:"모달 팝업", titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
+
+	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
+	
+};
+
 //===========================================팝업 콜백 함수========================================================
 this.fnCallPopup = function (svcID,rtn)
 {
@@ -86,7 +99,8 @@ this.fnCallback = function (svcID, errCd, errMsg)
 	{
 		this.MiniProfile_onload();
 	}
-};]]></Script>
+};
+]]></Script>
     <Objects>
       <Dataset id="dsCurrentUser">
         <ColumnInfo>
