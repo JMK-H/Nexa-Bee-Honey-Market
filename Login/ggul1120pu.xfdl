@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="ggul1120pu" width="400" height="400" titletext="New Form">
+  <Form id="ggul1120pu" width="400" height="400" titletext="비밀번호 찾기">
     <Layouts>
       <Layout height="400" mobileorientation="landscape" width="400">
         <Static id="staTitle" taborder="0" text="비밀번호 찾기" left="20" top="20" height="60" right="20" cssclass="PopupTitle"/>

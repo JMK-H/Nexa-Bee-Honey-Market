@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="ggul1130pu" width="400" height="640" titletext="New Form" borderRadius="20px">
+  <Form id="ggul1130pu" width="400" height="640" titletext="회원가입" borderRadius="20px">
     <Layouts>
       <Layout height="640" mobileorientation="landscape" width="400">
         <Static id="staTitle" taborder="0" text="회원가입" left="40" top="20" height="60" cssclass="PopupTitle" right="40"/>
@@ -72,7 +72,6 @@ this.fnCallback = function (svcId, errCd, errMsg)
 	}
 	else if(svcId == "getSameNicknameCount") //닉네임중복콜백
 	{
-		trace("##############################"+this.Nickname_count)
 		var nickname = this.txfNickname.text;
 		if (nickname == null || nickname == undefined || nickname == "" || nickname.trim() == "") 
 		{
@@ -331,10 +330,9 @@ this.txfNickname_oninput = function(obj:nexacro.TextField,e:nexacro.InputEventIn
 							, true);
 };
 
-this.txfNickname_onchanged = function(obj:nexacro.TextField,e:nexacro.ChangeEventInfo)
-{
-	
-};
+
+
+
 ]]></Script>
     <Objects>
       <Dataset id="dsUser">

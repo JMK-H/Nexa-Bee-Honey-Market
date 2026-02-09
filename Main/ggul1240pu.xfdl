@@ -5,16 +5,122 @@
       <Layout height="300" width="500">
         <Static id="staTitle" taborder="0" text="닉네임 변경" left="100" top="10" height="60" right="100" cssclass="PopupTitle"/>
         <Static id="staSubTitle" taborder="1" text="새로운 닉네임을 입력해주세요" left="80" top="49" height="60" cssclass="PopupSubTitle" right="80"/>
-        <TextField id="tfNewNickname" taborder="2" labeltext="새 닉네임" left="50" top="120" height="60" cssclass="FindId" displaynulltext="ex) 주머니속 50원" right="50"/>
-        <Button id="btnCancel" taborder="3" text="취소" left="50" top="205" height="40" right="260" onclick="btnCancel_onclick" borderRadius="10px"/>
-        <Button id="btnConfirm" taborder="4" text="변경하기" left="260" top="205" height="40" right="50" cssclass="Login" borderRadius="10px"/>
+        <TextField id="tfNewNickname" taborder="2" labeltext="새 닉네임" left="50" top="120" height="60" cssclass="FindId" displaynulltext="ex) 주머니속 50원" right="50" oninput="tfNewNickname_oninput"/>
+        <Button id="btnCancel" taborder="3" text="취소" left="50" top="215" height="40" right="260" onclick="btnCancel_onclick" borderRadius="10px"/>
+        <Button id="btnConfirm" taborder="4" text="변경하기" left="260" top="215" height="40" right="50" cssclass="Login" borderRadius="10px" onclick="btnConfirm_onclick"/>
+        <Static id="staNicknameMsg" taborder="5" text="" left="50" top="181" width="340" height="20"/>
       </Layout>
     </Layouts>
-    <Script type="xscript5.1"><![CDATA[
+    <Script type="xscript5.1"><![CDATA[this.checkDoubleNickname = false; //닉네임 중복체크하고 통과하면 true로
+
 this.btnCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.close();
 };
-]]></Script>
+
+this.btnConfirm_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if(this.checkDoubleNickname) //통과이면 닉네임 갱신
+	{
+		this.getUserNewNickname();
+		var strSvcUrl = "nexa/changeLoginNickname.do";
+		var inData = "dsInData=dsInData";
+		var strArg = "";
+		var outData = "";
+
+		this.gfnTransaction("changeLoginNickname"
+							, strSvcUrl
+							, inData //이클립스받기=넥사크로주기
+							, outData //넥사크로받기=이클립스주기
+							, strArg
+							, "fnCallback"
+							, true);
+	}
+	else
+	{
+		alert("올바른 닉네임을 입력해주세요.");
+	}
+};
+
+//ds에 정보담기 메서드
+this.getUserNewNickname = function ()
+{
+	var objApp = nexacro.getApplication();
+	var sLoginId = objApp.gdsLoginUser.getColumn(0, "LOGIN_ID");
+	var sLoginNickname = this.tfNewNickname.value;
+	
+	this.dsInData.clearData();
+	var nRow = this.dsInData.addRow();
+	this.dsInData.setColumn(nRow, "LOGIN_ID", sLoginId);
+	this.dsInData.setColumn(nRow, "LOGIN_NICKNAME", sLoginNickname);
+};
+
+this.tfNewNickname_oninput = function(obj:nexacro.TextField,e:nexacro.InputEventInfo)
+{
+	var Nickname = this.tfNewNickname.value;		
+	var strSvcUrl = "nexa/getSameNicknameCount.do?v="+ new Date().getTime();
+	var inData = "";
+	var strArg = "userNickname=" + nexacro.wrapQuote(Nickname);
+	var outData = "";
+		
+	this.gfnTransaction("getSameNicknameCount"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+};
+
+//=============================================콜백함수===========================================================
+
+this.Nickname_count="";
+this.checkDoubleNickname = 
+this.fnCallback = function (svcID, errCd, errMsg)
+{
+	if(svcID == "getSameNicknameCount") //중복체크
+	{
+		var nickname = this.tfNewNickname.text;
+		if (nickname == null || nickname == undefined || nickname == "" || nickname.trim() == "") 
+		{
+			this.staNicknameMsg.set_text("닉네임을 입력해주세요.");
+			this.staNicknameMsg.set_color("red");
+			this.tfNewNickname.set_cssclass("CheckIdpassN");
+			this.checkDoubleNickname = false;
+		}
+		else if(this.Nickname_count > 0)
+		{
+			this.tfNewNickname.set_cssclass("CheckIdpassN");
+			this.staNicknameMsg.set_color("red");
+			this.staNicknameMsg.text="이미 존재하는 닉네임 입니다.";
+			this.checkDoubleNickname = false; //미통과상태
+		}
+		else
+		{
+			this.tfNewNickname.set_cssclass("CheckIdpass");
+			this.staNicknameMsg.set_color("#26752b");
+			this.staNicknameMsg.text="사용가능한 닉네임 입니다!";
+			this.checkDoubleNickname = true; //통과상태
+		}
+	}
+	else if(svcID == "changeLoginNickname")
+	{
+		alert("닉네임이 변경되었습니다.\n 로그아웃합니다.");
+		var objApp = nexacro.getApplication();
+		var objDs = objApp.gdsLoginUser;
+		objDs.clearData(); 
+	
+		this.close();
+		objApp.mainframe.VFrameSet00.set_separatesize("*,0");
+	}
+};]]></Script>
+    <Objects>
+      <Dataset id="dsInData">
+        <ColumnInfo>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+          <Column id="LOGIN_NICKNAME" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
   </Form>
 </FDL>

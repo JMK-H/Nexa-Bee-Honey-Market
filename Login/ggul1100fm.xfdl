@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="ggulin1110fm" width="400" height="500" background="#ffffff">
+  <Form id="ggulin1110fm" width="400" height="500" background="#ffffff" titletext="로그인 화면">
     <Layouts>
       <Layout height="500" mobileorientation="landscape" width="400">
         <Static id="RNf" taborder="0" text="🍯꿀꺼억" left="50" top="50" right="50" height="50" cssclass="PopupTitle"/>

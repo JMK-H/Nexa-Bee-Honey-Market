@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="ggul1110pu" width="400" height="400" titletext="New Form" borderRadius="20px">
+  <Form id="ggul1110pu" width="400" height="400" titletext="아이디찾기" borderRadius="20px">
     <Layouts>
       <Layout height="400" mobileorientation="landscape" width="400">
         <Static id="staTitle" taborder="0" text="아이디 찾기" left="20" top="20" height="60" right="20" cssclass="PopupTitle"/>

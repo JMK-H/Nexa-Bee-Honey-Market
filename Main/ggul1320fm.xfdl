@@ -57,7 +57,7 @@
             </Format>
           </Formats>
         </Grid>
-        <Button id="btnExcelExport" taborder="4" text="📥 엑셀 다운로드 / 전체 목록 엑셀 저장" left="1100" top="75" width="300" height="40" borderRadius="10px" onclick="btnExcelExport_onclick" background="#217346"/>
+        <Button id="btnExcelExport" taborder="4" text="📥 엑셀 다운로드 / 전체 목록 엑셀 저장" left="1100" top="75" width="300" height="40" borderRadius="10px" onclick="btnExcelExport_onclick" background="#217346" cursor="pointer"/>
       </Layout>
     </Layouts>
     <Objects>
