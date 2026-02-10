@@ -68,7 +68,7 @@ this.fnCallback = function (svcId, errCd, errMsg)
 			//이걸로 css설정
             // 글자색을 빨간색으로 하고 싶다면
 			var sMsgId = "msg.err.alreadyexist"; //메세지ID //있는 아이디입니다.
-			var arrArg = []; //메세지취환될값 배열[생략가능]
+			var arrArg = ["아이디"]; //메세지취환될값 배열[생략가능]
 			var sPopId = "msg.err.alreadyexist"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
 			var sMsgCallback = "";
 

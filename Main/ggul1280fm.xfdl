@@ -78,7 +78,12 @@ this.FileDialog00_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialog
 	var sFileName = objFile.filename; //이름 가져오기
 	
 	if(!/\.(jpe?g|png|gif)$/i.test(sFileName)){
-		alert("이미지 파일을 선택하세요");
+		var sMsgId = "msg.noselect"; //메세지ID
+		var arrArg = ["이미지"]; //메세지취환될값 배열[생략가능]
+		var sPopId = "msg.noselect"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "";
+
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
 		return;
 	}
 	//FileUpTransfer00 비우고 사진 이름과 이미지 파일 담기
@@ -108,9 +113,13 @@ this.FileDialog00_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialog
 //최종 등록 버튼 클릭시
 this.btnReg_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	var sUploadUrl = "SvcUrl::nexaProject/uploadFile.do"; 
-	this.FileUpTransfer00.setPostData("userDir", "");//P02\\P028, ..\\src\\main\\webapp\\images
-    this.FileUpTransfer00.upload(sUploadUrl);
+	if(!this.fn_checkValidation()) {return;}
+	var sMsgId = "confirm.before.save"; //메세지ID
+	var arrArg = []; //메세지취환될값 배열[생략가능]
+	var sPopId = "confirm.before.save"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+	var sMsgCallback = "fnPopupCallback";
+
+	this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
 };
 //파일등록 콜백
 this.FileUpTransfer00_onsuccess = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferEventInfo)
@@ -148,13 +157,95 @@ this.fn_SaveImgEmp = function ()
 						, "fnCallback"
 						, true);
 };
+//===========================================정합성체크==========================================================
+this.fn_checkValidation = function()
+{
+    if (this.gfnIsNull(this.imgPhoto.image)) 
+    {
+        var sMsgId = "msg.noselect"; //메세지ID
+        var arrArg = ["이미지"]; //메세지취환될값 배열[생략가능]
+        var sPopId = "wjdgkqtjdcpzmdlalwl"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+        var sMsgCallback = "";
+
+        this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+        return false;
+    }
+
+    if (this.gfnIsNull(this.edtTitle.value)) 
+    {
+		var sMsgId = "msg.err.validator.required"; //메세지ID
+        var arrArg = ["제목"]; //메세지취환될값 배열[생략가능]
+        var sPopId = "wjdgkqtjdwpahrdlqfur"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+        var sMsgCallback = "";
+
+        this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+        this.edtTitle.setFocus();
+        return false;
+    }
+
+    if (this.gfnIsNull(this.cboCategory.value)) 
+    {
+		var sMsgId = "msg.err.validator.required"; //메세지ID
+        var arrArg = ["카테고리"]; //메세지취환될값 배열[생략가능]
+        var sPopId = "wjdgkqtjdzkxprhfltjsxoe"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+        var sMsgCallback = "";
+
+        this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+        this.cboCategory.setFocus();
+        return false;
+    }
+
+    if (this.gfnIsNull(this.edtPlace.value)) 
+    {
+		var sMsgId = "msg.err.validator.required"; //메세지ID
+        var arrArg = ["구매처"]; //메세지취환될값 배열[생략가능]
+        var sPopId = "wjdgkqtjdrnaocjdlqfur"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+        var sMsgCallback = "";
+
+        this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+        this.edtPlace.setFocus();
+        return false;
+    }
+
+    if (this.gfnIsNull(this.mskPrice.value) || this.mskPrice.value == 0) 
+    {
+		var sMsgId = "msg.err.validator.required"; //메세지ID
+        var arrArg = ["가격"]; //메세지취환될값 배열[생략가능]
+        var sPopId = "wjdgkqtjdrkrurdlqfur"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+        var sMsgCallback = "";
+
+        this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+        this.mskPrice.setFocus();
+        return false;
+    }
+
+    if (this.gfnIsNull(this.txaContent.value)) 
+    {
+		var sMsgId = "msg.err.validator.required"; //메세지ID
+        var arrArg = ["내용"]; //메세지취환될값 배열[생략가능]
+        var sPopId = "wjdgkqtjdsodyddlqfur"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+        var sMsgCallback = "";
+
+        this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+        this.txaContent.setFocus();
+        return false;
+    }
+
+    // 모든 체크를 통과함
+    return true;
+};
+
 //============================================콜백함수==============================================
 this.fnCallback = function (svcID, errCd, errMsg)
 {
 	if(svcID == "saveItem")
 	{
-		alert("등록되었습니다.")
-		this.reload();
+		var sMsgId = "msg.save.success"; //메세지ID
+		var arrArg = []; //메세지취환될값 배열[생략가능]
+		var sPopId = "msg.save.success"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "fnPopupCallback";
+
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
 	}
 	else if(svcID == "getMenuList")
 	{	
@@ -162,7 +253,23 @@ this.fnCallback = function (svcID, errCd, errMsg)
 	}
 };
 
-]]></Script>
+//============================================팝업콜백함수==============================================
+this.fnPopupCallback = function (svcID, rtn)
+{
+	if(svcID == "confirm.before.save")
+	{
+		if(rtn)//확인눌럿으면
+		{
+			var sUploadUrl = "SvcUrl::nexaProject/uploadFile.do"; 
+			this.FileUpTransfer00.setPostData("userDir", "");//P02\\P028, ..\\src\\main\\webapp\\images
+			this.FileUpTransfer00.upload(sUploadUrl);
+		}
+	}
+	else if(svcID == "msg.save.success")
+	{
+		this.reload();
+	}
+};]]></Script>
     <Bind>
       <BindItem id="item0" compid="edtTitle" propid="value" datasetid="dsImgEmp" columnid="TITLE"/>
       <BindItem id="item1" compid="cboCategory" propid="value" datasetid="dsImgEmp" columnid="CATEGORY_ID"/>

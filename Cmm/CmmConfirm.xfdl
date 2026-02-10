@@ -1,13 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="CmmConfirm" width="360" height="200" titletext="확인창" onload="form_onload">
+  <Form id="CmmConfirm" width="360" height="200" titletext="확인" onload="form_onload" background="transparent">
     <Layouts>
       <Layout height="200" width="360">
-        <Static id="Static00" taborder="4" left="0" top="75" width="360" height="125" cssclass="sta_POP_Bg"/>
-        <Button id="btnOk" taborder="0" text="확인" height="34" bottom="10" onclick="btnOk_onclick" uWord="popup.ok" cssclass="btn_WF_FillTeal" width="70" right="90"/>
-        <Button id="btnCancle" taborder="1" text="취소" width="70" height="34" bottom="10" onclick="btnCancle_onclick" uWord="popup.cancel" cssclass="btn_WF_FillGray" right="15"/>
-        <TextArea id="txtMsgContent" taborder="3" left="0" top="20" width="360" height="125" cssclass="txt_POP_Message" value="해당 row의 위치를 이동하면 변경된 데이터가 사라집니다. \n계속 진행 하시겠습니까?" readonly="true"/>
-        <Static id="staIcon" taborder="2" left="15" top="40" width="50" height="50" cssclass="sta_POP_Confirm"/>
+        <Div id="divBg" taborder="0" left="10" top="10" right="10" bottom="10" background="#ffffff" borderRadius="15px" boxShadow="0px 5px 15px rgba(0,0,0,0.2)" border="0px none" text="">
+          <Layouts>
+            <Layout>
+              <Static id="staMsgContent" taborder="0" text="진행 하시겠습니까?" left="20" top="30" right="20" bottom="80" color="#333333" font="normal 14px/1.4 'Malgun Gothic', 'Noto Sans KR'" textAlign="center" verticalAlign="middle" wordWrap="char"/>
+              <Button id="btnCancle" taborder="1" text="취소" width="100" height="40" bottom="20" left="60" background="#e0e0e0" color="#555555" borderRadius="20px" font="bold 14px 'Malgun Gothic'" cursor="pointer" border="0px none" onclick="btnCancle_onclick"/>
+              <Button id="btnOk" taborder="2" text="확인" width="100" height="40" bottom="20" right="60" color="#ffffff" borderRadius="20px" font="bold 14px 'Malgun Gothic'" cursor="pointer" border="0px none" onclick="btnOk_onclick" cssclass="Login"/>
+            </Layout>
+          </Layouts>
+        </Div>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[/**
@@ -56,7 +60,7 @@ this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 */
 this.fnMsgSetting = function (sMsgContent)
 {
- 	this.txtMsgContent.value = sMsgContent;
+ 	this.divBg.form.staMsgContent.set_text(sMsgContent);
 };
 
 /************************************************************************************************
