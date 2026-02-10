@@ -3,7 +3,7 @@
   <Form id="left" width="300" height="820" titletext="New Form" onload="left_onload">
     <Layouts>
       <Layout height="820" width="300">
-        <Grid id="gridMenu" taborder="0" left="0" top="160" right="0" bottom="0" binddataset="ds_menu" autofittype="col" treeusecheckbox="false" treeinitstatus="collapse,null" cssclass="QuickMenu" border="0px none" oncellclick="gridMenu_oncellclick" treeuseline="false" treeuseimage="false">
+        <Grid id="gridMenu" taborder="0" left="0" top="160" bottom="0" binddataset="ds_menu" autofittype="col" treeusecheckbox="false" treeinitstatus="collapse,null" border="0px none" oncellclick="gridMenu_oncellclick" treeuseline="false" treeuseimage="false" width="300" cssclass="QuickMenu">
           <Formats>
             <Format id="default">
               <Columns>
@@ -13,7 +13,7 @@
                 <Row size="55"/>
               </Rows>
               <Band id="body">
-                <Cell text="bind:MENU_NAME" displaytype="treeitemcontrol" edittype="tree" treelevel="bind:MENU_LEVEL"/>
+                <Cell text="bind:MENU_NAME" displaytype="treeitemcontrol" edittype="tree" treelevel="bind:MENU_LEVEL" color="black"/>
               </Band>
             </Format>
           </Formats>
@@ -31,153 +31,8 @@
         <Rows>
           <Row>
             <Col id="MENU_ID">10</Col>
-            <Col id="MENU_NAME">주방용품</Col>
+            <Col id="MENU_NAME">ddd</Col>
             <Col id="MENU_LEVEL">0</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">1001</Col>
-            <Col id="MENU_NAME">냄비/프라이팬</Col>
-            <Col id="MENU_LEVEL">1</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">1002</Col>
-            <Col id="MENU_NAME">칼/도마/조리도구</Col>
-            <Col id="MENU_LEVEL">1</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">1003</Col>
-            <Col id="MENU_NAME">그릇/홈세트</Col>
-            <Col id="MENU_LEVEL">1</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">1004</Col>
-            <Col id="MENU_NAME">주방가전</Col>
-            <Col id="MENU_LEVEL">1</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">20</Col>
-            <Col id="MENU_NAME">청소용품</Col>
-            <Col id="MENU_LEVEL">0</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">2001</Col>
-            <Col id="MENU_NAME">청소기/필터</Col>
-            <Col id="MENU_LEVEL">1</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">2002</Col>
-            <Col id="MENU_NAME">밀대/걸레</Col>
-            <Col id="MENU_LEVEL">1</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">2003</Col>
-            <Col id="MENU_NAME">세탁세제</Col>
-            <Col id="MENU_LEVEL">1</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">2004</Col>
-            <Col id="MENU_NAME">휴지통/분리수거</Col>
-            <Col id="MENU_LEVEL">1</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">30</Col>
-            <Col id="MENU_NAME">차용품</Col>
-            <Col id="MENU_LEVEL">0</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">3001</Col>
-            <Col id="MENU_NAME">세차/광택용품</Col>
-            <Col id="MENU_LEVEL">1</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">3002</Col>
-            <Col id="MENU_NAME">차량용 방향제</Col>
-            <Col id="MENU_LEVEL">1</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">3003</Col>
-            <Col id="MENU_NAME">거치대/충전기</Col>
-            <Col id="MENU_LEVEL">1</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">3004</Col>
-            <Col id="MENU_NAME">카매트/시트</Col>
-            <Col id="MENU_LEVEL">1</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">40</Col>
-            <Col id="MENU_NAME">여가</Col>
-            <Col id="MENU_LEVEL">0</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">4001</Col>
-            <Col id="MENU_NAME">캠핑/등산</Col>
-            <Col id="MENU_LEVEL">1</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">4002</Col>
-            <Col id="MENU_NAME">헬스/요가</Col>
-            <Col id="MENU_LEVEL">1</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">4003</Col>
-            <Col id="MENU_NAME">여행가방/캐리어</Col>
-            <Col id="MENU_LEVEL">1</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">4004</Col>
-            <Col id="MENU_NAME">악기/취미용품</Col>
-            <Col id="MENU_LEVEL">1</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">50</Col>
-            <Col id="MENU_NAME">생활용품</Col>
-            <Col id="MENU_LEVEL">0</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">5001</Col>
-            <Col id="MENU_NAME">수건/타월</Col>
-            <Col id="MENU_LEVEL">1</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">5002</Col>
-            <Col id="MENU_NAME">욕실/목욕용품</Col>
-            <Col id="MENU_LEVEL">1</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">5003</Col>
-            <Col id="MENU_NAME">수납/정리함</Col>
-            <Col id="MENU_LEVEL">1</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">5004</Col>
-            <Col id="MENU_NAME">화장지/물티슈</Col>
-            <Col id="MENU_LEVEL">1</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">60</Col>
-            <Col id="MENU_NAME">전자기기</Col>
-            <Col id="MENU_LEVEL">0</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">6001</Col>
-            <Col id="MENU_NAME">노트북/PC</Col>
-            <Col id="MENU_LEVEL">1</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">6002</Col>
-            <Col id="MENU_NAME">모바일/태블릿</Col>
-            <Col id="MENU_LEVEL">1</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">6003</Col>
-            <Col id="MENU_NAME">영상/음향가전</Col>
-            <Col id="MENU_LEVEL">1</Col>
-          </Row>
-          <Row>
-            <Col id="MENU_ID">6004</Col>
-            <Col id="MENU_NAME">키보드/마우스</Col>
-            <Col id="MENU_LEVEL">1</Col>
           </Row>
         </Rows>
       </Dataset>
@@ -214,15 +69,12 @@ this.gridMenu_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventIn
 	var objApp = nexacro.getApplication();//글로벌에 접근 가능하게한뒤에
 	objApp.gv_MenuId = sMenuId;
 	
-	// 기존 애니메이션이 동작 중이면 중단 (중복 방지)==================================================================
-    if (!this.ani00) 
+	// 기존 애니메이션이 동작 중이면 중단 (중복 방지)
 	{
 		objAni = new nexacro.Animation("ani00", this); 
 		this.addChild("ani00", objAni);
 		
-		// 애니메이션 오브젝트 생성 (ID, 지속시간: 0.3초)
-		// 가속도 효과 (부드럽게)
-		objAni.set_duration(300); // 300ms (0.3초) 동안 동작
+		objAni.set_duration(300); // 300ms (0.3초)
 		objAni.set_easing("easeInQuad");
 	}
 
@@ -234,12 +86,11 @@ this.gridMenu_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventIn
     }
 	
 	objAni.removeTarget("aniTarget01");
-    // 애니메이션 대상 속성 추가 (너비와 Work 영역의 위치를 동시에!)
+    // 애니메이션 대상 속성 추가
     objAni.addTarget("aniTarget01", this.parent.parent.divLeft, "width:" + nWidth);
 
     // 실행
     objAni.play();
-	//=====================================================================================================================
 	
 	//온로드 이벤트 발생시키기위한 코드
 	if (this.parent.parent.divWork.url == "Main::ggul1290fm.xfdl") 
@@ -257,7 +108,6 @@ this.fnCallback = function (svcID, errCd, errMsg)
 {
 	if(svcID =="getMenuList")
 	{
-		
 	}
 };]]></Script>
   </Form>

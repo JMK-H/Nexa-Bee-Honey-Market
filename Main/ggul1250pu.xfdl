@@ -12,7 +12,6 @@
         <Button id="btnConfirm" taborder="6" text="변경하기" left="260" top="385" height="40" right="50" cssclass="Login" borderRadius="10px" onclick="btnConfirm_onclick"/>
         <Static id="staCurrPwMsg" taborder="7" text="" left="50" top="190" width="335" height="20"/>
         <Static id="staPwMsg" taborder="8" text="" left="50" top="340" width="335" height="20"/>
-        <Button id="Button00" taborder="9" text="Button00" left="22" top="9" width="88" height="55"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[var objApp = nexacro.getApplication();

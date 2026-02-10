@@ -82,7 +82,7 @@
         <Edit id="edtEndDate" taborder="45" left="683" top="892" width="311" height="50" displaynulltext="예: 20260918" background="#f9f9f9" border="0px none" borderRadius="8px" padding="0px 15px" font="14px 'Malgun Gothic'"/>
         <Static id="StaUploadIcon" taborder="39" text="⬆️" left="312" top="782" width="310" height="140" textAlign="center" font="24px 'Malgun Gothic'" color="#bbbbbb" borderRadius="10px"/>
         <Static id="StaUploadText" taborder="38" text="클릭하여 이미지 업로드" left="313" top="822" width="318" height="131" textAlign="center" font="13px 'Malgun Gothic'" color="#999999" borderRadius="10px"/>
-        <ImageViewer id="imgPhoto" taborder="37" text="" left="312" top="778" width="310" height="171" color="transparent" background="transparent" borderRadius="10px"/>
+        <ImageViewer id="imgPhoto" taborder="37" text="" left="312" top="778" width="310" height="171" color="transparent" background="transparent" borderRadius="10px" stretch="fit"/>
         <Button id="btnFileUpload" taborder="40" left="312" top="778" height="171" background="transparent" border="0px none" cursor="pointer" onclick="btnFileUpload_onclick" text="" width="318" color="transparent" borderRadius="10px"/>
       </Layout>
     </Layouts>
@@ -369,6 +369,35 @@ this.FileDialog00_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialog
 //최종 등록 버튼
 this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
+	var sTitle = this.edtTitle.value;
+	if(this.gfnIsNull(sTitle)) 
+	{
+		alert("광고 제목을 입력해주세요.");
+		return; // 함수 종료
+	}
+
+	var sEndDate = this.edtEndDate.value;
+	if(this.gfnIsNull(sEndDate)) 
+	{
+		alert("종료 기간을 입력해주세요.");
+		this.edtEndDate.setFocus();
+		return;
+	}
+	
+	if(sEndDate.length != 8) 
+	{
+		alert("날짜는 8자리로 입력해주세요. (예: 20240101)");
+		this.edtEndDate.setFocus();
+		return;
+	}
+
+
+	if(this.FileUpTransfer00.filelist.length < 1)
+	{
+		alert("이미지 파일을 선택해주세요.");
+		return;
+	}
+	
 	var sUploadUrl = "SvcUrl::nexaProject/uploadFile.do"; 
 	this.FileUpTransfer00.setPostData("userDir", "");//P02\\P028, ..\\src\\main\\webapp\\images
     this.FileUpTransfer00.upload(sUploadUrl);
@@ -377,7 +406,6 @@ this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 //파일등록 콜백
 this.FileUpTransfer00_onsuccess = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferEventInfo)
 {
-	alert("파일등록 콜백 들어옴")
 	var objDs = e.datasets[0];	
 	var sSaveFileName = objDs.getColumn(0, "FILE_ID");//파일이름
 	var sAdverTitle = this.edtTitle.value;//광고 이름 사용자 입력으로 대체
@@ -401,7 +429,6 @@ this.FileUpTransfer00_onsuccess = function(obj:nexacro.FileUpTransfer,e:nexacro.
 						, strArg
 						, "fnCallback"
 						, true);
-	this.reload();
 };
 
 this.FileUpTransfer00_onerror = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferErrorEventInfo)
@@ -454,6 +481,7 @@ this.Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo
 	}
 	else if(e.col==6)//삭제
 	{
+		if(!confirm("정말 삭제하시겠습니까?")){return;}
 		this.dsInAdv.clearData();
 		var nRow = this.dsInAdv.addRow();
 		
@@ -526,6 +554,11 @@ this.fnCallback = function (svcID, errCd, errMsg)
 	else if(svcID=="deleteAdvList") //광고 삭제
 	{
 		alert("삭제되었습니다.")
+		this.reload();
+	}
+	else if(svcID == "addAdvList")
+	{
+		alert("저장되었습니다.");
 		this.reload();
 	}
 };

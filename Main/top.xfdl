@@ -5,7 +5,7 @@
       <Layout height="80" mobileorientation="landscape" width="1600">
         <Button id="btnMenu" taborder="0" left="200" top="30" width="30" height="20" border="0px none" onclick="btnMenu_onclick" background="url('imagerc::Gemini_Generated_Image_s14ec0s14ec0s14e.png') no-repeat center" cursor="pointer"/>
         <Button id="btnUser" taborder="1" top="23" height="35" border="0px none" background="url('imagerc::개인정보.png') no-repeat right center" width="20" right="220" onclick="btnUser_onclick" text="" cursor="pointer"/>
-        <Button id="btnZzim" taborder="2" top="25" width="30" height="30" background="url('imagerc::찜아이콘ns.png') no-repeat center" border="0px none" right="260" onclick="btnZzim_onclick" cursor="pointer"/>
+        <Button id="btnZzim" taborder="2" top="25" width="30" height="30" background="url('imagerc::Selectns.png') no-repeat center" border="0px none" right="260" onclick="btnZzim_onclick" cursor="pointer"/>
         <Static id="staTitle" taborder="3" text="🍯꿀꺼억" left="500" top="0" width="600" height="80" cssclass="PopupTitle"/>
         <Button id="btnAdmin" taborder="4" text="" top="23" height="35" visible="false" onclick="btnAdmin_onclick" right="167" width="30" background="url('imagerc::btnAdmin2.png') no-repeat left top" border="0px none" cursor="pointer"/>
         <Button id="btnHome" taborder="5" text="" left="720" top="0" width="170" height="80" background="transparent" border="0px none" onclick="Button00_onclick" cursor="pointer"/>
@@ -37,6 +37,7 @@ this.btnMenu_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
         nWidth = 0;      // 닫기
     } else {
         nWidth = 300;    // 열기
+		this.resetScroll();
     }
 	
 	objAni.removeTarget("aniTarget01");

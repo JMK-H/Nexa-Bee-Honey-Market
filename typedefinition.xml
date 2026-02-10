@@ -63,7 +63,7 @@
     <Service prefixid="Login" type="form" url="./Login/" version="0" cachelevel="session" include_subdir="false" communicationversion="0"/>
     <Service prefixid="SvcUrl" type="JSP" version="0" cachelevel="none" include_subdir="false" communicationversion="0" url="http://172.10.14.134:8088/edupack_egov/"/>
     <Service prefixid="Main" type="form" url="./Main/" version="0" cachelevel="session" include_subdir="false" communicationversion="0"/>
-    <Service prefixid="HomeUrl" type="JSP" version="0" cachelevel="session" include_subdir="false" communicationversion="0" url="http://localhost:8088/edupack_egov/"/>
+    <Service prefixid="HomeUrl" type="JSP" version="0" cachelevel="none" include_subdir="false" communicationversion="0" url="http://localhost:8088/edupack_egov/"/>
   </Services>
   <Protocols/>
   <DeviceAdaptors/>

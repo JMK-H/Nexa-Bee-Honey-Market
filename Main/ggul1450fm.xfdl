@@ -161,6 +161,70 @@
           </Layouts>
         </Div>
         <Edit id="edtSearchKeyword" taborder="6" left="490" top="50" height="40" right="500" border="0px none" background="transparent" color="#333333" font="14px 'Malgun Gothic'" displaynulltext="검색어를 입력해주세요"/>
+        <Grid id="Grid00" taborder="7" left="41" top="860" width="268" height="518" binddataset="dsCurrentItem">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="POST_ID"/>
+                <Cell col="1" text="USER_ID"/>
+                <Cell col="2" text="TITLE"/>
+                <Cell col="3" text="CONTENT"/>
+                <Cell col="4" text="PRICE"/>
+                <Cell col="5" text="PURCHASE_URL"/>
+                <Cell col="6" text="PHOTO_URL"/>
+                <Cell col="7" text="REG_DATE"/>
+                <Cell col="8" text="CATEGORY_ID"/>
+                <Cell col="9" text="IS_WISH"/>
+                <Cell col="10" text="LIKE_CNT"/>
+                <Cell col="11" text="UNLIKE_CNT"/>
+                <Cell col="12" text="MY_LIKE_STATE"/>
+                <Cell col="13" text="POST_COMMEND"/>
+                <Cell col="14" text="BUYER_ID"/>
+                <Cell col="15" text="POST_STATUS"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:POST_ID"/>
+                <Cell col="1" text="bind:USER_ID"/>
+                <Cell col="2" text="bind:TITLE"/>
+                <Cell col="3" text="bind:CONTENT"/>
+                <Cell col="4" text="bind:PRICE"/>
+                <Cell col="5" text="bind:PURCHASE_URL"/>
+                <Cell col="6" text="bind:PHOTO_URL"/>
+                <Cell col="7" text="bind:REG_DATE"/>
+                <Cell col="8" text="bind:CATEGORY_ID"/>
+                <Cell col="9" text="bind:IS_WISH"/>
+                <Cell col="10" text="bind:LIKE_CNT"/>
+                <Cell col="11" text="bind:UNLIKE_CNT"/>
+                <Cell col="12" text="bind:MY_LIKE_STATE"/>
+                <Cell col="13" text="bind:POST_COMMEND"/>
+                <Cell col="14" text="bind:BUYER_ID"/>
+                <Cell col="15" text="bind:POST_STATUS"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
       </Layout>
     </Layouts>
     <Objects>
@@ -192,6 +256,24 @@
           <Column id="LIKE_CNT" type="STRING" size="256"/>
           <Column id="UNLIKE_CNT" type="STRING" size="256"/>
           <Column id="MY_LIKE_STATE" type="STRING" size="256"/>
+          <ColumnInfo>
+            <Column id="POST_ID" type="STRING" size="256"/>
+            <Column id="USER_ID" type="STRING" size="256"/>
+            <Column id="TITLE" type="STRING" size="256"/>
+            <Column id="CONTENT" type="STRING" size="256"/>
+            <Column id="PRICE" type="STRING" size="256"/>
+            <Column id="PURCHASE_URL" type="STRING" size="256"/>
+            <Column id="PHOTO_URL" type="STRING" size="256"/>
+            <Column id="REG_DATE" type="STRING" size="256"/>
+            <Column id="CATEGORY_ID" type="STRING" size="256"/>
+            <Column id="IS_WISH" type="STRING" size="256"/>
+            <Column id="LIKE_CNT" type="STRING" size="256"/>
+            <Column id="UNLIKE_CNT" type="STRING" size="256"/>
+            <Column id="MY_LIKE_STATE" type="STRING" size="256"/>
+            <Column id="POST_COMMEND" type="STRING" size="256"/>
+            <Column id="BUYER_ID" type="STRING" size="256"/>
+            <Column id="POST_STATUS" type="STRING" size="256"/>
+          </ColumnInfo>
           <Column id="POST_COMMEND" type="STRING" size="256"/>
           <Column id="BUYER_ID" type="STRING" size="256"/>
           <Column id="POST_STATUS" type="STRING" size="256"/>
@@ -789,11 +871,15 @@ this.divList_btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInf
 	var sCategoryName = this.ds_menu.lookup("MENU_ID", sCategoryId, "MENU_NAME");
 	var sStatus = this.dsCurrentItem.getColumn(nRow, "POST_STATUS");
 	var sBuyerId = this.dsCurrentItem.getColumn(nRow, "BUYER_ID");
+	var sLikeCnt = this.dsCurrentItem.getColumn(nRow, "LIKE_CNT");
+	var sUnlikeCnt = this.dsCurrentItem.getColumn(nRow, "UNLIKE_CNT");
+	var sMyLikeState = this.dsCurrentItem.getColumn(nRow, "MY_LIKE_STATE");
 	
 	var sPopupId = "sDetail"; //Popup ID
 	var sUrl = "Main::ggul1300pu.xfdl"; //팝업 URL
 	var oArg = {sTitle:sTitle, sImageUrl:sImageUrl, sDate:sDate, sPrice:sPrice, sWriter:sWriter,
-				sCommend:sCommend, sCategoryName:sCategoryName, sStatus:sStatus, sBuyerId:sBuyerId, sPostId:sPostId}; //전달값
+				sCommend:sCommend, sCategoryName:sCategoryName, sStatus:sStatus, sBuyerId:sBuyerId, sPostId:sPostId
+				, sLikeCnt:sLikeCnt, sUnlikeCnt:sUnlikeCnt, sMyLikeState:sMyLikeState}; //전달값
 	var sPopupCallback = "fnCallPopup";
 	var oOption = {title:"모달 팝업", titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
 

@@ -420,7 +420,7 @@
         </ColumnInfo>
         <Rows>
           <Row>
-            <Col id="POST_SCORE"></Col>
+            <Col id="POST_SCORE"/>
           </Row>
           <Row/>
         </Rows>
@@ -517,6 +517,7 @@ this.grdReserved_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEven
 this.tabMain_tabPage4_Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
 	if(e.col!=5) {return};
+	if(!confirm("삭제하시겠습니까?"));
 	
 	this.dsInfo.clearData();
 	var nRow = this.dsInfo.addRow();
@@ -573,7 +574,25 @@ this.fnCallback = function (svcID, errCd, errMsg)
 		}
 		else if(svcID=="deleteLoginUserPost")//자신의 게시물 삭제 콜백
 		{
-		
+			var objApp = nexacro.getApplication();
+			var LoginId = objApp.gdsLoginUser.getColumn(0, "LOGIN_ID");
+			this.dsInfo.clearData();
+			var nRow = this.dsInfo.addRow();
+			this.dsInfo.setColumn(nRow, "LOGIN_ID", LoginId);
+			
+			var strSvcUrl = "nexa/getCurrentLoginUserItem.do";
+			var inData = "dsInfo=dsInfo";
+			var strArg = "";
+			var outData = "dsMySalesList=dsMySalesList dsMyBuyList=dsMyBuyList ds_menu=ds_menu";
+
+			this.gfnTransaction("getCurrentLoginUserItem"
+								, strSvcUrl
+								, inData //이클립스받기=넥사크로주기
+								, outData //넥사크로받기=이클립스주기
+								, strArg
+								, "fnCallback"
+								, true);
+			alert("삭제되었습니다.");
 		}
 };
 

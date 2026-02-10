@@ -12,12 +12,12 @@
                 <Cell id="CellReportCnt" left="30" top="25" width="100" height="25" text="expr:&quot;🚩 신고 &quot;+REPORT_CNT+&quot;건&quot;" font="bold 14px 'Malgun Gothic'" color="#ff5e5e" border="0px none"/>
                 <Cell id="CellReason" left="140" top="25" width="120" height="28" background="#ffeceb" color="#ff4d4d" borderRadius="14px" textAlign="center" font="bold 12px 'Malgun Gothic'" border="0px none" text="bind:REPORT_REASON" displaytype="combotext" combodataset="dsReason" combocodecol="CODE" combodatacol="NAME"/>
                 <Cell id="CellTitle" left="30" top="60" right="30" height="40" text="bind:TITLE" font="bold 18px 'Malgun Gothic'" color="#333333" border="0px none"/>
-                <Cell id="CellMeta" left="30" top="115" right="589" height="25" text="expr:&quot;신고자: &quot;+LOGIN_NAME+&quot; • &quot;+REPORT_DATE" font="14px 'Malgun Gothic'" color="#999999" border="0px none"/>
+                <Cell id="CellMeta" left="30" top="115" right="589" height="25" text="expr:&quot;신고자: &quot;+LOGIN_NAME" font="14px 'Malgun Gothic'" color="#999999" border="0px none"/>
                 <Cell id="CellBtnView" left="30" top="165" width="130" height="40" displaytype="buttoncontrol" edittype="button" text="👁 상세보기" background="#ff9900" border="0px none" color="#ffffff" borderRadius="8px" font="bold 14px 'Malgun Gothic'" cursor="pointer"/>
                 <Cell id="CellBtnDelete" left="175" top="165" width="110" height="40" displaytype="buttoncontrol" edittype="button" text="🗑 삭제" border="0px none" color="#ffffff" borderRadius="8px" font="bold 14px 'Malgun Gothic'" background="#ff5e5e" cursor="pointer"/>
                 <Cell id="CellBtnIgnore" left="300" top="165" width="120" height="40" displaytype="buttoncontrol" edittype="button" text="🛡 신고 무시" background="#2ecc71" border="0px none" color="#ffffff" borderRadius="8px" font="bold 14px 'Malgun Gothic'" cursor="pointer"/>
                 <Cell id="Cell00" left="1" top="149" width="940" height="3" edittype="text"/>
-                <Cell id="Cell01" left="372" top="115" width="138" height="25" displaytype="combotext" text="bind:CATEGORY_ID" combodataset="ds_menu" combocodecol="MENU_ID" combodatacol="MENU_NAME" border="0px none" color="#999999" font="14px 'Malgun Gothic'"/>
+                <Cell id="Cell01" left="272" top="115" width="138" height="25" displaytype="combotext" text="bind:CATEGORY_ID" combodataset="ds_menu" combocodecol="MENU_ID" combodatacol="MENU_NAME" border="0px none" color="#999999" font="14px 'Malgun Gothic'"/>
               </Band>
             </Format>
           </Formats>
@@ -283,6 +283,8 @@ this.lstReport_oncellclick = function(obj:nexacro.ListView,e:nexacro.ListViewCli
 	}
 	else if(e.cellid == "CellBtnDelete") //삭제버튼이면
 	{
+		if(!confirm("삭제하시겠습니까?")) {return;}
+		
 		var strSvcUrl = "nexa/deleteReportPost.do";
 		var inData = "";
 		var strArg = "sPostId="+sPostId+" sUserId=" + sUserId;

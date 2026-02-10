@@ -37,7 +37,7 @@
         <Div id="divItem00" taborder="5" left="30" top="690" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
           <Layouts>
             <Layout>
-              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none" sRow="0" onclick="divItem00_imgView_onclick"/>
               <Static id="staTitle" taborder="1" text="닌텐도 칩 모동숲 마리오 팝니다" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
               <Static id="staPrice" taborder="2" text="40,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
               <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
@@ -47,7 +47,7 @@
         <Div id="divItem01" taborder="6" left="325" top="690" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
           <Layouts>
             <Layout>
-              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none" sRow="1" onclick="divItem00_imgView_onclick"/>
               <Static id="staTitle" taborder="1" text="닌텐도 칩 모동숲 마리오 팝니다" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
               <Static id="staPrice" taborder="2" text="40,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
               <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
@@ -57,7 +57,7 @@
         <Div id="divItem02" taborder="7" left="620" top="690" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
           <Layouts>
             <Layout>
-              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none" sRow="2" onclick="divItem00_imgView_onclick"/>
               <Static id="staTitle" taborder="1" text="닌텐도 칩 모동숲 마리오 팝니다" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
               <Static id="staPrice" taborder="2" text="40,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
               <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
@@ -67,7 +67,7 @@
         <Div id="divItem03" taborder="8" left="915" top="691" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
           <Layouts>
             <Layout>
-              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none" sRow="3" onclick="divItem00_imgView_onclick"/>
               <Static id="staTitle" taborder="1" text="닌텐도 칩 모동숲 마리오 팝니다" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
               <Static id="staPrice" taborder="2" text="40,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
               <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
@@ -77,7 +77,7 @@
         <Div id="divItem04" taborder="9" left="1210" top="691" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
           <Layouts>
             <Layout>
-              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none" sRow="4" onclick="divItem00_imgView_onclick"/>
               <Static id="staTitle" taborder="1" text="닌텐도 칩 모동숲 마리오 팝니다" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
               <Static id="staPrice" taborder="2" text="40,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
               <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
@@ -88,7 +88,7 @@
         <Div id="divItem000" taborder="11" left="30" top="1220" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
           <Layouts>
             <Layout>
-              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none" sRow="0" onclick="divItem000_imgView_onclick"/>
               <Static id="staTitle" taborder="1" text="닌텐도 칩 모동숲 마리오 팝니다" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
               <Static id="staPrice" taborder="2" text="40,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
               <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
@@ -98,7 +98,7 @@
         <Div id="divItem001" taborder="12" left="325" top="1220" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
           <Layouts>
             <Layout>
-              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none" sRow="1" onclick="divItem000_imgView_onclick"/>
               <Static id="staTitle" taborder="1" text="닌텐도 칩 모동숲 마리오 팝니다" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
               <Static id="staPrice" taborder="2" text="40,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
               <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
@@ -108,7 +108,7 @@
         <Div id="divItem002" taborder="13" left="620" top="1220" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
           <Layouts>
             <Layout>
-              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none" text="" sRow="2" onclick="divItem000_imgView_onclick"/>
               <Static id="staTitle" taborder="1" text="닌텐도 칩 모동숲 마리오 팝니다" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
               <Static id="staPrice" taborder="2" text="40,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
               <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
@@ -118,7 +118,7 @@
         <Div id="divItem003" taborder="14" left="915" top="1221" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
           <Layouts>
             <Layout>
-              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none" sRow="3" onclick="divItem000_imgView_onclick"/>
               <Static id="staTitle" taborder="1" text="닌텐도 칩 모동숲 마리오 팝니다" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
               <Static id="staPrice" taborder="2" text="40,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
               <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
@@ -128,7 +128,7 @@
         <Div id="divItem004" taborder="15" left="1210" top="1221" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
           <Layouts>
             <Layout>
-              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none"/>
+              <ImageViewer id="imgView" taborder="0" left="0" top="0" width="100%" height="200" borderRadius="12px 12px 0px 0px" image="url('theme://images/img_sample.png')" stretch="fixaspectratio" border="0px none" sRow="4" onclick="divItem000_imgView_onclick"/>
               <Static id="staTitle" taborder="1" text="닌텐도 칩 모동숲 마리오 팝니다" left="10" top="215" width="260" height="45" font="normal 15px/22px 'Malgun Gothic'" color="#111111" wordWrap="char"/>
               <Static id="staPrice" taborder="2" text="40,000원" left="10" top="270" width="260" height="25" font="bold 16px 'Malgun Gothic'" color="#ff6f0f"/>
               <Static id="staLoc" taborder="3" text="ㅇㅇ임" left="10" top="300" width="260" height="20" font="normal 12px 'Malgun Gothic'" color="#888888"/>
@@ -152,7 +152,7 @@ this.work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	var strSvcUrl = "nexa/getBest5NMyZzimList.do";
 	var inData = "";
 	var strArg = "sLoginId="+sLoginId;
-	var outData = "dsBest5List=dsBest5List dsMyZzimList=dsMyZzimList";
+	var outData = "dsBest5List=dsBest5List dsMyZzimList=dsMyZzimList ds_menu=ds_menu";
 
 	this.gfnTransaction("getBest5NMyZzimList"
 						, strSvcUrl
@@ -204,17 +204,11 @@ this.staUserName_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
 
 this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	// 1. 띄울 팝업Div 이름 (예: this.pdivMenu)
     var objPopup = this.PopupDiv00;
     
-    // 2. 위치 계산 (버튼 위로 띄우기 위해 높이만큼 뺍니다)
-    // x좌표: 0 (버튼 왼쪽 라인에 맞춤)
-    // y좌표: -160 (팝업 높이 + 여백만큼 위로 올림)
     var nX = 0;
     var nY = -1 * (parseInt(objPopup.height) + 10); 
     
-    // 3. 팝업 띄우기 (이 함수가 핵심!)
-    // trackPopupByComponent(기준컴포넌트, x, y, [width, height], [callback])
     objPopup.trackPopupByComponent(obj, nX, nY);
 };
 
@@ -241,7 +235,7 @@ this.fn_SetResultData = function()
             var sTitle  = this.dsBest5List.getColumn(i, "TITLE");
             var nPrice  = this.dsBest5List.getColumn(i, "PRICE");
             var sLoc    = this.dsBest5List.getColumn(i, "USER_ID"); 
-            var sDate   = this.dsBest5List.getColumn(i, "REG_DATE");
+            var objDate   = this.dsBest5List.getColumn(i, "REG_DATE");
             var sImgBlob = this.dsBest5List.getColumn(i, "PHOTO_URL");
             
             var sFullImgUrl = sImgBlob;
@@ -249,7 +243,14 @@ this.fn_SetResultData = function()
             objDiv.form.staTitle.set_text(sTitle);
             var sFormatPrice = nexacro.toNumber(nPrice).toLocaleString() + "원";
             objDiv.form.staPrice.set_text(sFormatPrice);
-            objDiv.form.staLoc.set_text(sLoc + " · " + sDate);	
+			
+			var sYear = objDate.getFullYear().toString();
+			var sMonth = (objDate.getMonth() + 1).toString().padLeft(2, "0");
+			var sDay = objDate.getDate().toString().padLeft(2, "0");
+			var sDateString = sYear + sMonth + sDay; 
+			var sFinalDate = sDateString.substr(0, 4) + "-" + sDateString.substr(4, 2) + "-" + sDateString.substr(6, 2);
+			
+            objDiv.form.staLoc.set_text(sLoc + " · " + sFinalDate);	
             objDiv.form.imgView.set_image(sFullImgUrl); 
             
             objDiv.u_row = i;
@@ -279,16 +280,22 @@ this.fn_SetResultData = function()
             var sTitle  = this.dsMyZzimList.getColumn(i, "TITLE");
             var nPrice  = this.dsMyZzimList.getColumn(i, "PRICE");
             var sLoc    = this.dsMyZzimList.getColumn(i, "USER_ID"); 
-            var sDate   = this.dsMyZzimList.getColumn(i, "REG_DATE");
+            var objDate   = this.dsMyZzimList.getColumn(i, "REG_DATE");
             var sImgBlob = this.dsMyZzimList.getColumn(i, "PHOTO_URL");
+			
+			var sYear = objDate.getFullYear().toString();
+			var sMonth = (objDate.getMonth() + 1).toString().padLeft(2, "0");
+			var sDay = objDate.getDate().toString().padLeft(2, "0");
+			var sDateString = sYear + sMonth + sDay; 
+			var sFinalDate = sDateString.substr(0, 4) + "-" + sDateString.substr(4, 2) + "-" + sDateString.substr(6, 2);
             
             var sFullImgUrl = sImgBlob;
             objDiv.form.staTitle.set_text(sTitle);
             var sFormatPrice = nexacro.toNumber(nPrice).toLocaleString() + "원";
             objDiv.form.staPrice.set_text(sFormatPrice);
             
-            if(this.gfnIsNull(sLoc)) objDiv.form.staLoc.set_text(sDate);
-            else objDiv.form.staLoc.set_text(sLoc + " · " + sDate);
+            if(this.gfnIsNull(sLoc)) objDiv.form.staLoc.set_text(sFinalDate);
+            else objDiv.form.staLoc.set_text(sLoc + " · " + sFinalDate);
             
             objDiv.form.imgView.set_image(sFullImgUrl); 
             
@@ -300,6 +307,66 @@ this.fn_SetResultData = function()
             objDiv.set_visible(false); 
         }
     }
+};
+
+//=================================================상세페이지로 넘어가는 클릭이벤트===============================
+
+this.divItem00_imgView_onclick = function(obj:nexacro.ImageViewer,e:nexacro.ClickEventInfo)
+{
+	var nRow = obj.sRow;
+	var sPostId = this.dsBest5List.getColumn(nRow, "POST_ID");
+    var sTitle = this.dsBest5List.getColumn(nRow, "TITLE");
+	var sImageUrl = this.dsBest5List.getColumn(nRow, "PHOTO_URL");
+	var sDate = this.dsBest5List.getColumn(nRow, "REG_DATE");
+	var sPrice = this.dsBest5List.getColumn(nRow, "PRICE");
+	var sWriter = this.dsBest5List.getColumn(nRow, "USER_ID");
+	var sCommend = this.dsBest5List.getColumn(nRow, "POST_COMMEND");
+	var sCategoryId = this.dsBest5List.getColumn(nRow, "CATEGORY_ID"); //넘기는 것 아님
+	var sCategoryName = this.ds_menu.lookup("MENU_ID", sCategoryId, "MENU_NAME");
+	var sStatus = this.dsBest5List.getColumn(nRow, "POST_STATUS");
+	var sBuyerId = this.dsBest5List.getColumn(nRow, "BUYER_ID");
+	var sLikeCnt = this.dsBest5List.getColumn(nRow, "LIKE_CNT");
+	var sUnlikeCnt = this.dsBest5List.getColumn(nRow, "UNLIKE_CNT");
+	var sMyLikeState = this.dsBest5List.getColumn(nRow, "MY_LIKE_STATE");
+	
+	var sPopupId = "sDetail"; //Popup ID
+	var sUrl = "Main::ggul1300pu.xfdl"; //팝업 URL
+	var oArg = {sTitle:sTitle, sImageUrl:sImageUrl, sDate:sDate, sPrice:sPrice, sWriter:sWriter,
+				sCommend:sCommend, sCategoryName:sCategoryName, sStatus:sStatus, sBuyerId:sBuyerId, sPostId:sPostId
+				, sLikeCnt:sLikeCnt, sUnlikeCnt:sUnlikeCnt, sMyLikeState:sMyLikeState}; //전달값
+	var sPopupCallback = "fnCallPopup";
+	var oOption = {title:"모달 팝업", titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
+
+	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
+};
+
+this.divItem000_imgView_onclick = function(obj:nexacro.ImageViewer,e:nexacro.ClickEventInfo)
+{
+	var nRow = obj.sRow;
+	var sPostId = this.dsMyZzimList.getColumn(nRow, "POST_ID");
+    var sTitle = this.dsMyZzimList.getColumn(nRow, "TITLE");
+	var sImageUrl = this.dsMyZzimList.getColumn(nRow, "PHOTO_URL");
+	var sDate = this.dsMyZzimList.getColumn(nRow, "REG_DATE");
+	var sPrice = this.dsMyZzimList.getColumn(nRow, "PRICE");
+	var sWriter = this.dsMyZzimList.getColumn(nRow, "USER_ID");
+	var sCommend = this.dsMyZzimList.getColumn(nRow, "POST_COMMEND");
+	var sCategoryId = this.dsMyZzimList.getColumn(nRow, "CATEGORY_ID"); //넘기는 것 아님
+	var sCategoryName = this.ds_menu.lookup("MENU_ID", sCategoryId, "MENU_NAME");
+	var sStatus = this.dsMyZzimList.getColumn(nRow, "POST_STATUS");
+	var sBuyerId = this.dsMyZzimList.getColumn(nRow, "BUYER_ID");
+	var sLikeCnt = this.dsMyZzimList.getColumn(nRow, "LIKE_CNT");
+	var sUnlikeCnt = this.dsMyZzimList.getColumn(nRow, "UNLIKE_CNT");
+	var sMyLikeState = this.dsMyZzimList.getColumn(nRow, "MY_LIKE_STATE");
+	
+	var sPopupId = "sDetail"; //Popup ID
+	var sUrl = "Main::ggul1300pu.xfdl"; //팝업 URL
+	var oArg = {sTitle:sTitle, sImageUrl:sImageUrl, sDate:sDate, sPrice:sPrice, sWriter:sWriter,
+				sCommend:sCommend, sCategoryName:sCategoryName, sStatus:sStatus, sBuyerId:sBuyerId, sPostId:sPostId
+				, sLikeCnt:sLikeCnt, sUnlikeCnt:sUnlikeCnt, sMyLikeState:sMyLikeState}; //전달값
+	var sPopupCallback = "fnCallPopup";
+	var oOption = {title:"모달 팝업", titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
+
+	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
 };
 
 //==================================================검색버튼 눌렀을때==========================================================
@@ -321,6 +388,35 @@ this.fnCallback = function (svcID, errCd, errMsg)
 	{
 		this.fn_SetResultData();
 	}
+};
+
+//================================================팝업콜백함수=======================================================
+this.fnCallPopup = function (svcID, rtn)
+{
+   
+	if(svcID == "sDetail")
+	{
+		//글로벌 데이터셋 접근가능하게 함
+		var objApp = nexacro.getApplication();
+		var objDs = objApp.gdsLoginUser;
+
+		//===================================BEST 5, 내 찜목록 5개 가져오기=============================
+		var sLoginId = objDs.getColumn(0,"LOGIN_ID");
+		
+		var strSvcUrl = "nexa/getBest5NMyZzimList.do";
+		var inData = "";
+		var strArg = "sLoginId="+sLoginId;
+		var outData = "dsBest5List=dsBest5List dsMyZzimList=dsMyZzimList ds_menu=ds_menu";
+
+		this.gfnTransaction("getBest5NMyZzimList"
+							, strSvcUrl
+							, inData //이클립스받기=넥사크로주기
+							, outData //넥사크로받기=이클립스주기
+							, strArg
+							, "fnCallback"
+							, true);
+	}
+
 };]]></Script>
     <Objects>
       <Dataset id="dsBest5List">
@@ -362,6 +458,165 @@ this.fnCallback = function (svcID, errCd, errMsg)
           <Column id="POST_STATUS" type="STRING" size="256"/>
           <Column id="BUYER_ID" type="STRING" size="256"/>
         </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_menu">
+        <ColumnInfo>
+          <Column id="MENU_ID" type="STRING" size="256"/>
+          <Column id="MENU_NAME" type="STRING" size="256"/>
+          <Column id="MENU_LEVEL" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="MENU_ID">10</Col>
+            <Col id="MENU_NAME">주방용품</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">1001</Col>
+            <Col id="MENU_NAME">냄비/프라이팬</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">1002</Col>
+            <Col id="MENU_NAME">칼/도마/조리도구</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">1003</Col>
+            <Col id="MENU_NAME">그릇/홈세트</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">1004</Col>
+            <Col id="MENU_NAME">주방가전</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">20</Col>
+            <Col id="MENU_NAME">청소용품</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">2001</Col>
+            <Col id="MENU_NAME">청소기/필터</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">2002</Col>
+            <Col id="MENU_NAME">밀대/걸레</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">2003</Col>
+            <Col id="MENU_NAME">세탁세제</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">2004</Col>
+            <Col id="MENU_NAME">휴지통/분리수거</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">30</Col>
+            <Col id="MENU_NAME">차용품</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">3001</Col>
+            <Col id="MENU_NAME">세차/광택용품</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">3002</Col>
+            <Col id="MENU_NAME">차량용 방향제</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">3003</Col>
+            <Col id="MENU_NAME">거치대/충전기</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">3004</Col>
+            <Col id="MENU_NAME">카매트/시트</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">40</Col>
+            <Col id="MENU_NAME">여가</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">4001</Col>
+            <Col id="MENU_NAME">캠핑/등산</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">4002</Col>
+            <Col id="MENU_NAME">헬스/요가</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">4003</Col>
+            <Col id="MENU_NAME">여행가방/캐리어</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">4004</Col>
+            <Col id="MENU_NAME">악기/취미용품</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">50</Col>
+            <Col id="MENU_NAME">생활용품</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">5001</Col>
+            <Col id="MENU_NAME">수건/타월</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">5002</Col>
+            <Col id="MENU_NAME">욕실/목욕용품</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">5003</Col>
+            <Col id="MENU_NAME">수납/정리함</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">5004</Col>
+            <Col id="MENU_NAME">화장지/물티슈</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">60</Col>
+            <Col id="MENU_NAME">전자기기</Col>
+            <Col id="MENU_LEVEL">0</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">6001</Col>
+            <Col id="MENU_NAME">노트북/PC</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">6002</Col>
+            <Col id="MENU_NAME">모바일/태블릿</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">6003</Col>
+            <Col id="MENU_NAME">영상/음향가전</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+          <Row>
+            <Col id="MENU_ID">6004</Col>
+            <Col id="MENU_NAME">키보드/마우스</Col>
+            <Col id="MENU_LEVEL">1</Col>
+          </Row>
+        </Rows>
       </Dataset>
     </Objects>
   </Form>

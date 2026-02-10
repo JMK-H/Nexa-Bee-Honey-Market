@@ -22,7 +22,7 @@
         <TextArea id="txaContent" taborder="17" left="490" top="840" height="150" displaynulltext="꿀템에 대한 상세한 설명을 작성해주세요&#13;&#10;&#13;&#10;- 어떤 점이 좋은가요?&#13;&#10;- 사용 후기는 어떤가요?" background="#f9f9f9" border="0px none" borderRadius="8px" padding="15px" font="14px 'Malgun Gothic'" width="650"/>
         <Button id="btnReg" taborder="18" text="등록하기 🍯" left="490" top="1010" height="50" borderRadius="10px" font="bold 14px 'Malgun Gothic'" color="#ffffff" cursor="pointer" boxShadow="0px 3px 5px rgba(255, 204, 0, 0.3)" onclick="btnReg_onclick" cssclass="Login" width="650"/>
         <Combo id="cboCategory" taborder="19" text="Combo00" left="490" top="640" width="650" height="50" borderRadius="8px" border="1px solid #eeeeee" background="#ffffff" innerdataset="ds_menu" codecolumn="MENU_ID" datacolumn="MENU_NAME" onitemchanged="cboCategory_onitemchanged"/>
-        <ImageViewer id="imgPhoto" taborder="20" left="490" top="190" width="650" height="290" background="transparent"/>
+        <ImageViewer id="imgPhoto" taborder="20" left="490" top="190" width="650" height="290" background="transparent" stretch="fit"/>
         <Button id="btnFileUpload" taborder="8" left="490" top="190" height="290" background="transparent" border="0px none" cursor="pointer" onclick="btnFileUpload_onclick" text="" width="650"/>
       </Layout>
     </Layouts>
@@ -153,7 +153,8 @@ this.fnCallback = function (svcID, errCd, errMsg)
 {
 	if(svcID == "saveItem")
 	{
-		
+		alert("등록되었습니다.")
+		this.reload();
 	}
 	else if(svcID == "getMenuList")
 	{	

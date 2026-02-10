@@ -341,11 +341,15 @@ this.fn_divClick = function(obj:nexacro.Button, e:nexacro.ClickEventInfo)//카�
 	var sCategoryName = this.ds_menu.lookup("MENU_ID", sCategoryId, "MENU_NAME");
 	var sStatus = this.dsCurrentItem.getColumn(nRow, "POST_STATUS");
 	var sBuyerId = this.dsCurrentItem.getColumn(nRow, "BUYER_ID");
+	var sLikeCnt = this.dsCurrentItem.getColumn(nRow, "LIKE_CNT");
+	var sUnlikeCnt = this.dsCurrentItem.getColumn(nRow, "UNLIKE_CNT");
+	var sMyLikeState = this.dsCurrentItem.getColumn(nRow, "MY_LIKE_STATE");
 	
 	var sPopupId = "sDetail"; //Popup ID
 	var sUrl = "Main::ggul1300pu.xfdl"; //팝업 URL
 	var oArg = {sTitle:sTitle, sImageUrl:sImageUrl, sDate:sDate, sPrice:sPrice, sWriter:sWriter,
-				sCommend:sCommend, sCategoryName:sCategoryName, sStatus:sStatus, sBuyerId:sBuyerId, sPostId:sPostId}; //전달값
+				sCommend:sCommend, sCategoryName:sCategoryName, sStatus:sStatus, sBuyerId:sBuyerId, sPostId:sPostId
+				, sLikeCnt:sLikeCnt, sUnlikeCnt:sUnlikeCnt, sMyLikeState:sMyLikeState}; //전달값
 	var sPopupCallback = "fnCallPopup";
 	var oOption = {title:"모달 팝업", titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
 
