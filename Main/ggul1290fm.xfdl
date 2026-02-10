@@ -3,10 +3,17 @@
   <Form id="ggul1290fm" width="1600" height="730" titletext="물품목록" onload="ggul1290fm_onload" scrolltype="both">
     <Layouts>
       <Layout height="730" mobileorientation="landscape" width="1600">
-        <Div id="divPage" taborder="1" text="Div00" left="408" width="784" url="Cmm::CmmPaging.xfdl" border="1px solid #e84133" height="40" bottom="0"/>
+        <Div id="divPage" taborder="1" text="Div00" left="408" width="784" url="Cmm::CmmPaging.xfdl" height="40" bottom="0"/>
       </Layout>
     </Layouts>
-    <Script type="xscript5.1"><![CDATA[
+    <Script type="xscript5.1"><![CDATA[//=======================================페이징 처리 관련 함수들=================================================
+
+this.fvRecords = 12;          // 목록 갯수 (한 페이지에 보여줄 개수 - 12개로 변경)
+this.fvPage = 0;              // 현재 페이지 번호
+this.fvRecordsOffset = 0;     // 시작 rownum (0부터 시작)
+this.fvTotalCount = 0;        // 전체 데이터 갯수 (DB에서 받아와야 함)
+this.fvPageCount = 10;
+
 this.ggul1290fm_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {				
 	this.fnPageInit();//페이징 초기화
@@ -20,34 +27,27 @@ this.ggul1290fm_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 
 	this.gfnTransaction("getMenuList"
 						, strSvcUrl
-						, inData //이클립스받기=넥사크로주기
-						, outData //넥사크로받기=이클립스주기
+						, inData 
+						, outData 
 						, strArg
 						, "fnCallback"
 						, true);
 };
-//=======================================페이징 처리 관련 함수들=================================================
 
-this.fvRecords = 8;          // 목록 갯수 (한 페이지에 보여줄 개수)
-this.fvPage = 0;              // 현재 페이지 번호
-this.fvRecordsOffset = 0;     // 시작 rownum (0부터 시작)
-this.fvTotalCount = 0;        // 전체 데이터 갯수 (DB에서 받아와야 함)
-this.fvPageCount = 10;
-
- this.fnPageInit = function ()
- {
- 	//pagin info init setting
-	this.fvRecords=8;                                //목록갯수
-	this.fvPage=0;	 								 //페이지번호
-	this.fvRecordsOffset=0;							 //시작rownum
-	this.fvPageCount = 10;							 //실제표출페이지갯수
+this.fnPageInit = function ()
+{
+	//pagin info init setting
+	this.fvRecords=12;                               //목록갯수 (12개로 설정)
+	this.fvPage=0;                                   //페이지번호
+	this.fvRecordsOffset=0;                          //시작rownum
+	this.fvPageCount = 10;                           //실제표출페이지갯수
 	
 	this.fnSearch();
- };
+};
 
 this.fnSearch = function ()
 {
-	// 현재 선택된 카테고리 ID 가져오기
+	// 현재 선택된 카테고리 ID 가져오기 (기존 1290 로직 유지)
     var objApp = nexacro.getApplication();
     var sMenuId = objApp.gv_MenuId;
 	var sLoginId = objApp.gdsLoginUser.getColumn(0,"LOGIN_ID");
@@ -64,272 +64,153 @@ this.fnSearch = function ()
 
     // 3. 서버 호출
     this.gfnTransaction(  "search"             // svcID (콜백에서 구분용)
-                        , "selectPaging.do" // URL
-                        , "dsSearch=dsSearch"                 // inData (보낼 데이터셋 없음)
-                        , "dsCurrentItem=dsCurrentItem dsPagingInfo=dsPagingInfo" // outData (받을 데이터셋)
-                        , strArg             // Argument (변수들)
-                        , "fnCallback"       // 콜백 함수
-                        , true);             // 비동기 여부
-                        
-
-	
+                        , "selectPaging.do"    // URL
+                        , "dsSearch=dsSearch"  // inData 
+                        , "dsCurrentItem=dsCurrentItem dsPagingInfo=dsPagingInfo" // outData
+                        , strArg               // Argument
+                        , "fnCallback"         // 콜백 함수
+                        , true);               // 비동기 여부
 };
 
-//==================================== div, 버튼, 이미지 뷰어, static 동적생성=======================================
-
-this.fn_drawCards = function ()
+//==================================================카드한테 값 부여하는 함수 (고정 Div 방식)================================================
+this.fn_SetResultData = function()
 {
-	// 기존 카드 삭제 (최대 8개니까 8번 돔)
-    for(var i=0; i<8; i++) 
+    var nTotalCnt = this.dsCurrentItem.rowcount; // 현재 페이지에 추출된 아이템 수
+    var nDivCnt = 12; // 화면에 만들어둔 Div 개수 (12개)
+
+    for(var i=0; i<nDivCnt; i++)
     {
-        var sDivId = "divCard" + i;
-        if(this.isValidObject(sDivId))
+        //Div 컴포넌트 찾기 (divList 안에 divItem00 ~ divItem11이 존재해야 함)
+        var sDivId = "divItem" + ((i < 10) ? "0" + i : i);
+        var objDiv = this.divList.form.components[sDivId];
+        
+        // 만약 Div를 덜 만들었다면 에러 안 나게 건너뜀
+        if(objDiv == undefined) continue;
+
+        // 데이터가 있는 경우 (보여주고 값 넣기)
+        if(i < nTotalCnt) 
         {
-            var objDel = this.removeChild(sDivId);
-            objDel.destroy();
-            objDel = null;
+            objDiv.set_visible(true); // 보인다
+            
+            // 데이터셋에서 값 꺼내기
+            var sTitle = this.dsCurrentItem.getColumn(i, "TITLE");
+            var nPrice = this.dsCurrentItem.getColumn(i, "PRICE");
+            var sLoc   = this.dsCurrentItem.getColumn(i, "USER_ID"); 
+            var sDate  = this.dsCurrentItem.getColumn(i, "REG_DATE");
+            var sImgUrl = this.dsCurrentItem.getColumn(i, "PHOTO_URL");
+            var sPostStatus = this.dsCurrentItem.getColumn(i, "POST_STATUS");
+            
+            var sFullImgUrl = sImgUrl; 
+
+            // 안쪽 컴포넌트에 값 세팅
+            objDiv.form.staTitle.set_text(sTitle);
+            
+            // 가격 3자리 콤마 찍기
+            var sFormatPrice = nexacro.toNumber(nPrice).toLocaleString() + "원";
+            objDiv.form.staPrice.set_text(sFormatPrice);
+            
+            // 글쓴이/날짜 조합 (staLoc 컴포넌트가 있다고 가정)
+            if(objDiv.form.staLoc) {
+                objDiv.form.staLoc.set_text(sLoc + " · " + sDate);
+            }
+            
+            // 이미지 세팅
+            objDiv.form.imgView.set_image(sFullImgUrl);
+            
+            // 판매완료/예약중 이미지 처리
+            if(sPostStatus == "END")
+            {
+                // 판매완료 이미지로 덮어쓰기 (또는 오버레이)
+                // objDiv.form.imgView.set_image("imagerc::soldsoldoutout.png"); 
+                // 위 코드는 원본 이미지를 날려버리므로, 상황에 맞게 원본 유지+뱃지 추가 방식 고려
+                // 여기서는 요청하신 코드 스타일대로 처리
+                 objDiv.form.imgView.set_image("imagerc::soldsoldoutout.png");
+            }
+            else if(sPostStatus == "RESERVED")
+            {
+                 objDiv.form.imgView.set_image("imagerc::reserved.png");
+            }
+            
+            // 나중에 클릭했을 때 상세페이지 가기 위해 DIV에 POST_ID를 숨김
+            var sPostId = this.dsCurrentItem.getColumn(i, "POST_ID");
+            objDiv.postId = sPostId; 
+        }
+        // 데이터가 없는 경우 숨기기
+        else 
+        {
+            objDiv.set_visible(false); // 데이터 없으면 빈 박스 숨김
         }
     }
-
-    var objDs = this.dsCurrentItem;
-    // 데이터 없으면 중단
-    if (objDs == null || objDs.getRowCount() == 0) return;
     
-
-    // 디자인
-    var nCardW   = 300;   // 카드 가로
-    var nCardH   = 300;   // 카드 세로
-    var nGapX    = 25;    // 가로 간격
-    var nGapY    = 25;    // 세로 간격
-    var nStartX  = 140;   // 시작 위치
-    var nStartY  = 20;    // 시작 위치
-    var nColCnt  = 4;     // 한 줄에 4개
-    
-    var nCnt = objDs.getRowCount();
-
-    for(var i=0; i < nCnt; i++)
-    {
-        // 좌표 계산
-        var nRow = Math.floor(i / nColCnt); 
-        var nCol = i % nColCnt;             
-        
-        var nLeft = nStartX + (nCol * (nCardW + nGapX));
-        var nTop  = nStartY + (nRow * (nCardH + nGapY));
-        
-        // 카드 Div 생성
-        var sDivId = "divCard" + i;
-        var objDiv = new Div();
-        objDiv.init(sDivId, nLeft, nTop, nCardW, nCardH);
-        
-        //디자인
-        objDiv.set_borderRadius("20px");  // 모서리 둥글게
-        objDiv.set_border("1px solid #e5e5e5"); // 테두리
-        objDiv.set_boxShadow("2px 2px 10px rgba(0,0,0,0.1)"); //그림자
-        objDiv.set_background("#ffffff");
-        
-        this.addChild(sDivId, objDiv);
-        objDiv.show();
-        
-
-        // 이미지 뷰어
-        var objImg = new ImageViewer();
-        // Left:10, Top:10, Width:280, Height:180
-        objImg.init("imgView", 10, 10, 280, 180); 
-		trace(objDs.getColumn(i, "PHOTO_URL"));// /edupack_egov/images/
-        objImg.set_image(objDs.getColumn(i, "PHOTO_URL"));
-        objImg.set_stretch("fit");
-        objImg.set_borderRadius("15px 15px 0px 0px"); // 이미지 윗부분도 살짝 둥글게
-        objImg.set_border("0px none"); // 이미지는 테두리 없는 게 깔끔함
-        
-        objDiv.form.addChild("imgView", objImg);
-        objImg.show();
-        
-        // 상품명
-        var objStName = new Static();
-        // 이미지 바로 밑
-        objStName.init("stName", 10, 200, 280, 35);
-        
-        objStName.set_text(objDs.getColumn(i, "TITLE"));
-        objStName.set_font("bold 14px 'Malgun Gothic'");
-        objStName.set_color("#333333");
-        objStName.set_verticalAlign("top");
-        objStName.set_wordWrap("char");
-        
-        objDiv.form.addChild("stName", objStName);
-        objStName.show();
-        
-
-        // 가격
-        var objStPrice = new Static();
-        objStPrice.init("stPrice", 10, 250, 280, 30);
-        
-        var nPrice = objDs.getColumn(i, "PRICE");
-        objStPrice.set_text(nexacro.toNumber(nPrice).toLocaleString() + "원");
-        objStPrice.set_textAlign("right");
-        objStPrice.set_font("bold 16px 'Arial'");
-        objStPrice.set_color("#ff5500"); // 주황색 포인트
-        
-        objDiv.form.addChild("stPrice", objStPrice);
-        objStPrice.show();
-		
-		//추천, 비추천 sta
-        var objGB = new Static();
-        // 이미지 바로 밑
-        objGB.init("staGB", 60, 250, 80, 40);
-        
-        objGB.set_text(objDs.getColumn(i, "LIKE_CNT")+" / "+objDs.getColumn(i, "UNLIKE_CNT"));
-        objGB.set_font("bold 14px 'Malgun Gothic'");
-        objGB.set_color("balck");
-        objGB.set_verticalAlign("top");
-        objGB.set_wordWrap("char");
-		objGB.set_background("white");
-		objGB.set_textAlign("center");         // 가로 중앙 정렬
-		objGB.set_verticalAlign("middle");
-        
-        objDiv.form.addChild("staGB", objGB);
-        objGB.show();
-		
-        // 투명 클릭 버튼으로 덮기
-        var objBtn = new Button();
-        objBtn.init("btnClick", 0, 0, null, null, 0, 0);
-        objBtn.set_background("transparent");
-        objBtn.set_border("0px none");
-        objBtn.set_borderRadius("20px"); // 버튼도 둥글게 해야 클릭 범위 일치
-        objBtn.set_cursor("pointer");    // 마우스 손가락 모양
-        objBtn.u_Row = i; 
-        
-        objBtn.addEventHandler("onclick", this.fn_divClick, this);
-        
-        objDiv.form.addChild("btnClick", objBtn);
-        objBtn.show();
-        objBtn.bringToFront();
-		
-		//=======================찜버튼==============================
- 		var btnZzim = new Button();
-
-		// btnZzim 본인이 직접 init 
-		btnZzim.init("btnZzim", 250, 10, 40, 40); 
-
-		// 배경색 설정
-		btnZzim.set_background("white");//#f5a623
-		
-		//이벤트 추가
-		btnZzim.addEventHandler("onclick", this.fn_ZzimClick, this);
-		
-		//css추가
-		btnZzim.set_borderRadius("10px"); // 버튼도 둥글게 해야 클릭 범위 일치
-        btnZzim.set_cursor("pointer");    // 마우스 손가락 모양
-        btnZzim.u_Row = i; 
-		if(this.dsCurrentItem.getColumn(i, "IS_WISH") == "1")
-		{
-			btnZzim.set_icon("imagerc::Select.png");
-		}
-		else 
-		{
-			btnZzim.set_icon("imagerc::NoSelect.png");
-		}
-		// 카드(objDiv)의 form에 추가
-		objDiv.form.addChild("btnZzim", btnZzim);
-
-		// 화면에 보여주기
-		btnZzim.show();
-		btnZzim.bringToFront();
-		
-		//=======================신고버튼 추가==============================
-		var btnReport = new Button();
-
-		// btnZzim 본인이 직접 init 
-		btnReport.init("btnReport", 10, 10, 40, 40); 
-
-		// 배경색 설정
-		btnReport.set_background("white");//#f5a623
-		
-		//이벤트 추가
-		btnReport.addEventHandler("onclick", this.fn_ReportClick, this);
-		
-		//css추가
-		btnReport.set_borderRadius("10px"); // 버튼도 둥글게 해야 클릭 범위 일치
-        btnReport.set_cursor("pointer");    // 마우스 손가락 모양
-        btnReport.u_Row = i; 
-		btnReport.set_icon("imagerc::btnReport.png");
-		
-		// 카드(objDiv)의 form에 추가
-		objDiv.form.addChild("btnReport", btnReport);
-
-		// 화면에 보여주기
-		btnReport.show();
-		btnReport.bringToFront();
-		
-		//=======================추천 비추천버튼 추가==============================
-		var btnGood = new Button();
-		var btnBad = new Button();
-
-		// 추천 비추천 버튼init 
-		btnGood.init("btnZzim", 10, 250, 40, 40);
-		btnBad.init("btnZzim", 150, 250, 40, 40);
-		
-		//이벤트 추가 수정필요
-		btnGood.addEventHandler("onclick", this.fn_GoodClick, this);
-		btnBad.addEventHandler("onclick", this.fn_BadClick, this);
-		
-		// 메소드로 배경색 설정
-		
-		if(objDs.getColumn(i,"MY_LIKE_STATE")=="B") //비추 누른 상태
-		{
-			//비추 눌리고
-			btnBad.set_icon("imagerc::btnNGoods.png");
-			//추천 안눌린
-			btnGood.set_icon("imagerc::btnGoodns.png");
-			
-		}
-		else if(objDs.getColumn(i,"MY_LIKE_STATE")=="G") //추천 누른 상태
-		{
-			//추천 눌리고
-			btnGood.set_icon("imagerc::btnGoods.png");
-			//비추 안눌린
-			btnBad.set_icon("imagerc::btnNGoodns.png");
-		}
-		else //둘다 안누른 상태
-		{
-			//둘 다 안눌린
-			btnGood.set_icon("imagerc::btnGoodns.png");
-			btnBad.set_icon("imagerc::btnNGoodns.png");
-		}
-		
-		//css추가
-		btnGood.set_borderRadius("10px"); // 버튼도 둥글게 해야 클릭 범위 일치
-        btnGood.set_cursor("pointer");    // 마우스 손가락 모양
-        btnGood.u_Row = i; 
-		
-		btnBad.set_borderRadius("10px"); // 버튼도 둥글게 해야 클릭 범위 일치
-        btnBad.set_cursor("pointer");    // 마우스 손가락 모양
-        btnBad.u_Row = i; 
-		// 카드(objDiv)의 form에 추가
-		objDiv.form.addChild("btnGood", btnGood);
-		objDiv.form.addChild("btnBad", btnBad);
-
-		// 화면에 보여주기
-		btnGood.show();
-		btnGood.bringToFront();
-		
-		btnBad.show();
-		btnBad.bringToFront();
-    }
-    
-    // 페이징 버튼 위치 자동 조정
-    var nPageTop = nStartY + (2 * (nCardH + nGapY)) + 10;
-    
-    if (this.isValidObject("divPage")) {
-        this.divPage.set_top(nPageTop);
-        this.divPage.bringToFront();
-    }
-	
-	this.resetScroll();//마술
+    this.resetScroll(); // 스크롤 갱신
 };
-//=============================동적생성 컴포넌트 이벤트 메서드==========================================
-this.fn_divClick = function(obj:nexacro.Button, e:nexacro.ClickEventInfo)//카드 클릭
+
+//=====================================찜 버튼 및 상세 버튼 동적 생성 (기존 Div 위에 얹기)=========================================
+this.drawZzimBtn = function (fvRecords)
 {
-    var nRow = obj.u_Row;
+    for(var i = 0; i < fvRecords; i++)
+    {
+        var sDivId = "divItem" + ((i < 10) ? "0" + i : i);
+        var objDiv = this.divList.form.components[sDivId];
+        
+        if (objDiv == undefined || objDiv.visible == false) continue;
+        
+        // 1. 상세페이지 이동용 투명 버튼 (btnDetail)
+        var btnDetail = objDiv.form.components["btnDetail"];
+        
+        if (btnDetail == undefined)
+        {
+            btnDetail = new Button();
+            btnDetail.init("btnDetail", 0, 0, null, null, 0, 0);
+            
+            // 스타일 투명
+            btnDetail.set_background("transparent");
+            btnDetail.set_border("0px none");
+            btnDetail.set_cursor("pointer"); // 손가락 모양
+            
+            // 이벤트 연결
+            btnDetail.addEventHandler("onclick", this.divList_btn00_onclick, this);
+            
+            objDiv.form.addChild("btnDetail", btnDetail);
+            btnDetail.show();
+        }
+        btnDetail.u_row = i;
+        btnDetail.bringToFront();
+
+        // 2. 찜 버튼 (btnZzim)
+        var btnZzim = objDiv.form.components["btnZzim"];
+        var sIsWish = this.dsCurrentItem.getColumn(i, "IS_WISH");
+        var sIconUrl = (sIsWish == "1") ? "imagerc::Select.png" : "imagerc::NoSelect.png";
+
+        if (btnZzim == undefined)
+        {
+            btnZzim = new Button();
+            // 위치: 우측 상단
+            btnZzim.init("btnZzim", null, 10, 40, 40, 10, null);
+            
+            btnZzim.set_background("white");
+            btnZzim.set_borderRadius("50px"); // 원형
+            btnZzim.set_cursor("pointer");
+            
+            btnZzim.addEventHandler("onclick", this.fn_ZzimClick, this);
+            
+            objDiv.form.addChild("btnZzim", btnZzim);
+            btnZzim.show();
+        }
+        
+        btnZzim.u_Row = i;
+        btnZzim.set_icon(sIconUrl);
+
+        btnZzim.bringToFront();
+    }
+};
+
+//=====================================이벤트 핸들러==============================================
+
+// 상세페이지 이동 (투명 버튼 클릭 시)
+this.divList_btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var nRow = obj.u_row;
 	var sPostId = this.dsCurrentItem.getColumn(nRow, "POST_ID");
     var sTitle = this.dsCurrentItem.getColumn(nRow, "TITLE");
 	var sImageUrl = this.dsCurrentItem.getColumn(nRow, "PHOTO_URL");
@@ -337,7 +218,7 @@ this.fn_divClick = function(obj:nexacro.Button, e:nexacro.ClickEventInfo)//카�
 	var sPrice = this.dsCurrentItem.getColumn(nRow, "PRICE");
 	var sWriter = this.dsCurrentItem.getColumn(nRow, "USER_ID");
 	var sCommend = this.dsCurrentItem.getColumn(nRow, "POST_COMMEND");
-	var sCategoryId = this.dsCurrentItem.getColumn(nRow, "CATEGORY_ID"); //넘기는 것 아님
+	var sCategoryId = this.dsCurrentItem.getColumn(nRow, "CATEGORY_ID");
 	var sCategoryName = this.ds_menu.lookup("MENU_ID", sCategoryId, "MENU_NAME");
 	var sStatus = this.dsCurrentItem.getColumn(nRow, "POST_STATUS");
 	var sBuyerId = this.dsCurrentItem.getColumn(nRow, "BUYER_ID");
@@ -351,39 +232,36 @@ this.fn_divClick = function(obj:nexacro.Button, e:nexacro.ClickEventInfo)//카�
 				sCommend:sCommend, sCategoryName:sCategoryName, sStatus:sStatus, sBuyerId:sBuyerId, sPostId:sPostId
 				, sLikeCnt:sLikeCnt, sUnlikeCnt:sUnlikeCnt, sMyLikeState:sMyLikeState}; //전달값
 	var sPopupCallback = "fnCallPopup";
-	var oOption = {title:"모달 팝업", titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
+	var oOption = {title:"모달 팝업", titlebar: false}; 
 
 	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
-
 };
 
-this.fn_ZzimClick = function (obj:nexacro.Button, e:nexacro.ClickEventInfo)//찜버튼 클릭
+// 찜 버튼 클릭
+this.fn_ZzimClick = function (obj:nexacro.Button, e:nexacro.ClickEventInfo)
 {
 	var nRow = obj.u_Row;
-	var sTitle = this.dsCurrentItem.getColumn(nRow, "TITLE");
 	var sPostId = this.dsCurrentItem.getColumn(nRow, "POST_ID");
 	var sLoginId = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ID");
 
-	//데이터셋에 POST_ID, LOGIN_ID넣기
-	this.dsZzim.clearData(); // 기존 데이터 삭제
-	var nRow = this.dsZzim.addRow(); //한 행 추가
+	this.dsZzim.clearData();
+	var nRow = this.dsZzim.addRow();
 	
 	this.dsZzim.setColumn(nRow, "LOGIN_ID", sLoginId);
 	this.dsZzim.setColumn(nRow, "POST_ID", sPostId);
 	
-	//버튼 css 설정
 	var currentIcon = obj.icon;
 	var strSvcUrl = "";
 	var ID = "";
-	if(currentIcon == "imagerc::Select.png") //찜취소 누르기
+	
+    if(currentIcon == "imagerc::Select.png") // 찜 취소
 	{
 		obj.set_icon("imagerc::NoSelect.png");
 		strSvcUrl = "nexa/deleteZzimList.do";
 		ID = "deleteZzimList"
 	}
-	else //찜누르기
+	else // 찜 등록
 	{
-		//트랜잭션 날리기
 		obj.set_icon("imagerc::Select.png");
 		strSvcUrl = "nexa/getZzimList.do";
 		ID="getZzimList";
@@ -394,165 +272,71 @@ this.fn_ZzimClick = function (obj:nexacro.Button, e:nexacro.ClickEventInfo)//찜
 
 	this.gfnTransaction( ID
 						, strSvcUrl
-						, inData //이클립스받기=넥사크로주기
-						, outData //넥사크로받기=이클립스주기
+						, inData 
+						, outData 
 						, strArg
 						, "fnCallback"
 						, true);
 };
-
-//신고버튼 클릭이벤트
-this.fn_ReportClick = function (obj:nexacro.Button, e:nexacro.ClickEventInfo)
-{
-	var nRow = obj.u_Row;
-	//눌린 신고 POST_ID 이름 가져오기
-	var sPostId = this.dsCurrentItem.getColumn(nRow, "POST_ID"); 
-	
-	//신고자 이름 가져오기
-	var objApp = nexacro.getApplication();
-	var sLoginId = objApp.gdsLoginUser.getColumn(0, "LOGIN_ID");
-	
-	//신고창에서 띄울 사진url, 제목, 가격 가져오기
-	var sImageUrl = this.dsCurrentItem.getColumn(nRow, "PHOTO_URL"); 
-	var sTitle = this.dsCurrentItem.getColumn(nRow, "TITLE"); 
-	var sPrice = this.dsCurrentItem.getColumn(nRow, "PRICE"); 
-	
-	//신고창 열기
-	var sPopupId = "sReportPopup"; //Popup ID
-	var sUrl = "Main::ggul1430pu.xfdl"; //팝업 URL
-	var oArg = {sPostId:sPostId, sLoginId:sLoginId, sImageUrl:sImageUrl, sTitle:sTitle, sPrice:sPrice}; //전달값
-	var sPopupCallback = "fnCallPopup";
-	var oOption = {title:"모달리스 팝업" ,titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
-
-	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
-
-};
-
-this.fn_GoodClick = function (obj:nexacro.Button, e:nexacro.ClickEventInfo)//추천버튼 클릭
-{
-	var nRow = obj.u_Row;
-	var sState = this.dsCurrentItem.getColumn(nRow, "MY_LIKE_STATE"); //if문에서 쓸 G, B가져오기
-	var sPostId  = this.dsCurrentItem.getColumn(nRow, "POST_ID"); //dsGB에 담아 보낼정보
-    var sLoginId = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ID"); //dsGB에 담아 보낼정보
-	
-	//보낼 ds비우기
-	this.dsGB.clearData();
-	//한줄 추가
-	var nAddRow = this.dsGB.addRow();
-	//정보 넣기
-	this.dsGB.setColumn(nAddRow, "POST_ID",  sPostId);
-	this.dsGB.setColumn(nAddRow, "LOGIN_ID", sLoginId);
-	
-	if(sState == "G") //눌려있던거 취소
-	{
-		this.dsGB.setColumn(nAddRow, "STATE_CODE", 100);
-		//delete
-	}
-	else if(sState =="B") //비추 눌려있으면
-	{
-		alert("추천 / 비추천을 동시에 할 수 없습니다.") //gfn alert로 대체할것
-		return;
-	}
-	else //안눌려져있던거 추천
-	{
-		//insert
-		this.dsGB.setColumn(nAddRow, "STATE_CODE", 10);
-	}
-	
-	var strSvcUrl = "nexa/savePostLike.do";
-	var inData = "dsGB=dsGB";
-	var strArg = "";
-	var outData = "";
-
-	this.gfnTransaction("savePostLike"
-						, strSvcUrl
-						, inData //이클립스받기=넥사크로주기
-						, outData //넥사크로받기=이클립스주기
-						, strArg
-						, "fnCallback"
-						, true);		
-};
-
-this.fn_BadClick = function (obj:nexacro.Button, e:nexacro.ClickEventInfo)//비추천버튼 클릭
-{
-	var nRow = obj.u_Row;
-	var sState = this.dsCurrentItem.getColumn(nRow, "MY_LIKE_STATE"); //if문에서 쓸 G, B가져오기
-	var sPostId  = this.dsCurrentItem.getColumn(nRow, "POST_ID"); //dsGB에 담아 보낼정보
-    var sLoginId = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ID"); //dsGB에 담아 보낼정보
-	
-	//보낼 ds비우기
-	this.dsGB.clearData();
-	//한줄 추가
-	var nAddRow = this.dsGB.addRow();
-	//정보 넣기
-	this.dsGB.setColumn(nAddRow, "POST_ID",  sPostId);
-	this.dsGB.setColumn(nAddRow, "LOGIN_ID", sLoginId);
-	
-	if(sState == "B") //눌려있던거 취소
-	{
-		this.dsGB.setColumn(nAddRow, "STATE_CODE", 200);
-		//delete
-	}
-	else if(sState =="G") //추천 눌려있으면
-	{
-		alert("추천 / 비추천을 동시에 할 수 없습니다.") //gfn alert로 대체할것
-		return;
-	}
-	else //안눌려져있던거 추천
-	{
-		//insert
-		this.dsGB.setColumn(nAddRow, "STATE_CODE", 20);
-	}
-	
-	var strSvcUrl = "nexa/savePostLike.do";
-	var inData = "dsGB=dsGB";
-	var strArg = "";
-	var outData = "";
-
-	this.gfnTransaction("savePostLike"
-						, strSvcUrl
-						, inData //이클립스받기=넥사크로주기
-						, outData //넥사크로받기=이클립스주기
-						, strArg
-						, "fnCallback"
-						, true);
-};
-
 
 //===========================================콜백함수======================================================
 this.fnCallback = function (svcID, errorCode, errorMsg)
 {
-	// 에러 체크 (서버에서 에러나면 errorCode가 음수)
-    if (errorCode < 0) {
-        alert("통신 에러 발생: " + errorMsg);
-        return;
-    }
-    if (svcID == "search") 
-    {   
-        this.fnPagingSetting();
-		this.fn_drawCards();
+	if (errorCode < 0) {
+		alert("통신 에러 발생: " + errorMsg);
+		return;
+	}
+    
+	if (svcID == "search") 
+	{   
+        // 1. 페이징 네비게이션 생성
+		this.fnPagingSetting();
+        
+        // 2. 고정 Div에 데이터 채우기 (동적 생성 제거)
+		this.fn_SetResultData();
+        
+        // 3. 찜 버튼과 상세보기 버튼 Overlay 생성
+        this.drawZzimBtn(this.fvRecords);
 	}
 	else if(svcID == "getZzimList")
 	{
-		//alert("찜 메뉴 선택 트랜잭션 콜백 실행");
+		// 찜 성공 시 처리 (필요하면)
 	}
 	else if(svcID == "deleteZzimList")
 	{
-		//alert("찜 메뉴 취소 트랜잭션 콜백 실행");
+		// 찜 취소 시 처리 (필요하면)
 	}
 	else if(svcID == "savePostLike")
 	{
 		this.fnSearch();
 	}
+    else if(svcID == "sDetail") // 팝업 닫혔을 때 (fnCallPopup에서 연결)
+    {
+        this.fnSearch();
+    }
 };
+
+// 팝업 콜백
+this.fnCallPopup = function (svcID, rtn)
+{
+	if(svcID == "sDetail")
+	{
+		this.fnSearch();
+	}
+};
+
 //================================================페이징처리===================================================
 this.fnPagingSetting = function ()
 {
-    var nTotalCount = nexacro.toNumber(this.dsPagingInfo.getColumn(0, "totalCount"));
-    var nRecords = 8;
+    // totalCount가 없으면 0으로 처리
+    var sTotal = this.dsPagingInfo.getColumn(0, "totalCount");
+    var nTotalCount = nexacro.toNumber(sTotal);
+    if(nexacro.isEmpty(sTotal)) nTotalCount = 0;
+    
+    var nRecords = 12; // 12개로 설정
     var nPage = nexacro.toNumber(this.fvPage);
     
-    //CmmPaging.xfdl의 함수호출
+    // CmmPaging.xfdl의 함수 호출
     this.divPage.form.fnCreatePage("fnPagingCallback", nTotalCount, nRecords, nPage, 10);
 };
 
@@ -561,7 +345,7 @@ this.fnPagingCallback = function(nPage, nRecordsOffset)
 	this.fvPage = nPage; 				
 	this.fvRecordsOffset = nRecordsOffset;
 	
-	this.fnSearch(); //조회함수호출
+	this.fnSearch(); // 조회함수 호출
 };]]></Script>
     <Objects>
       <Dataset id="dsCurrentItem">

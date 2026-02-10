@@ -68,6 +68,7 @@ this.gridMenu_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventIn
 	var sMenuId = this.ds_menu.getColumn(e.row, "MENU_ID");
 	var objApp = nexacro.getApplication();//글로벌에 접근 가능하게한뒤에
 	objApp.gv_MenuId = sMenuId;
+	objApp.gv_Search = "";
 	
 	// 기존 애니메이션이 동작 중이면 중단 (중복 방지)
 	{
@@ -92,14 +93,14 @@ this.gridMenu_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventIn
     // 실행
     objAni.play();
 	
-	//온로드 이벤트 발생시키기위한 코드
-	if (this.parent.parent.divWork.url == "Main::ggul1290fm.xfdl") 
+	var objDivWork = this.parent.parent.divWork;
+    if (objDivWork.url == "Main::ggul1450fm.xfdl") 
     {
-        this.parent.parent.divWork.reload(); 
+		objDivWork.form.fnPageInit(); 
     }
     else 
     {
-        this.parent.parent.divWork.url = "Main::ggul1290fm.xfdl";	
+        objDivWork.set_url("Main::ggul1450fm.xfdl");
     }
 };
 

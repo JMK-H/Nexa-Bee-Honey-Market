@@ -1878,6 +1878,55 @@
           <Col id="MSG_TYPE">A</Col>
           <Col id="MSG_ICON">INF</Col>
         </Row>
+        <Row>
+          <Col id="MSG_ID">msg.err.Login</Col>
+          <Col id="MSG_TEXT">일치하는 정보가 없습니다.</Col>
+          <Col id="MSG_TEXT_EN">No data Login</Col>
+          <Col id="MSG_TYPE">A</Col>
+          <Col id="MSG_ICON">INF</Col>
+        </Row>
+        <Row>
+          <Col id="MSG_ID">msg.err.doubleCheck</Col>
+          <Col id="MSG_TEXT">{0} 중복체크를 해주세요</Col>
+          <Col id="MSG_TEXT_EN">No data Login</Col>
+          <Col id="MSG_TYPE">A</Col>
+          <Col id="MSG_ICON">INF</Col>
+        </Row>
+        <Row>
+          <Col id="MSG_ID">msg.err.checkThing</Col>
+          <Col id="MSG_TEXT">{0} 을(를) 확인해주세요</Col>
+          <Col id="MSG_TEXT_EN">please check Email</Col>
+          <Col id="MSG_ICON">INF</Col>
+          <Col id="MSG_TYPE">A</Col>
+        </Row>
+        <Row>
+          <Col id="MSG_ID">msg.err.notSamePw</Col>
+          <Col id="MSG_TEXT">비밀번호가 일치하지 않습니다.</Col>
+          <Col id="MSG_TEXT_EN">please check PW</Col>
+          <Col id="MSG_TYPE">A</Col>
+          <Col id="MSG_ICON">INF</Col>
+        </Row>
+        <Row>
+          <Col id="MSG_ID">msg.err.alreadyexist</Col>
+          <Col id="MSG_TEXT">이미 존재하는 아이디 입니다.</Col>
+          <Col id="MSG_TEXT_EN">msg.err.alreadyexist</Col>
+          <Col id="MSG_TYPE">A</Col>
+          <Col id="MSG_ICON">INF</Col>
+        </Row>
+        <Row>
+          <Col id="MSG_ID">msg.pass.id</Col>
+          <Col id="MSG_TEXT">사용 가능한 아이디 입니다.</Col>
+          <Col id="MSG_TEXT_EN">msg.pass.id</Col>
+          <Col id="MSG_TYPE">A</Col>
+          <Col id="MSG_ICON">INF</Col>
+        </Row>
+        <Row>
+          <Col id="MSG_ID">msg.find.thing</Col>
+          <Col id="MSG_TEXT">찾으시는 {0} 은(는) {1} 입니다.</Col>
+          <Col id="MSG_TEXT_EN">msg.find.thing</Col>
+          <Col id="MSG_TYPE">A</Col>
+          <Col id="MSG_ICON">INF</Col>
+        </Row>
       </Rows>
     </Dataset>
     <Dataset id="gdsMyMenu">

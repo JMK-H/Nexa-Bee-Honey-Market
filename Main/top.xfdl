@@ -67,6 +67,8 @@ this.btnUser_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 
 this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
+	var objApp = nexacro.getApplication();
+	objApp.gv_MenuId="";
 	this.parent.parent.divWork.set_url("Main::work.xfdl");
 };
 //=============================================관리자 전용 버튼==================================================

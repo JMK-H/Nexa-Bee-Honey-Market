@@ -33,7 +33,17 @@ this.btnCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 this.id_count="";
 this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-		var ID = this.txfId.value;		
+		var ID = this.txfId.value;
+		if(this.gfnIsNull(ID))
+		{
+			var sMsgId = "msg.err.validator.required"; //메세지ID
+			var arrArg = ["아이디"]; //메세지취환될값 배열[생략가능]
+			var sPopId = "nonId"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+			var sMsgCallback = "";
+
+			this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+			return;
+		}
 		var strSvcUrl = "nexa/getSameIdCount.do?v="+ new Date().getTime();;
 		var inData = "";
 		var strArg = "userId=" + nexacro.wrapQuote(ID);
@@ -52,13 +62,17 @@ this.fnCallback = function (svcId, errCd, errMsg)
 	//아이디 중복콜백
 	if(svcId == "getSameIdCount")
 	{
-		trace("#################"+this.id_count);
 		if(this.id_count>0)
 		{
 			this.txfId.set_cssclass("CheckIdpassN");
 			//이걸로 css설정
             // 글자색을 빨간색으로 하고 싶다면
-			alert("있는 아이디입니다.");
+			var sMsgId = "msg.err.alreadyexist"; //메세지ID //있는 아이디입니다.
+			var arrArg = []; //메세지취환될값 배열[생략가능]
+			var sPopId = "msg.err.alreadyexist"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+			var sMsgCallback = "";
+
+			this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
 		}
 		else
 		{
@@ -68,6 +82,12 @@ this.fnCallback = function (svcId, errCd, errMsg)
 			this.btnCheckId.set_visible(false); //중복체크버튼 숨기고
 			this.btnReId.set_visible(true); //아이디 변경버튼 보이기
 			alert("사용가능한 아이디 입니다.");
+			var sMsgId = "msg.pass.id"; //메세지ID //있는 아이디입니다.
+			var arrArg = []; //메세지취환될값 배열[생략가능]
+			var sPopId = "msg.pass.id"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+			var sMsgCallback = "";
+
+			this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
 		}
 	}
 	else if(svcId == "getSameNicknameCount") //닉네임중복콜백
@@ -115,7 +135,6 @@ this.fnCallback = function (svcId, errCd, errMsg)
 	else if(svcId == "setNewUserData")
 	{
 		if (errCd < 0) {
-        this.alert("실패 사유: " + errMsg); 
         return;
 		}
 		
@@ -247,27 +266,47 @@ this.fn_writeUserData = function () //데이터셋에 현재 텍스트필드에 
 };
 
 this.fn_checkRegister = function () //회원가입 조건 검사
-{
+{	
 	if(!(this.checkDoubleId&&this.checkDoubleNickname&&this.checkPw&&this.checkEmail)) //하나라도 거짓이면
 	{
 		if(!this.checkDoubleId)//아이디 중복체크 안되면
 		{
-			alert("아이디 중복체크를 해주세요.");
+			var sMsgId = "msg.err.doubleCheck"; //메세지ID
+			var arrArg = ["아이디"]; //메세지취환될값 배열[생략가능]
+			var sPopId = "idDoubleCheckk"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+			var sMsgCallback = "";
+
+			this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
 			return false;
 		}
 		else if(!this.checkDoubleNickname)
 		{
-			alert("닉네임 중복체크를 해주세요.");
+			var sMsgId = "msg.err.doubleCheck"; //메세지ID
+			var arrArg = ["닉네임"]; //메세지취환될값 배열[생략가능]
+			var sPopId = "nickNameDoubleCheck"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+			var sMsgCallback = "";
+
+			this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
 			return false;
 		}
 		else if(!this.checkEmail)
 		{
-			alert("이메일을 확인해주세요.")
+			var sMsgId = "msg.err.checkThing"; //메세지ID
+			var arrArg = ["이메일"]; //메세지취환될값 배열[생략가능]
+			var sPopId = "emailCheckEmpty"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+			var sMsgCallback = "";
+
+			this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
 			return false;
 		}
 		else
 		{
-			alert("비밀번호가 일치하지 않습니다.")
+			var sMsgId = "msg.err.notSamePw"; //메세지ID
+			var arrArg = []; //메세지취환될값 배열[생략가능]
+			var sPopId = "notSamePw"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+			var sMsgCallback = "";
+
+			this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
 			return false;
 		}
 	}

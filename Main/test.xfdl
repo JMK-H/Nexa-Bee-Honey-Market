@@ -87,7 +87,14 @@ this.fnCallback = function ()
 {
 	alert(this.id_count);
 };
-]]></Script>
+
+
+	var sMsgId = "msg.err.validator.minlength"; //메세지ID
+	var arrArg = ["이름", "3"]; //메세지취환될값 배열[생략가능]
+	var sPopId = sMsgId; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+	var sMsgCallback = "";
+	
+	this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);]]></Script>
     <Objects>
       <Dataset id="dsInData">
         <ColumnInfo>

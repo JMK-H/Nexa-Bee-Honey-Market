@@ -150,7 +150,7 @@
             </Layout>
           </Layouts>
         </Div>
-        <Div id="divPage" taborder="4" text="Div00" left="388" width="784" url="Cmm::CmmPaging.xfdl" border="1px solid #e84133" height="40" top="1410"/>
+        <Div id="divPage" taborder="4" text="Div00" left="388" width="784" url="Cmm::CmmPaging.xfdl" height="40" top="1410"/>
         <Div id="divSearch" taborder="5" left="395" top="40" width="770" height="60" background="#ffffff" borderRadius="30px" formscrolltype="none" boxShadow="0px 4px 15px rgba(0,0,0,0.05)" border="1px solid #e0e0e0" text="">
           <Layouts>
             <Layout>
@@ -161,70 +161,7 @@
           </Layouts>
         </Div>
         <Edit id="edtSearchKeyword" taborder="6" left="490" top="50" height="40" right="500" border="0px none" background="transparent" color="#333333" font="14px 'Malgun Gothic'" displaynulltext="검색어를 입력해주세요"/>
-        <Grid id="Grid00" taborder="7" left="41" top="860" width="268" height="518" binddataset="dsCurrentItem">
-          <Formats>
-            <Format id="default">
-              <Columns>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-              </Columns>
-              <Rows>
-                <Row size="24" band="head"/>
-                <Row size="24"/>
-              </Rows>
-              <Band id="head">
-                <Cell text="POST_ID"/>
-                <Cell col="1" text="USER_ID"/>
-                <Cell col="2" text="TITLE"/>
-                <Cell col="3" text="CONTENT"/>
-                <Cell col="4" text="PRICE"/>
-                <Cell col="5" text="PURCHASE_URL"/>
-                <Cell col="6" text="PHOTO_URL"/>
-                <Cell col="7" text="REG_DATE"/>
-                <Cell col="8" text="CATEGORY_ID"/>
-                <Cell col="9" text="IS_WISH"/>
-                <Cell col="10" text="LIKE_CNT"/>
-                <Cell col="11" text="UNLIKE_CNT"/>
-                <Cell col="12" text="MY_LIKE_STATE"/>
-                <Cell col="13" text="POST_COMMEND"/>
-                <Cell col="14" text="BUYER_ID"/>
-                <Cell col="15" text="POST_STATUS"/>
-              </Band>
-              <Band id="body">
-                <Cell text="bind:POST_ID"/>
-                <Cell col="1" text="bind:USER_ID"/>
-                <Cell col="2" text="bind:TITLE"/>
-                <Cell col="3" text="bind:CONTENT"/>
-                <Cell col="4" text="bind:PRICE"/>
-                <Cell col="5" text="bind:PURCHASE_URL"/>
-                <Cell col="6" text="bind:PHOTO_URL"/>
-                <Cell col="7" text="bind:REG_DATE"/>
-                <Cell col="8" text="bind:CATEGORY_ID"/>
-                <Cell col="9" text="bind:IS_WISH"/>
-                <Cell col="10" text="bind:LIKE_CNT"/>
-                <Cell col="11" text="bind:UNLIKE_CNT"/>
-                <Cell col="12" text="bind:MY_LIKE_STATE"/>
-                <Cell col="13" text="bind:POST_COMMEND"/>
-                <Cell col="14" text="bind:BUYER_ID"/>
-                <Cell col="15" text="bind:POST_STATUS"/>
-              </Band>
-            </Format>
-          </Formats>
-        </Grid>
+        <Button id="btnCategoryTag" taborder="7" text="Button00" left="36" top="106" width="120" height="50" visible="false" borderRadius="15px" background="#fff4e6" border="1px solid #ffaa00" color="#ffaa00" cursor="pointer" padding="0px 10px" onclick="btnCategoryTag_onclick"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -239,6 +176,7 @@
           <Column id="MAX_PRICE" type="STRING" size="256"/>
           <Column id="MIN_PRICE" type="STRING" size="256"/>
           <Column id="SORT_TYPE" type="STRING" size="256"/>
+          <Column id="categoryId" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
       <Dataset id="dsCurrentItem">
@@ -500,7 +438,8 @@ this.fnSearch = function ()
     var objApp = nexacro.getApplication();
     var sSearch = objApp.gv_Search; //검색한 문자열 받아오기
 	var sLoginId = objApp.gdsLoginUser.getColumn(0,"LOGIN_ID");
-	
+	var sMenuId  = objApp.gv_MenuId;
+	this.fn_UpdateCategoryTag();
 	this.dsSearch.clearData();
 	var nRow = this.dsSearch.addRow();
 	this.dsSearch.setColumn(nRow, "records", this.fvRecords);
@@ -510,6 +449,11 @@ this.fnSearch = function ()
 	this.dsSearch.setColumn(nRow, "MAX_PRICE", this.fv_selectedMaxPrice);
 	this.dsSearch.setColumn(nRow, "MIN_PRICE", this.fv_selectedMinPrice);
 	this.dsSearch.setColumn(nRow, "SORT_TYPE", this.fv_sortType);
+	if (!this.gfnIsNull(sMenuId)) 
+    {
+        this.dsSearch.setColumn(nRow, "categoryId", sMenuId);
+    }
+	
 	
 	var strSvcUrl = "nexa/selectSearchPaging.do";
 	var inData = "dsSearch=dsSearch";
@@ -560,6 +504,7 @@ this.fn_SetResultData = function()
             var sLoc   = this.dsCurrentItem.getColumn(i, "USER_ID"); 
             var sDate  = this.dsCurrentItem.getColumn(i, "REG_DATE");
             var sImgUrl = this.dsCurrentItem.getColumn(i, "PHOTO_URL");
+			var sPostStatus = this.dsCurrentItem.getColumn(i, "POST_STATUS");
 			
             var sFullImgUrl = sImgUrl; 
 
@@ -575,6 +520,14 @@ this.fn_SetResultData = function()
             
             // 이미지 세팅
             objDiv.form.imgView.set_image(sFullImgUrl);
+			if(sPostStatus == "END")
+			{
+				objDiv.form.imgView.set_image("imagerc::soldsoldoutout.png");//soldout;
+			}
+			else if(sPostStatus == "RESERVED")
+			{
+				objDiv.form.imgView.set_image("imagerc::reserved.png");//reserved;
+			}
             
             // 나중에 클릭했을 때 상세페이지 가기 위해 DIV에 POST_ID를 숨김
             var sPostId = this.dsCurrentItem.getColumn(i, "POST_ID");
@@ -593,7 +546,8 @@ this.divSearch_btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEv
 {
 	var objApp = nexacro.getApplication();
 	objApp.gv_Search = this.edtSearchKeyword.value;
-
+	this.edtSearchKeyword.value="";
+	
 	this.fvPage = 0;
     this.fvRecordsOffset = 0;
     
@@ -885,7 +839,36 @@ this.divList_btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInf
 
 	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
 };
+//=========================================================카테고리 테그==============================================
+this.fn_UpdateCategoryTag = function()
+{
+    var objApp = nexacro.getApplication();
+    var sMenuId = objApp.gv_MenuId;
 
+    if (this.gfnIsNull(sMenuId)) 
+    {
+        this.btnCategoryTag.set_visible(false);
+        return;
+    }
+
+    var sMenuName = this.ds_menu.lookup("MENU_ID", sMenuId, "MENU_NAME");
+    
+    if (this.gfnIsNull(sMenuName)) sMenuName = "카테고리"; 
+
+    this.btnCategoryTag.set_text("# " + sMenuName + "  ✖");
+    this.btnCategoryTag.set_visible(true);
+    this.btnCategoryTag.set_width(sMenuName.length * 15 + 40); 
+};
+
+this.btnCategoryTag_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+    var objApp = nexacro.getApplication();
+    objApp.gv_MenuId = "";
+    
+    this.btnCategoryTag.set_visible(false);
+    
+    this.fnPageInit();
+};
 //==========================================콜백함수====================================================================
 this.fnCallback = function (svcID, errCd, errMsg)
 {
@@ -894,6 +877,11 @@ this.fnCallback = function (svcID, errCd, errMsg)
 		this.fnPagingSetting();
 		this.fn_SetResultData();
 		this.drawZzimBtn(this.fvRecords);
+		this.staResultTitle.text = "'"+nexacro.getApplication().gv_Search+"'"+" 검색 결과"
+	}
+	else if(svcID=="getMenuList")
+	{
+		this.fn_UpdateCategoryTag();
 	}
 };
 
