@@ -8,7 +8,7 @@
         <ImageViewer id="imgProduct" taborder="2" left="35" top="80" width="70" height="70" border="1px solid #e0e0e0" stretch="fit" borderRadius="5px" text=""/>
         <Static id="staProductName" taborder="3" text="무선 청소기 대박 추천!" left="120" top="80" right="35" height="45" font="bold 13px 'Malgun Gothic'" color="#333333"/>
         <Static id="staLabel" taborder="4" text="신고 사유를 선택해주세요 &lt;fc v='#ff0000'&gt;*&lt;/fc&gt;" left="20" top="190" width="200" height="20" font="bold 12px 'Malgun Gothic'" color="#333333" usedecorate="true"/>
-        <Combo id="cboReason" taborder="5" text="" left="20" top="220" right="20" height="40" displaynulltext="사유를 선택해주세요" innerdataset="dsReason" codecolumn="CODE" datacolumn="NAME" border="1px solid #ff9900" borderRadius="5px" itemheight="35"/>
+        <Combo id="cboReason" taborder="5" text="" left="20" top="220" right="20" height="40" displaynulltext="사유를 선택해주세요" innerdataset="dsReason" codecolumn="CODE" datacolumn="NAME" border="1px solid #ff9900" borderRadius="5px" itemheight="35" onitemchanged="cboReason_onitemchanged"/>
         <Button id="btnCancel" taborder="6" text="취소" left="20" bottom="20" width="175" height="45" background="#ffffff" border="1px solid #dddddd" borderRadius="5px" color="#666666" font="13px 'Malgun Gothic'" cursor="pointer" onclick="btnClose_onclick"/>
         <Button id="btnSubmit" taborder="7" text="신고 제출" right="20" bottom="20" width="175" height="45" background="#f39c12" border="0px none" borderRadius="5px" color="#ffffff" font="bold 13px 'Malgun Gothic'" cursor="pointer" onclick="btnSubmit_onclick"/>
         <Static id="staPrice" taborder="8" text="Static00" left="120" top="120" width="245" height="25" color="#ff9900" font="bold 14px 'Malgun Gothic'"/>
@@ -81,6 +81,28 @@ this.btnSubmit_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	var sReason = this.cboReason.value;
 	var sCommend = this.edtCmd.value;
+	
+	if(this.gfnIsNull(sReason))
+	{
+		var sMsgId = "msg.err.validator.required"; //메세지ID
+		var arrArg = ["신고사유"]; //메세지취환될값 배열[생략가능]
+		var sPopId = "msg.err.validator.required.reason"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "";
+
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+		return;
+	}
+	if(this.gfnIsNull(sCommend))
+	{
+		var sMsgId = "msg.err.validator.required"; //메세지ID
+		var arrArg = ["신고이유"]; //메세지취환될값 배열[생략가능]
+		var sPopId = "msg.err.validator.required.commend"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "";
+
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+		return;
+	}
+	
 	this.dsInsert.setColumn(0, "REPORT_REASON", sReason);
 	this.dsInsert.setColumn(0, "REPORT_COMMEND", sCommend);
 	
@@ -111,9 +133,21 @@ this.fnCallback = function (svcID, errCd, errMsg)
 	if(svcID == "insertReport")
 	{
 		if(this.reportCnt==1)
-		{alert("중복신고를 할 수 없습니다.");}
+		{
+			var sMsgId = "msg.double.report"; //메세지ID
+			var arrArg = []; //메세지취환될값 배열[생략가능]
+			var sPopId = ""; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+			var sMsgCallback = "";
+
+			this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+		}
 		else
-		{alert("신고접수가 완료되었습니다.");}
+		var sMsgId = "msg.action.success"; //메세지ID
+		var arrArg = []; //메세지취환될값 배열[생략가능]
+		var sPopId = ""; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "";
+
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
 		this.close(); //성공하든 실패하든 창닫기
 	}
 };

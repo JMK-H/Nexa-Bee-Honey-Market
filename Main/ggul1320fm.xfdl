@@ -84,7 +84,8 @@
       <ExcelExportObject id="xExport"/>
     </Objects>
     <Script type="xscript5.1"><![CDATA[this.sToday = ""; //오늘날짜 저장
-
+this.sTempId = "";
+this.sTempStatus = "";
 
 this.ggul1320fm_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
@@ -116,26 +117,16 @@ this.gfnGetDate = function()
 this.grdMembers_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
 	if(!(e.col==8 || e.col==7)){return;} //7,8 열, 달력, 버튼 있는 열 아니면 return
-	var sLoginStatus = this.dsLoginUsers.getColumn(e.row, "LOGIN_STATUS");
-	var sLoginId = this.dsLoginUsers.getColumn(e.row, "LOGIN_ID");
-	if(e.col == 8 && confirm("저장하시겠습니까?")) //버튼이면
+	this.sLoginStatus = this.dsLoginUsers.getColumn(e.row, "LOGIN_STATUS");
+	this.sLoginId = this.dsLoginUsers.getColumn(e.row, "LOGIN_ID");
+	if(e.col == 8) //버튼이면
 	{
-		this.dsSearch.clearData();
-		var nRow = this.dsSearch.addRow();
-		this.dsSearch.setColumn(nRow, "LOGIN_ID", sLoginId);
-		this.dsSearch.setColumn(nRow, "LOGIN_STATUS", sLoginStatus);
-		var strSvcUrl = "nexa/uploadUserData.do";
-		var inData = "dsSearch=dsSearch";
-		var strArg = "";
-		var outData = "";
+		var sMsgId = "confirm.before.save"; //메세지ID
+		var arrArg = []; //메세지취환될값 배열[생략가능]
+		var sPopId = "confirm.before.save"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "fnPopupCallback";
 
-		this.gfnTransaction("uploadUserData"
-							, strSvcUrl
-							, inData //이클립스받기=넥사크로주기
-							, outData //넥사크로받기=이클립스주기
-							, strArg
-							, "fnCallback"
-							, true);
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
 	}
 };
 
@@ -234,12 +225,22 @@ this.btnExcelExport_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventIn
 
 this.xExport_onsuccess = function(obj:nexacro.ExcelExportObject,e:nexacro.ExcelExportEventInfo)
 {
-    alert("엑셀 다운로드가 완료되었습니다.");
+	var sMsgId = "msg.sucsess.download"; //메세지ID
+	var arrArg = ["엑셀파일"]; //메세지취환될값 배열[생략가능]
+	var sPopId = "msg.sucsess.download";; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+	var sMsgCallback = "";
+
+	this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
 };
 
 this.xExport_onerror = function(obj:nexacro.ExcelExportObject,e:nexacro.ExcelExportErrorEventInfo)
 {
-    alert("다운로드 실패: " + e.errormsg);
+    var sMsgId = "msg.fail.download"; //메세지ID
+	var arrArg = ["엑셀파일"]; //메세지취환될값 배열[생략가능]
+	var sPopId = "msg.fail.download"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+	var sMsgCallback = "";
+
+	this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
 };
 
 this.gfnIsNull = function(sValue)
@@ -267,9 +268,40 @@ this.fnCallback = function (svcID, errCd, errMsg)
 	}
 	else if(svcID == "uploadUserData")
 	{
-		alert("회원정보가 저장되었습니다");
+		var sMsgId = "msg.save.success"; //메세지ID
+		var arrArg = []; //메세지취환될값 배열[생략가능]
+		var sPopId = "msg.save.success"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "";
+
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
 	}
 };
-]]></Script>
+//=============================================팝업콜백함수=========================================================
+this.fnPopupCallback = function (svcID, rtn)
+{
+	if(svcID == "confirm.before.save")
+	{
+		if(rtn)
+		{
+			this.dsSearch.clearData();
+			var nRow = this.dsSearch.addRow();
+			
+			this.dsSearch.setColumn(nRow, "LOGIN_ID", this.sLoginId);
+			this.dsSearch.setColumn(nRow, "LOGIN_STATUS", this.sLoginStatus);
+			var strSvcUrl = "nexa/uploadUserData.do";
+			var inData = "dsSearch=dsSearch";
+			var strArg = "";
+			var outData = "";
+
+			this.gfnTransaction("uploadUserData"
+								, strSvcUrl
+								, inData //이클립스받기=넥사크로주기
+								, outData //넥사크로받기=이클립스주기
+								, strArg
+								, "fnCallback"
+								, true);
+		}
+	}
+};]]></Script>
   </Form>
 </FDL>

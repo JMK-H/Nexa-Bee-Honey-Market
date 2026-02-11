@@ -53,35 +53,21 @@ this.btnCharge_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	var nAmount = nexacro.toNumber(this.mskAmount.value, 0);
 	if(this.gfnIsNull(nAmount) || nAmount <= 0) {
-        this.alert("충전할 금액을 정확히 입력해주세요.");
+		var sMsgId = "msg.error.charging"; //메세지ID
+		var arrArg = []; //메세지취환될값 배열[생략가능]
+		var sPopId = "msg.error.charging"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "";
+
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
         return;
     }
 	
-	var sMsg = nexacro.toNumber(nAmount).toLocaleString() + "원을 충전하시겠습니까?";
-    if(!this.confirm(sMsg)) {
-        return; // 취소 누르면 중단
-    }
-	
-	var objApp = nexacro.getApplication();
-	var sLoginId = objApp.gdsLoginUser.getColumn(0, "LOGIN_ID");
-	
-	this.dsInData.clearData();
-	var nRow = this.dsInData.addRow();
-	this.dsInData.setColumn(nRow, "LOGIN_ID", sLoginId);
-	this.dsInData.setColumn(nRow, "LOGIN_CASH", nAmount);
-	
-	var strSvcUrl = "nexa/addUserCash.do";
-	var inData = "dsInData=dsInData";
-	var strArg = "";
-	var outData = "";
+	var sMsgId = "msg.determine.charging"; //메세지ID
+	var arrArg = [nexacro.toNumber(nAmount).toLocaleString()]; //메세지취환될값 배열[생략가능]
+	var sPopId = "msg.determine.charging"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+	var sMsgCallback = "fnPopupCallback";
 
-	this.gfnTransaction("addUserCash"
-						, strSvcUrl
-						, inData //이클립스받기=넥사크로주기
-						, outData //넥사크로받기=이클립스주기
-						, strArg
-						, "fnCallback"
-						, true);
+	this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
 };
 
 //=============================================콜백함수===============================================================
@@ -90,6 +76,37 @@ this.fnCallback = function (svcID, errCd, errMsg)
 	if(svcID=="addUserCash")//캐시충전 트랜잭션
 	{
 		this.close();
+	}
+};
+//===================================================팝업콜백함수==========================================
+this.fnPopupCallback = function (svcID, rtn)
+{
+	if(svcID == "msg.determine.charging")
+	{
+		if(rtn)
+		{
+			var objApp = nexacro.getApplication();
+			var sLoginId = objApp.gdsLoginUser.getColumn(0, "LOGIN_ID");
+			var nAmount = nexacro.toNumber(this.mskAmount.value, 0);
+			
+			this.dsInData.clearData();
+			var nRow = this.dsInData.addRow();
+			this.dsInData.setColumn(nRow, "LOGIN_ID", sLoginId);
+			this.dsInData.setColumn(nRow, "LOGIN_CASH", nAmount);
+			
+			var strSvcUrl = "nexa/addUserCash.do";
+			var inData = "dsInData=dsInData";
+			var strArg = "";
+			var outData = "";
+
+			this.gfnTransaction("addUserCash"
+								, strSvcUrl
+								, inData //이클립스받기=넥사크로주기
+								, outData //넥사크로받기=이클립스주기
+								, strArg
+								, "fnCallback"
+								, true);
+		}
 	}
 };]]></Script>
     <Objects>

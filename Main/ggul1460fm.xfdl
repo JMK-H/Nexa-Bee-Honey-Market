@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="MiniProfile" width="300" height="160" titletext="미니 프로필" onload="MiniProfile_onload" scrolltype="none">
+  <Form id="MiniProfile" width="300" height="160" titletext="미니 프로필" onload="MiniProfile_onload" scrolltype="none" ontimer="MiniProfile_ontimer">
     <Layouts>
       <Layout height="160" width="300">
         <Static id="staBg" taborder="0" left="0" top="0" right="0" bottom="0" background="#ffffff" border="1px solid #d5d5d5" borderRadius="10px"/>
@@ -28,9 +28,16 @@ this.MiniProfile_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	this.staName.set_text(this.sLoginNickname + " 꿀벌님");
 	var sFormatCash = nexacro.toNumber(this.sLoginCash).toLocaleString(); //3자리마다 구분자 들어감
 	this.staBalance.set_text(sFormatCash + " P");
+	this.setTimer(1, 5000);
 };
 
-
+this.MiniProfile_ontimer = function(obj:nexacro.Form,e:nexacro.TimerEventInfo)
+{
+    if (e.timerid == 1)
+    {
+        this.fn_SearchMyInfo();
+    }
+};
 
 //충전하기 버튼 클릭시 모달팝업
 this.btnCharge_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)

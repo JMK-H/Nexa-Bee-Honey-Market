@@ -1962,6 +1962,83 @@
           <Col id="MSG_TYPE">A</Col>
           <Col id="MSG_ICON">INF</Col>
         </Row>
+        <Row>
+          <Col id="MSG_ID">msg.sucsess.download</Col>
+          <Col id="MSG_TEXT">{0}이(가) 다운로드 되었습니다.</Col>
+          <Col id="MSG_TEXT_EN">msg.sucsess.download</Col>
+          <Col id="MSG_TYPE">A</Col>
+          <Col id="MSG_ICON">INF</Col>
+        </Row>
+        <Row>
+          <Col id="MSG_ID">msg.fail.download</Col>
+          <Col id="MSG_TEXT">{0}을(를) 다운로드하는데 실패하였습니다.</Col>
+          <Col id="MSG_TEXT_EN">msg.fail.download</Col>
+          <Col id="MSG_TYPE">A</Col>
+          <Col id="MSG_ICON">INF</Col>
+        </Row>
+        <Row>
+          <Col id="MSG_ID">msg.detailList.simple</Col>
+          <Col id="MSG_TEXT">상세목록 {0} 을(를) 삭제하시겠습니까?</Col>
+          <Col id="MSG_TEXT_EN">msg.detailList.simple</Col>
+          <Col id="MSG_TYPE">C</Col>
+          <Col id="MSG_ICON">CFN</Col>
+        </Row>
+        <Row>
+          <Col id="MSG_ID">msg.detailList.hard</Col>
+          <Col id="MSG_TEXT">카테고리 {0} 을(를) 삭제하시겠습니까?</Col>
+          <Col id="MSG_TEXT_EN">msg.detailList.hard</Col>
+          <Col id="MSG_TYPE">C</Col>
+          <Col id="MSG_ICON">CFN</Col>
+        </Row>
+        <Row>
+          <Col id="MSG_ID">msg.detailList.hardhard</Col>
+          <Col id="MSG_TEXT">⚠️ {0} 카테고리를 삭제하시겠습니까?\n\n포함된 하위 메뉴 {1}건도 모두 삭제됩니다.\n(이 작업은 되돌릴 수 없습니다!</Col>
+          <Col id="MSG_TEXT_EN">msg.detailList.hardhard</Col>
+          <Col id="MSG_TYPE">C</Col>
+          <Col id="MSG_ICON">CFN</Col>
+        </Row>
+        <Row>
+          <Col id="MSG_ID">msg.double.report</Col>
+          <Col id="MSG_TEXT">중복신고를 할 수 없습니다.</Col>
+          <Col id="MSG_TEXT_EN">msg.double.report</Col>
+          <Col id="MSG_TYPE">A</Col>
+          <Col id="MSG_ICON">INF</Col>
+        </Row>
+        <Row>
+          <Col id="MSG_ID">msg.error.charging</Col>
+          <Col id="MSG_TEXT">충전할 금액을 정확히 입력해주세요</Col>
+          <Col id="MSG_TEXT_EN">msg.error.charging</Col>
+          <Col id="MSG_TYPE">A</Col>
+          <Col id="MSG_ICON">INF</Col>
+        </Row>
+        <Row>
+          <Col id="MSG_ID">msg.determine.charging</Col>
+          <Col id="MSG_TEXT">{0} 원을 충전하시겠습니까?</Col>
+          <Col id="MSG_TEXT_EN">msg.determine.charging</Col>
+          <Col id="MSG_TYPE">C</Col>
+          <Col id="MSG_ICON">CFN</Col>
+        </Row>
+        <Row>
+          <Col id="MSG_ID">msg.already.review</Col>
+          <Col id="MSG_TEXT">이미 후기를 작성하였습니다.</Col>
+          <Col id="MSG_TEXT_EN">msg.already.review</Col>
+          <Col id="MSG_TYPE">A</Col>
+          <Col id="MSG_ICON">INF</Col>
+        </Row>
+        <Row>
+          <Col id="MSG_ID">msg.accept.item</Col>
+          <Col id="MSG_TEXT">승인 하시겠습니까??</Col>
+          <Col id="MSG_TEXT_EN">msg.accept.item</Col>
+          <Col id="MSG_TYPE">C</Col>
+          <Col id="MSG_ICON">CFN</Col>
+        </Row>
+        <Row>
+          <Col id="MSG_ID">msg.reject.item</Col>
+          <Col id="MSG_TEXT">거절 하시겠습니까??</Col>
+          <Col id="MSG_TEXT_EN">msg.reject.item</Col>
+          <Col id="MSG_TYPE">C</Col>
+          <Col id="MSG_ICON">CFN</Col>
+        </Row>
       </Rows>
     </Dataset>
     <Dataset id="gdsMyMenu">

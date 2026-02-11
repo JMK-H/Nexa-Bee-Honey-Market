@@ -447,6 +447,8 @@
       </Dataset>
     </Objects>
     <Script type="xscript5.1"><![CDATA[
+this.sPostId = "";
+this.sPostStatus = "";
 this.fv_nPrice = 0;//내 물건 팔 때 수락 누르면 잠시 가격 기억해둘 변수
 
 this.PopMyShop_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
@@ -483,61 +485,47 @@ this.grdReserved_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEven
 	
 	this.dsInfo.clearData();
 	var nRow = this.dsInfo.addRow();
-	var sPostId = this.dsSell_Reserved.getColumn(e.row, "POST_ID");
+	this.sPostId = this.dsSell_Reserved.getColumn(e.row, "POST_ID");
 	var sLoginId = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ID");
-	this.dsInfo.setColumn(nRow, "POST_ID", sPostId);
+	this.dsInfo.setColumn(nRow, "POST_ID", this.sPostId);
 	this.dsInfo.setColumn(nRow, "LOGIN_ID", sLoginId);
 	
 	if(e.col==5)//승인버튼
 	{
-		this.dsInfo.setColumn(nRow, "TYPE", "END");
-		this.fv_nPrice = this.dsSell_Reserved.getColumn(e.row, "PRICE");
+// 		this.dsInfo.setColumn(nRow, "TYPE", "END");
+ 		this.fv_nPrice = this.dsSell_Reserved.getColumn(e.row, "PRICE");
+		var sMsgId = "msg.accept.item"; //메세지ID
+		var arrArg = []; //메세지취환될값 배열[생략가능]
+		var sPopId = "msg.accept.item"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "fnPopupCallback";
+
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
 	}
 	else if(e.col==6)//거절버튼
 	{
-		this.dsInfo.setColumn(nRow, "TYPE", "ING");
+//		this.dsInfo.setColumn(nRow, "TYPE", "ING");
 		this.fv_nPrice = 0;
-	}
-	
-	var strSvcUrl = "nexa/acceptOrRejectReserved.do";
-	var inData = "dsInfo=dsInfo";
-	var strArg = "";
-	var outData = "";
+		var sMsgId = "msg.reject.item"; //메세지ID
+		var arrArg = []; //메세지취환될값 배열[생략가능]
+		var sPopId = "msg.reject.item"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "fnPopupCallback";
 
-	this.gfnTransaction("acceptOrRejectReserved"
-						, strSvcUrl
-						, inData //이클립스받기=넥사크로주기
-						, outData //넥사크로받기=이클립스주기
-						, strArg
-						, "fnCallback"
-						, true);
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+	}
 };
 
 //4페이지 클릭이벤트
 this.tabMain_tabPage4_Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
 	if(e.col!=5) {return};
-	if(!confirm("삭제하시겠습니까?"));
-	
-	this.dsInfo.clearData();
-	var nRow = this.dsInfo.addRow();
-	var sPostId = this.dsMySalesList.getColumn(e.row, "POST_ID");
-	var sPostStatus = this.dsMySalesList.getColumn(e.row, "POST_STATUS");
-	this.dsInfo.setColumn(nRow, "POST_ID", sPostId);
-	this.dsInfo.setColumn(nRow, "TYPE", sPostStatus);
-	
-	var strSvcUrl = "nexa/deleteLoginUserPost.do";
-	var inData = "dsInfo=dsInfo";
-	var strArg = "";
-	var outData = "";
+	this.sPostId = this.dsMySalesList.getColumn(e.row, "POST_ID");
+	this.sPostStatus = this.dsMySalesList.getColumn(e.row, "POST_STATUS");
+	var sMsgId = "msg.before.delete"; //메세지ID
+	var arrArg = []; //메세지취환될값 배열[생략가능]
+	var sPopId = "msg.before.delete"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+	var sMsgCallback = "fnPopupCallback";
 
-	this.gfnTransaction("deleteLoginUserPost"
-						, strSvcUrl
-						, inData //이클립스받기=넥사크로주기
-						, outData //넥사크로받기=이클립스주기
-						, strArg
-						, "fnCallback"
-						, true);
+	this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
 };
 
 //==========================================콜백 메서드==============================================================
@@ -592,7 +580,12 @@ this.fnCallback = function (svcID, errCd, errMsg)
 								, strArg
 								, "fnCallback"
 								, true);
-			alert("삭제되었습니다.");
+			var sMsgId = "msg.delete.success"; //메세지ID
+			var arrArg = []; //메세지취환될값 배열[생략가능]
+			var sPopId = sMsgId; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+			var sMsgCallback = "";
+
+			this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
 		}
 };
 
@@ -600,7 +593,15 @@ this.tabMain_tabPage3_grdMyAll_oncellclick = function(obj:nexacro.Grid,e:nexacro
 {
 	if(e.col!=5){return;}
 	var sScore = this.dsBuy_Complete.getColumn(e.row, "POST_SCORE");
-	if(sScore){alert("이미 후기를 작성하였습니다."); return};
+	if(sScore){
+		var sMsgId = "msg.already.review"; //메세지ID
+		var arrArg = []; //메세지취환될값 배열[생략가능]
+		var sPopId = ""; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "";
+
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+		return;
+	}
 	var sPostId = this.dsBuy_Complete.getColumn(e.row, "POST_ID");
 	
 	var sPopupId = "sScorePopup"; //Popup ID
@@ -615,11 +616,82 @@ this.tabMain_tabPage3_grdMyAll_oncellclick = function(obj:nexacro.Grid,e:nexacro
 };
 
 //===================================================팝업 콜백================================================
-this.fnCallPopup = function (svcID, rtn)
+this.fnPopupCallback = function (svcID, rtn)
 {
 	if(svcID=="sScorePopup")//후기주는 팝업 닫힐때
 	{
 		
+	}
+	else if(svcID=="msg.before.delete")
+	{
+		if(rtn)
+		{
+			this.dsInfo.clearData();
+			var nRow = this.dsInfo.addRow();
+			this.dsInfo.setColumn(nRow, "POST_ID", this.sPostId);
+			this.dsInfo.setColumn(nRow, "TYPE", this.sPostStatus);
+			
+			var strSvcUrl = "nexa/deleteLoginUserPost.do";
+			var inData = "dsInfo=dsInfo";
+			var strArg = "";
+			var outData = "";
+
+			this.gfnTransaction("deleteLoginUserPost"
+								, strSvcUrl
+								, inData //이클립스받기=넥사크로주기
+								, outData //넥사크로받기=이클립스주기
+								, strArg
+								, "fnCallback"
+								, true);
+		}
+	}
+	else if(svcID=="msg.accept.item")//물품 승인
+	{
+		if(rtn)
+		{
+			this.dsInfo.clearData();
+			var nRow = this.dsInfo.addRow();
+			var sLoginId = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ID");
+			this.dsInfo.setColumn(nRow, "POST_ID", this.sPostId);
+			this.dsInfo.setColumn(nRow, "LOGIN_ID", sLoginId);
+			this.dsInfo.setColumn(nRow, "TYPE", "END");
+			var strSvcUrl = "nexa/acceptOrRejectReserved.do";
+			var inData = "dsInfo=dsInfo";
+			var strArg = "";
+			var outData = "";
+
+			this.gfnTransaction("acceptOrRejectReserved"
+								, strSvcUrl
+								, inData //이클립스받기=넥사크로주기
+								, outData //넥사크로받기=이클립스주기
+								, strArg
+								, "fnCallback"
+								, true);
+		}
+	}
+	else if(svcID == "msg.reject.item")
+	{
+		if(rtn)
+		{
+			this.dsInfo.clearData();
+			var nRow = this.dsInfo.addRow();
+			var sLoginId = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ID");
+			this.dsInfo.setColumn(nRow, "POST_ID", this.sPostId);
+			this.dsInfo.setColumn(nRow, "LOGIN_ID", sLoginId);
+			this.dsInfo.setColumn(nRow, "TYPE", "ING");
+			var strSvcUrl = "nexa/acceptOrRejectReserved.do";
+			var inData = "dsInfo=dsInfo";
+			var strArg = "";
+			var outData = "";
+
+			this.gfnTransaction("acceptOrRejectReserved"
+								, strSvcUrl
+								, inData //이클립스받기=넥사크로주기
+								, outData //넥사크로받기=이클립스주기
+								, strArg
+								, "fnCallback"
+								, true);
+		}
 	}
 };]]></Script>
   </Form>

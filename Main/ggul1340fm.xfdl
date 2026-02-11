@@ -188,7 +188,11 @@
         </ColumnInfo>
       </Dataset>
     </Objects>
-    <Script type="xscript5.1"><![CDATA[
+    <Script type="xscript5.1"><![CDATA[this.sMenuLevel = "";
+this.sMenuId    = "";
+this.sMenuName  = "";
+
+
 this.QuickMenuMgr_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	this.ds_menu.clearData();
@@ -212,36 +216,41 @@ this.divLeft_grdMenu_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClick
 	if(e.col != 1){return;} //버튼 아니면 튕기기
 	
 	var nDsRow = this.ds_menu.rowposition; //실제 인덱스(행번호)
-	var sMenuLevel = this.ds_menu.getColumn(nDsRow, "MENU_LEVEL"); // 0 또는 1 소제목 대제목 분류용
-    var sMenuId    = this.ds_menu.getColumn(nDsRow, "MENU_ID");    // 삭제할 ID
-    var sMenuName  = this.ds_menu.getColumn(nDsRow, "MENU_NAME");  // 보여줄 이름
-	
-	if(parseInt(sMenuLevel) >= 1) //소제목이면 단순삭제
+	this.sMenuLevel = this.ds_menu.getColumn(nDsRow, "MENU_LEVEL"); // 0 또는 1 소제목 대제목 분류용
+    this.sMenuId    = this.ds_menu.getColumn(nDsRow, "MENU_ID");    // 삭제할 ID
+    this.sMenuName  = this.ds_menu.getColumn(nDsRow, "MENU_NAME");  // 보여줄 이름
+
+	if(parseInt(this.sMenuLevel) >= 1) //소제목이면 단순삭제
 	{
-		var sMsg = "상세목록 [" + sMenuName + "] 을(를) 삭제하시겠습니까?";
-        if(confirm(sMsg)) 
-		{
-            this.fn_DeleteMenu(sMenuId);
-        }
+		var sMsgId = "msg.detailList.simple"; //메세지ID
+		var arrArg = [this.sMenuName]; //메세지취환될값 배열[생략가능]
+		var sPopId = "msg.detailList.simple"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "fnPopupCallback";
+
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
 	}
 	else //대제목이면 소제목 몇 개 인지 고지하고 삭제
 	{
-        var nChildCnt = this.ds_menu.getCaseCount("String(MENU_ID).indexOf('" + sMenuId + "') == 0") - 1;
+        var nChildCnt = this.ds_menu.getCaseCount("String(MENU_ID).indexOf('" + this.sMenuId + "') == 0") - 1;
 
         var sMsg = "";
         
         if(nChildCnt > 0) {
-            // 자식이 있으면 무서운 경고
-            sMsg = "⚠️ [" + sMenuName + "] 카테고리를 삭제하시겠습니까?\n\n"
-                 + "포함된 하위 메뉴 " + nChildCnt + "건도 모두 삭제됩니다.\n"
-                 + "(이 작업은 되돌릴 수 없습니다!)";
+            // 자식이 있으면
+			var sMsgId = "msg.detailList.hardhard"; //메세지ID
+			var arrArg = [this.sMenuName, nChildCnt]; //메세지취환될값 배열[생략가능]
+			var sPopId = "msg.detailList.hardhard"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+			var sMsgCallback = "fnPopupCallback";
+
+			this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
         } else {
             // 자식이 없으면 상세목록 삭제와같이
-            sMsg = "[" + sMenuName + "] 카테고리를 삭제하시겠습니까?";
-        }
+			var sMsgId = "msg.detailList.hard"; //메세지ID
+			var arrArg = [this.sMenuName]; //메세지취환될값 배열[생략가능]
+			var sPopId = "msg.detailList.hard"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+			var sMsgCallback = "fnPopupCallback";
 
-        if(confirm(sMsg)) {
-            this.fn_DeleteMenu(sMenuId);
+			this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
         }
 	}
 };
@@ -269,7 +278,16 @@ this.fn_DeleteMenu = function(sMenuId) //대제목 소제목 삭제 트랜잭션
 this.divRight1_btnAddCategory_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	var sNewCategoryName = this.divRight1.form.edtNewCategory.value; //사용자가 입력한 새 카테고리 이름
-	
+	if(this.gfnIsNull(sNewCategoryName))
+	{
+		var sMsgId = "msg.err.validator.required"; //메세지ID
+		var arrArg = ["카테고리 이름"]; //메세지취환될값 배열[생략가능]
+		var sPopId = "msg.err.validator.required.categoryName"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "";
+
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+		return;
+	}
 	this.dsEditEmp.clearData();
 	var nRow = this.dsEditEmp.addRow();
 	this.dsEditEmp.setColumn(nRow, "MENU_LEVEL", "0");
@@ -296,7 +314,26 @@ this.divRight2_btnAddItem_onclick = function(obj:nexacro.Button,e:nexacro.ClickE
 {
 	var sNewDetailName = this.divRight2.form.edtNewItem.value; //사용자가 입력한 새 카테고리 이름
 	var sNewCategoryId = this.divRight2.form.cboParentCategory.value; //콤보에서 선택당한 값 ex)30, 20, 10
-	
+	if(this.gfnIsNull(sNewCategoryId))
+	{
+		var sMsgId = "msg.err.validator.required"; //메세지ID
+		var arrArg = ["카테고리 목록"]; //메세지취환될값 배열[생략가능]
+		var sPopId = "msg.err.validator.required.categoryList"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "";
+
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+		return;
+	}
+	if(this.gfnIsNull(sNewDetailName))
+	{
+		var sMsgId = "msg.err.validator.required"; //메세지ID
+		var arrArg = ["상세목록 이름"]; //메세지취환될값 배열[생략가능]
+		var sPopId = "msg.err.validator.required.detailName"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "";
+
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+		return;
+	}
 	this.dsEditEmp.clearData();
 	var nRow = this.dsEditEmp.addRow();
 	this.dsEditEmp.setColumn(nRow, "MENU_LEVEL", "1");
@@ -325,11 +362,21 @@ this.divRight3_btnRename_onclick = function(obj:nexacro.Button,e:nexacro.ClickEv
 	
 	// 유효성 검사
     if(this.gfnIsNull(sMenuId)) {
-        alert("변경할 대상을 선택해주세요.");
+		var sMsgId = "msg.err.validator.required";; //메세지ID
+		var arrArg = ["변경할 대상"]; //메세지취환될값 배열[생략가능]
+		var sPopId = "change.to"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "";
+
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
         return;
     }
     if(this.gfnIsNull(sMenuName)) {
-        alert("변경할 이름을 입력해주세요.");
+		var sMsgId = "msg.err.validator.required";; //메세지ID
+		var arrArg = ["변경할 이름"]; //메세지취환될값 배열[생략가능]
+		var sPopId = "change.name"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "";
+
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
         return;
     }
 	
@@ -341,12 +388,22 @@ this.divRight3_00_btnRename_onclick = function(obj:nexacro.Button,e:nexacro.Clic
 	var sMenuId = this.divRight3_00.form.cboRenameCategory.value; //콤보에서 선택당한 값 ex)3001, 2003, 1005
 	var sMenuName = this.divRight3_00.form.edtRename.value; //사용자가 입력한 변경할 카테고리 이름
 	// 유효성 검사
-    if(this.gfnIsNull(sMenuId)) {
-        alert("변경할 대상을 선택해주세요.");
+     if(this.gfnIsNull(sMenuId)) {
+		var sMsgId = "msg.err.validator.required";; //메세지ID
+		var arrArg = ["변경할 대상"]; //메세지취환될값 배열[생략가능]
+		var sPopId = "change.to"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "";
+
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
         return;
     }
     if(this.gfnIsNull(sMenuName)) {
-        alert("변경할 이름을 입력해주세요.");
+		var sMsgId = "msg.err.validator.required";; //메세지ID
+		var arrArg = ["변경할 이름"]; //메세지취환될값 배열[생략가능]
+		var sPopId = "change.name"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "";
+
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
         return;
     }
 	
@@ -400,12 +457,29 @@ this.fnCallback = function (svcID, errCd, errMsg)
 	{
 		this.reload();
 	}
-	else if(svcID="updateMenuName") //대제목, 소제목 이름 변경시
+	else if(svcID=="updateMenuName") //대제목, 소제목 이름 변경시
 	{
 		this.reload();
 	}
 };
-
+//==============================================================팝업콜백======================================================
+this.fnPopupCallback = function (svcID, rtn)
+{
+	if(svcID=="msg.detailList.simple")
+	{
+		if(rtn)
+		{
+			this.fn_DeleteMenu(this.sMenuId);
+		}
+	}
+	else if(svcID=="msg.detailList.hardhard" || svcID=="msg.detailList.hard")
+	{
+		if(rtn)
+		{
+			this.fn_DeleteMenu(this.sMenuId);
+		}
+	}
+};
 
 ]]></Script>
   </Form>
