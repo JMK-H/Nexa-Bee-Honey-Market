@@ -31,6 +31,12 @@ this.findIdCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo
 {
 	this.close();
 };
+
+//확인버튼 누르면
+this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+
+};
 ]]></Script>
   </Form>
 </FDL>
