@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="ggul1130pu_mobile" width="480" height="800" titletext="회원가입" background="#ffffff">
+    <Layouts>
+      <Layout height="800" mobileorientation="portrait" width="480">
+        <Static id="staTitle" taborder="0" text="회원가입" left="0" top="30" height="50" right="0" cssclass="PopupTitle" textAlign="center" font="bold 24px 'Malgun Gothic'"/>
+        <TextField id="txfId" taborder="3" labeltext="아이디" left="30" top="100" height="70" right="140" displaynulltext="아이디 입력" cssclass="FindId" font="16px 'Malgun Gothic'"/>
+        <TextField id="txfNickname" taborder="2" labeltext="닉네임" left="30" top="190" height="70" cssclass="FindId" displaynulltext="ex) 꿀벌" right="30" oninput="txfNickname_oninput" onchanged="txfNickname_onchanged" font="16px 'Malgun Gothic'"/>
+        <Static id="staNicknameMsg" taborder="11" text="" left="35" top="260" height="25" right="35" color="#d00611" font="12px 'Malgun Gothic'"/>
+        <TextField id="txfName" taborder="1" labeltext="이름" left="30" top="290" height="70" cssclass="FindId" displaynulltext="ex) 홍길동" right="30" font="16px 'Malgun Gothic'"/>
+        <TextField id="txfPassword" taborder="4" labeltext="비밀번호" left="30" top="380" height="70" cssclass="FindId" displaynulltext="비밀번호 입력" right="30" inputtype="password" oninput="txfPassword_oninput" font="16px 'Malgun Gothic'"/>
+        <TextField id="txfCheckPw" taborder="5" labeltext="비밀번호 확인" left="30" top="470" height="70" cssclass="FindId" displaynulltext="비밀번호 재입력" right="30" inputtype="password" oninput="txfCheckPw_oninput" font="16px 'Malgun Gothic'"/>
+        <Static id="staPwMsg" taborder="9" text="" left="35" top="540" height="25" right="35" color="#d00611" font="12px 'Malgun Gothic'"/>
+        <TextField id="txfEmail" taborder="6" labeltext="이메일 주소" left="30" top="570" height="70" cssclass="FindId" displaynulltext="ex) example@gmail.com" right="30" inputtype="email" oninput="txfEmail_oninput" font="16px 'Malgun Gothic'"/>
+        <Static id="staEmailMsg" taborder="10" left="35" top="640" height="25" right="35" color="#d00611" font="12px 'Malgun Gothic'"/>
+        <Button id="btnCancel" taborder="7" text="취소" left="30" bottom="60" width="130" height="60" onclick="btnCancel_onclick" borderRadius="10px" background="#eeeeee" color="#333333" font="bold 16px 'Malgun Gothic'"/>
+        <Button id="btnConfirm" taborder="8" text="가입하기" left="170" bottom="60" height="60" right="30" cssclass="Login" borderRadius="10px" onclick="btnConfirm_onclick" background="#f5a623" color="#ffffff" font="bold 18px 'Malgun Gothic'"/>
+        <Button id="btnCheckId" taborder="12" text="중복체크" left="355" top="110" width="95" height="60" cssclass="Login" borderRadius="10px" onclick="Button00_onclick"/>
+        <Button id="btnReId" taborder="13" text="아이디 변경" left="355" top="110" width="95" height="60" borderRadius="10px" visible="false" onclick="btnReId_onclick"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsUser">
+        <ColumnInfo>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+          <Column id="LOGIN_NAME" type="STRING" size="256"/>
+          <Column id="LOGIN_NICKNAME" type="STRING" size="256"/>
+          <Column id="LOGIN_PW" type="STRING" size="256"/>
+          <Column id="LOGIN_EMAIL" type="STRING" size="256"/>
+          <Column id="LOGIN_STATUS" type="STRING" size="256"/>
+          <Column id="LOGIN_DATE" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="LOGIN_NICKNAME">야야투레</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+    // ★★★ 기존 PC용 회원가입 폼의 스크립트를 여기에 복사하세요 ★★★
+    // (중복확인, 가입하기 트랜잭션 로직 등)
+    
+    this.btnCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+    {
+        this.close(); // 팝업 닫기 or 로그인 화면으로 이동
+    };
+    
+    ]]></Script>
+  </Form>
+</FDL>

@@ -28,7 +28,7 @@ this.MiniProfile_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	this.staName.set_text(this.sLoginNickname + " 꿀벌님");
 	var sFormatCash = nexacro.toNumber(this.sLoginCash).toLocaleString(); //3자리마다 구분자 들어감
 	this.staBalance.set_text(sFormatCash + " P");
-	this.setTimer(1, 5000);
+	this.setTimer(1, 15000);
 };
 
 this.MiniProfile_ontimer = function(obj:nexacro.Form,e:nexacro.TimerEventInfo)

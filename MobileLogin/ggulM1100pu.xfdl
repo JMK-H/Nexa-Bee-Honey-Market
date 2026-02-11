@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="ggul1110pu_mobile" width="480" height="800" titletext="아이디 찾기" background="#ffffff">
+    <Layouts>
+      <Layout height="800" mobileorientation="portrait" width="480">
+        <Static id="staTitle" taborder="0" text="아이디 찾기" left="0" top="110" height="50" right="0" cssclass="PopupTitle" textAlign="center" font="bold 24px 'Malgun Gothic'"/>
+        <Static id="staSubtitle" taborder="1" text="가입시 등록한 닉네임과&#13;&#10;이메일을 입력하세요." left="30" top="170" height="60" cssclass="PopupSubTitle" right="30" textAlign="center" font="16px 'Malgun Gothic'" color="#666666"/>
+        <TextField id="txfNickname" taborder="2" labeltext="닉네임" left="30" top="260" height="70" displaynulltext="ex) 주머니속 50원" cssclass="FindId" color="#000000" right="30" font="16px 'Malgun Gothic'"/>
+        <TextField id="txfEmail" taborder="3" labeltext="이메일 주소" left="30" top="350" height="70" inputtype="email" invalidtext="이메일 주소를 입력하세요." hotkey="" displaynulltext="example@gmail.com" cssclass="FindId" right="30" font="16px 'Malgun Gothic'"/>
+        <Button id="findIdCancel" taborder="4" text="취소" left="30" top="460" width="200" height="60" onclick="findIdCancel_onclick" borderRadius="10px" background="#eeeeee" color="#333333" font="bold 16px 'Malgun Gothic'"/>
+        <Button id="findIdOk" taborder="5" text="확인" top="460" height="60" onclick="Button01_onclick" cssclass="Login" borderRadius="10px" right="30" width="200" background="#f5a623" color="#ffffff" font="bold 16px 'Malgun Gothic'"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsFindId">
+        <ColumnInfo>
+          <Column id="LOGIN_NICKNAME" type="STRING" size="256"/>
+          <Column id="LOGIN_EMAIL" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsResultId">
+        <ColumnInfo>
+          <Column id="LOGIN_NICKNAME" type="STRING" size="256"/>
+          <Column id="LOGIN_EMAIL" type="STRING" size="256"/>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.findIdCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.close();
+};
+]]></Script>
+  </Form>
+</FDL>

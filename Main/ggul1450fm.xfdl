@@ -878,6 +878,11 @@ this.fnCallback = function (svcID, errCd, errMsg)
 		this.fn_SetResultData();
 		this.drawZzimBtn(this.fvRecords);
 		this.staResultTitle.text = "'"+nexacro.getApplication().gv_Search+"'"+" 검색 결과"
+		if(this.staResultTitle.text=="undefined")
+		{
+			this.staResultTitle.text = "";
+		}
+		
 	}
 	else if(svcID=="getMenuList")
 	{
