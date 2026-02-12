@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="MainTop" width="480" height="60" titletext="메인 상단" background="#ffffff" scrolltype="none">
+    <Layouts>
+      <Layout height="60" width="480">
+        <Static id="staLogo" taborder="0" text="🍯꿀꺼억" left="20" top="0" width="150" bottom="0" font="bold 20px 'Malgun Gothic'" color="#f5a623" cssclass="Logo" verticalAlign="middle"/>
+        <Button id="btnWish" taborder="1" top="10" width="40" height="40" right="15" cursor="pointer" icon="url('imagerc::NoSelect.png')" background="transparent" border="0px none" onclick="btnWish_onclick"/>
+        <Static id="staLine" taborder="2" left="0" right="0" bottom="0" height="1" background="#eeeeee"/>
+        <Div id="divSearch" taborder="3" left="121" top="4" width="299" height="51" background="#ffffff" borderRadius="30px" formscrolltype="none" boxShadow="0px 4px 15px rgba(0,0,0,0.05)" border="1px solid #e0e0e0" text="">
+          <Layouts>
+            <Layout>
+              <Button id="btnSearch" taborder="0" text="" top="7" right="14" width="40" height="36" borderRadius="15px" color="#ffffff" font="normal 700 30px/normal &quot;Malgun Gothic&quot;" cursor="pointer" textAlign="center" verticalAlign="middle" background="url('imagerc::Search.png') no-repeat left top" onclick="divSearch_btnSearch_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Edit id="edtSearchKeyword" taborder="4" left="136" top="11" height="36" border="0px none" background="transparent" color="#333333" font="14px 'Malgun Gothic'" displaynulltext="검색어를 입력해주세요" width="194"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+    
+    // 검색 버튼 클릭
+    this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+    {
+    	// 검색 화면으로 이동하거나 검색창 띄우기
+    	trace("검색 버튼 클릭");
+    	// this.parent.parent.go("Main::Search.xfdl"); // 예시
+    };
+
+    // 찜 버튼 클릭
+    this.btnWish_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+    {
+    	// 찜 목록 화면으로 이동
+    	trace("찜 버튼 클릭");
+    };
+    
+    ]]></Script>
+  </Form>
+</FDL>

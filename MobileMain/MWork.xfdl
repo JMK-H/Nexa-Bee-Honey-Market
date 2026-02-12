@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="MainWork" width="480" height="800" titletext="메인 목록" background="#ffffff" onload="form_onload">
+    <Layouts>
+      <Layout height="800" mobileorientation="portrait" width="480">
+        <ListView id="lstMain" taborder="0" left="0" top="0" right="0" bottom="0" binddataset="dsCurrentItem" scrolltype="vertical" bandinitstatus="expand" border="0px none" onvscroll="lstMain_onvscroll" oncellclick="lstMain_oncellclick">
+          <Formats>
+            <Format id="default">
+              <Band id="body" width="100%" height="140" border="0px none,0px none,1px solid #f2f2f2">
+                <Cell id="ImgView" left="15" top="15" width="110" height="110" displaytype="imagecontrol" text="bind:PHOTO_URL" imagestretch="fit" border="1px solid #efefef"/>
+                <Cell id="TxtTitle" left="140" top="15" right="20" height="50" text="bind:TITLE" font="normal 16px/22px 'Malgun Gothic'" color="#222222" wordWrap="char" verticalAlign="top" displaytype="text" textAlign="left"/>
+                <Cell id="TxtLoc" left="140" top="65" right="20" height="20" text="bind:USER_ID" font="normal 13px 'Malgun Gothic'" color="#888888" displaytype="text" textAlign="left" verticalAlign="middle"/>
+                <Cell id="TxtPrice" left="140" top="90" right="100" height="25" text="bind:PRICE" font="bold 18px 'Malgun Gothic'" color="#222222" displaytype="text" textAlign="left" verticalAlign="middle"/>
+                <Cell id="TxtLike" right="15" bottom="15" width="80" height="35" text="bind:LIKE_CNT" font="13px 'Malgun Gothic'" color="#888888" textAlign="right" displaytype="buttoncontrol" verticalAlign="middle"/>
+              </Band>
+            </Format>
+          </Formats>
+        </ListView>
+        <Button id="btnWrite" taborder="1" text="+ 글쓰기" width="110" height="50" right="20" bottom="20" borderRadius="25px" background="#f5a623" color="#ffffff" font="bold 16px 'Malgun Gothic'" boxShadow="2px 2px 10px rgba(0,0,0,0.2)" cursor="pointer" onclick="btnWrite_onclick"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsList">
+        <ColumnInfo>
+          <Column id="POST_ID" type="STRING" size="256"/>
+          <Column id="TITLE" type="STRING" size="256"/>
+          <Column id="IMG_URL" type="STRING" size="256"/>
+          <Column id="LOC_TIME" type="STRING" size="256"/>
+          <Column id="PRICE" type="STRING" size="256"/>
+          <Column id="LIKE_CNT" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="TITLE">닌텐도 스위치 OLED 풀박스 S급</Col>
+            <Col id="IMG_URL">imagerc::img_sample.png</Col>
+            <Col id="LOC_TIME">성사동 · 1분 전</Col>
+            <Col id="PRICE">350,000원</Col>
+            <Col id="LIKE_CNT">♡ 5</Col>
+          </Row>
+          <Row>
+            <Col id="TITLE">아이폰 15 프로 맥스 자급제</Col>
+            <Col id="IMG_URL">imagerc::img_sample.png</Col>
+            <Col id="LOC_TIME">주교동 · 10분 전</Col>
+            <Col id="PRICE">1,500,000원</Col>
+            <Col id="LIKE_CNT">♡ 12</Col>
+          </Row>
+          <Row>
+            <Col id="TITLE">먹다 남은 치킨 (뼈없음)</Col>
+            <Col id="IMG_URL">imagerc::img_sample.png</Col>
+            <Col id="LOC_TIME">화정동 · 1시간 전</Col>
+            <Col id="PRICE">5,000원</Col>
+            <Col id="LIKE_CNT">♡ 0</Col>
+          </Row>
+          <Row>
+            <Col id="TITLE">포켓몬 띠부씰 팝니다</Col>
+            <Col id="IMG_URL">imagerc::img_sample.png</Col>
+            <Col id="LOC_TIME">행신동 · 1일 전</Col>
+            <Col id="PRICE">20,000원</Col>
+            <Col id="LIKE_CNT">♡ 2</Col>
+          </Row>
+          <Row>
+            <Col id="TITLE">닌텐도 스위치 OLED 풀박스 S급</Col>
+            <Col id="IMG_URL">imagerc::img_sample.png</Col>
+            <Col id="LOC_TIME">성사동 · 1분 전</Col>
+            <Col id="PRICE">350,000원</Col>
+            <Col id="LIKE_CNT">♡ 5</Col>
+          </Row>
+          <Row>
+            <Col id="TITLE">닌텐도 스위치 OLED 풀박스 S급</Col>
+            <Col id="IMG_URL">imagerc::img_sample.png</Col>
+            <Col id="LOC_TIME">성사동 · 1분 전</Col>
+            <Col id="PRICE">350,000원</Col>
+            <Col id="LIKE_CNT">♡ 5</Col>
+          </Row>
+          <Row>
+            <Col id="TITLE">닌텐도 스위치 OLED 풀박스 S급</Col>
+            <Col id="IMG_URL">imagerc::img_sample.png</Col>
+            <Col id="LOC_TIME">성사동 · 1분 전</Col>
+            <Col id="PRICE">350,000원</Col>
+            <Col id="LIKE_CNT">♡ 5</Col>
+          </Row>
+          <Row>
+            <Col id="TITLE">닌텐도 스위치 OLED 풀박스 S급</Col>
+            <Col id="IMG_URL">imagerc::img_sample.png</Col>
+            <Col id="LOC_TIME">성사동 · 1분 전</Col>
+            <Col id="PRICE">350,000원</Col>
+            <Col id="LIKE_CNT">♡ 5</Col>
+          </Row>
+          <Row>
+            <Col id="TITLE">닌텐도 스위치 OLED 풀박스 S급</Col>
+            <Col id="IMG_URL">imagerc::img_sample.png</Col>
+            <Col id="LOC_TIME">성사동 · 1분 전</Col>
+            <Col id="PRICE">350,000원</Col>
+            <Col id="LIKE_CNT">♡ 5</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsSearch">
+        <ColumnInfo>
+          <Column id="records" type="INT" size="256"/>
+          <Column id="page" type="INT" size="256"/>
+          <Column id="recordsOffset" type="INT" size="256"/>
+          <Column id="pageCount" type="INT" size="256"/>
+          <Column id="SEARCH" type="STRING" size="256"/>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+          <Column id="MAX_PRICE" type="STRING" size="256"/>
+          <Column id="MIN_PRICE" type="STRING" size="256"/>
+          <Column id="SORT_TYPE" type="STRING" size="256"/>
+          <Column id="categoryId" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsCurrentItem">
+        <ColumnInfo>
+          <Column id="POST_ID" type="STRING" size="256"/>
+          <Column id="USER_ID" type="STRING" size="256"/>
+          <Column id="TITLE" type="STRING" size="256"/>
+          <Column id="CONTENT" type="STRING" size="256"/>
+          <Column id="PRICE" type="STRING" size="256"/>
+          <Column id="PURCHASE_URL" type="STRING" size="256"/>
+          <Column id="PHOTO_URL" type="STRING" size="256"/>
+          <Column id="REG_DATE" type="STRING" size="256"/>
+          <Column id="CATEGORY_ID" type="STRING" size="256"/>
+          <Column id="IS_WISH" type="STRING" size="256"/>
+          <Column id="LIKE_CNT" type="STRING" size="256"/>
+          <Column id="UNLIKE_CNT" type="STRING" size="256"/>
+          <Column id="MY_LIKE_STATE" type="STRING" size="256"/>
+          <ColumnInfo>
+            <Column id="POST_ID" type="STRING" size="256"/>
+            <Column id="USER_ID" type="STRING" size="256"/>
+            <Column id="TITLE" type="STRING" size="256"/>
+            <Column id="CONTENT" type="STRING" size="256"/>
+            <Column id="PRICE" type="STRING" size="256"/>
+            <Column id="PURCHASE_URL" type="STRING" size="256"/>
+            <Column id="PHOTO_URL" type="STRING" size="256"/>
+            <Column id="REG_DATE" type="STRING" size="256"/>
+            <Column id="CATEGORY_ID" type="STRING" size="256"/>
+            <Column id="IS_WISH" type="STRING" size="256"/>
+            <Column id="LIKE_CNT" type="STRING" size="256"/>
+            <Column id="UNLIKE_CNT" type="STRING" size="256"/>
+            <Column id="MY_LIKE_STATE" type="STRING" size="256"/>
+            <Column id="POST_COMMEND" type="STRING" size="256"/>
+            <Column id="BUYER_ID" type="STRING" size="256"/>
+            <Column id="POST_STATUS" type="STRING" size="256"/>
+          </ColumnInfo>
+          <Column id="POST_COMMEND" type="STRING" size="256"/>
+          <Column id="BUYER_ID" type="STRING" size="256"/>
+          <Column id="LOGIN_SCORE" type="INT" size="256"/>
+          <Column id="POST_STATUS" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="TITLE">닌텐도</Col>
+            <Col id="PRICE">400000</Col>
+            <Col id="PURCHASE_URL"/>
+            <Col id="USER_ID">김준모</Col>
+          </Row>
+          <Row>
+            <Col id="CATEGORY_ID"/>
+          </Row>
+          <Row/>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsTemp">
+        <ColumnInfo>
+          <Column id="POST_ID" type="STRING" size="256"/>
+          <Column id="USER_ID" type="STRING" size="256"/>
+          <Column id="TITLE" type="STRING" size="256"/>
+          <Column id="CONTENT" type="STRING" size="256"/>
+          <Column id="PRICE" type="STRING" size="256"/>
+          <Column id="PURCHASE_URL" type="STRING" size="256"/>
+          <Column id="PHOTO_URL" type="STRING" size="256"/>
+          <Column id="REG_DATE" type="STRING" size="256"/>
+          <Column id="CATEGORY_ID" type="STRING" size="256"/>
+          <Column id="IS_WISH" type="STRING" size="256"/>
+          <Column id="LIKE_CNT" type="STRING" size="256"/>
+          <Column id="UNLIKE_CNT" type="STRING" size="256"/>
+          <Column id="MY_LIKE_STATE" type="STRING" size="256"/>
+          <ColumnInfo>
+            <Column id="POST_ID" type="STRING" size="256"/>
+            <Column id="USER_ID" type="STRING" size="256"/>
+            <Column id="TITLE" type="STRING" size="256"/>
+            <Column id="CONTENT" type="STRING" size="256"/>
+            <Column id="PRICE" type="STRING" size="256"/>
+            <Column id="PURCHASE_URL" type="STRING" size="256"/>
+            <Column id="PHOTO_URL" type="STRING" size="256"/>
+            <Column id="REG_DATE" type="STRING" size="256"/>
+            <Column id="CATEGORY_ID" type="STRING" size="256"/>
+            <Column id="IS_WISH" type="STRING" size="256"/>
+            <Column id="LIKE_CNT" type="STRING" size="256"/>
+            <Column id="UNLIKE_CNT" type="STRING" size="256"/>
+            <Column id="MY_LIKE_STATE" type="STRING" size="256"/>
+            <Column id="POST_COMMEND" type="STRING" size="256"/>
+            <Column id="BUYER_ID" type="STRING" size="256"/>
+            <Column id="POST_STATUS" type="STRING" size="256"/>
+          </ColumnInfo>
+          <Column id="POST_COMMEND" type="STRING" size="256"/>
+          <Column id="BUYER_ID" type="STRING" size="256"/>
+          <Column id="LOGIN_SCORE" type="INT" size="256"/>
+          <Column id="POST_STATUS" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[this.fvRecords = 10;      // 한 번에 가져올 개수
+this.fvRecordsOffset = 0; // DB에서 몇 번째부터 가져올지
+this.fv_isSearch = false; //중복 조회 방지
+
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+    this.fvRecordsOffset = 0;
+    this.fnSearch();
+}
+
+this.fnSearch = function ()
+{
+    if (this.fv_isSearch) return; 
+    this.fv_isSearch = true; // 조회중 true
+	
+    // 현재 선택된 카테고리 ID 가져오기
+    var objApp = nexacro.getApplication();
+    var sSearch = objApp.gv_Search; 
+    var sLoginId = objApp.gdsLoginUser.getColumn(0,"LOGIN_ID");
+    var sMenuId  = objApp.gv_MenuId;
+
+    // 검색 조건 세팅
+    this.dsSearch.clearData();
+    var nRow = this.dsSearch.addRow();
+    this.dsSearch.setColumn(nRow, "records", this.fvRecords);
+    this.dsSearch.setColumn(nRow, "recordsOffset", this.fvRecordsOffset);
+    this.dsSearch.setColumn(nRow, "SEARCH", sSearch);
+    this.dsSearch.setColumn(nRow, "LOGIN_ID", sLoginId);
+    this.dsSearch.setColumn(nRow, "MAX_PRICE", this.fv_selectedMaxPrice);
+    this.dsSearch.setColumn(nRow, "MIN_PRICE", this.fv_selectedMinPrice);
+    this.dsSearch.setColumn(nRow, "SORT_TYPE", this.fv_sortType);
+    
+    if (!this.gfnIsNull(sMenuId)) 
+    {
+        this.dsSearch.setColumn(nRow, "categoryId", sMenuId);
+    }
+    
+    var strSvcUrl = "nexa/selectSearchPaging.do";
+    var inData = "dsSearch=dsSearch";
+    var strArg = "";
+    var outData = "dsTemp=dsCurrentItem dsPagingInfo=dsPagingInfo"; 
+
+    this.gfnTransaction("selectSearchPaging"
+                        , strSvcUrl
+                        , inData 
+                        , outData 
+                        , strArg
+                        , "fnCallback"
+                        , true);
+};
+this.lstMain_oncellclick = function(obj:nexacro.ListView,e:nexacro.ListViewClickEventInfo)
+{
+	var sPostId = this.dsCurrentItem.getColumn(e.row, "POST_ID");
+	var sTitle = this.dsCurrentItem.getColumn(e.row, "TITLE");
+	var sPrice = this.dsCurrentItem.getColumn(e.row, "PRICE");
+	var sImageUrl = this.dsCurrentItem.getColumn(e.row, "PHOTO_URL");
+	var sPostCommend = this.dsCurrentItem.getColumn(e.row, "POST_COMMEND");
+	var sLoginScore = this.dsCurrentItem.getColumn(e.row, "LOGIN_SCORE");
+	var sRegDate = this.dsCurrentItem.getColumn(e.row, "REG_DATE");
+	var sIsWish = this.dsCurrentItem.getColumn(e.row, "IS_WISH");
+	
+	var sPopupId = "sDetailPopup"; //Popup ID
+	var sUrl = "MobileMain::ggulM1210pu.xfdl"; //팝업 URL
+	var oArg = {sIsWish:sIsWish, sRegDate:sRegDate, sLoginScore:sLoginScore, sPostId:sPostId, sTitle:sTitle, sPrice:sPrice, sImageUrl:sImageUrl, sPostCommend:sPostCommend
+				, sParent:this}; //전달값
+	var sPopupCallback = "fnPopupCallback";
+	var oOption = {title:"모달 팝업", titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
+
+	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
+
+};
+//=======================================================스크롤이벤트=====================================================
+
+this.lstMain_onvscroll = function(obj:nexacro.ListView,e:nexacro.ScrollEventInfo)
+{
+
+    if (e.pos > obj.vscrollbar.max -10  && !this.fv_isSearch) 
+    {
+        if (this.dsTemp.getRowCount() < this.fvRecords) return;
+
+
+        this.fnSearch();
+    }
+	
+};
+
+//==========================================================콜백함수=======================================================
+this.fnCallback = function (svcID, errCd, errMsg)
+{
+    if (svcID == "selectSearchPaging")
+    {
+        this.fv_isSearch = false; 
+        if (errCd < 0) {
+            alert("조회 실패: " + errMsg);
+            return;
+        }
+
+        if (this.fvRecordsOffset == 0) //첫 조회이면 갈아끼우기
+        {
+            this.dsCurrentItem.clearData();
+            this.dsCurrentItem.copyData(this.dsTemp);
+		
+			
+        }
+        else 
+        {
+            this.dsCurrentItem.appendData(this.dsTemp);
+			
+        }
+		this.dsCurrentItem.rowposition = this.dsCurrentItem.rowcount-10; //스크롤바 위로 튕기기 방지용
+        var nCnt = this.dsTemp.getRowCount();
+        this.fvRecordsOffset = this.fvRecordsOffset + nCnt;
+		
+		
+	
+    }
+};
+]]></Script>
+  </Form>
+</FDL>

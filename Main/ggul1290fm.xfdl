@@ -177,7 +177,7 @@ this.drawZzimBtn = function (fvRecords)
         btnDetail.u_row = i;
         btnDetail.bringToFront();
 
-        // 2. 찜 버튼 (btnZzim)
+        // 찜 버튼 (btnZzim)
         var btnZzim = objDiv.form.components["btnZzim"];
         var sIsWish = this.dsCurrentItem.getColumn(i, "IS_WISH");
         var sIconUrl = (sIsWish == "1") ? "imagerc::Select.png" : "imagerc::NoSelect.png";

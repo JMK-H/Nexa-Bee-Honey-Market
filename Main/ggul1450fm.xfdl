@@ -885,16 +885,12 @@ this.fnCallback = function (svcID, errCd, errMsg)
 			this.staResultTitle.text = "'"+nexacro.getApplication().gv_Search+"'"+" 검색 결과"
 		}
 		
-		// 검색된 데이터 개수 확인 (dsCurrentItem이 메인 데이터셋이라고 가정)
         var nRowCount = this.dsCurrentItem.getRowCount();
 
         if (nRowCount == 0) 
         {
-            // [데이터 없음]
-            // 목록 상자(divList) 통째로 숨김 -> 안에 있는 divItem 12개 싹 다 사라짐
             this.divList.set_visible(false);
             
-            // "결과 없음" 멘트 보여줌
             this.staNoData.set_visible(true);
         } 
         else 
@@ -902,9 +898,6 @@ this.fnCallback = function (svcID, errCd, errMsg)
             // [데이터 있음]
             this.divList.set_visible(true);
             this.staNoData.set_visible(false);
-            
-            // (참고) 데이터 개수에 맞춰서 divItem 내용 채워주는 함수 호출
-            // this.fn_SetItemList(); 
         }
 		
 	}

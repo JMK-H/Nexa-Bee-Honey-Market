@@ -6,7 +6,7 @@
         <VFrameSet id="VFrameSet00" separatesize="*,0">
           <Frames>
             <ChildFrame id="CFMLogin" formurl="MobileLogin::ggulM1000fm.xfdl" showtitlebar="false"/>
-            <ChildFrame id="CFMMain" formurl="" showtitlebar="false"/>
+            <ChildFrame id="CFMMain" formurl="MobileMain::ggulM1200fm.xfdl" showtitlebar="false"/>
           </Frames>
         </VFrameSet>
       </MainFrame>

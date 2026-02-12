@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="MainBottom" width="480" height="60" titletext="하단 메뉴" background="#f9f9f9" onload="form_onload" scrolltype="none" scrollbarsize="0">
+    <Layouts>
+      <Layout height="60" width="480">
+        <Static id="staLine" taborder="3" left="0" top="0" right="0" height="1" background="#dddddd"/>
+        <Button id="btnHome" taborder="0" text="홈" left="0" top="1" width="160" bottom="0" border="0px none" font="bold 12px 'Malgun Gothic'" icon="url('imagerc::btn_MF_Home.png')" iconPosition="top" textPadding="5px 0px 0px 0px" cursor="pointer" cssclass="Login" color="white"/>
+        <Button id="btnQuick" taborder="1" text="퀵메뉴" left="160" top="1" width="160" bottom="0" border="0px none" font="normal 12px 'Malgun Gothic'" icon="url('imagerc::btn_MF_Menu.png')" iconPosition="top" textPadding="5px 0px 0px 0px" cursor="pointer" cssclass="Login" color="white"/>
+        <Button id="btnMy" taborder="2" text="나의 정보" left="320" top="1" width="160" bottom="0" border="0px none" font="normal 12px 'Malgun Gothic'" icon="url('imagerc::btn_MF_Mypage.png')" iconPosition="top" textPadding="5px 0px 0px 0px" cursor="pointer" cssclass="Login" color="white"/>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>
