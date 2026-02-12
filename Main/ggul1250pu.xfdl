@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="ggul1250pu" width="500" height="450" titletext="비밀번호변경 팝업" borderRadius="20px">
+  <Form id="ggul1250pu" width="500" height="450" titletext="비밀번호변경 팝업" borderRadius="20px" onload="form_onload">
     <Layouts>
       <Layout height="450" mobileorientation="landscape" width="500">
+        <Static id="Static00" taborder="9" text="" left="0" top="0" right="0" bottom="0" background="white" borderRadius="20px"/>
         <Static id="staTitle" taborder="0" text="비밀번호 변경" left="100" top="10" height="60" right="100" cssclass="PopupTitle"/>
         <Static id="staSubTitle" taborder="1" text="안전한 비밀번호로 변경해주세요." left="80" top="49" height="60" cssclass="PopupSubTitle" right="80"/>
         <TextField id="tfCurrentPassword" taborder="2" labeltext="현재 비밀번호" left="50" top="130" height="60" right="50" cssclass="FindId" displaynulltext="현재 비밀번호를 입력하세요." oninput="tfCurrentPassword_oninput" inputtype="password"/>
@@ -18,6 +19,15 @@
 this.sLoginPw = objApp.gdsLoginUser.getColumn(0, "LOGIN_PW");
 this.currPwPass = false; //현재 비번과 일치하는지
 this.checkPw = false; //비번 한번 더 치는것이 일치하는지
+
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{  
+    this.getOwnerFrame().set_border("0px none");
+    
+    this.getOwnerFrame().set_background("transparent");
+    
+    this.set_background("transparent");
+};
 
 this.btnCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {

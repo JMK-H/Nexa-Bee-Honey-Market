@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="PopCharge" width="400" height="350" titletext="캐시 충전소" onload="PopCharge_onload" background="#ffffff" border="3px solid #f5a623" borderRadius="10px">
+  <Form id="PopCharge" width="400" height="350" titletext="캐시 충전소" onload="PopCharge_onload" borderRadius="10px">
     <Layouts>
       <Layout height="350" mobileorientation="landscape" width="400">
+        <Static id="Static01" taborder="13" text="" left="0" top="0" borderRadius="10px" background="white" border="3px solid #f5a623" right="0" bottom="0"/>
         <Static id="staTitle" taborder="0" text="캐시 충전소" left="20" top="20" width="200" height="30" font="bold 18px 'Malgun Gothic'" color="#333333"/>
         <Static id="staCurrentTitle" taborder="1" text="현재 잔액" left="20" top="70" width="80" height="20" font="14px 'Malgun Gothic'" color="#666666"/>
         <Static id="staCurBalance" taborder="2" text="0 원" left="110" top="65" width="260" height="30" font="bold 20px 'Malgun Gothic'" color="#f5a623" textAlign="right"/>
@@ -27,6 +28,12 @@ this.PopCharge_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	
 	var sFormatCash = nexacro.toNumber(sLoginCash).toLocaleString(); //3자리마다 구분자 들어감
 	this.staCurBalance.text = sFormatCash+" P";
+	
+	this.getOwnerFrame().set_border("0px none");
+    
+    this.getOwnerFrame().set_background("transparent");
+    
+    this.set_background("transparent");
 };
 
 //닫기버튼 여기서 회원정보창을 reload해야하나?

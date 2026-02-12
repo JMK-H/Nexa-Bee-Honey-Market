@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="CmmAlert" width="360" height="200" titletext="알림" onload="form_onload" background="#ffffff" borderRadius="15px" border="1px solid #dddddd" boxShadow="0px 5px 15px rgba(0,0,0,0.2)">
+  <Form id="CmmAlert" width="360" height="200" titletext="알림" onload="form_onload" borderRadius="20px" boxShadow="0px 5px 15px rgba(0,0,0,0.2)" background="transparent" border="0px none">
     <Layouts>
       <Layout height="200" width="360">
+        <Static id="Static00" taborder="2" text="" left="0" top="0" right="0" bottom="0" background="white" borderRadius="15px"/>
         <Static id="staMsgContent" taborder="0" text="알림 메시지" left="20" top="30" right="20" bottom="70" color="#333333" font="normal 14px/1.4 'Malgun Gothic'" textAlign="center" verticalAlign="middle" wordWrap="char"/>
         <Button id="btnOk" taborder="1" text="확인" width="100" height="40" bottom="20" left="130" onclick="btnOk_onclick" color="#ffffff" borderRadius="20px" font="bold 14px 'Malgun Gothic'" cursor="pointer" border="0px none" cssclass="Login"/>
       </Layout>
@@ -14,6 +15,12 @@ this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
     // 공통 초기화
     if (this.gfnFormOnLoad) this.gfnFormOnLoad(this); 
+	
+	this.getOwnerFrame().set_border("0px none");
+    
+    this.getOwnerFrame().set_background("transparent");
+    
+    this.set_background("transparent");
     
     // 파라미터 받기 (ExtMessage.js에서 넘겨준 이름 그대로)
     var objFrame = this.getOwnerFrame();

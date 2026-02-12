@@ -3,8 +3,17 @@
   <Form id="ggul1210fm" width="1600" height="900" titletext="전체화면" onload="ggul1210fm_onload">
     <Layouts>
       <Layout height="900" mobileorientation="landscape" width="1600">
-        <Div id="divTop" taborder="0" text="Div00" left="0" top="0" height="80" right="0" border="0px none,0px none,1px solid #9e9e9e" url="Main::top.xfdl" formscrolltype="none" formscrollbartype="none"/>
-        <Div id="divWork" taborder="2" text="Div02" left="0" top="80" right="0" bottom="0" url="Main::work.xfdl" formscrollbartype="default" formscrolltype="both"/>
+        <Static id="Static00" taborder="3" left="0" top="0" width="50%" height="1"/>
+        <Div id="divTop" taborder="0" text="Div00" top="0" height="80" border="0px none,0px none,1px solid #9e9e9e" url="Main::top.xfdl" formscrolltype="none" formscrollbartype="none" width="1600" left="Static00:-800">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+        <Div id="divWork" taborder="2" text="Div02" left="Static00:-800" top="80" bottom="0" url="Main::work.xfdl" formscrollbartype="default" formscrolltype="both" width="1600">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
         <Div id="divLeft" taborder="1" left="0" top="80" width="0" bottom="0" url="Main::left.xfdl" border="0px none,1px solid #9e9e9e,0px none,0px none"/>
       </Layout>
     </Layouts>

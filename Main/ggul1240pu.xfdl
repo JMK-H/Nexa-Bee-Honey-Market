@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="ggul1240pu" width="500" height="300" titletext="닉네임 변경 팝업" borderRadius="20px">
+  <Form id="ggul1240pu" width="500" height="300" titletext="닉네임 변경 팝업" borderRadius="20px" onload="form_onload">
     <Layouts>
       <Layout height="300" width="500">
+        <Static id="Static00" taborder="6" text="" left="0" top="0" background="white" borderRadius="20px" right="0" bottom="0"/>
         <Static id="staTitle" taborder="0" text="닉네임 변경" left="100" top="10" height="60" right="100" cssclass="PopupTitle"/>
         <Static id="staSubTitle" taborder="1" text="새로운 닉네임을 입력해주세요" left="80" top="49" height="60" cssclass="PopupSubTitle" right="80"/>
         <TextField id="tfNewNickname" taborder="2" labeltext="새 닉네임" left="50" top="120" height="60" cssclass="FindId" displaynulltext="ex) 주머니속 50원" right="50" oninput="tfNewNickname_oninput"/>
@@ -12,6 +13,15 @@
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[this.checkDoubleNickname = false; //닉네임 중복체크하고 통과하면 true로
+
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{  
+    this.getOwnerFrame().set_border("0px none");
+    
+    this.getOwnerFrame().set_background("transparent");
+    
+    this.set_background("transparent");
+};
 
 this.btnCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {

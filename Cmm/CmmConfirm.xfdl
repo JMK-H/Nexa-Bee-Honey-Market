@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="CmmConfirm" width="360" height="200" titletext="확인" onload="form_onload" background="transparent">
+  <Form id="CmmConfirm" width="360" height="200" titletext="확인" onload="form_onload" background="transparent" borderRadius="15px">
     <Layouts>
       <Layout height="200" width="360">
-        <Div id="divBg" taborder="0" left="10" top="10" right="10" bottom="10" background="#ffffff" borderRadius="15px" boxShadow="0px 5px 15px rgba(0,0,0,0.2)" border="0px none" text="">
+        <Div id="divBg" taborder="0" left="0" top="0" right="0" bottom="0" background="#ffffff" borderRadius="15px" boxShadow="0px 5px 15px rgba(0,0,0,0.2)" border="0px none" text="">
           <Layouts>
             <Layout>
               <Static id="staMsgContent" taborder="0" text="진행 하시겠습니까?" left="20" top="30" right="20" bottom="80" color="#333333" font="normal 14px/1.4 'Malgun Gothic', 'Noto Sans KR'" textAlign="center" verticalAlign="middle" wordWrap="char"/>
@@ -43,6 +43,12 @@ this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	
 	var sContents = this.getOwnerFrame().paramContents;
 	this.fnMsgSetting(sContents);
+	
+	this.getOwnerFrame().set_border("0px none");
+    
+    this.getOwnerFrame().set_background("transparent");
+    
+    this.set_background("transparent");
 };
 /************************************************************************************************
 * TRANSACTION 서비스 호출 처리

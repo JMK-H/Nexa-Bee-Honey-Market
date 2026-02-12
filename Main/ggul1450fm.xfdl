@@ -24,7 +24,7 @@
             </Layout>
           </Layouts>
         </Div>
-        <Div id="divList" taborder="3" left="340" top="200" width="1200" height="1160" text="">
+        <Div id="divList" taborder="3" left="340" top="200" width="1200" height="1160" text="" font="bold 24px 'Malgun Gothic'" color="black">
           <Layouts>
             <Layout>
               <Div id="divItem01" taborder="0" left="300" top="0" width="280" height="360" background="#ffffff" border="1px solid #f0f0f0" borderRadius="12px" cursor="pointer">
@@ -155,13 +155,14 @@
           <Layouts>
             <Layout>
               <Static id="Static00" taborder="1" left="90" top="15" width="1" height="30" background="#dddddd"/>
-              <Button id="btnSearch" taborder="0" text="" top="10" right="10" width="40" height="36" borderRadius="15px" color="#ffffff" font="normal 700 30px/normal &quot;Malgun Gothic&quot;" cursor="pointer" textAlign="center" verticalAlign="middle" background="url('imagerc::Search.png') no-repeat left top" onclick="divSearch_btnSearch_onclick"/>
               <Button id="btnHome" taborder="2" text="🍯" left="19" top="9" width="61" height="36" background="transparent" border="0px none" onclick="Button00_onclick" cursor="pointer" font="normal 30px/normal &quot;Arial&quot;"/>
+              <Button id="btnSearch" taborder="0" text="" top="10" right="10" width="40" height="36" borderRadius="15px" color="#ffffff" font="normal 700 30px/normal &quot;Malgun Gothic&quot;" cursor="pointer" textAlign="center" verticalAlign="middle" background="url('imagerc::Search.png') no-repeat left top" onclick="divSearch_btnSearch_onclick"/>
             </Layout>
           </Layouts>
         </Div>
-        <Edit id="edtSearchKeyword" taborder="6" left="490" top="50" height="40" right="500" border="0px none" background="transparent" color="#333333" font="14px 'Malgun Gothic'" displaynulltext="검색어를 입력해주세요"/>
+        <Edit id="edtSearchKeyword" taborder="6" left="490" top="50" height="40" border="0px none" background="transparent" color="#333333" font="14px 'Malgun Gothic'" displaynulltext="검색어를 입력해주세요" width="610"/>
         <Button id="btnCategoryTag" taborder="7" text="Button00" left="36" top="106" width="120" height="50" visible="false" borderRadius="15px" background="#fff4e6" border="1px solid #ffaa00" color="#ffaa00" cursor="pointer" padding="0px 10px" onclick="btnCategoryTag_onclick"/>
+        <Static id="staNoData" taborder="8" text="검색결과가 없습니다." left="340" top="200" width="1200" height="400" textAlign="center" verticalAlign="middle" visible="false"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -878,10 +879,33 @@ this.fnCallback = function (svcID, errCd, errMsg)
 		this.fn_SetResultData();
 		this.drawZzimBtn(this.fvRecords);
 		this.staResultTitle.text = "'"+nexacro.getApplication().gv_Search+"'"+" 검색 결과"
-		if(this.staResultTitle.text=="undefined")
+		if(nexacro.getApplication().gv_Search==undefined)
 		{
-			this.staResultTitle.text = "";
+			nexacro.getApplication().gv_Search= "";
+			this.staResultTitle.text = "'"+nexacro.getApplication().gv_Search+"'"+" 검색 결과"
 		}
+		
+		// 검색된 데이터 개수 확인 (dsCurrentItem이 메인 데이터셋이라고 가정)
+        var nRowCount = this.dsCurrentItem.getRowCount();
+
+        if (nRowCount == 0) 
+        {
+            // [데이터 없음]
+            // 목록 상자(divList) 통째로 숨김 -> 안에 있는 divItem 12개 싹 다 사라짐
+            this.divList.set_visible(false);
+            
+            // "결과 없음" 멘트 보여줌
+            this.staNoData.set_visible(true);
+        } 
+        else 
+        {
+            // [데이터 있음]
+            this.divList.set_visible(true);
+            this.staNoData.set_visible(false);
+            
+            // (참고) 데이터 개수에 맞춰서 divItem 내용 채워주는 함수 호출
+            // this.fn_SetItemList(); 
+        }
 		
 	}
 	else if(svcID=="getMenuList")

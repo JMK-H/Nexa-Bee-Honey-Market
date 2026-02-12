@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="ggul1490pu" width="300" height="200" titletext="별점후기저장" borderRadius="20px" border="3px solid #f5a623">
+  <Form id="ggul1490pu" width="300" height="200" titletext="별점후기저장" borderRadius="20px" onload="ggul1490pu_onload">
     <Layouts>
       <Layout height="200" width="300">
+        <Static id="Static00" taborder="7" text="" left="0" top="0" borderRadius="20px" border="3px solid #f5a623" background="white" right="0" bottom="0"/>
         <ImageViewer id="imgStar1" taborder="0" left="40" top="50" width="40" height="40" image="url('imagerc::star_off.png')" stretch="fit" cursor="pointer" onclick="imgStar_onclick" onmouseenter="imgStar_onmouseenter" border="0px none" onmouseleave="PopReview_onmouseleave"/>
         <ImageViewer id="imgStar2" taborder="1" left="85" top="50" width="40" height="40" image="url('imagerc::star_off.png')" stretch="fit" cursor="pointer" onclick="imgStar_onclick" onmouseenter="imgStar_onmouseenter" border="0px none" onmouseleave="PopReview_onmouseleave"/>
         <ImageViewer id="imgStar3" taborder="2" left="130" top="50" width="40" height="40" image="url('imagerc::star_off.png')" stretch="fit" cursor="pointer" onclick="imgStar_onclick" onmouseenter="imgStar_onmouseenter" border="0px none" onmouseleave="PopReview_onmouseleave"/>
@@ -14,6 +15,16 @@
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
 this.fv_nScore = 0; // 초기값 0점
+
+this.ggul1490pu_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.getOwnerFrame().set_border("0px none");
+    
+    this.getOwnerFrame().set_background("transparent");
+    
+    this.set_background("transparent");
+	
+};
 
 this.fn_SetStar = function(nPoint)
 {
@@ -88,7 +99,8 @@ this.fnCallback = function (svcID, errCd, errMsg)
 		sParentForm.dsBuy_Complete.setColumn(Row, "POST_SCORE", this.fv_nScore);
 		this.close();
 	}
-};]]></Script>
+};
+]]></Script>
     <Objects>
       <Dataset id="dsInData">
         <ColumnInfo>

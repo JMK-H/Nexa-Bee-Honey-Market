@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="PopMyShop" width="900" height="650" titletext="내 상점 관리" onload="PopMyShop_onload">
+  <Form id="PopMyShop" width="900" height="650" titletext="내 상점 관리" onload="PopMyShop_onload" borderRadius="10px">
     <Layouts>
       <Layout height="650" mobileorientation="landscape" width="900">
+        <Static id="Static00" taborder="3" text="" left="0" top="0" borderRadius="15px" background="white" right="0" bottom="0"/>
         <Static id="staTitle" taborder="0" text="🍯 내 상점 관리" left="20" top="20" width="300" height="40" font="bold 20px 'Malgun Gothic'" color="#333333"/>
         <Button id="btnClose" taborder="1" text="닫기" top="20" width="80" height="30" right="20" onclick="btnClose_onclick" background="#555555" color="white" borderRadius="5px" cursor="pointer"/>
         <Tab id="tabMain" taborder="2" tabindex="0" left="20" top="70" right="20" bottom="20" tabbuttonheight="40" selectedtabbuttoncssclass="tab_WF_Select" showextrabutton="false" onchanged="tabMain_onchanged" cssclass="MyPage">
@@ -453,6 +454,12 @@ this.fv_nPrice = 0;//내 물건 팔 때 수락 누르면 잠시 가격 기억해
 
 this.PopMyShop_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
+	this.getOwnerFrame().set_border("0px none");
+    
+    this.getOwnerFrame().set_background("transparent");
+    
+    this.set_background("transparent");
+	
 	var objApp = nexacro.getApplication();
 	var LoginId = objApp.gdsLoginUser.getColumn(0, "LOGIN_ID");
 	this.dsInfo.clearData();

@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="ggul1130pu" width="400" height="640" titletext="회원가입" borderRadius="20px">
+  <Form id="ggul1130pu" width="400" height="640" titletext="회원가입" borderRadius="20px" onload="form_onload">
     <Layouts>
       <Layout height="640" mobileorientation="landscape" width="400">
+        <Static id="Static00" taborder="14" text="" left="0" top="0" right="0" bottom="0" background="white" borderRadius="20px"/>
         <Static id="staTitle" taborder="0" text="회원가입" left="40" top="20" height="60" cssclass="PopupTitle" right="40"/>
         <TextField id="txfName" taborder="1" labeltext="이름" left="30" top="249" height="60" cssclass="FindId" displaynulltext="ex) 홍길동" right="30"/>
         <TextField id="txfNickname" taborder="2" labeltext="닉네임" left="30" top="160" height="60" cssclass="FindId" displaynulltext="ex) 주머니속 핫도그" right="30" oninput="txfNickname_oninput" onchanged="txfNickname_onchanged"/>
@@ -24,6 +25,15 @@ this.checkDoubleId = false; //아이디 중복체크 하고 통과하면 true로
 this.checkDoubleNickname = false; //닉네임 중복체크하고 통과하면 true로
 this.checkPw = false; //비밀번호 확인 통과하면 true로
 this.checkEmail = false; //이메일 확인 통과하면 true로
+
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{  
+    this.getOwnerFrame().set_border("0px none");
+    
+    this.getOwnerFrame().set_background("transparent");
+    
+    this.set_background("transparent");
+};
 
 this.btnCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
@@ -368,9 +378,6 @@ this.txfNickname_oninput = function(obj:nexacro.TextField,e:nexacro.InputEventIn
 							, "fnCallback"
 							, true);
 };
-
-
-
 
 ]]></Script>
     <Objects>

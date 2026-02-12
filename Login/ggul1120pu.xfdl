@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="ggul1120pu" width="400" height="400" titletext="비밀번호 찾기">
+  <Form id="ggul1120pu" width="400" height="400" titletext="비밀번호 찾기" onload="form_onload" borderRadius="20px">
     <Layouts>
       <Layout height="400" mobileorientation="landscape" width="400">
+        <Static id="Static00" taborder="8" text="" left="0" top="0" borderRadius="20px" background="white" right="0" bottom="0"/>
         <Static id="staTitle" taborder="0" text="비밀번호 찾기" left="20" top="20" height="60" right="20" cssclass="PopupTitle"/>
         <Static id="staSubtitle" taborder="1" text="가입 시 등록한 정보를 입력하세요." left="20" top="73" width="360" height="40" cssclass="PopupSubTitle"/>
         <TextField id="txfId" taborder="2" labeltext="아이디" left="40" top="113" height="50" cssclass="FindId" right="40" displaynulltext="아이디를 입력하세요."/>
@@ -14,6 +15,15 @@
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{  
+    this.getOwnerFrame().set_border("0px none");
+    
+    this.getOwnerFrame().set_background("transparent");
+    
+    this.set_background("transparent");
+};
+
 this.btnCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.close();

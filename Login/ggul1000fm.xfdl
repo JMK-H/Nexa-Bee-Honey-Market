@@ -3,8 +3,13 @@
   <Form id="ggulin1100fm" width="1600" height="730" cssclass="LoginForm">
     <Layouts>
       <Layout height="730" width="1600">
-        <Div id="divBgBlur" taborder="0" left="0" top="0" right="0" bottom="0" background="#c1c1c1" opacity="0.5"/>
-        <Div id="divLogin" taborder="1" left="600" top="115" width="400" height="500" background="#ffffff" url="Login::ggul1100fm.xfdl" border="1px solid #ffffff" border-radius="20px" boxShadow="10px 10px 10px #888888" text="" borderRadius="20px"/>
+        <Div id="divBgBlur" taborder="0" left="0" top="0" right="0" bottom="0" background="#c1c1c1" opacity="0.5">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+        <Static id="Static00" taborder="2" text="Static00" left="0" top="0" width="50%" height="50%"/>
+        <Div id="divLogin" taborder="1" left="Static00:-200" top="Static00:-250" width="400" height="500" background="#ffffff" url="Login::ggul1100fm.xfdl" border="1px solid #ffffff" border-radius="20px" boxShadow="10px 10px 10px #888888" text="" borderRadius="20px"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[]]></Script>

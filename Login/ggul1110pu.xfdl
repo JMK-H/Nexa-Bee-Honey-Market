@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="ggul1110pu" width="400" height="400" titletext="아이디찾기" borderRadius="20px">
+  <Form id="ggul1110pu" width="400" height="400" titletext="아이디찾기" borderRadius="20px" background="transparent" border="0px none" onload="form_onload">
     <Layouts>
       <Layout height="400" mobileorientation="landscape" width="400">
+        <Static id="Static00" taborder="6" text="" left="0" top="0" background="white" borderRadius="20px" right="0" bottom="0"/>
         <Static id="staTitle" taborder="0" text="아이디 찾기" left="20" top="20" height="60" right="20" cssclass="PopupTitle"/>
         <Static id="staSubtitle" taborder="1" text="가입시 등록한 아이디와 이메일을 입력하세요." left="20" top="80" width="360" height="40" cssclass="PopupSubTitle"/>
         <TextField id="txfNickname" taborder="2" labeltext="닉네임" left="75" top="125" width="250" height="60" displaynulltext="ex) 주머니속 50원" cssclass="FindId" color="#000000"/>
@@ -12,6 +13,15 @@
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
+
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{  
+    this.getOwnerFrame().set_border("0px none");
+    
+    this.getOwnerFrame().set_background("transparent");
+    
+    this.set_background("transparent");
+};
 
 this.findIdCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
