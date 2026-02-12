@@ -62,16 +62,13 @@ this.fnCallback = function (svcId, errCd, errMsg)
 {
 	if(svcId == "getFindPw")
 	{
-		// 사용자 상호작용 sta창 설정 || 가로,세로 중앙 정렬, css설정
-		this.staResult.set_textAlign("center");
-		this.staResult.set_verticalAlign("middle");
-		this.staResult.set_cssclass("PopupSubTitle");
+
 		if(this.dsResultPw.rowcount > 0)//찾기성공
 		{
 			//밑에 아이디 보여주는 화면
 			var Pw = this.dsResultPw.getColumn(0,"LOGIN_PW");
 			var sMsgId = "msg.find.thing"; //메세지ID
-			var arrArg = ["아이디",Pw]; //메세지취환될값 배열[생략가능]
+			var arrArg = ["비밀번호",Pw]; //메세지취환될값 배열[생략가능]
 			var sPopId = "msg.find.thing"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
 			var sMsgCallback = "";
 

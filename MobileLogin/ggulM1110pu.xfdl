@@ -6,21 +6,23 @@
         <Static id="staTitle" taborder="0" text="비밀번호 찾기" left="0" top="110" height="50" right="0" cssclass="PopupTitle" textAlign="center" font="bold 24px 'Malgun Gothic'"/>
         <Static id="staSubtitle" taborder="1" text="가입시 등록한 아이디와&#13;&#10;이메일을 입력하세요." left="30" top="170" height="60" cssclass="PopupSubTitle" right="30" textAlign="center" font="16px 'Malgun Gothic'" color="#666666"/>
         <TextField id="txfId" taborder="2" labeltext="아이디" left="30" top="260" height="70" displaynulltext="아이디를 입력하세요." cssclass="FindId" color="#000000" right="30" font="16px 'Malgun Gothic'"/>
-        <TextField id="txfEmail" taborder="3" labeltext="이메일 주소" left="30" top="350" height="70" inputtype="email" invalidtext="이메일 주소를 입력하세요." hotkey="" displaynulltext="example@gmail.com" cssclass="FindId" right="30" font="16px 'Malgun Gothic'"/>
-        <Button id="findPwCancel" taborder="4" text="취소" left="30" top="460" width="200" height="60" onclick="findPwCancel_onclick" borderRadius="10px" background="#eeeeee" color="#333333" font="bold 16px 'Malgun Gothic'"/>
-        <Button id="findPwOk" taborder="5" text="확인" top="460" height="60" onclick="Button01_onclick" cssclass="Login" borderRadius="10px" right="30" width="200" background="#f5a623" color="#ffffff" font="bold 16px 'Malgun Gothic'"/>
+        <TextField id="txfEmail" taborder="3" labeltext="이메일 주소" left="30" top="420" height="70" inputtype="email" invalidtext="이메일 주소를 입력하세요." hotkey="" displaynulltext="ex) example@gmail.com" cssclass="FindId" right="30" font="16px 'Malgun Gothic'"/>
+        <Button id="findPwCancel" taborder="4" text="취소" left="30" top="510" width="200" height="60" onclick="findPwCancel_onclick" borderRadius="10px" background="#eeeeee" color="#333333" font="bold 16px 'Malgun Gothic'"/>
+        <Button id="findPwOk" taborder="5" text="확인" top="510" height="60" onclick="Button01_onclick" cssclass="Login" borderRadius="10px" right="30" width="200" background="#f5a623" color="#ffffff" font="bold 16px 'Malgun Gothic'"/>
+        <TextField id="txfName" taborder="6" labeltext="이름" left="30" top="340" height="70" displaynulltext="ex) 홍길동" cssclass="FindId" color="#000000" right="30" font="16px 'Malgun Gothic'"/>
       </Layout>
     </Layouts>
     <Objects>
-      <Dataset id="dsFindPw">
-        <ColumnInfo>
-          <Column id="LOGIN_ID" type="STRING" size="256"/>
-          <Column id="LOGIN_EMAIL" type="STRING" size="256"/>
-        </ColumnInfo>
-      </Dataset>
       <Dataset id="dsResultPw">
         <ColumnInfo>
           <Column id="LOGIN_PW" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsFindPw">
+        <ColumnInfo>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+          <Column id="LOGIN_NAME" type="STRING" size="256"/>
+          <Column id="LOGIN_EMAIL" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
     </Objects>
@@ -29,6 +31,61 @@ this.findPwCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo
 {
 	this.close();
 };
-]]></Script>
+
+this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	//넘길 데이터셋 초기화 및 입력 정보 담기
+		this.dsFindPw.clearData(); //비우고
+		this.dsResultPw.clearData(); //담을것도 미리 비우기
+		var nRow = this.dsFindPw.addRow(); //한 행 추가
+		
+		//보낼 데이터셋에 담기
+		this.dsFindPw.setColumn(nRow, "LOGIN_ID", this.txfId.value); 
+		this.dsFindPw.setColumn(nRow, "LOGIN_EMAIL", this.txfEmail.value);
+		this.dsFindPw.setColumn(nRow, "LOGIN_NAME", this.txfName.value);
+		
+		//담은 dsFindPw데이터셋 넘기고 dsResultPw로 정보 받기
+		var strSvcUrl = "nexa/getFindPw.do?v="+ new Date().getTime();
+		var inData = "dsFindPw=dsFindPw";
+		var strArg = "";
+		var outData = "dsResultPw=dsResultPw";
+
+		this.gfnTransaction("getFindPw"
+							, strSvcUrl
+							, inData //이클립스받기=넥사크로주기
+							, outData //넥사크로받기=이클립스주기
+							, strArg
+							, "fnCallback"
+							, true);
+};
+
+//==============================================콜백함수===================================================
+
+this.fnCallback = function (svcId, errCd, errMsg)
+{
+	if(svcId == "getFindPw")
+	{
+		if(this.dsResultPw.rowcount > 0)//찾기성공
+		{
+			//밑에 아이디 보여주는 화면
+			var Pw = this.dsResultPw.getColumn(0,"LOGIN_PW");
+			var sMsgId = "msg.find.thing"; //메세지ID
+			var arrArg = ["비밀번호",Pw]; //메세지취환될값 배열[생략가능]
+			var sPopId = "msg.find.thing"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+			var sMsgCallback = "";
+
+			this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+		}
+		else //정보찾기 실패
+        {
+			var sMsgId = "msg.err.Login"; //메세지ID
+			var arrArg = []; //메세지취환될값 배열[생략가능]
+			var sPopId = "msg.err.Loginnn"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+			var sMsgCallback = "";
+
+			this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+        }
+	}
+};]]></Script>
   </Form>
 </FDL>

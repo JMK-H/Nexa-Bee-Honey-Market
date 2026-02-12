@@ -38,14 +38,352 @@
       </Dataset>
     </Objects>
     <Script type="xscript5.1"><![CDATA[
-    // ★★★ 기존 PC용 회원가입 폼의 스크립트를 여기에 복사하세요 ★★★
-    // (중복확인, 가입하기 트랜잭션 로직 등)
+this.checkDoubleId = false; //아이디 중복체크 하고 통과하면 true로
+this.checkDoubleNickname = false; //닉네임 중복체크하고 통과하면 true로
+this.checkPw = false; //비밀번호 확인 통과하면 true로
+this.checkEmail = false; //이메일 확인 통과하면 true로
+
+this.btnCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+    this.close(); // 팝업 닫기 or 로그인 화면으로 이동
+};
     
-    this.btnCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+this.id_count="";
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+		var ID = this.txfId.value;
+		if(this.gfnIsNull(ID))
+		{
+			var sMsgId = "msg.err.validator.required"; //메세지ID
+			var arrArg = ["아이디"]; //메세지취환될값 배열[생략가능]
+			var sPopId = "nonId"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+			var sMsgCallback = "";
+
+			this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+			return;
+		}
+		var strSvcUrl = "nexa/getSameIdCount.do?v="+ new Date().getTime();;
+		var inData = "";
+		var strArg = "userId=" + nexacro.wrapQuote(ID);
+		var outData = "";
+
+		this.gfnTransaction("getSameIdCount"
+							, strSvcUrl
+							, inData //이클립스받기=넥사크로주기
+							, outData //넥사크로받기=이클립스주기
+							, strArg
+							, "fnCallback"
+							, true);
+};
+this.fnCallback = function (svcId, errCd, errMsg)
+{
+	//아이디 중복콜백
+	if(svcId == "getSameIdCount")
+	{
+		if(this.id_count>0)
+		{
+			this.txfId.set_cssclass("CheckIdpassN");
+			//이걸로 css설정
+            // 글자색을 빨간색으로 하고 싶다면
+			var sMsgId = "msg.err.alreadyexist"; //메세지ID //있는 아이디입니다.
+			var arrArg = ["아이디"]; //메세지취환될값 배열[생략가능]
+			var sPopId = "msg.err.alreadyexist"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+			var sMsgCallback = "";
+
+			this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+		}
+		else
+		{
+			this.txfId.set_cssclass("CheckIdpass");
+			this.txfId.set_readonly(true); //수정못하게 바꿈
+			this.checkDoubleId = true; //통과상태
+			this.btnCheckId.set_visible(false); //중복체크버튼 숨기고
+			this.btnReId.set_visible(true); //아이디 변경버튼 보이기
+			var sMsgId = "msg.pass.id"; //메세지ID //있는 아이디입니다.
+			var arrArg = []; //메세지취환될값 배열[생략가능]
+			var sPopId = "msg.pass.id"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+			var sMsgCallback = "";
+
+			this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+		}
+	}
+	else if(svcId == "getSameNicknameCount") //닉네임중복콜백
+	{
+		var nickname = this.txfNickname.text;
+		if (nickname == null || nickname == undefined || nickname == "" || nickname.trim() == "") 
+		{
+			this.staNicknameMsg.set_text("닉네임을 입력해주세요.");
+			this.staNicknameMsg.set_color("red");
+			this.txfNickname.set_cssclass("CheckIdpassN");
+			this.checkDoubleNickname = false;
+		}
+		else if(this.Nickname_count > 0)
+		{
+			this.txfNickname.set_cssclass("CheckIdpassN");
+			this.staNicknameMsg.set_color("red");
+			this.staNicknameMsg.text="이미 존재하는 닉네임 입니다.";
+			this.checkDoubleNickname = false; //미통과상태
+		}
+		else
+		{
+			this.txfNickname.set_cssclass("CheckIdpass");
+			this.staNicknameMsg.set_color("#26752b");
+			this.staNicknameMsg.text="사용가능한 닉네임 입니다!";
+			this.checkDoubleNickname = true; //통과상태
+		}
+	}
+	else if(svcId=="getSameEmailCount")
+	{
+		if(this.Email_count>0)
+		{
+			this.staEmailMsg.set_text("이미 존재하는 이메일입니다.");
+			this.staEmailMsg.set_color("red");
+			this.txfEmail.set_cssclass("CheckIdpassN");
+			this.checkEmail = false;
+		}
+		else if(this.Email_count <= 0 && this.fn_isEmail(this.txfEmail.value))
+		{
+			this.staEmailMsg.set_text("사용가능한 이메일입니다.");
+			this.staEmailMsg.set_color("#26752b");
+			this.txfEmail.set_cssclass("CheckIdpass");
+			this.checkEmail = true;
+		}  
+    }
+	else if(svcId == "setNewUserData")
+	{
+		if (errCd < 0) {
+        return;
+		}
+		
+		var userNickname = this.dsUser.getColumn(0, "LOGIN_NICKNAME");
+		
+		var sPopupId = "successRegister"; //Popup ID
+		var sUrl = "Login::ggul1140pu.xfdl"; //팝업 URL
+		var oArg = { pvNickname : userNickname }; //전달값
+		var sPopupCallback = "";
+		var oOption = {title:"모달 팝업", titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
+
+		this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
+		this.close();
+	}
+	
+};
+this.Nickname_count="";
+
+//닉네임중복버튼
+this.Button00_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+		var Nickname = this.txfNickname.value;		
+		var strSvcUrl = "nexa/getSameNicknameCount.do";
+		var inData = "";
+		var strArg = "userNickname=" + nexacro.wrapQuote(Nickname);
+		var outData = "";
+
+		this.gfnTransaction("getSameNicknameCount"
+							, strSvcUrl
+							, inData //이클립스받기=넥사크로주기
+							, outData //넥사크로받기=이클립스주기
+							, strArg
+							, "fnCallback"
+							, true);
+};
+
+this.btnReId_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.checkDoubleId = false;//아이디 중복상태 미정으로
+	this.txfId.set_readonly(false);//id입력창 활성화
+	this.txfId.set_cssclass("FindId");//폰트는 기존것으로
+	this.btnReId.set_visible(false); //아이디 변경버튼 숨기고
+	this.btnCheckId.set_visible(true); //중복체크버튼 보이기
+	
+};
+
+this.btnReNickname_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.checkDoubleNickname = false;
+	this.txfNickname.set_readonly(false);//닉네임 입력창 활성화
+	this.txfNickname.set_cssclass("FindId");//폰트는 기존것으로
+	this.btnReNickname.set_visible(false); //아이디 변경버튼 숨기고
+	this.btnCheckNickname.set_visible(true); //중복체크버튼 보이기
+};
+
+//===========================비밀번호 확인 관련====================================================
+this.txfPassword_oninput = function(obj:nexacro.TextField,e:nexacro.InputEventInfo)
+{
+	this.fn_checkPwSame();
+};
+
+this.txfCheckPw_oninput = function(obj:nexacro.TextField,e:nexacro.InputEventInfo)
+{
+	this.fn_checkPwSame();
+};
+
+this.fn_checkPwSame = function() //비밀번호 확인 함수
+{
+	var pw = this.txfPassword.value;
+	var pwConfirm = this.txfCheckPw.value;
+	
+	// 둘 중 하나라도 비어있으면 메시지 지우기
+	if (!pw || !pwConfirm) {
+		this.staPwMsg.set_text("");
+		this.txfCheckPw.set_cssclass("FindId");
+		return;
+	}
+	
+	// 두 값 비교
+	if (pw === pwConfirm) {
+		this.staPwMsg.set_text("비밀번호가 일치합니다.");
+		this.txfCheckPw.set_cssclass("CheckIdpass");//비번 확인상자 통과css
+		this.staPwMsg.set_color("#26752b");
+		this.checkPw = true; //비번체크 통과
+	} else {
+		this.staPwMsg.set_text("비밀번호가 일치하지 않습니다.");
+		this.txfCheckPw.set_cssclass("CheckIdpassN");//비번 확인상자 미통과css
+		this.staPwMsg.set_color("red");
+		this.checkPw = false; //비번체크 미통과
+	}
+};
+
+//=====================================회원가입 검사, 회원가입================================================
+this.btnConfirm_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) //회원가입 버튼 누르면
+{
+	if(this.fn_checkRegister())
+	{
+		this.fn_writeUserData(); //데이터셋에 현재 텍스트필드에 적혀있는 값 넣기
+		
+		var strSvcUrl = "nexa/setNewUserData.do";
+		var inData = "dsUser=dsUser:U";
+		var strArg = "";
+		var outData = "";
+
+		this.gfnTransaction("setNewUserData"
+							, strSvcUrl
+							, inData //이클립스받기=넥사크로주기 서버로주기
+							, outData //넥사크로받기=이클립스주기 서버에서받기
+							, strArg
+							, "fnCallback"
+							, true);
+	}
+};
+
+this.fn_writeUserData = function () //데이터셋에 현재 텍스트필드에 적혀있는 값 넣기함수
+{
+		var sToday = this.gfnGetDate();
+		
+		this.dsUser.clearData(); // 기존 데이터 삭제
+		var nRow = this.dsUser.addRow(); //한 행 추가
+		
+		this.dsUser.setColumn(nRow, "LOGIN_ID", this.txfId.value);
+		this.dsUser.setColumn(nRow, "LOGIN_NAME", this.txfName.value);
+		this.dsUser.setColumn(nRow, "LOGIN_NICKNAME", this.txfNickname.value);
+		this.dsUser.setColumn(nRow, "LOGIN_PW", this.txfCheckPw.value);
+		this.dsUser.setColumn(nRow, "LOGIN_EMAIL", this.txfEmail.value);
+		this.dsUser.setColumn(nRow, "LOGIN_STATUS", "20260101"); 
+		this.dsUser.setColumn(nRow, "LOGIN_DATE", sToday);
+};
+
+this.fn_checkRegister = function () //회원가입 조건 검사
+{	
+	if(!(this.checkDoubleId&&this.checkDoubleNickname&&this.checkPw&&this.checkEmail)) //하나라도 거짓이면
+	{
+		if(!this.checkDoubleId)//아이디 중복체크 안되면
+		{
+			var sMsgId = "msg.err.doubleCheck"; //메세지ID
+			var arrArg = ["아이디"]; //메세지취환될값 배열[생략가능]
+			var sPopId = "idDoubleCheckk"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+			var sMsgCallback = "";
+
+			this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+			return false;
+		}
+		else if(!this.checkDoubleNickname)
+		{
+			var sMsgId = "msg.err.doubleCheck"; //메세지ID
+			var arrArg = ["닉네임"]; //메세지취환될값 배열[생략가능]
+			var sPopId = "nickNameDoubleCheck"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+			var sMsgCallback = "";
+
+			this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+			return false;
+		}
+		else if(!this.checkEmail)
+		{
+			var sMsgId = "msg.err.checkThing"; //메세지ID
+			var arrArg = ["이메일"]; //메세지취환될값 배열[생략가능]
+			var sPopId = "emailCheckEmpty"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+			var sMsgCallback = "";
+
+			this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+			return false;
+		}
+		else
+		{
+			var sMsgId = "msg.err.notSamePw"; //메세지ID
+			var arrArg = []; //메세지취환될값 배열[생략가능]
+			var sPopId = "notSamePw"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+			var sMsgCallback = "";
+
+			this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+			return false;
+		}
+	}
+	return true;
+};
+
+//====================================이메일 중복검사================================================
+this.Email_count="";
+this.txfEmail_oninput = function(obj:nexacro.TextField,e:nexacro.InputEventInfo)
+{   
+	var email = obj.value;
+    // 조건: '@'가 포함되어 있고, 그 뒤에 '.'까지 찍혔을 때 (즉, 도메인까지 입력 중일 때)
+	
+	if(!this.fn_isEmail(obj.value)) {
+        this.staEmailMsg.set_text("이메일 형식이 아닙니다.");
+		this.staEmailMsg.set_color("red");
+        this.txfEmail.set_cssclass("CheckIdpassN");
+		this.checkEmail = false;
+    }
+	
+    if(email.indexOf("@") > -1 && email.indexOf(".") > email.indexOf("@") + 1) 
     {
-        this.close(); // 팝업 닫기 or 로그인 화면으로 이동
-    };
-    
-    ]]></Script>
+			// 서버에 중복 체크 요청
+			var strSvcUrl = "nexa/getSameEmailCount.do?v="+ new Date().getTime();
+			var inData = "";
+			var strArg = "userEmail=" + nexacro.wrapQuote(email);
+			var outData = "";
+
+			this.gfnTransaction("getSameEmailCount"
+								, strSvcUrl
+								, inData //이클립스받기=넥사크로주기
+								, outData //넥사크로받기=이클립스주기
+								, strArg
+								, "fnCallback"
+								, true);
+    }
+};
+
+this.fn_isEmail = function(v) { //정규식 함수
+    // 이 정규식은 .com, .net 등 최소 2~3자리의 도메인 확장자가 있어야 true를 뱉습니다.
+    var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    return regExp.test(v);
+};
+
+
+this.txfNickname_oninput = function(obj:nexacro.TextField,e:nexacro.InputEventInfo)
+{
+		var Nickname = this.txfNickname.value;		
+		var strSvcUrl = "nexa/getSameNicknameCount.do?v="+ new Date().getTime();
+		var inData = "";
+		var strArg = "userNickname=" + nexacro.wrapQuote(Nickname);
+		var outData = "";
+		
+		this.gfnTransaction("getSameNicknameCount"
+							, strSvcUrl
+							, inData //이클립스받기=넥사크로주기
+							, outData //넥사크로받기=이클립스주기
+							, strArg
+							, "fnCallback"
+							, true);
+};]]></Script>
   </Form>
 </FDL>

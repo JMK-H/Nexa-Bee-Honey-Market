@@ -35,8 +35,57 @@ this.findIdCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo
 //확인버튼 누르면
 this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
+	this.dsFindId.clearData(); //비우고
+	this.dsResultId.clearData();
+	var nRow = this.dsFindId.addRow(); //한 행 추가
+	
+	//데이터셋에 담기
+	this.dsFindId.setColumn(nRow, "LOGIN_NICKNAME", this.txfNickname.value);
+	this.dsFindId.setColumn(nRow, "LOGIN_EMAIL", this.txfEmail.value);
+	
+	//트랜잭션 날리기
+	var strSvcUrl = "nexa/getFindId.do?v="+ new Date().getTime();
+	var inData = "dsFindId=dsFindId";
+	var strArg = "";
+	var outData = "dsResultId=dsResultId";
 
+	this.gfnTransaction("getFindId"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
 };
-]]></Script>
+
+
+//========================================콜백함수====================================================
+this.fnCallback = function (svcId, errCd, errMsg)
+{
+	if(svcId == "getFindId")
+	{
+		if(this.dsResultId.rowcount > 0)//찾기성공
+        {
+			//밑에 아이디 보여주는 화면
+			var ID = this.dsResultId.getColumn(0,"LOGIN_ID");
+			var sMsgId = "msg.find.thing"; //메세지ID
+			var arrArg = ["비밀번호",ID]; //메세지취환될값 배열[생략가능]
+			var sPopId = "msg.find.thing"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+			var sMsgCallback = "";
+
+			this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+        }
+        else //정보찾기 실패
+        {
+			var sMsgId = "msg.err.Login"; //메세지ID
+			var arrArg = []; //메세지취환될값 배열[생략가능]
+			var sPopId = "msg.err.Loginnn"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+			var sMsgCallback = "";
+
+			this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+        }
+    }
+	
+};]]></Script>
   </Form>
 </FDL>

@@ -30,7 +30,6 @@ this.findIdCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo
 
 this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	
 	this.dsFindId.clearData(); //비우고
 	this.dsResultId.clearData();
 	var nRow = this.dsFindId.addRow(); //한 행 추가
