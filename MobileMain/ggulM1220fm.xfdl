@@ -1,39 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="MWork_List" width="480" height="648" titletext="찜리스트" background="#ffffff" onload="MWork_List_onload">
+  <Form id="MWork_List" width="480" height="648" titletext="찜리스트" background="#ffffff" onload="MWork_List_onload" ontimer="MWork_List_ontimer">
     <Layouts>
       <Layout height="648" mobileorientation="portrait" width="480">
         <Static id="stTotal" taborder="0" text="상품 27" left="15" top="10" width="80" height="30" font="bold 14px/normal 'Malgun Gothic'" color="#000000"/>
-        <ListView id="lstGoods" taborder="1" left="0" top="50" right="0" bottom="-122" binddataset="dsMyZzimList" scrollbarsize="0" bandinitstatus="collapse" onvscroll="lstMain_onvscroll" oncellclick="lstGoods_oncellclick" cursor="pointer">
+        <ListView id="lstGoods" taborder="1" left="0" top="50" right="0" bottom="0" binddataset="dsMyZzimList" scrollbarsize="0" bandinitstatus="collapse" onvscroll="lstMain_onvscroll" oncellclick="lstGoods_oncellclick" cursor="pointer" border="0px none">
           <Formats>
             <Format id="default">
-              <Band id="body" width="100%" height="380" background="#ffffff" border="0px none">
+              <Band id="body" width="50%" height="380" background="#ffffff" border="0px none">
                 <Cell id="ImgGoods" left="5" top="5" right="5" height="220" displaytype="imagecontrol" text="bind:PHOTO_URL" imagestretch="fixaspectratio" border="0px none"/>
-                <Cell id="BadgeSale" left="5" top="195" width="70" height="24" font="bold 11px/normal 'Malgun Gothic'" textAlign="center" visible="true" displaytype="combotext" text="bind:POST_STATUS" combodataset="ds_status" combodatacol="VALUE" combocodecol="CODE" cssclass="expr:POST_STATUS == &quot;ING&quot; ? &quot;ING&quot; : POST_STATUS == &quot;RESERVED&quot; ? &quot;RESERVED&quot; : &quot;END&quot;"/>
+                <Cell id="BadgeSale" left="5" top="195" width="70" height="24" font="bold 11px/normal 'Malgun Gothic'" textAlign="center" visible="true" displaytype="combotext" text="bind:POST_STATUS" combodataset="ds_status" combodatacol="VALUE" combocodecol="CODE"/>
                 <Cell id="IconHeart" top="190" width="30" height="30" right="10" displaytype="imagecontrol" text="imagerc::heart_icon.png" border="0px none"/>
                 <Cell id="Brand" left="5" top="235" right="5" height="20" font="bold 12px/normal 'Malgun Gothic'" color="#000000" textAlign="left" border="0px none" text="bind:USER_ID"/>
                 <Cell id="Title" left="5" top="255" right="5" height="40" text="bind:TITLE" font="normal 13px/normal 'Malgun Gothic'" color="#333333" textAlign="left" wordWrap="char" border="0px none" verticalAlign="top"/>
                 <Cell id="Price" left="5" top="300" right="45" height="25" text="bind:PRICE" displaytype="number" font="bold 16px/normal 'Malgun Gothic'" color="#000000" textAlign="left" border="0px none"/>
                 <Cell id="Likes" left="5" top="330" right="5" height="20" text="bind:LIKE_CNT" font="normal 11px/normal 'Malgun Gothic'" color="#888888" textAlign="left" border="0px none"/>
-                <Cell id="Cell00" left="98" top="198" width="70" height="22" text="bind:POST_STATUS"/>
-                <Cell id="Cell01" left="194" top="195" width="141" height="30" text="expr:POST_STATUS == &quot;ING&quot; ? &quot;구매가능&quot; : POST_STATUS == &quot;RESERVED&quot; ? &quot;예약중&quot; : &quot;구매불가&quot;"/>
+                <Cell id="Cell00" left="5" top="5" height="220" right="5"/>
               </Band>
             </Format>
           </Formats>
         </ListView>
-        <ListView id="ListView00" taborder="2" left="496" top="60" width="274" height="220" binddataset="dsMyZzimList">
-          <Formats>
-            <Format id="default">
-              <Band id="body" width="100%" height="70">
-                <Cell id="Cell00" left="10" top="5" width="120" height="24" text="POST_ID" cssclass="bind:POST_STATUS"/>
-                <Cell id="Cell01" left="135" top="10" width="105" height="19" text="bind:POST_ID"/>
-                <Cell id="Cell02" left="10" top="34" width="120" height="24" text="TITLE"/>
-                <Cell id="Cell03" left="135" top="39" width="105" height="19" text="bind:TITLE"/>
-              </Band>
-            </Format>
-          </Formats>
-        </ListView>
-        <Button id="Button00" taborder="3" text="Button00" left="383" top="587" width="98" height="68" onclick="Button00_onclick"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -212,6 +198,9 @@ this.fnSearch = function ()
 
 this.fnSearch = function ()
 {	
+	if (this.fv_isSearch) return; 
+    this.fv_isSearch = true; // 조회중 true
+	
 	var sLoginId = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ID");
 	this.dsSearch.clearData();
 	var nRow = this.dsSearch.addRow();
@@ -280,7 +269,7 @@ this.fnCallback = function (svcID, errCd, errMsg)
 	{
 		var totalCount = this.dsPagingInfo.getColumn(0, "totalCount");
 		this.stTotal.text = "상품 "+ totalCount;
-		this.fv_isSearch = false;
+		//this.fv_isSearch = false;
 		if (this.fvRecordsOffset == 0) //첫 조회이면 갈아끼우기
         {
             this.dsMyZzimList.clearData();
@@ -291,15 +280,20 @@ this.fnCallback = function (svcID, errCd, errMsg)
             this.dsMyZzimList.appendData(this.dsTemp);
 			
         }
-		//this.dsMyZzimList.rowposition = this.dsMyZzimList.rowcount-3; //스크롤바 위로 튕기기 방지용
+		this.dsMyZzimList.rowposition = this.dsMyZzimList.rowcount-4; //스크롤바 위로 튕기기 방지용
         var nCnt = this.dsTemp.getRowCount();
         this.fvRecordsOffset = this.fvRecordsOffset + nCnt;	
+		this.setTimer(9999, 500);
 	}
 };
-this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{ 
-	trace(this.dsMyZzimList.saveXML());
-};
-]]></Script>
+
+this.MWork_List_ontimer = function(obj:nexacro.Form,e:nexacro.TimerEventInfo)
+{
+    if (e.timerid == 9999)
+    {
+        this.killTimer(9999);     // 타이머 끄기
+        this.fv_isSearch = false; // 이제서야 조회 가능 상태로 변경!
+    }
+};]]></Script>
   </Form>
 </FDL>

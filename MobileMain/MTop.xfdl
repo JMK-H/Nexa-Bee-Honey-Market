@@ -17,14 +17,7 @@
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
-    
-// 검색 버튼 클릭
-this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
-    // 검색 화면으로 이동하거나 검색창 띄우기
-	trace("검색 버튼 클릭");
-    // this.parent.parent.go("Main::Search.xfdl"); // 예시
-};
+  
 
 // 찜 버튼 클릭
 this.btnWish_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
@@ -33,6 +26,24 @@ this.btnWish_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	this.parent.parent.divWork.url = "MobileMain::ggulM1220fm.xfdl";
 };
     
-    ]]></Script>
+
+this.divSearch_btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var objApp = nexacro.getApplication();
+	objApp.gv_MenuId = "";
+	objApp.gv_Search = this.edtSearchKeyword.value;
+	
+	var objDivWork = this.parent.parent.divWork;
+    if (objDivWork.url == "MobileMain::MWork.xfdl") 
+    {
+		objDivWork.form.fvRecordsOffset = 0;
+		objDivWork.form.fnSearch();
+    }
+    else 
+    {
+        objDivWork.set_url("MobileMain::MWork.xfdl");
+    }
+};
+]]></Script>
   </Form>
 </FDL>

@@ -6,7 +6,10 @@
         <Static id="staLine" taborder="3" left="0" top="0" right="0" height="1" background="#dddddd"/>
         <Button id="btnHome" taborder="0" text="홈" left="160" top="1" width="160" bottom="0" border="0px none" font="bold 12px 'Malgun Gothic'" icon="url('imagerc::btn_MF_Home.png')" iconPosition="top" textPadding="5px 0px 0px 0px" cursor="pointer" cssclass="Login" color="white" onclick="btnHome_onclick"/>
         <Button id="btnQuick" taborder="1" text="퀵메뉴" left="0" top="1" width="160" bottom="0" border="0px none" font="normal 12px 'Malgun Gothic'" icon="url('imagerc::btn_MF_Menu.png')" iconPosition="top" textPadding="5px 0px 0px 0px" cursor="pointer" cssclass="Login" color="white" onclick="btnQuick_onclick"/>
-        <Button id="btnMy" taborder="2" text="나의 정보" left="320" top="1" width="160" bottom="0" border="0px none" font="normal 12px 'Malgun Gothic'" icon="url('imagerc::btn_MF_Mypage.png')" iconPosition="top" textPadding="5px 0px 0px 0px" cursor="pointer" cssclass="Login" color="white"/>
+        <Button id="btnMy" taborder="2" text="나의 정보" left="320" top="1" width="160" bottom="0" border="0px none" font="normal 12px 'Malgun Gothic'" icon="url('imagerc::btn_MF_Mypage.png')" iconPosition="top" textPadding="5px 0px 0px 0px" cursor="pointer" cssclass="Login" color="white" onclick="btnMy_onclick"/>
+        <Static id="Static00" taborder="4" text="" left="195" top="8" width="90" height="42" onclick="btnHome_onclick"/>
+        <Static id="Static00_01" taborder="6" text="" left="40" top="4" width="90" height="52" onclick="btnQuick_onclick"/>
+        <Static id="Static00_00" taborder="5" text="" left="350" top="8" width="110" height="48" onclick="btnMy_onclick"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
@@ -50,6 +53,12 @@ this.btnHome_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	var objApp = nexacro.getApplication();//글로벌에 접근 가능하게한뒤에
 	objApp.gv_MenuId = "";
+	this.parent.parent.divWork.url = "MobileMain::MWork.xfdl";
+	this.parent.parent.divWork.reload();
+};
+
+this.btnMy_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
 	this.parent.parent.divWork.url = "MobileMain::MWork.xfdl";
 	this.parent.parent.divWork.reload();
 };

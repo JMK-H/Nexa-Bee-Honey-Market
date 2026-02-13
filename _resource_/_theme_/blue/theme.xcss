@@ -3346,7 +3346,31 @@
 {
    background : yellow;
    
-}]]></CSSData>
+}
+.Grid .body .row .cell.lv_ING
+{
+	background : #007d32;
+	color : #ffffff;
+	border-radius : 12px;
+	font : bold 12px "Malgun Gothic";
+}
+
+.Grid .body .row .cell.lv_RESERVED
+{
+	background : #ff8c00;
+	color : #ffffff;
+	font : bold 12px "Malgun Gothic";
+}
+
+.Grid .body .row .cell.lv_END
+{
+	background : #d93025;
+	color : #ffffff;
+	border-radius : 12px;
+	font : bold 12px "Malgun Gothic";
+}
+
+]]></CSSData>
   <CSSData type="desktop"><![CDATA[]]></CSSData>
   <CSSData type="mobile_large"><![CDATA[]]></CSSData>
   <CSSData type="mobile_small"><![CDATA[]]></CSSData>

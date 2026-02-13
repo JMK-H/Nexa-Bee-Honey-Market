@@ -119,7 +119,7 @@ this.Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo
     if(this.parent.parent.divLeft.getOffsetWidth() > 0) {
         nWidth = 0;      // 닫기
     } else {
-        nWidth = 300;    // 열기
+        nWidth = 480;    // 열기
     }
 	
 	objAni.removeTarget("aniTarget01");
@@ -132,7 +132,8 @@ this.Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo
 	var objDivWork = this.parent.parent.divWork;
     if (objDivWork.url == "MobileMain::MWork.xfdl") 
     {
-		this.reload(); 
+		objDivWork.form.fvRecordsOffset = 0;
+		objDivWork.form.fnSearch();
     }
     else 
     {
