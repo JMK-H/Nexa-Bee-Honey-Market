@@ -7,18 +7,18 @@
         <Static id="stProfileBg" taborder="1" left="0" top="350" width="100%" height="80" border="0px none,0px none,1px solid #e9ecef"/>
         <Static id="stNickName" taborder="2" text="콩이" left="16" top="288" width="150" height="24" font="bold 15px/normal 'Malgun Gothic'" color="#212529"/>
         <Static id="stLocation" taborder="3" text="식사동" left="16" top="312" width="150" height="20" font="normal 13px/normal 'Malgun Gothic'" color="#868e96"/>
-        <Static id="stGgulScore" taborder="4" text="35.7°C" top="292" width="60" height="24" font="bold 14px/normal 'Malgun Gothic'" color="#0dcc5a" right="50" textAlign="right"/>
-        <Static id="stTempIcon" taborder="5" text="😊" top="288" width="30" height="30" font="normal 22px/normal 'Malgun Gothic'" right="16"/>
-        <Static id="stManner" taborder="6" text="꿀벌점수" top="324" width="60" height="15" font="normal 11px/normal 'Malgun Gothic'" color="#868e96" right="18" textAlign="right" textDecoration="underline"/>
-        <Static id="stTitle" taborder="7" text="인생네컷 기계" left="16" top="345" width="368" height="30" font="bold 18px/normal 'Malgun Gothic'" color="#212529"/>
-        <Static id="stTime" taborder="8" text="디지털기기 ㆍ 끌올 1시간 전" left="16" top="375" width="368" height="20" font="normal 12px/normal 'Malgun Gothic'" color="#868e96"/>
-        <TextArea id="txtDesc" taborder="9" left="16" top="410" width="368" height="120" border="0px none" font="normal 15px/1.5 'Malgun Gothic'" color="#212529" wordWrap="char" readonly="true" value="네컷기계 판매합니다! 잘 작동하구요 프로그램 관리해주시는 사장님 연결시켜드릴 수 있어요!&#10;파티룸 하시던 사장님한테 양도받았다가 저희도 셀프스튜디오라 실내에 잠시 서비스차원에서 둔거였어욤&#10;인화지 여분이랑 그대로 전달해드릴게요 ~~&#10;안에 카메라, 본체, 프린터 싹다 포함이구요!" scrolltype="both"/>
+        <Static id="stGgulScore" taborder="4" text="35.7°C" top="288" width="60" height="24" font="bold 14px/normal 'Malgun Gothic'" color="#0dcc5a" right="50" textAlign="right"/>
+        <Static id="stTempIcon" taborder="5" text="😊" top="284" width="30" height="30" font="normal 22px/normal 'Malgun Gothic'" right="16"/>
+        <Static id="stManner" taborder="6" text="꿀벌점수" top="312" width="60" height="15" font="normal 11px/normal 'Malgun Gothic'" color="#868e96" right="18" textAlign="right" textDecoration="underline"/>
+        <Static id="stTitle" taborder="7" text="인생네컷 기계" left="16" top="335" width="368" height="30" font="bold 18px/normal 'Malgun Gothic'" color="#212529"/>
+        <Static id="stTime" taborder="8" text="디지털기기 ㆍ 끌올 1시간 전" left="16" top="365" width="368" height="20" font="normal 12px/normal 'Malgun Gothic'" color="#868e96"/>
+        <TextArea id="txtDesc" taborder="9" left="16" top="400" width="368" height="120" border="0px none" font="normal 15px/1.5 'Malgun Gothic'" color="#212529" wordWrap="char" readonly="true" value="네컷기계 판매합니다! 잘 작동하구요 프로그램 관리해주시는 사장님 연결시켜드릴 수 있어요!&#10;파티룸 하시던 사장님한테 양도받았다가 저희도 셀프스튜디오라 실내에 잠시 서비스차원에서 둔거였어욤&#10;인화지 여분이랑 그대로 전달해드릴게요 ~~&#10;안에 카메라, 본체, 프린터 싹다 포함이구요!" scrolltype="vertical"/>
         <Div id="divBottom" taborder="10" left="0" height="70" width="100%" background="#ffffff" border="1px solid #e9ecef,0px none,0px none" top="530">
           <Layouts>
             <Layout>
               <Static id="stLine" taborder="0" left="60" top="15" width="1" height="40" border="0px none,0px none,0px none,1px solid #e9ecef"/>
               <Static id="stPrice" taborder="1" text="190만원" left="75" top="20" width="120" height="30" font="bold 16px/normal 'Malgun Gothic'" color="#212529"/>
-              <Button id="btnChat" taborder="2" text="채팅하기" top="10" width="120" height="50" right="16" color="#ffffff" font="bold 15px/normal 'Malgun Gothic'" borderRadius="6px" border="0px none" cursor="pointer" cssclass="Login"/>
+              <Button id="btnBuy" taborder="2" text="구매요청" top="10" width="120" height="50" right="16" color="#ffffff" font="bold 15px/normal 'Malgun Gothic'" borderRadius="6px" border="0px none" cursor="pointer" cssclass="Login" onclick="divBottom_btnBuy_onclick"/>
               <Button id="btnZzim" taborder="3" text="" left="10" top="16" width="40" height="40" background="transparent" border="0px none" onclick="divBottom_btnZzim_onclick"/>
             </Layout>
           </Layouts>
@@ -27,6 +27,8 @@
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
+this.nPrice= "";
+this.btnZzimControl="";
 this.ggulM1210pu_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	var sPostId = this.getOwnerFrame().sPostId;
@@ -38,6 +40,10 @@ this.ggulM1210pu_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	var objDate = this.getOwnerFrame().sRegDate;
 	var sIsWish = this.getOwnerFrame().sIsWish //찜 했는지 안했는지 1또는 0
 	var sIconUrl = (sIsWish == "1") ? "imagerc::Select.png" : "imagerc::NoSelect.png";
+	var sWriter = this.getOwnerFrame().sWriter;
+	var sStatus = this.getOwnerFrame().sStatus; //예약중, 구매가능 등
+	var sBuyerId =  this.getOwnerFrame().sBuyerId;
+	this.btnZzimControl = this.getOwnerFrame().btnZzimControl;// Work면 work에서 부른거, Zzim이면 찜
 	
 	var sYear = objDate.getFullYear().toString();
     var sMonth = (objDate.getMonth() + 1).toString().padLeft(2, "0");
@@ -53,12 +59,63 @@ this.ggulM1210pu_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	this.stGgulScore.set_text(sLoginScore+"점");
 	this.stTime.text = sFinalDate;
 	this.divBottom.form.btnZzim.set_icon(sIconUrl);
+	this.fn_SetButtonState(sStatus, sWriter, sBuyerId);
 };
-
+//======================================================구매버튼 CSS======================================
+//구매요청 버튼 css조절 메서드
+this.fn_SetButtonState = function(sStatus, sSellerId, sBuyerId)
+{
+    // 내 로그인 ID 가져오기
+    var objApp = nexacro.getApplication();
+    var sMyId  = objApp.gdsLoginUser.getColumn(0, "LOGIN_ID");
+    
+    // 내가 판매자(주인)일 때 -> 구매 버튼 숨기기
+    if (sMyId == sSellerId) {
+        this.divBottom.form.btnBuy.set_visible(false); 
+        return;
+    }
+    
+    this.divBottom.form.btnBuy.set_visible(true); // 일단 보임
+    
+    // 상태별 디자인 변경
+    if (sStatus == "ING") {
+        this.divBottom.form.btnBuy.set_enable(true);
+        this.divBottom.form.btnBuy.set_text("구매 요청");
+        this.divBottom.form.btnBuy.set_background("#f5a623");
+    }
+    else if (sStatus == "RESERVED") {
+        // 예약중
+        if (sMyId == sBuyerId) {
+            this.divBottom.form.btnBuy.set_enable(false);
+            this.divBottom.form.btnBuy.set_text("승인 대기중");
+            this.divBottom.form.btnBuy.set_background("#666666"); 
+        } else {
+            this.divBottom.form.btnBuy.set_enable(false);
+            this.divBottom.form.btnBuy.set_text("예약 불가");
+            this.divBottom.form.btnBuy.set_background("#dddddd"); 
+        }
+    }
+    else if (sStatus == "END") {
+        //판매완료
+        this.divBottom.form.btnBuy.set_enable(false);
+        this.divBottom.form.btnBuy.set_text("판매 완료");
+        this.divBottom.form.btnBuy.set_background("#d00611"); 
+    }
+};
 //=======================================================찜 클릭이벤트=====================================================
 
 this.divBottom_btnZzim_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
+	var sParent = this.getOwnerFrame().sParent;
+	var objDs="";
+	if(this.btnZzimControl=="Work")
+	{
+		objDs = sParent.dsCurrentItem;
+	}
+	else if(this.btnZzimControl=="Zzim")
+	{
+		objDs = sParent.dsMyZzimList;
+	}
 	var sPostId = this.getOwnerFrame().sPostId;
 	var sTitle = this.getOwnerFrame().sTitle;
 	var sLoginId = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ID");
@@ -74,14 +131,13 @@ this.divBottom_btnZzim_onclick = function(obj:nexacro.Button,e:nexacro.ClickEven
 	var currentIcon = obj.icon;
 	var strSvcUrl = "";
 	var ID = "";
-	var sParent = this.getOwnerFrame().sParent;
-	var FindRow = sParent.dsCurrentItem.findRow("POST_ID", sPostId);
+	var FindRow = objDs.findRow("POST_ID", sPostId);
 	if(currentIcon == "imagerc::Select.png") //찜취소 누르기
 	{
 		obj.set_icon("imagerc::NoSelect.png");
 		strSvcUrl = "nexa/deleteZzimList.do";
 		ID = "deleteZzimList";
-		sParent.dsCurrentItem.setColumn(FindRow, "IS_WISH", 0);
+		objDs.setColumn(FindRow, "IS_WISH", 0);
 	}
 	else //찜누르기
 	{
@@ -89,7 +145,7 @@ this.divBottom_btnZzim_onclick = function(obj:nexacro.Button,e:nexacro.ClickEven
 		obj.set_icon("imagerc::Select.png");
 		strSvcUrl = "nexa/getZzimList.do";
 		ID="getZzimList";
-		sParent.dsCurrentItem.setColumn(FindRow, "IS_WISH", 1);
+		objDs.setColumn(FindRow, "IS_WISH", 1);
 	}
 	
 	var inData = "dsZzim=dsZzim:U";
@@ -104,14 +160,105 @@ this.divBottom_btnZzim_onclick = function(obj:nexacro.Button,e:nexacro.ClickEven
 						, "fnCallback"
 						, true);
 };
+//=========================================구매하기 클릭이벤트=========================================
+this.divBottom_btnBuy_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var objApp = nexacro.getApplication();
+    
+    this.nPrice  = nexacro.toNumber(this.getOwnerFrame().sPrice);
+    var nMyCash = nexacro.toNumber(objApp.gdsLoginUser.getColumn(0, "LOGIN_CASH"));
+    
+    if (nMyCash < this.nPrice) {
+        var nNeed = this.nPrice - nMyCash;
+		var sMsgId = "msg.cant.buy.money"; //메세지ID
+		var arrArg = [nexacro.toNumber(nNeed).toLocaleString()]; //메세지취환될값 배열[생략가능]
+		var sPopId = "msg.cant.buy.money"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "";
+
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+        return;
+    }
+		var sMsgId = "msg.buy"; //메세지ID
+		var arrArg = []; //메세지취환될값 배열[생략가능]
+		var sPopId = "msg.buy"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "fnPopupCallback";
+
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+};
+
+//구매하기 트랜잭션
+this.fn_RequestPurchase = function(nPrice)
+{
+    var objApp = nexacro.getApplication();
+    var sLoginId = objApp.gdsLoginUser.getColumn(0, "LOGIN_ID");
+	var sPostId = this.getOwnerFrame().sPostId;
+    
+	this.dsInData.clearData();
+	var nRow = this.dsInData.addRow();
+	this.dsInData.setColumn(nRow, "LOGIN_ID", sLoginId);
+	this.dsInData.setColumn(nRow, "POST_ID", sPostId)
+	
+    var strSvcUrl = "nexa/requestPurchase.do";
+    var inData = "dsInData=dsInData";
+    var strArg = "";
+    var outData = "";
+
+    this.gfnTransaction("requestPurchase"
+    					, strSvcUrl
+    					, inData //이클립스받기=넥사크로주기
+    					, outData //넥사크로받기=이클립스주기
+    					, strArg
+    					, "fnCallback"
+    					, true);
+};
 
 this.btnClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.close();
 };
 
+//============================================트랜잭션콜백=============================================
+this.fnCallback = function (svcID, errCd, errMsg)
+{
+	if(svcID == "requestPurchase")
+	{
+		var sParent = this.getOwnerFrame().sParent;
+		var objDs="";
+		if(this.btnZzimControl=="Work")
+		{
+			objDs = sParent.dsCurrentItem;
+		}
+		else if(this.btnZzimControl=="Zzim")
+		{
+			objDs = sParent.dsMyZzimList;
+		}
+		//로그인된 사람의 돈 처리
+		var objApp = nexacro.getApplication();
+		var currentCash = objApp.gdsLoginUser.getColumn(0, "LOGIN_CASH");
+		var finalCash = currentCash-this.nPrice;
+		objApp.gdsLoginUser.setColumn(0, "LOGIN_CASH", finalCash);
+		//부모쪽으로가서 데이터셋 직접바꿈
+		var sPostId = this.getOwnerFrame().sPostId;
+		var sMyId = objApp.gdsLoginUser.getColumn(0, "LOGIN_ID");
+		var nRow = objDs.findRow("POST_ID", sPostId);
+		objDs.setColumn(nRow, "POST_STATUS", "RESERVED");
+		objDs.setColumn(nRow, "BUYER_ID", sMyId);
+		
+		this.close();
+	}
+};
 
-]]></Script>
+//=============================================팝업콜백==================================================
+this.fnPopupCallback = function (svcID, rtn)
+{
+	if(svcID == "msg.buy")
+	{
+		if(rtn)
+		{
+			this.fn_RequestPurchase(this.nPrice);
+		}
+	}
+}]]></Script>
     <Objects>
       <Dataset id="dsZzim">
         <ColumnInfo>
@@ -120,6 +267,9 @@ this.btnClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
           <Column id="POST_ID" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
+      <Dataset id="dsInData">
+        <ColumnInfo>
+          <Column id="LOGIN_ID" type="STRING" size="256"/><Column id="POST_ID" type="STRING" size="256"/><Column id="REPLY_CONTENTS" type="STRING" size="256"/></ColumnInfo></Dataset>
     </Objects>
   </Form>
 </FDL>

@@ -4,10 +4,55 @@
     <Layouts>
       <Layout height="60" width="480">
         <Static id="staLine" taborder="3" left="0" top="0" right="0" height="1" background="#dddddd"/>
-        <Button id="btnHome" taborder="0" text="홈" left="0" top="1" width="160" bottom="0" border="0px none" font="bold 12px 'Malgun Gothic'" icon="url('imagerc::btn_MF_Home.png')" iconPosition="top" textPadding="5px 0px 0px 0px" cursor="pointer" cssclass="Login" color="white"/>
-        <Button id="btnQuick" taborder="1" text="퀵메뉴" left="160" top="1" width="160" bottom="0" border="0px none" font="normal 12px 'Malgun Gothic'" icon="url('imagerc::btn_MF_Menu.png')" iconPosition="top" textPadding="5px 0px 0px 0px" cursor="pointer" cssclass="Login" color="white"/>
+        <Button id="btnHome" taborder="0" text="홈" left="160" top="1" width="160" bottom="0" border="0px none" font="bold 12px 'Malgun Gothic'" icon="url('imagerc::btn_MF_Home.png')" iconPosition="top" textPadding="5px 0px 0px 0px" cursor="pointer" cssclass="Login" color="white" onclick="btnHome_onclick"/>
+        <Button id="btnQuick" taborder="1" text="퀵메뉴" left="0" top="1" width="160" bottom="0" border="0px none" font="normal 12px 'Malgun Gothic'" icon="url('imagerc::btn_MF_Menu.png')" iconPosition="top" textPadding="5px 0px 0px 0px" cursor="pointer" cssclass="Login" color="white" onclick="btnQuick_onclick"/>
         <Button id="btnMy" taborder="2" text="나의 정보" left="320" top="1" width="160" bottom="0" border="0px none" font="normal 12px 'Malgun Gothic'" icon="url('imagerc::btn_MF_Mypage.png')" iconPosition="top" textPadding="5px 0px 0px 0px" cursor="pointer" cssclass="Login" color="white"/>
       </Layout>
     </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+var objAni="";
+var nWidth = "";
+var objDim = "";
+
+this.btnQuick_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.parent.parent.divLeft.form.reload();
+	
+	// 기존 애니메이션이 동작 중이면 중단 (중복 방지)
+    if (!this.ani00) 
+	{
+		objAni = new nexacro.Animation("ani00", this); 
+		this.addChild("ani00", objAni);
+		
+		// 애니메이션 오브젝트 생성 (ID, 지속시간: 0.3초)
+		// 가속도 효과 (부드럽게)
+		objAni.set_duration(300); // 300ms (0.3초) 동안 동작
+		objAni.set_easing("easeInQuad");
+	}
+
+    // 현재 상태에 따라 목표치 설정
+    if(this.parent.parent.divLeft.getOffsetWidth() > 0) {
+        nWidth = 0;      // 닫기
+    } else {
+        nWidth = 480;    // 열기
+		this.resetScroll();
+    }
+	
+	objAni.removeTarget("aniTarget01");
+    // 애니메이션 대상 속성 추가 (너비와 Work 영역의 위치를 동시에!)
+    objAni.addTarget("aniTarget01", this.parent.parent.divLeft, "width:" + nWidth);
+
+    // 실행
+    objAni.play();
+};
+
+this.btnHome_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var objApp = nexacro.getApplication();//글로벌에 접근 가능하게한뒤에
+	objApp.gv_MenuId = "";
+	this.parent.parent.divWork.url = "MobileMain::MWork.xfdl";
+	this.parent.parent.divWork.reload();
+};
+]]></Script>
   </Form>
 </FDL>

@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="left" width="300" height="820" titletext="New Form" onload="left_onload">
+  <Form id="MLeft" width="480" height="708" titletext="퀵메뉴판" onload="MLeft_onload" background="transparent" scrolltype="none" scrollbartype="none none">
     <Layouts>
-      <Layout height="820" width="300">
-        <Grid id="gridMenu" taborder="0" left="0" top="160" bottom="0" binddataset="ds_menu" autofittype="col" treeusecheckbox="false" treeinitstatus="collapse,null" border="0px none" oncellclick="gridMenu_oncellclick" treeuseline="false" treeuseimage="false" width="300" cssclass="QuickMenu">
+      <Layout height="708" width="480">
+        <Grid id="Grid00" taborder="0" left="0" top="0" width="290" height="708" border="0px none" binddataset="ds_menu" cssclass="QuickMenu" treeusecheckbox="false" treeuseline="false" oncellclick="Grid00_oncellclick">
           <Formats>
             <Format id="default">
               <Columns>
-                <Column size="300"/>
+                <Column size="290"/>
               </Columns>
               <Rows>
                 <Row size="55"/>
@@ -18,7 +18,8 @@
             </Format>
           </Formats>
         </Grid>
-        <Div id="Div00" taborder="1" text="Div00" left="0" top="0" height="160" right="0" url="Main::ggul1460fm.xfdl" border="1px solid #f5a623" borderRadius="10px" formscrolltype="none" formscrollbartype="none none"/>
+        <Static id="Static00" taborder="1" text="Static00" left="290" width="190" height="708" opacity="50%" background="black" top="0"/>
+        <Button id="Button00" taborder="2" left="355" top="180" width="31" height="30" onclick="btnClose_onclick" cssclass="Login" borderRadius="30px" text="X"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -37,9 +38,12 @@
         </Rows>
       </Dataset>
     </Objects>
-    <Script type="xscript5.1"><![CDATA[var objAni="";
+    <Script type="xscript5.1"><![CDATA[
+var objAni="";
+var nWidth = "";
+var objDim = "";
 
-this.left_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+this.MLeft_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	this.ds_menu.clearData();
 	
@@ -57,7 +61,39 @@ this.left_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 						, true);
 };
 
-this.gridMenu_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+//닫기버튼
+this.btnClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{	
+	// 기존 애니메이션이 동작 중이면 중단 (중복 방지)
+    if (!this.ani00) 
+	{
+		objAni = new nexacro.Animation("ani00", this); 
+		this.addChild("ani00", objAni);
+		
+		// 애니메이션 오브젝트 생성 (ID, 지속시간: 0.3초)
+		// 가속도 효과 (부드럽게)
+		objAni.set_duration(300); // 300ms (0.3초) 동안 동작
+		objAni.set_easing("easeInQuad");
+	}
+
+    // 현재 상태에 따라 목표치 설정
+    if(this.parent.parent.divLeft.getOffsetWidth() > 0) {
+        nWidth = 0;      // 닫기
+    } else {
+        nWidth = 480;    // 열기
+		this.resetScroll();
+    }
+	
+	objAni.removeTarget("aniTarget01");
+    // 애니메이션 대상 속성 추가 (너비와 Work 영역의 위치를 동시에!)
+    objAni.addTarget("aniTarget01", this.parent.parent.divLeft, "width:" + nWidth);
+
+    // 실행
+    objAni.play();
+};
+
+//메뉴 눌렀을때
+this.Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
 	//눌린게 대메뉴냐 소메뉴냐 구분하기위해
 	var sLevel = this.ds_menu.getColumn(e.row, "MENU_LEVEL"); 
@@ -94,22 +130,15 @@ this.gridMenu_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventIn
     objAni.play();
 	
 	var objDivWork = this.parent.parent.divWork;
-    if (objDivWork.url == "Main::ggul1450fm.xfdl") 
+    if (objDivWork.url == "MobileMain::MWork.xfdl") 
     {
-		objDivWork.form.reload(); 
+		this.reload(); 
     }
     else 
     {
-        objDivWork.set_url("Main::ggul1450fm.xfdl");
+        objDivWork.set_url("MobileMain::MWork.xfdl");
     }
 };
-
-//============================================콜백함수==================================================
-this.fnCallback = function (svcID, errCd, errMsg)
-{
-	if(svcID =="getMenuList")
-	{
-	}
-};]]></Script>
+]]></Script>
   </Form>
 </FDL>

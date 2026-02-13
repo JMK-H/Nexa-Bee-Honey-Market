@@ -9,10 +9,7 @@
         <Div id="divPage" taborder="3" text="Div00" left="403" width="777" height="60" url="Cmm::CmmPaging.xfdl" bottom="0" border="1px solid brown"/>
       </Layout>
     </Layouts>
-    <Script type="xscript5.1"><![CDATA[//==================================================================================================================
-//===================================================다시시작======================================================
-//==================================================================================================================
-
+    <Script type="xscript5.1"><![CDATA[
 this.fvRecords = 8;          // 목록 갯수 (한 페이지에 보여줄 개수)
 this.fvPage = 0;              // 현재 페이지 번호
 this.fvRecordsOffset = 0;     // 시작 rownum (0부터 시작)
@@ -367,6 +364,7 @@ this.fnCallPopup = function (svcID, rtn)
           <Column id="MY_LIKE_STATE" type="STRING" size="256"/>
           <Column id="UNLIKE_CNT" type="STRING" size="256"/>
           <Column id="LIKE_CNT" type="STRING" size="256"/>
+          <Column id="POST_COMMEND" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
       <Dataset id="dsPagingInfo">

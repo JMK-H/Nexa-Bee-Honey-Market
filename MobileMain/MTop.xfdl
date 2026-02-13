@@ -18,20 +18,20 @@
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
     
-    // 검색 버튼 클릭
-    this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-    {
-    	// 검색 화면으로 이동하거나 검색창 띄우기
-    	trace("검색 버튼 클릭");
-    	// this.parent.parent.go("Main::Search.xfdl"); // 예시
-    };
+// 검색 버튼 클릭
+this.btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+    // 검색 화면으로 이동하거나 검색창 띄우기
+	trace("검색 버튼 클릭");
+    // this.parent.parent.go("Main::Search.xfdl"); // 예시
+};
 
-    // 찜 버튼 클릭
-    this.btnWish_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-    {
-    	// 찜 목록 화면으로 이동
-    	trace("찜 버튼 클릭");
-    };
+// 찜 버튼 클릭
+this.btnWish_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+    // 찜 목록 화면으로 이동
+	this.parent.parent.divWork.url = "MobileMain::ggulM1220fm.xfdl";
+};
     
     ]]></Script>
   </Form>

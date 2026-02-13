@@ -165,7 +165,7 @@ this.work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	
 	objApp.gv_Search = "";
 	
-	this.staUserName.set_usedecorate(true);
+	this.staUserName.usedecorate = true;
     this.staUserName.set_text("<fc v='#F5A623'>" + objDs.getColumn(0,"LOGIN_NICKNAME") + "</fc>" 
                             + "<fc v='#888888'> 꿀벌님 환영합니다</fc>");
     

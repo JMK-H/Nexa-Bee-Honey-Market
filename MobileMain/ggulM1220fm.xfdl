@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="MWork_List" width="480" height="648" titletext="찜리스트" background="#ffffff" onload="MWork_List_onload">
+    <Layouts>
+      <Layout height="648" mobileorientation="portrait" width="480">
+        <Static id="stTotal" taborder="0" text="상품 27" left="15" top="10" width="80" height="30" font="bold 14px/normal 'Malgun Gothic'" color="#000000"/>
+        <ListView id="lstGoods" taborder="1" left="0" top="50" right="0" bottom="-122" binddataset="dsMyZzimList" scrollbarsize="0" bandinitstatus="collapse" onvscroll="lstMain_onvscroll" oncellclick="lstGoods_oncellclick" cursor="pointer">
+          <Formats>
+            <Format id="default">
+              <Band id="body" width="100%" height="380" background="#ffffff" border="0px none">
+                <Cell id="ImgGoods" left="5" top="5" right="5" height="220" displaytype="imagecontrol" text="bind:PHOTO_URL" imagestretch="fixaspectratio" border="0px none"/>
+                <Cell id="BadgeSale" left="5" top="195" width="70" height="24" font="bold 11px/normal 'Malgun Gothic'" textAlign="center" visible="true" displaytype="combotext" text="bind:POST_STATUS" combodataset="ds_status" combodatacol="VALUE" combocodecol="CODE" cssclass="expr:POST_STATUS == &quot;ING&quot; ? &quot;ING&quot; : POST_STATUS == &quot;RESERVED&quot; ? &quot;RESERVED&quot; : &quot;END&quot;"/>
+                <Cell id="IconHeart" top="190" width="30" height="30" right="10" displaytype="imagecontrol" text="imagerc::heart_icon.png" border="0px none"/>
+                <Cell id="Brand" left="5" top="235" right="5" height="20" font="bold 12px/normal 'Malgun Gothic'" color="#000000" textAlign="left" border="0px none" text="bind:USER_ID"/>
+                <Cell id="Title" left="5" top="255" right="5" height="40" text="bind:TITLE" font="normal 13px/normal 'Malgun Gothic'" color="#333333" textAlign="left" wordWrap="char" border="0px none" verticalAlign="top"/>
+                <Cell id="Price" left="5" top="300" right="45" height="25" text="bind:PRICE" displaytype="number" font="bold 16px/normal 'Malgun Gothic'" color="#000000" textAlign="left" border="0px none"/>
+                <Cell id="Likes" left="5" top="330" right="5" height="20" text="bind:LIKE_CNT" font="normal 11px/normal 'Malgun Gothic'" color="#888888" textAlign="left" border="0px none"/>
+                <Cell id="Cell00" left="98" top="198" width="70" height="22" text="bind:POST_STATUS"/>
+                <Cell id="Cell01" left="194" top="195" width="141" height="30" text="expr:POST_STATUS == &quot;ING&quot; ? &quot;구매가능&quot; : POST_STATUS == &quot;RESERVED&quot; ? &quot;예약중&quot; : &quot;구매불가&quot;"/>
+              </Band>
+            </Format>
+          </Formats>
+        </ListView>
+        <ListView id="ListView00" taborder="2" left="496" top="60" width="274" height="220" binddataset="dsMyZzimList">
+          <Formats>
+            <Format id="default">
+              <Band id="body" width="100%" height="70">
+                <Cell id="Cell00" left="10" top="5" width="120" height="24" text="POST_ID" cssclass="bind:POST_STATUS"/>
+                <Cell id="Cell01" left="135" top="10" width="105" height="19" text="bind:POST_ID"/>
+                <Cell id="Cell02" left="10" top="34" width="120" height="24" text="TITLE"/>
+                <Cell id="Cell03" left="135" top="39" width="105" height="19" text="bind:TITLE"/>
+              </Band>
+            </Format>
+          </Formats>
+        </ListView>
+        <Button id="Button00" taborder="3" text="Button00" left="383" top="587" width="98" height="68" onclick="Button00_onclick"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsList">
+        <ColumnInfo>
+          <Column id="GOODS_ID" type="STRING" size="256"/>
+          <Column id="IMG_URL" type="STRING" size="256"/>
+          <Column id="BRAND_NAME" type="STRING" size="256"/>
+          <Column id="GOODS_NAME" type="STRING" size="256"/>
+          <Column id="PRICE" type="INT" size="256"/>
+          <Column id="DISCOUNT_RATE" type="STRING" size="256"/>
+          <Column id="LIKE_CNT" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="GOODS_ID">1001</Col>
+            <Col id="BRAND_NAME">예일</Col>
+            <Col id="GOODS_NAME">스몰아치 스웨트셔츠_블랙</Col>
+            <Col id="PRICE">39200</Col>
+            <Col id="DISCOUNT_RATE">20%</Col>
+            <Col id="LIKE_CNT">♥ 2.3만 ★ 4.8</Col>
+            <Col id="IMG_URL">https://image.msscdn.net/images/goods_img/20230821/3475971/3475971_16925828484558_500.jpg</Col>
+          </Row>
+          <Row>
+            <Col id="GOODS_ID">1002</Col>
+            <Col id="BRAND_NAME">효지</Col>
+            <Col id="GOODS_NAME">25 FW 워셔블 케이블 크롭 헨리넥 니트</Col>
+            <Col id="PRICE">35500</Col>
+            <Col id="DISCOUNT_RATE">49%</Col>
+            <Col id="LIKE_CNT">♥ 2.4만 ★ 4.9</Col>
+            <Col id="IMG_URL">https://image.msscdn.net/images/goods_img/20230911/3551532/3551532_16956247920786_500.jpg</Col>
+          </Row>
+          <Row>
+            <Col id="GOODS_ID">1003</Col>
+            <Col id="BRAND_NAME">메종미네드</Col>
+            <Col id="GOODS_NAME">SCRIPT TYPE ROUND NECK CARDIGAN</Col>
+            <Col id="PRICE">83850</Col>
+            <Col id="DISCOUNT_RATE">35%</Col>
+            <Col id="LIKE_CNT">♥ 243 ★ 5.0</Col>
+            <Col id="IMG_URL">https://image.msscdn.net/images/goods_img/20230904/3527267/3527267_16938766551000_500.jpg</Col>
+          </Row>
+          <Row>
+            <Col id="GOODS_ID">1004</Col>
+            <Col id="BRAND_NAME">무신사 스탠다드</Col>
+            <Col id="GOODS_NAME">코튼 텐셀 에센셜 라운드 넥 가디건</Col>
+            <Col id="PRICE">31790</Col>
+            <Col id="DISCOUNT_RATE">47%</Col>
+            <Col id="LIKE_CNT">♥ 1.3천 ★ 4.9</Col>
+            <Col id="IMG_URL">https://image.msscdn.net/images/goods_img/20210819/2074526/2074526_1_500.jpg</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsSearch">
+        <ColumnInfo>
+          <Column id="records" type="INT" size="256"/>
+          <Column id="page" type="INT" size="256"/>
+          <Column id="recordsOffset" type="INT" size="256"/>
+          <Column id="pageCount" type="INT" size="256"/>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsMyZzimList">
+        <ColumnInfo>
+          <Column id="POST_ID" type="STRING" size="256"/>
+          <Column id="TITLE" type="STRING" size="256"/>
+          <Column id="PRICE" type="STRING" size="256"/>
+          <Column id="PHOTO_URL" type="STRING" size="256"/>
+          <Column id="REG_DATE" type="STRING" size="256"/>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+          <Column id="BUYER_ID" type="STRING" size="256"/>
+          <Column id="POST_STATUS" type="STRING" size="256"/>
+          <Column id="MY_LIKE_STATE" type="STRING" size="256"/>
+          <Column id="UNLIKE_CNT" type="STRING" size="256"/>
+          <Column id="LIKE_CNT" type="STRING" size="256"/>
+          <Column id="POST_COMMEND" type="STRING" size="256"/>
+          <Column id="LOGIN_SCORE" type="STRING" size="256"/>
+          <Column id="IS_WISH" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsPagingInfo">
+        <ColumnInfo>
+          <Column id="totalCount" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsTemp">
+        <ColumnInfo>
+          <Column id="POST_ID" type="STRING" size="256"/>
+          <Column id="TITLE" type="STRING" size="256"/>
+          <Column id="PRICE" type="STRING" size="256"/>
+          <Column id="PHOTO_URL" type="STRING" size="256"/>
+          <Column id="REG_DATE" type="STRING" size="256"/>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+          <Column id="BUYER_ID" type="STRING" size="256"/>
+          <Column id="POST_STATUS" type="STRING" size="256"/>
+          <Column id="MY_LIKE_STATE" type="STRING" size="256"/>
+          <Column id="UNLIKE_CNT" type="STRING" size="256"/>
+          <Column id="LIKE_CNT" type="STRING" size="256"/>
+          <Column id="POST_COMMEND" type="STRING" size="256"/>
+          <Column id="IS_WISH" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_status">
+        <ColumnInfo>
+          <Column id="CODE" type="STRING" size="256"/>
+          <Column id="VALUE" type="STRING" size="256"/>
+          <Column id="CSS" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="CODE">ING</Col>
+            <Col id="VALUE">구매가능</Col>
+            <Col id="CSS">ING</Col>
+          </Row>
+          <Row>
+            <Col id="CODE">RESERVED</Col>
+            <Col id="VALUE">예약중</Col>
+            <Col id="CSS">RESERVED</Col>
+          </Row>
+          <Row>
+            <Col id="CODE">END</Col>
+            <Col id="VALUE">판매완료</Col>
+            <Col id="CSS">END</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[this.fvRecords = 4;      // 한 번에 가져올 개수
+this.fvRecordsOffset = 0; // DB에서 몇 번째부터 가져올지
+this.fv_isSearch = false; //중복 조회 방지
+
+
+this.MWork_List_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+    this.fvRecordsOffset = 0;
+    this.fnSearch();
+};
+
+this.fnSearch = function ()
+{
+    if (this.fv_isSearch) return; 
+    this.fv_isSearch = true; // 조회중 true
+	
+    var sLoginId = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ID");
+	this.dsSearch.clearData();
+	var nRow = this.dsSearch.addRow();
+	this.dsSearch.setColumn(nRow, "records", this.fvRecords);
+	this.dsSearch.setColumn(nRow, "recordsOffset", this.fvRecordsOffset);
+	this.dsSearch.setColumn(nRow, "LOGIN_ID", sLoginId);                      
+     	
+ 	var strSvcUrl = "nexa/getMyZzimList.do";
+ 	var inData = "dsSearch=dsSearch";
+ 	var strArg = "pLoginId=" + nexacro.wrapQuote(sLoginId);
+ 	var outData = "dsMyZzimList=dsMyZzimList dsPagingInfo=dsPagingInfo";
+ 
+ 	this.gfnTransaction("getMyZzimList"
+ 						, strSvcUrl
+ 						, inData //이클립스받기=넥사크로주기
+ 						, outData //넥사크로받기=이클립스주기
+ 						, strArg
+ 						, "fnCallback"
+ 						, true);
+};
+
+//=======================================페이징 처리 관련 함수들=================================================
+
+ this.fnPageInit = function ()
+ {
+ 	//pagin info init setting
+	this.fvRecords=4;                                //목록갯수
+	this.fvPage=0;	 								 //페이지번호
+	this.fvRecordsOffset=0;							 //시작rownum
+	this.fvPageCount = 10;							 //실제표출페이지갯수
+	
+	this.fnSearch();
+ };
+
+this.fnSearch = function ()
+{	
+	var sLoginId = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ID");
+	this.dsSearch.clearData();
+	var nRow = this.dsSearch.addRow();
+	this.dsSearch.setColumn(nRow, "records", this.fvRecords);
+	this.dsSearch.setColumn(nRow, "recordsOffset", this.fvRecordsOffset);
+	this.dsSearch.setColumn(nRow, "LOGIN_ID", sLoginId);                      
+     	
+ 	var strSvcUrl = "nexa/getMyZzimList.do";
+ 	var inData = "dsSearch=dsSearch";
+ 	var strArg = "pLoginId=" + nexacro.wrapQuote(sLoginId);
+ 	var outData = "dsTemp=dsMyZzimList dsPagingInfo=dsPagingInfo";
+ 
+ 	this.gfnTransaction("getMyZzimList"
+ 						, strSvcUrl
+ 						, inData //이클립스받기=넥사크로주기
+ 						, outData //넥사크로받기=이클립스주기
+ 						, strArg
+ 						, "fnCallback"
+ 						, true);
+};
+//================================================물품상세보기===========================================
+
+this.lstGoods_oncellclick = function(obj:nexacro.ListView,e:nexacro.ListViewClickEventInfo)
+{
+	var sPostId = this.dsMyZzimList.getColumn(e.row, "POST_ID");
+	var sTitle = this.dsMyZzimList.getColumn(e.row, "TITLE");
+	var sPrice = this.dsMyZzimList.getColumn(e.row, "PRICE");
+	var sImageUrl = this.dsMyZzimList.getColumn(e.row, "PHOTO_URL");
+	var sPostCommend = this.dsMyZzimList.getColumn(e.row, "POST_COMMEND");
+	var sLoginScore = this.dsMyZzimList.getColumn(e.row, "LOGIN_SCORE");
+	var sRegDate = this.dsMyZzimList.getColumn(e.row, "REG_DATE");
+	var sWriter = this.dsMyZzimList.getColumn(e.row, "USER_ID");
+	var sBuyerId = this.dsMyZzimList.getColumn(e.row, "BUYER_ID");
+	var sStatus = this.dsMyZzimList.getColumn(e.row, "POST_STATUS");
+	var sIsWish = this.dsMyZzimList.getColumn(e.row, "IS_WISH");
+	var btnZzimControl = "Zzim";
+	
+	var sPopupId = "sDetailPopup"; //Popup ID
+	var sUrl = "MobileMain::ggulM1210pu.xfdl"; //팝업 URL
+	var oArg = {sIsWish:sIsWish, sRegDate:sRegDate, sLoginScore:sLoginScore, sPostId:sPostId, sTitle:sTitle, sPrice:sPrice, sImageUrl:sImageUrl, sPostCommend:sPostCommend
+				, sParent:this, sWriter:sWriter, sBuyerId:sBuyerId, sStatus:sStatus, btnZzimControl:btnZzimControl}; //전달값
+	var sPopupCallback = "fnPopupCallback";
+	var oOption = {title:"모달 팝업", titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
+
+	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);	
+};
+
+//=================================================스크롤이벤트===========================================
+this.lstMain_onvscroll = function(obj:nexacro.ListView,e:nexacro.ScrollEventInfo)
+{
+
+    if (e.pos > obj.vscrollbar.max -10  && !this.fv_isSearch) 
+    {
+        if (this.dsTemp.getRowCount() < this.fvRecords) return;
+
+
+        this.fnSearch();
+    }
+	
+};
+
+//============================================콜백함수=====================================================
+this.fnCallback = function (svcID, errCd, errMsg)
+{
+	if(svcID=="getMyZzimList")
+	{
+		var totalCount = this.dsPagingInfo.getColumn(0, "totalCount");
+		this.stTotal.text = "상품 "+ totalCount;
+		this.fv_isSearch = false;
+		if (this.fvRecordsOffset == 0) //첫 조회이면 갈아끼우기
+        {
+            this.dsMyZzimList.clearData();
+            this.dsMyZzimList.copyData(this.dsTemp);	
+        }
+        else 
+        {
+            this.dsMyZzimList.appendData(this.dsTemp);
+			
+        }
+		//this.dsMyZzimList.rowposition = this.dsMyZzimList.rowcount-3; //스크롤바 위로 튕기기 방지용
+        var nCnt = this.dsTemp.getRowCount();
+        this.fvRecordsOffset = this.fvRecordsOffset + nCnt;	
+	}
+};
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{ 
+	trace(this.dsMyZzimList.saveXML());
+};
+]]></Script>
+  </Form>
+</FDL>

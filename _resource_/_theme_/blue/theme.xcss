@@ -3308,7 +3308,45 @@
 	background : #ffd170;
 	
 }
-]]></CSSData>
+.ListView .body .cell.END
+{
+	background : #d93025;
+	color : #ffffff;
+	border-radius : 12px;
+	font : bold 12px "Malgun Gothic";   
+}
+
+.ListView .body .cell.RESERVED
+{
+	
+	background : #ff8c00;
+	color : #ffffff;
+	font : bold 12px "Malgun Gothic";  
+}
+
+.ListView .body .cell.ING
+{
+	background : #007d32;
+	color : #ffffff;
+	border-radius : 12px;
+	font : bold 12px "Malgun Gothic"; 
+}
+/*============================================테스트구역========================================*/
+.ListView .body .cell.WF_PINK
+{
+   background : pink;
+ 
+}
+.ListView .body .cell.WF_GREEN
+{
+   background : green;
+   
+}
+.ListView .body .cell.WF_YELLOW
+{
+   background : yellow;
+   
+}]]></CSSData>
   <CSSData type="desktop"><![CDATA[]]></CSSData>
   <CSSData type="mobile_large"><![CDATA[]]></CSSData>
   <CSSData type="mobile_small"><![CDATA[]]></CSSData>

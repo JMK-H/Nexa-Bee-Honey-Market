@@ -1,11 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="MainMobile" width="480" height="800" titletext="모바일 메인" background="#ffffff">
+  <Form id="MainMobile" width="480" height="768" titletext="모바일 메인" background="#ffffff" scrolltype="none">
     <Layouts>
-      <Layout height="800" mobileorientation="portrait" width="480">
+      <Layout height="768" mobileorientation="portrait" width="480">
         <Div id="divTop" taborder="0" left="0" top="0" height="60" right="0" border="0px none, 0px none, 1px solid #eeeeee" url="MobileMain::MTop.xfdl"/>
         <Div id="divBottom" taborder="1" left="0" height="60" right="0" bottom="0" background="#f9f9f9" border="1px solid #dddddd, 0px none, 0px none" url="MobileMain::MBottom.xfdl"/>
         <Div id="divWork" taborder="2" left="0" top="60" background="#ffffff" url="MobileMain::MWork.xfdl" bottom="60" right="0"/>
+        <Div id="divLeft" taborder="3" text="Div00" left="0" top="60" width="0" height="708" url="MobileMain::MLeft.xfdl">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
       </Layout>
     </Layouts>
   </Form>
