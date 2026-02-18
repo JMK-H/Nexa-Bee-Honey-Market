@@ -12,7 +12,7 @@
               <Layouts>
                 <Layout>
                   <Static id="staInfo1" taborder="0" text="구매 요청이 들어온 상품입니다." left="20" top="10" height="30" right="20" color="#ff8c00" font="12px 'Malgun Gothic'"/>
-                  <ListView id="lstReserved" taborder="1" left="0" top="45" right="0" bottom="0" binddataset="dsSell_Reserved" bandinitstatus="collapse" scrollbarsize="5" oncellclick="lstReserved_oncellclick" background="#f7f7f7" border="0px none">
+                  <ListView id="lstReserved" taborder="1" left="0" top="45" right="0" bottom="0" binddataset="dsSell_Reserved" bandinitstatus="collapse" scrollbarsize="5" background="#f7f7f7" border="0px none" oncellclick="lstReserved_oncellclick">
                     <Formats>
                       <Format id="default">
                         <Band id="body" width="100%" height="160" background="#f7f7f7" border="0px none">
@@ -344,258 +344,268 @@
       </Dataset>
     </Objects>
     <Script type="xscript5.1"><![CDATA[
+
 this.sPostId = "";
 this.sPostStatus = "";
-this.fv_nPrice = 0;//내 물건 팔 때 수락 누르면 잠시 가격 기억해둘 변수
+this.fv_nPrice = 0; // 내 물건 팔 때 수락 누르면 잠시 가격 기억해둘 변수
 
 this.PopMyShop_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	this.getOwnerFrame().set_border("0px none");
-    
+    this.getOwnerFrame().set_border("0px none");
     this.getOwnerFrame().set_background("transparent");
-    
     this.set_background("transparent");
-	
-	var objApp = nexacro.getApplication();
-	var LoginId = objApp.gdsLoginUser.getColumn(0, "LOGIN_ID");
-	this.dsInfo.clearData();
-	var nRow = this.dsInfo.addRow();
-	this.dsInfo.setColumn(nRow, "LOGIN_ID", LoginId);
-	
-	var strSvcUrl = "nexa/getCurrentLoginUserItem.do";
-	var inData = "dsInfo=dsInfo";
-	var strArg = "";
-	var outData = "dsMySalesList=dsMySalesList dsMyBuyList=dsMyBuyList ds_menu=ds_menu";
+    
+    var objApp = nexacro.getApplication();
+    var LoginId = objApp.gdsLoginUser.getColumn(0, "LOGIN_ID");
+    
+    this.dsInfo.clearData();
+    var nRow = this.dsInfo.addRow();
+    this.dsInfo.setColumn(nRow, "LOGIN_ID", LoginId);
+    
+    var strSvcUrl = "nexa/getCurrentLoginUserItem.do";
+    var inData = "dsInfo=dsInfo";
+    var strArg = "";
+    var outData = "dsMySalesList=dsMySalesList dsMyBuyList=dsMyBuyList ds_menu=ds_menu";
 
-	this.gfnTransaction("getCurrentLoginUserItem"
-						, strSvcUrl
-						, inData //이클립스받기=넥사크로주기
-						, outData //넥사크로받기=이클립스주기
-						, strArg
-						, "fnCallback"
-						, true);
+    this.gfnTransaction("getCurrentLoginUserItem"
+                        , strSvcUrl
+                        , inData 
+                        , outData 
+                        , strArg
+                        , "fnCallback"
+                        , true);
 };
-//닫기버튼
+
+// 닫기 버튼
 this.btnClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	this.close();
+    this.close();
 };
 
-//버튼 누르기 메서드
-this.grdReserved_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+// 탭 1 판매 현황 승인거절
+this.lstReserved_oncellclick = function(obj:nexacro.ListView,e:nexacro.ListViewClickEventInfo)
 {
-	if(!(e.col==5 || e.col==6)) {return;}
-	
-	this.dsInfo.clearData();
-	var nRow = this.dsInfo.addRow();
-	this.sPostId = this.dsSell_Reserved.getColumn(e.row, "POST_ID");
-	var sLoginId = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ID");
-	this.dsInfo.setColumn(nRow, "POST_ID", this.sPostId);
-	this.dsInfo.setColumn(nRow, "LOGIN_ID", sLoginId);
-	
-	if(e.col==5)//승인버튼
-	{
-// 		this.dsInfo.setColumn(nRow, "TYPE", "END");
- 		this.fv_nPrice = this.dsSell_Reserved.getColumn(e.row, "PRICE");
-		var sMsgId = "msg.accept.item"; //메세지ID
-		var arrArg = []; //메세지취환될값 배열[생략가능]
-		var sPopId = "msg.accept.item"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
-		var sMsgCallback = "fnPopupCallback";
+    this.sPostId = this.dsSell_Reserved.getColumn(e.row, "POST_ID");
+    
+    if(e.cellid == "btnApprove") // 승인 버튼
+    {
+        this.fv_nPrice = this.dsSell_Reserved.getColumn(e.row, "PRICE");
+        
+        var sMsgId = "msg.accept.item"; // 메시지 ID
+        var arrArg = []; 
+        var sPopId = "msg.accept.item"; // 팝업 ID
+        var sMsgCallback = "fnPopupCallback";
 
-		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
-	}
-	else if(e.col==6)//거절버튼
-	{
-//		this.dsInfo.setColumn(nRow, "TYPE", "ING");
-		this.fv_nPrice = 0;
-		var sMsgId = "msg.reject.item"; //메세지ID
-		var arrArg = []; //메세지취환될값 배열[생략가능]
-		var sPopId = "msg.reject.item"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
-		var sMsgCallback = "fnPopupCallback";
+        this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+    }
+    else if(e.cellid == "btnReject") // 거절 버튼
+    {
+        this.fv_nPrice = 0;
+        
+        var sMsgId = "msg.reject.item"; 
+        var arrArg = []; 
+        var sPopId = "msg.reject.item"; 
+        var sMsgCallback = "fnPopupCallback";
 
-		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
-	}
+        this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+    }
 };
 
-//4페이지 클릭이벤트
-this.tabMain_tabPage4_Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+// 탭 3 구매 내역 후기 작성
+
+this.lstComplete_oncellclick = function(obj:nexacro.ListView,e:nexacro.ListViewClickEventInfo)
 {
-	if(e.col!=5) {return};
-	this.sPostId = this.dsMySalesList.getColumn(e.row, "POST_ID");
-	this.sPostStatus = this.dsMySalesList.getColumn(e.row, "POST_STATUS");
-	var sMsgId = "msg.before.delete"; //메세지ID
-	var arrArg = []; //메세지취환될값 배열[생략가능]
-	var sPopId = "msg.before.delete"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
-	var sMsgCallback = "fnPopupCallback";
-
-	this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+    // 후기 작성 버튼 클릭 시
+    if(e.cellid == "btnReview")
+    {
+        var sScore = this.dsBuy_Complete.getColumn(e.row, "POST_SCORE");
+        
+        // 이미 후기를 작성했는지 확인
+        if(sScore) {
+            var sMsgId = "msg.already.review"; 
+            var arrArg = []; 
+            var sPopId = ""; 
+            var sMsgCallback = "";
+    
+            this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+            return;
+        }
+        
+        // 후기 작성 팝업 호출
+        var sPostId = this.dsBuy_Complete.getColumn(e.row, "POST_ID");
+        
+        var sPopupId = "sScorePopup";
+        var sUrl = "Main::ggul1490pu.xfdl"; // (경로 확인 필요: MobileMain::... 일 수도 있음)
+        var oArg = {sPostId:sPostId, sParentForm: this, Row:e.row}; 
+        var sPopupCallback = "fnPopupCallback";
+        var oOption = {title:"후기 작성", titlebar: false}; 
+    
+        this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
+    }
 };
 
-//==========================================콜백 메서드==============================================================
+// 탭 4내 물품삭제
+this.lstMyItem_oncellclick = function(obj:nexacro.ListView,e:nexacro.ListViewClickEventInfo)
+{
+
+    if(e.cellid == "btnDelete")
+    {
+        this.sPostId = this.dsMySalesList.getColumn(e.row, "POST_ID");
+        this.sPostStatus = this.dsMySalesList.getColumn(e.row, "POST_STATUS");
+        
+        var sMsgId = "msg.before.delete"; 
+        var arrArg = []; 
+        var sPopId = "msg.before.delete"; 
+        var sMsgCallback = "fnPopupCallback";
+    
+        this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+    }
+};
+
+// =========================================콜백 트랜잭션=======================================
+
 this.fnCallback = function (svcID, errCd, errMsg)
 {
-		if(svcID == "getCurrentLoginUserItem")//온로드에서의 정보 받아오기 트랜잭션
-		{
-			this.dsSell_Reserved.copyData(this.dsMySalesList);   
-			this.dsSell_Reserved.filter("POST_STATUS=='RESERVED'"); 
-			
-			this.dsMySalesList.filter(""); 
-			
-			this.dsBuy_Reserved.copyData(this.dsMyBuyList); 
-			this.dsBuy_Reserved.filter("POST_STATUS=='RESERVED'");  
-			
-			this.dsBuy_Complete.copyData(this.dsMyBuyList);  
-			this.dsBuy_Complete.filter("POST_STATUS=='END'");      
-		}
-		else if(svcID=="acceptOrRejectReserved")//수락이든 거절이든 버튼 누르면 오는 콜백
-		{
-			this.PopMyShop_onload(); //사용자 화면 편의 리로딩
-			if (this.fv_nPrice > 0) //퀵뷰에 있는 회원정보 가격 최신화 로직
-			{
-				var objApp = nexacro.getApplication();
-				var nCurCash = objApp.gdsLoginUser.getColumn(0, "LOGIN_CASH"); 
-				var nNewCash = parseInt(nCurCash) + parseInt(this.fv_nPrice);
-				
-				objApp.gdsLoginUser.setColumn(0, "LOGIN_CASH", nNewCash);
-				
-				this.fv_nPrice = 0;
-				var parentForm = this.getOwnerFrame().parentForm;
-				parentForm.reload();
-			}
-		}
-		else if(svcID=="deleteLoginUserPost")//자신의 게시물 삭제 콜백
-		{
-			var objApp = nexacro.getApplication();
-			var LoginId = objApp.gdsLoginUser.getColumn(0, "LOGIN_ID");
-			this.dsInfo.clearData();
-			var nRow = this.dsInfo.addRow();
-			this.dsInfo.setColumn(nRow, "LOGIN_ID", LoginId);
-			
-			var strSvcUrl = "nexa/getCurrentLoginUserItem.do";
-			var inData = "dsInfo=dsInfo";
-			var strArg = "";
-			var outData = "dsMySalesList=dsMySalesList dsMyBuyList=dsMyBuyList ds_menu=ds_menu";
+    if(svcID == "getCurrentLoginUserItem") // 초기 조회
+    {
+        this.dsSell_Reserved.copyData(this.dsMySalesList);   
+        this.dsSell_Reserved.filter("POST_STATUS=='RESERVED'"); 
+        
+        this.dsMySalesList.filter(""); 
+        
+        this.dsBuy_Reserved.copyData(this.dsMyBuyList); 
+        this.dsBuy_Reserved.filter("POST_STATUS=='RESERVED'");  
+        
+        this.dsBuy_Complete.copyData(this.dsMyBuyList);  
+        this.dsBuy_Complete.filter("POST_STATUS=='END'");       
+    }
+    else if(svcID=="acceptOrRejectReserved") // 승인/거절 완료
+    {
+        this.PopMyShop_onload(); 
+        
+        if (this.fv_nPrice > 0) 
+        {
+            var objApp = nexacro.getApplication();
+            var nCurCash = objApp.gdsLoginUser.getColumn(0, "LOGIN_CASH"); 
+            var nNewCash = parseInt(nCurCash) + parseInt(this.fv_nPrice);
+            
+            objApp.gdsLoginUser.setColumn(0, "LOGIN_CASH", nNewCash);
+            
+            this.fv_nPrice = 0;
+        }
+    }
+    else if(svcID=="deleteLoginUserPost") // 삭제 완료
+    {
+        // 삭제 후 재조회
+        var objApp = nexacro.getApplication();
+        var LoginId = objApp.gdsLoginUser.getColumn(0, "LOGIN_ID");
+        
+        this.dsInfo.clearData();
+        var nRow = this.dsInfo.addRow();
+        this.dsInfo.setColumn(nRow, "LOGIN_ID", LoginId);
+        
+        var strSvcUrl = "nexa/getCurrentLoginUserItem.do";
+        var inData = "dsInfo=dsInfo";
+        var strArg = "";
+        var outData = "dsMySalesList=dsMySalesList dsMyBuyList=dsMyBuyList ds_menu=ds_menu";
 
-			this.gfnTransaction("getCurrentLoginUserItem"
-								, strSvcUrl
-								, inData //이클립스받기=넥사크로주기
-								, outData //넥사크로받기=이클립스주기
-								, strArg
-								, "fnCallback"
-								, true);
-			var sMsgId = "msg.delete.success"; //메세지ID
-			var arrArg = []; //메세지취환될값 배열[생략가능]
-			var sPopId = sMsgId; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
-			var sMsgCallback = "";
-
-			this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
-		}
+        this.gfnTransaction("getCurrentLoginUserItem"
+                            , strSvcUrl
+                            , inData
+                            , outData
+                            , strArg
+                            , "fnCallback"
+                            , true);
+                            
+        this.gfnAlert("msg.delete.success");
+    }
 };
-
-this.tabMain_tabPage3_grdMyAll_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
-{
-	if(e.col!=5){return;}
-	var sScore = this.dsBuy_Complete.getColumn(e.row, "POST_SCORE");
-	if(sScore){
-		var sMsgId = "msg.already.review"; //메세지ID
-		var arrArg = []; //메세지취환될값 배열[생략가능]
-		var sPopId = ""; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
-		var sMsgCallback = "";
-
-		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
-		return;
-	}
-	var sPostId = this.dsBuy_Complete.getColumn(e.row, "POST_ID");
-	
-	var sPopupId = "sScorePopup"; //Popup ID
-	var sUrl = "Main::ggul1490pu.xfdl"; //팝업 URL
-	var oArg = {sPostId:sPostId, sParentForm: this, Row:e.row}; //전달값
-	var sPopupCallback = "fnCallPopup";
-	var oOption = {title:"모달 팝업", titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
-
-	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
-
-	
-};
-
-//===================================================팝업 콜백================================================
+//============================================= 콜백 팝업 후처리================================
 this.fnPopupCallback = function (svcID, rtn)
 {
-	if(svcID=="sScorePopup")//후기주는 팝업 닫힐때
-	{
-		
-	}
-	else if(svcID=="msg.before.delete")
-	{
-		if(rtn)
-		{
-			this.dsInfo.clearData();
-			var nRow = this.dsInfo.addRow();
-			this.dsInfo.setColumn(nRow, "POST_ID", this.sPostId);
-			this.dsInfo.setColumn(nRow, "TYPE", this.sPostStatus);
-			
-			var strSvcUrl = "nexa/deleteLoginUserPost.do";
-			var inData = "dsInfo=dsInfo";
-			var strArg = "";
-			var outData = "";
+    // 후기 작성 팝업 닫힘
+    if(svcID=="sScorePopup")
+    {
+        // 필요 시 재조회 로직 추가
+    }
+    // 삭제 확인
+    else if(svcID=="msg.before.delete")
+    {
+        if(rtn)
+        {
+            this.dsInfo.clearData();
+            var nRow = this.dsInfo.addRow();
+            this.dsInfo.setColumn(nRow, "POST_ID", this.sPostId);
+            this.dsInfo.setColumn(nRow, "TYPE", this.sPostStatus);
+            
+            var strSvcUrl = "nexa/deleteLoginUserPost.do";
+            var inData = "dsInfo=dsInfo";
+            var strArg = "";
+            var outData = "";
 
-			this.gfnTransaction("deleteLoginUserPost"
-								, strSvcUrl
-								, inData //이클립스받기=넥사크로주기
-								, outData //넥사크로받기=이클립스주기
-								, strArg
-								, "fnCallback"
-								, true);
-		}
-	}
-	else if(svcID=="msg.accept.item")//물품 승인
-	{
-		if(rtn)
-		{
-			this.dsInfo.clearData();
-			var nRow = this.dsInfo.addRow();
-			var sLoginId = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ID");
-			this.dsInfo.setColumn(nRow, "POST_ID", this.sPostId);
-			this.dsInfo.setColumn(nRow, "LOGIN_ID", sLoginId);
-			this.dsInfo.setColumn(nRow, "TYPE", "END");
-			var strSvcUrl = "nexa/acceptOrRejectReserved.do";
-			var inData = "dsInfo=dsInfo";
-			var strArg = "";
-			var outData = "";
+            this.gfnTransaction("deleteLoginUserPost"
+                                , strSvcUrl
+                                , inData 
+                                , outData 
+                                , strArg
+                                , "fnCallback"
+                                , true);
+        }
+    }
+    // 거래 승인 확인
+    else if(svcID=="msg.accept.item")
+    {
+        if(rtn)
+        {
+            this.dsInfo.clearData();
+            var nRow = this.dsInfo.addRow();
+            var sLoginId = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ID");
+            
+            this.dsInfo.setColumn(nRow, "POST_ID", this.sPostId);
+            this.dsInfo.setColumn(nRow, "LOGIN_ID", sLoginId);
+            this.dsInfo.setColumn(nRow, "TYPE", "END"); // 거래 완료
+            
+            var strSvcUrl = "nexa/acceptOrRejectReserved.do";
+            var inData = "dsInfo=dsInfo";
+            var strArg = "";
+            var outData = "";
 
-			this.gfnTransaction("acceptOrRejectReserved"
-								, strSvcUrl
-								, inData //이클립스받기=넥사크로주기
-								, outData //넥사크로받기=이클립스주기
-								, strArg
-								, "fnCallback"
-								, true);
-		}
-	}
-	else if(svcID == "msg.reject.item")
-	{
-		if(rtn)
-		{
-			this.dsInfo.clearData();
-			var nRow = this.dsInfo.addRow();
-			var sLoginId = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ID");
-			this.dsInfo.setColumn(nRow, "POST_ID", this.sPostId);
-			this.dsInfo.setColumn(nRow, "LOGIN_ID", sLoginId);
-			this.dsInfo.setColumn(nRow, "TYPE", "ING");
-			var strSvcUrl = "nexa/acceptOrRejectReserved.do";
-			var inData = "dsInfo=dsInfo";
-			var strArg = "";
-			var outData = "";
+            this.gfnTransaction("acceptOrRejectReserved"
+                                , strSvcUrl
+                                , inData
+                                , outData
+                                , strArg
+                                , "fnCallback"
+                                , true);
+        }
+    }
+    // 거래 거절 확인
+    else if(svcID == "msg.reject.item")
+    {
+        if(rtn)
+        {
+            this.dsInfo.clearData();
+            var nRow = this.dsInfo.addRow();
+            var sLoginId = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ID");
+            
+            this.dsInfo.setColumn(nRow, "POST_ID", this.sPostId);
+            this.dsInfo.setColumn(nRow, "LOGIN_ID", sLoginId);
+            this.dsInfo.setColumn(nRow, "TYPE", "ING"); // 판매중으로 복귀
+            
+            var strSvcUrl = "nexa/acceptOrRejectReserved.do";
+            var inData = "dsInfo=dsInfo";
+            var strArg = "";
+            var outData = "";
 
-			this.gfnTransaction("acceptOrRejectReserved"
-								, strSvcUrl
-								, inData //이클립스받기=넥사크로주기
-								, outData //넥사크로받기=이클립스주기
-								, strArg
-								, "fnCallback"
-								, true);
-		}
-	}
+            this.gfnTransaction("acceptOrRejectReserved"
+                                , strSvcUrl
+                                , inData
+                                , outData
+                                , strArg
+                                , "fnCallback"
+                                , true);
+        }
+    }
 };]]></Script>
   </Form>
 </FDL>

@@ -146,6 +146,10 @@ this.fnPopupCallback = function (svcID, rtn)
 	{
 		this.reload();
 	}
+	else if(svcID=="sCheckInfo")
+	{
+		this.reload();
+	}
 };
 
 //=======================================트랜잭션콜백=================================================
