@@ -3,17 +3,16 @@
   <Form id="MobileDetail" width="480" height="768" titletext="상품상세" scrolltype="vertical" onload="ggulM1210pu_onload" background="transparent" onclick="MobileDetail_onclick">
     <Layouts>
       <Layout height="768" width="480">
-        <Static id="Static01" taborder="12" text="" left="40" top="84" width="400" height="600" background="white"/>
+        <Static id="Static01" taborder="11" text="" left="40" top="84" width="400" height="600" background="white"/>
         <Static id="stProfileBg" taborder="1" left="40" top="450" width="100%" height="80" border="0px none,0px none,1px solid #e9ecef"/>
         <Static id="stNickName" taborder="2" text="콩이" left="56" top="371" width="150" height="24" font="bold 15px/normal 'Malgun Gothic'" color="#212529"/>
-        <Static id="stLocation" taborder="3" text="식사동" left="56" top="392" width="150" height="20" font="normal 13px/normal 'Malgun Gothic'" color="#868e96"/>
-        <Static id="stGgulScore" taborder="4" text="35.7°C" top="368" width="60" height="24" font="bold 14px/normal 'Malgun Gothic'" color="#0dcc5a" right="90" textAlign="right"/>
-        <Static id="stTempIcon" taborder="5" text="😊" top="364" width="30" height="30" font="normal 22px/normal 'Malgun Gothic'" left="394"/>
-        <Static id="stManner" taborder="6" text="꿀벌점수" top="392" width="60" height="15" font="normal 11px/normal 'Malgun Gothic'" color="#868e96" textAlign="right" textDecoration="underline" left="362"/>
-        <Static id="stTitle" taborder="7" text="인생네컷 기계" left="56" top="425" width="368" height="30" font="bold 18px/normal 'Malgun Gothic'" color="#212529"/>
-        <Static id="stTime" taborder="8" text="디지털기기 ㆍ 끌올 1시간 전" left="56" top="455" width="368" height="20" font="normal 12px/normal 'Malgun Gothic'" color="#868e96"/>
-        <TextArea id="txtDesc" taborder="9" left="56" top="490" width="368" height="120" border="0px none" font="normal 15px/1.5 'Malgun Gothic'" color="#212529" wordWrap="char" readonly="true" value="네컷기계 판매합니다! 잘 작동하구요 프로그램 관리해주시는 사장님 연결시켜드릴 수 있어요!&#10;파티룸 하시던 사장님한테 양도받았다가 저희도 셀프스튜디오라 실내에 잠시 서비스차원에서 둔거였어욤&#10;인화지 여분이랑 그대로 전달해드릴게요 ~~&#10;안에 카메라, 본체, 프린터 싹다 포함이구요!" scrolltype="vertical"/>
-        <Div id="divBottom" taborder="10" left="40" height="70" width="400" background="#ffffff" border="1px solid #e9ecef,0px none,0px none" top="610">
+        <Static id="stGgulScore" taborder="3" text="35.7°C" top="368" width="60" height="24" font="bold 14px/normal 'Malgun Gothic'" color="#0dcc5a" right="90" textAlign="right"/>
+        <Static id="stTempIcon" taborder="4" text="😊" top="364" width="30" height="30" font="normal 22px/normal 'Malgun Gothic'" left="394"/>
+        <Static id="stManner" taborder="5" text="꿀벌점수" top="392" width="60" height="15" font="normal 11px/normal 'Malgun Gothic'" color="#868e96" textAlign="right" textDecoration="underline" left="362"/>
+        <Static id="stTitle" taborder="6" text="인생네컷 기계" left="56" top="425" width="368" height="30" font="bold 18px/normal 'Malgun Gothic'" color="#212529"/>
+        <Static id="stTime" taborder="7" text="디지털기기 ㆍ 끌올 1시간 전" left="56" top="455" width="368" height="20" font="normal 12px/normal 'Malgun Gothic'" color="#868e96"/>
+        <TextArea id="txtDesc" taborder="8" left="56" top="490" width="368" height="120" border="0px none" font="normal 15px/1.5 'Malgun Gothic'" color="#212529" wordWrap="char" readonly="true" value="네컷기계 판매합니다! 잘 작동하구요 프로그램 관리해주시는 사장님 연결시켜드릴 수 있어요!&#10;파티룸 하시던 사장님한테 양도받았다가 저희도 셀프스튜디오라 실내에 잠시 서비스차원에서 둔거였어욤&#10;인화지 여분이랑 그대로 전달해드릴게요 ~~&#10;안에 카메라, 본체, 프린터 싹다 포함이구요!" scrolltype="vertical"/>
+        <Div id="divBottom" taborder="9" left="40" height="70" width="400" background="#ffffff" border="1px solid #e9ecef,0px none,0px none" top="610">
           <Layouts>
             <Layout>
               <Static id="stLine" taborder="0" left="60" top="15" width="1" height="40" border="0px none,0px none,0px none,1px solid #e9ecef"/>
@@ -23,8 +22,8 @@
             </Layout>
           </Layouts>
         </Div>
-        <ImageViewer id="imgProduct" taborder="0" left="40" top="80" width="400" height="280" background="#eeeeee" text="" font="normal 14px/normal 'Malgun Gothic'" color="#999999" oncontextmenu="imgProduct_oncontextmenu"/>
-        <Static id="Static00" taborder="11" text="" left="40" top="80" width="400" height="280"/>
+        <ImageViewer id="imgProduct" taborder="0" left="40" top="80" width="400" height="280" background="#eeeeee" text="" font="normal 14px/normal 'Malgun Gothic'" color="#999999" oncontextmenu="imgProduct_oncontextmenu" stretch="fit"/>
+        <Static id="Static00" taborder="10" text="" left="40" top="80" width="400" height="280"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
@@ -61,6 +60,7 @@ this.ggulM1210pu_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	this.stTime.text = sFinalDate;
 	this.divBottom.form.btnZzim.set_icon(sIconUrl);
 	this.fn_SetButtonState(sStatus, sWriter, sBuyerId);
+	this.stNickName.text = sWriter;
 };
 //======================================================구매버튼 CSS======================================
 //구매요청 버튼 css조절 메서드

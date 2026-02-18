@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="MBoardWrite" width="480" height="900" titletext="모바일 글쓰기" background="#f7f7f7" onload="BoardWrite_onload">
+    <Layouts>
+      <Layout height="900" mobileorientation="portrait" width="480">
+        <Static id="StaTitle" taborder="0" text="꿀템 등록" left="20" top="20" width="120" height="30" font="bold 20px 'Malgun Gothic'" color="#333333"/>
+        <Static id="StaSubTitle" taborder="1" text="나만의 꿀템을 공유해주세요!" left="20" top="55" width="250" height="20" font="13px 'Malgun Gothic'" color="#888888"/>
+        <Static id="StaUploadBox" taborder="2" left="20" top="90" height="200" background="#ffffff" border="2px dashed #dddddd" borderRadius="10px" text="" width="440"/>
+        <Static id="StaUploadIcon" taborder="3" text="📷" left="140" top="150" width="200" height="40" textAlign="center" font="30px 'Malgun Gothic'"/>
+        <Static id="StaUploadText" taborder="4" text="사진을 등록해주세요" left="140" top="190" width="200" height="20" textAlign="center" font="13px 'Malgun Gothic'" color="#999999"/>
+        <ImageViewer id="imgPhoto" taborder="5" left="20" top="90" height="200" right="20" background="transparent" stretch="fit" border="0px none"/>
+        <Button id="btnFileUpload" taborder="6" left="20" top="90" height="200" background="transparent" border="0px none" cursor="pointer" onclick="btnFileUpload_onclick" width="440"/>
+        <Static id="StaLbTitle" taborder="7" text="제목 *" left="20" top="310" width="100" height="20" font="bold 13px 'Malgun Gothic'" color="#333333"/>
+        <Edit id="edtTitle" taborder="8" left="20" top="335" height="45" displaynulltext="제목을 입력하세요" background="#ffffff" border="1px solid #eeeeee" borderRadius="8px" padding="0px 10px" font="14px 'Malgun Gothic'" width="440"/>
+        <Static id="StaLbCat" taborder="9" text="카테고리 *" left="20" top="395" width="100" height="20" font="bold 13px 'Malgun Gothic'" color="#333333"/>
+        <Combo id="cboCategory" taborder="10" left="20" top="420" height="45" right="20" displaynulltext="카테고리 선택" innerdataset="ds_menu" codecolumn="MENU_ID" datacolumn="MENU_NAME" background="#ffffff" border="1px solid #eeeeee" borderRadius="8px" font="14px 'Malgun Gothic'" onitemchanged="cboCategory_onitemchanged"/>
+        <Static id="StaLbPlace" taborder="11" text="구매처" left="20" top="480" width="100" height="20" font="bold 13px 'Malgun Gothic'" color="#333333"/>
+        <Edit id="edtPlace" taborder="12" left="20" top="505" width="210" height="45" displaynulltext="예: 쿠팡" background="#ffffff" border="1px solid #eeeeee" borderRadius="8px" padding="0px 10px" font="14px 'Malgun Gothic'"/>
+        <Static id="StaLbPrice" taborder="13" text="가격" left="245" top="480" width="100" height="20" font="bold 13px 'Malgun Gothic'" color="#333333"/>
+        <MaskEdit id="mskPrice" taborder="14" left="245" top="505" height="45" format="#,###" type="number" displaynulltext="0" background="#ffffff" border="1px solid #eeeeee" borderRadius="8px" padding="0px 10px" font="14px 'Malgun Gothic'" textAlign="right" width="215"/>
+        <Static id="StaLbContent" taborder="15" text="내용 *" left="20" top="565" width="100" height="20" font="bold 13px 'Malgun Gothic'" color="#333333"/>
+        <TextArea id="txaContent" taborder="16" left="20" top="590" height="180" displaynulltext="꿀템에 대한 상세한 후기를 남겨주세요." background="#ffffff" border="1px solid #eeeeee" borderRadius="8px" padding="10px" font="14px 'Malgun Gothic'" width="440"/>
+        <Button id="btnReg" taborder="17" text="등록하기" left="20" top="800" height="50" borderRadius="10px" font="bold 16px 'Malgun Gothic'" color="#ffffff" cursor="pointer" border="0px none" onclick="btnReg_onclick" width="440" cssclass="Login"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <FileDialog id="FileDialog00" onclose="FileDialog00_onclose"/>
+      <Dataset id="ds_menu">
+        <ColumnInfo>
+          <Column id="MENU_ID" type="STRING" size="256"/>
+          <Column id="MENU_NAME" type="STRING" size="256"/>
+          <Column id="MENU_LEVEL" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <FileUpTransfer id="FileUpTransfer00" onsuccess="FileUpTransfer00_onsuccess" onerror="FileUpTransfer00_onerror"/>
+      <Dataset id="dsImgEmp">
+        <ColumnInfo>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+          <Column id="TITLE" type="STRING" size="256"/>
+          <Column id="CONTENT" type="STRING" size="256"/>
+          <Column id="PRICE" type="INT" size="256"/>
+          <Column id="PURCHASE_URL" type="STRING" size="256"/>
+          <Column id="PHOTO_URL" type="STRING" size="256"/>
+          <Column id="POST_COMMEND" type="STRING" size="256"/>
+          <Column id="CATEGORY_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Bind>
+      <BindItem id="item0" compid="edtTitle" propid="value" datasetid="dsImgEmp" columnid="TITLE"/>
+      <BindItem id="item1" compid="cboCategory" propid="value" datasetid="dsImgEmp" columnid="CATEGORY_ID"/>
+      <BindItem id="item2" compid="edtPlace" propid="value" datasetid="dsImgEmp" columnid="PURCHASE_URL"/>
+      <BindItem id="item3" compid="mskPrice" propid="value" datasetid="dsImgEmp" columnid="PRICE"/>
+      <BindItem id="item4" compid="txaContent" propid="value" datasetid="dsImgEmp" columnid="POST_COMMEND"/>
+    </Bind>
+    <Script type="xscript5.1"><![CDATA[this.BoardWrite_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{   
+	this.ds_menu.clearData();
+	
+	var strSvcUrl = "nexa/getMenuList.do";
+	var inData = "";
+	var strArg = "";
+	var outData = "ds_menu=ds_menu";
+
+	this.gfnTransaction("getMenuList"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+};
+
+this.btnFileUpload_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.FileDialog00.open("이미지 선택", 1, "%MYDOCUMENT%");
+};
+
+this.FileDialog00_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialogEventInfo)
+{
+	var objFile = e.virtualfiles[0];
+	var sFileName = objFile.filename; //이름 가져오기
+	
+	if(!/\.(jpe?g|png|gif)$/i.test(sFileName)){
+		var sMsgId = "msg.noselect"; //메세지ID
+		var arrArg = ["이미지"]; //메세지취환될값 배열[생략가능]
+		var sPopId = "msg.noselect"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "";
+
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+		return;
+	}
+	//FileUpTransfer00 비우고 사진 이름과 이미지 파일 담기
+	this.FileUpTransfer00.clearFileList();
+	this.FileUpTransfer00.addFile(sFileName, objFile);
+	
+	this.dsImgEmp.clearData();
+	var nRow = this.dsImgEmp.addRow();
+	
+	if(nexacro._Browser == "Runtime") {
+		this.imgPhoto.image = "URL('file://"+ objFile.fullpath + "')";
+	} else {
+		var reader = new FileReader();
+		reader.targetForm = this;		
+		reader.addEventListener("load",
+								 function() 
+								 { 
+									this.targetForm.imgPhoto.image = this.result; 
+								 }, 
+								 false
+								);
+		reader.readAsDataURL(objFile._handle);						
+	
+	}
+}
+
+//최종 등록 버튼 클릭시
+this.btnReg_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if(!this.fn_checkValidation()) {return;}
+	var sMsgId = "confirm.before.save"; //메세지ID
+	var arrArg = []; //메세지취환될값 배열[생략가능]
+	var sPopId = "confirm.before.save"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+	var sMsgCallback = "fnPopupCallback";
+
+	this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+};
+//파일등록 콜백
+this.FileUpTransfer00_onsuccess = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferEventInfo)
+{
+	var objDs = e.datasets[0];	
+	var sSaveFileName = objDs.getColumn(0, "FILE_ID");
+	var sUserId = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ID");
+	
+ 	this.dsImgEmp.setColumn(0, "LOGIN_ID", sUserId);
+ 	this.dsImgEmp.setColumn(0, "PHOTO_URL", sSaveFileName);
+	
+	this.fn_SaveImgEmp();
+	
+};
+
+this.FileUpTransfer00_onerror = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferErrorEventInfo)
+{
+    trace("========== [업로드 실패!] ==========");
+    trace("에러 코드 : " + e.errormsg);
+    trace("에러 내용 : " + e.errortype);
+};
+
+this.fn_SaveImgEmp = function ()
+{
+	var strSvcUrl = "nexa/saveItem.do";
+	var inData = "dsImgEmp=dsImgEmp:U";
+	var strArg = "";
+	var outData = "";
+
+	this.gfnTransaction("saveItem"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+};
+//===========================================정합성체크==========================================================
+this.fn_checkValidation = function()
+{
+    if (this.gfnIsNull(this.imgPhoto.image)) 
+    {
+        var sMsgId = "msg.noselect"; //메세지ID
+        var arrArg = ["이미지"]; //메세지취환될값 배열[생략가능]
+        var sPopId = "wjdgkqtjdcpzmdlalwl"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+        var sMsgCallback = "";
+
+        this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+        return false;
+    }
+
+    if (this.gfnIsNull(this.edtTitle.value)) 
+    {
+		var sMsgId = "msg.err.validator.required"; //메세지ID
+        var arrArg = ["제목"]; //메세지취환될값 배열[생략가능]
+        var sPopId = "wjdgkqtjdwpahrdlqfur"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+        var sMsgCallback = "";
+
+        this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+        this.edtTitle.setFocus();
+        return false;
+    }
+
+    if (this.gfnIsNull(this.cboCategory.value)) 
+    {
+		var sMsgId = "msg.err.validator.required"; //메세지ID
+        var arrArg = ["카테고리"]; //메세지취환될값 배열[생략가능]
+        var sPopId = "wjdgkqtjdzkxprhfltjsxoe"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+        var sMsgCallback = "";
+
+        this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+        this.cboCategory.setFocus();
+        return false;
+    }
+
+    if (this.gfnIsNull(this.edtPlace.value)) 
+    {
+		var sMsgId = "msg.err.validator.required"; //메세지ID
+        var arrArg = ["구매처"]; //메세지취환될값 배열[생략가능]
+        var sPopId = "wjdgkqtjdrnaocjdlqfur"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+        var sMsgCallback = "";
+
+        this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+        this.edtPlace.setFocus();
+        return false;
+    }
+
+    if (this.gfnIsNull(this.mskPrice.value) || this.mskPrice.value == 0) 
+    {
+		var sMsgId = "msg.err.validator.required"; //메세지ID
+        var arrArg = ["가격"]; //메세지취환될값 배열[생략가능]
+        var sPopId = "wjdgkqtjdrkrurdlqfur"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+        var sMsgCallback = "";
+
+        this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+        this.mskPrice.setFocus();
+        return false;
+    }
+
+    if (this.gfnIsNull(this.txaContent.value)) 
+    {
+		var sMsgId = "msg.err.validator.required"; //메세지ID
+        var arrArg = ["내용"]; //메세지취환될값 배열[생략가능]
+        var sPopId = "wjdgkqtjdsodyddlqfur"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+        var sMsgCallback = "";
+
+        this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+        this.txaContent.setFocus();
+        return false;
+    }
+
+    // 모든 체크를 통과함
+    return true;
+};
+
+//============================================콜백함수==============================================
+this.fnCallback = function (svcID, errCd, errMsg)
+{
+	if(svcID == "saveItem")
+	{
+		var sMsgId = "msg.save.success"; //메세지ID
+		var arrArg = []; //메세지취환될값 배열[생략가능]
+		var sPopId = "msg.save.success"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "fnPopupCallback";
+
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+	}
+	else if(svcID == "getMenuList")
+	{	
+		this.ds_menu.filter("MENU_LEVEL == '1'");
+	}
+};
+
+//============================================팝업콜백함수==============================================
+this.fnPopupCallback = function (svcID, rtn)
+{
+	if(svcID == "confirm.before.save")
+	{
+		if(rtn)//확인눌럿으면
+		{
+			var sUploadUrl = "SvcUrl::nexaProject/uploadFile.do"; 
+			this.FileUpTransfer00.setPostData("userDir", "");//P02\\P028, ..\\src\\main\\webapp\\images
+			this.FileUpTransfer00.upload(sUploadUrl);
+		}
+	}
+	else if(svcID == "msg.save.success")
+	{
+		this.reload();
+	}
+};]]></Script>
+  </Form>
+</FDL>

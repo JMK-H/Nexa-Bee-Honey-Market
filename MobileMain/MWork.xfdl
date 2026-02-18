@@ -289,6 +289,12 @@ this.lstMain_onvscroll = function(obj:nexacro.ListView,e:nexacro.ScrollEventInfo
     }
 	
 };
+//============================================글쓰기 버튼 클릭 이벤트===================================
+
+this.btnWrite_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.parent.parent.divWork.url = "MobileMain::ggulM1230fm.xfdl"
+};
 
 //==========================================================콜백함수=======================================================
 this.fnCallback = function (svcID, errCd, errMsg)

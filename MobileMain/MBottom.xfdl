@@ -59,7 +59,7 @@ this.btnHome_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 
 this.btnMy_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	this.parent.parent.divWork.url = "MobileMain::MWork.xfdl";
+	this.parent.parent.divWork.url = "MobileMain::ggulM1240fm.xfdl";
 	this.parent.parent.divWork.reload();
 };
 ]]></Script>

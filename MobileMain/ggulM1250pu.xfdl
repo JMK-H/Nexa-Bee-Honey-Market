@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="MPwChange" width="400" height="480" titletext="비밀번호 변경" onload="form_onload" background="#ffffff" borderRadius="20px">
+    <Layouts>
+      <Layout height="480" mobileorientation="portrait" width="400">
+        <Static id="Static00" taborder="9" left="0" top="0" width="400" height="480" background="white" borderRadius="20px"/>
+        <Static id="staTitle" taborder="0" text="비밀번호 변경" left="100" top="25" width="200" height="30" font="bold 20px 'Malgun Gothic'" cssclass="PopupTitle"/>
+        <Static id="staSubTitle" taborder="1" text="소중한 정보를 위해 비밀번호를 변경해주세요." left="50" top="55" width="300" height="20" font="12px 'Malgun Gothic'" color="#888888" textAlign="center"/>
+        <Static id="staPwMsg" taborder="2" text="" left="25" top="320" width="300" height="20" font="12px 'Malgun Gothic'" color="#ff4444"/>
+        <TextField id="tfCurrentPassword" taborder="3" labeltext="현재 비밀번호" left="20" top="100" height="60" right="20" cssclass="FindId" displaynulltext="현재 비밀번호를 입력하세요." oninput="tfCurrentPassword_oninput" inputtype="password"/>
+        <TextField id="tfNewPassword" taborder="4" labeltext="새 비밀번호" left="20" top="190" height="60" cssclass="FindId" displaynulltext="새 비밀번호를 입력하세요." inputtype="password" oninput="tfNewPassword_oninput" width="360"/>
+        <TextField id="tfCheckPassword" taborder="5" labeltext="비밀번호 확인" left="20" top="260" height="60" cssclass="FindId" displaynulltext="새 비밀번호를 다시 입력하세요." inputtype="password" oninput="tfCheckPassword_oninput" width="360"/>
+        <Static id="staCurrPwMsg" taborder="6" text="" left="20" top="160" width="335" height="20"/>
+        <Button id="btnCancel" taborder="7" text="취소" left="20" top="385" height="40" onclick="btnCancel_onclick" borderRadius="10px" width="172"/>
+        <Button id="btnConfirm" taborder="8" text="변경하기" left="208" top="385" height="40" cssclass="Login" borderRadius="10px" onclick="btnConfirm_onclick" width="172"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsInData">
+        <ColumnInfo>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+          <Column id="LOGIN_PW" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[var objApp = nexacro.getApplication();
+this.sLoginPw = objApp.gdsLoginUser.getColumn(0, "LOGIN_PW");
+this.currPwPass = false; //현재 비번과 일치하는지
+this.checkPw = false; //비번 한번 더 치는것이 일치하는지
+
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{  
+    this.getOwnerFrame().set_border("0px none");
+    
+    this.getOwnerFrame().set_background("transparent");
+    
+    this.set_background("transparent");
+};
+
+this.btnCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.close();
+};
+
+this.tfCurrentPassword_oninput = function(obj:nexacro.TextField,e:nexacro.InputEventInfo)
+{
+	if(this.sLoginPw == this.tfCurrentPassword.value)//현재 비번과 일치하면
+	{
+		this.staCurrPwMsg.set_text("비밀번호가 일치합니다.");
+		this.tfCurrentPassword.set_cssclass("CheckIdpass");//비번 확인상자 통과css
+		this.staCurrPwMsg.set_color("#26752b");
+		this.currPwPass = true; //통과
+	}
+	else
+	{
+		this.staCurrPwMsg.set_text("비밀번호가 일치하지 않습니다.");
+		this.tfCurrentPassword.set_cssclass("CheckIdpassN");//비번 확인상자 미통과css
+		this.staCurrPwMsg.set_color("red");
+		this.currPwPass = false; //비번체크 미통과
+	}
+};
+
+
+this.fn_checkPwSame = function() //비밀번호 확인 함수
+{
+	var pw = this.tfNewPassword.value;
+	var pwConfirm = this.tfCheckPassword.value;
+	
+	// 둘 중 하나라도 비어있으면 메시지 지우기
+	if (!pw || !pwConfirm) {
+		this.staPwMsg.set_text("");
+		this.tfCheckPassword.set_cssclass("FindId");
+		return;
+	}
+	
+	// 두 값 비교
+	if (pw === pwConfirm) {
+		this.staPwMsg.set_text("비밀번호가 일치합니다.");
+		this.tfCheckPassword.set_cssclass("CheckIdpass");//비번 확인상자 통과css
+		this.staPwMsg.set_color("#26752b");
+		this.checkPw = true; //비번체크 통과
+	} else {
+		this.staPwMsg.set_text("비밀번호가 일치하지 않습니다.");
+		this.tfCheckPassword.set_cssclass("CheckIdpassN");//비번 확인상자 미통과css
+		this.staPwMsg.set_color("red");
+		this.checkPw = false; //비번체크 미통과
+	}
+};
+this.tfNewPassword_oninput = function(obj:nexacro.TextField,e:nexacro.InputEventInfo)
+{
+	this.fn_checkPwSame();
+};
+
+this.tfCheckPassword_oninput = function(obj:nexacro.TextField,e:nexacro.InputEventInfo)
+{
+	this.fn_checkPwSame();
+};
+//비번변경 버튼 클릭이벤트
+this.btnConfirm_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if(this.currPwPass && this.checkPw)
+	{
+		this.getUserPw();
+		var strSvcUrl = "nexa/changeUserPw.do";
+		var inData = "dsInData=dsInData";
+		var strArg = "";
+		var outData = "";
+		this.gfnTransaction("changeUserPw"
+							, strSvcUrl
+							, inData //이클립스받기=넥사크로주기
+							, outData //넥사크로받기=이클립스주기
+							, strArg
+							, "fnCallback"
+							, true);
+	}
+	else
+	{
+		var sMsgId = "msg.err.notSamePw"; //메세지ID
+		var arrArg = []; //메세지취환될값 배열[생략가능]
+		var sPopId = "msg.err.notSamePw"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "";
+
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+	}
+};
+
+this.getUserPw = function ()
+{
+	var objApp = nexacro.getApplication();
+	var sLoginId = objApp.gdsLoginUser.getColumn(0, "LOGIN_ID");
+	var sLoginPw = this.tfNewPassword.value;
+	
+	this.dsInData.clearData();
+	var nRow = this.dsInData.addRow();
+	this.dsInData.setColumn(nRow, "LOGIN_ID", sLoginId);
+	this.dsInData.setColumn(nRow, "LOGIN_PW", sLoginPw);
+};
+
+//==================================================콜백함수==================================================
+this.fnCallback = function (svcID, errCd, errMsg)
+{
+	if(svcID=="changeUserPw") //변경 가능하면서 버튼 누를 때 콜백
+	{
+		var sMsgId = "msg.change.logout"; //메세지ID
+		var arrArg = ["비밀번호"]; //메세지취환될값 배열[생략가능]
+		var sPopId = "msg.change.logout"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "fnPopupCallback";
+
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+	}
+};
+
+//==================================================팝업 콜백함수==================================================
+this.fnPopupCallback = function (svcID, rtn)
+{
+	if(svcID == "msg.change.logout")
+	{
+		var objApp = nexacro.getApplication();
+		var objDs = objApp.gdsLoginUser;
+		objDs.clearData(); 
+	
+		this.close();
+		objApp.mainframe.VFrameSet00.set_separatesize("*,0");
+	}
+};]]></Script>
+  </Form>
+</FDL>

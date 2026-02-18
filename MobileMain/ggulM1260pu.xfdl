@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="MNickChange" width="400" height="250" titletext="닉네임 변경" onload="form_onload" background="#ffffff" borderRadius="20px">
+    <Layouts>
+      <Layout height="250" mobileorientation="portrait" width="400">
+        <Static id="Static00" taborder="6" text="" left="0" top="0" width="400" height="250" background="white" borderRadius="20px"/>
+        <Static id="staTitle" taborder="0" text="닉네임 변경" left="25" top="25" width="355" height="30" font="bold 20px 'Malgun Gothic'" cssclass="PopupTitle"/>
+        <Static id="staSubTitle" taborder="1" text="사용하실 새로운 닉네임을 입력해주세요." left="50" top="60" width="300" height="20" font="12px 'Malgun Gothic'" color="#888888" textAlign="center"/>
+        <Static id="staMsg" taborder="2" text="" left="25" top="180" width="300" height="20" font="12px 'Malgun Gothic'" color="#ff8c00"/>
+        <TextField id="tfNewNickname" taborder="3" labeltext="새 닉네임" left="25" top="90" height="50" cssclass="FindId" displaynulltext="ex) 주머니속 50원" right="25" oninput="tfNewNickname_oninput"/>
+        <Button id="btnCancel" taborder="4" text="취소" left="25" top="185" height="40" right="207" onclick="btnCancel_onclick" borderRadius="10px"/>
+        <Button id="btnConfirm" taborder="5" text="변경하기" left="207" top="185" height="40" right="25" cssclass="Login" borderRadius="10px" onclick="btnConfirm_onclick"/>
+        <Static id="staNicknameMsg" taborder="7" text="" left="25" top="141" width="340" height="20"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsInData">
+        <ColumnInfo>
+          <Column id="LOGIN_ID" type="STRING" size="256"/>
+          <Column id="LOGIN_NICKNAME" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[this.checkDoubleNickname = false; //닉네임 중복체크하고 통과하면 true로
+
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{  
+    this.getOwnerFrame().set_border("0px none");
+    
+    this.getOwnerFrame().set_background("transparent");
+    
+    this.set_background("transparent");
+};
+
+this.btnCancel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.close();
+};
+
+this.btnConfirm_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if(this.checkDoubleNickname) //통과이면 닉네임 갱신
+	{
+		this.getUserNewNickname();
+		var strSvcUrl = "nexa/changeLoginNickname.do";
+		var inData = "dsInData=dsInData";
+		var strArg = "";
+		var outData = "";
+
+		this.gfnTransaction("changeLoginNickname"
+							, strSvcUrl
+							, inData //이클립스받기=넥사크로주기
+							, outData //넥사크로받기=이클립스주기
+							, strArg
+							, "fnCallback"
+							, true);
+	}
+	else
+	{
+		var sMsgId = "msg.err.alreadyexist"; //메세지ID //있는 아이디입니다.
+		var arrArg = ["닉네임"]; //메세지취환될값 배열[생략가능]
+		var sPopId = "msg.err.alreadyexist"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "";
+
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+	}
+};
+
+//ds에 정보담기 메서드
+this.getUserNewNickname = function ()
+{
+	var objApp = nexacro.getApplication();
+	var sLoginId = objApp.gdsLoginUser.getColumn(0, "LOGIN_ID");
+	var sLoginNickname = this.tfNewNickname.value;
+	
+	this.dsInData.clearData();
+	var nRow = this.dsInData.addRow();
+	this.dsInData.setColumn(nRow, "LOGIN_ID", sLoginId);
+	this.dsInData.setColumn(nRow, "LOGIN_NICKNAME", sLoginNickname);
+};
+
+this.tfNewNickname_oninput = function(obj:nexacro.TextField,e:nexacro.InputEventInfo)
+{
+	var Nickname = this.tfNewNickname.value;		
+	var strSvcUrl = "nexa/getSameNicknameCount.do?v="+ new Date().getTime();
+	var inData = "";
+	var strArg = "userNickname=" + nexacro.wrapQuote(Nickname);
+	var outData = "";
+		
+	this.gfnTransaction("getSameNicknameCount"
+						, strSvcUrl
+						, inData //이클립스받기=넥사크로주기
+						, outData //넥사크로받기=이클립스주기
+						, strArg
+						, "fnCallback"
+						, true);
+};
+
+//=============================================콜백함수===========================================================
+
+this.Nickname_count="";
+this.checkDoubleNickname = 
+this.fnCallback = function (svcID, errCd, errMsg)
+{
+	if(svcID == "getSameNicknameCount") //중복체크
+	{
+		var nickname = this.tfNewNickname.text;
+		if (nickname == null || nickname == undefined || nickname == "" || nickname.trim() == "") 
+		{
+			this.staNicknameMsg.set_text("닉네임을 입력해주세요.");
+			this.staNicknameMsg.set_color("red");
+			this.tfNewNickname.set_cssclass("CheckIdpassN");
+			this.checkDoubleNickname = false;
+		}
+		else if(this.Nickname_count > 0)
+		{
+			this.tfNewNickname.set_cssclass("CheckIdpassN");
+			this.staNicknameMsg.set_color("red");
+			this.staNicknameMsg.text="이미 존재하는 닉네임 입니다.";
+			this.checkDoubleNickname = false; //미통과상태
+		}
+		else
+		{
+			this.tfNewNickname.set_cssclass("CheckIdpass");
+			this.staNicknameMsg.set_color("#26752b");
+			this.staNicknameMsg.text="사용가능한 닉네임 입니다!";
+			this.checkDoubleNickname = true; //통과상태
+		}
+	}
+	else if(svcID == "changeLoginNickname")
+	{
+		var sMsgId = "msg.change.logout"; //메세지ID
+		var arrArg = ["닉네임"]; //메세지취환될값 배열[생략가능]
+		var sPopId = "msg.change.logout"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "fnPopupCallback";
+
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+	}
+};
+
+//======================================================팝업 콜백=====================================================
+this.fnPopupCallback = function (svcID, errCd, errMsg)
+{
+	if(svcID == "msg.change.logout")
+	{
+		var objApp = nexacro.getApplication();
+		var objDs = objApp.gdsLoginUser;
+		objDs.clearData(); 
+	
+		this.close();
+		objApp.mainframe.VFrameSet00.set_separatesize("*,0");
+	}
+};]]></Script>
+  </Form>
+</FDL>

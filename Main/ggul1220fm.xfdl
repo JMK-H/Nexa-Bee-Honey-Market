@@ -232,8 +232,6 @@ this.fn_ZzimClick = function(obj:nexacro.Button, e:nexacro.ClickEventInfo)
     var sPostId = this.dsMyZzimList.getColumn(nRow, "POST_ID");
     var sLoginId = nexacro.getApplication().gdsLoginUser.getColumn(0, "LOGIN_ID");
     var currentPage = nexacro.toNumber(this.fvPage)
-	
-    if(!this.confirm("찜 목록에서 삭제하시겠습니까?")) return;
     
     // 현재 화면에 뿌려진 데이터가 딱 1개 남았고, 
     // 내가 지금 1페이지가 아니라면 (2페이지 이상이라면)

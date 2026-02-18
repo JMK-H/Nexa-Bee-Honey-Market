@@ -36,7 +36,7 @@ this.PopCharge_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
     this.set_background("transparent");
 };
 
-//닫기버튼 여기서 회원정보창을 reload해야하나?
+//닫기버튼
 this.btnClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.close();
