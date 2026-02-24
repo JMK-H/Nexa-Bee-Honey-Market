@@ -3370,6 +3370,24 @@
 	font : bold 12px "Malgun Gothic";
 }
 
+.ListView.mobileWork
+{
+}
+
+.ListView.mobileWork .body[status=focused]
+{
+	background : #f6dd91;
+	
+}
+.ListView.mobileWork .body[status=mouseover]
+{
+	background : #f6dd91;
+}
+.ListView.mobileWork .body[userstatus=selected]
+{
+	background : #f6dd91;
+	
+}
 ]]></CSSData>
   <CSSData type="desktop"><![CDATA[]]></CSSData>
   <CSSData type="mobile_large"><![CDATA[]]></CSSData>

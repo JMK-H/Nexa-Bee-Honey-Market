@@ -2039,6 +2039,13 @@
           <Col id="MSG_TYPE">C</Col>
           <Col id="MSG_ICON">CFN</Col>
         </Row>
+        <Row>
+          <Col id="MSG_ID">msg.user.stopLogin</Col>
+          <Col id="MSG_TEXT">회원님은 {0} 까지 정지 상태입니다.</Col>
+          <Col id="MSG_TEXT_EN">msg.user.stopLogin</Col>
+          <Col id="MSG_TYPE">A</Col>
+          <Col id="MSG_ICON">INF</Col>
+        </Row>
       </Rows>
     </Dataset>
     <Dataset id="gdsMyMenu">
@@ -3231,6 +3238,7 @@
         <Column id="LOGIN_DATE" type="STRING" size="256"/>
         <Column id="LOGIN_ROLE" type="STRING" size="256"/>
         <Column id="LOGIN_CASH" type="STRING" size="256"/>
+        <Column id="LOGIN_SCORE" type="STRING" size="256"/>
       </ColumnInfo>
     </Dataset>
   </Datasets>

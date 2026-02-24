@@ -379,7 +379,8 @@ this.divSearch_btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEv
 		sSearchKeyword ="";
 	}
 	objApp.gv_Search = sSearchKeyword
-	this.parent.parent.divWork.url = "Main::ggul1450fm.xfdl";	
+	this.parent.parent.divWork.url = "Main::ggul1450fm.xfdl";
+	document.title = "꿀꺼억 - " + "검색";
 };
 //================================================콜백함수===========================================================
 this.fnCallback = function (svcID, errCd, errMsg)

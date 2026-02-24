@@ -17,9 +17,9 @@
                       <Format id="default">
                         <Band id="body" width="100%" height="160" background="#f7f7f7" border="0px none">
                           <Cell id="imgItem" left="20" top="15" width="90" height="90" displaytype="imagecontrol" text="bind:PHOTO_URL" imagestretch="fixaspectratio"/>
-                          <Cell id="txtTitle" left="120" top="15" right="20" height="25" text="bind:TITLE" font="bold 14px 'Malgun Gothic'" color="#333333" textAlign="left" verticalAlign="top"/>
-                          <Cell id="txtPrice" left="120" top="40" right="20" height="25" text="bind:PRICE" displaytype="number" font="bold 16px 'Malgun Gothic'" color="#333333" textAlign="left"/>
-                          <Cell id="txtBuyer" left="120" top="70" right="20" height="20" text="expr:'구매자: ' + BUYER_ID" font="12px 'Malgun Gothic'" color="#888888" textAlign="left"/>
+                          <Cell id="txtTitle" left="120" top="15" right="20" height="25" text="bind:TITLE" font="bold 14px 'Malgun Gothic'" color="#333333" textAlign="left" verticalAlign="top" border="0px none"/>
+                          <Cell id="txtPrice" left="120" top="40" right="20" height="25" text="bind:PRICE" displaytype="number" font="bold 16px 'Malgun Gothic'" color="#333333" textAlign="left" border="0px none"/>
+                          <Cell id="txtBuyer" left="120" top="70" right="20" height="20" text="expr:'구매자: ' + BUYER_ID" font="12px 'Malgun Gothic'" color="#888888" textAlign="left" border="0px none"/>
                           <Cell id="btnApprove" left="120" top="100" width="100" height="35" displaytype="buttoncontrol" text="승인" cssclass="Login" padding="0px"/>
                           <Cell id="btnReject" left="230" top="100" width="100" height="35" displaytype="buttoncontrol" text="거절" background="#888888" color="#ffffff" borderRadius="5px" padding="0px"/>
                         </Band>
@@ -37,10 +37,9 @@
                     <Formats>
                       <Format id="default">
                         <Band id="body" width="100%" height="110" background="#f7f7f7" border="0px none">
-                          <Static id="bgCard" left="10" top="5" right="10" bottom="5" background="#ffffff" borderRadius="10px" border="1px solid #e0e0e0"/>
                           <Cell id="imgItem" left="20" top="15" width="80" height="80" displaytype="imagecontrol" text="bind:PHOTO_URL" imagestretch="fixaspectratio"/>
-                          <Cell id="txtTitle" left="110" top="15" right="20" height="25" text="bind:TITLE" font="bold 14px 'Malgun Gothic'" color="#333333" textAlign="left"/>
-                          <Cell id="txtPrice" left="110" top="40" right="20" height="25" text="bind:PRICE" displaytype="number" font="bold 16px 'Malgun Gothic'" color="#333333" textAlign="left"/>
+                          <Cell id="txtTitle" left="110" top="15" right="20" height="25" text="bind:TITLE" font="bold 14px 'Malgun Gothic'" color="#333333" textAlign="left" border="0px none"/>
+                          <Cell id="txtPrice" left="110" top="40" right="20" height="25" text="bind:PRICE" displaytype="number" font="bold 16px 'Malgun Gothic'" color="#333333" textAlign="left" border="0px none"/>
                           <Cell id="badgeStatus" left="110" top="70" width="80" height="24" text="예약중" background="#fff8e1" color="#ff8c00" borderRadius="12px" textAlign="center" font="bold 11px 'Malgun Gothic'"/>
                         </Band>
                       </Format>
@@ -57,12 +56,11 @@
                     <Formats>
                       <Format id="default">
                         <Band id="body" width="100%" height="150" background="#f7f7f7" border="0px none">
-                          <Static id="bgCard" left="10" top="5" right="10" bottom="5" background="#ffffff" borderRadius="10px" border="1px solid #e0e0e0"/>
                           <Cell id="imgItem" left="20" top="15" width="90" height="90" displaytype="imagecontrol" text="bind:PHOTO_URL" imagestretch="fixaspectratio"/>
-                          <Cell id="txtTitle" left="120" top="15" right="20" height="25" text="bind:TITLE" font="bold 14px 'Malgun Gothic'" color="#333333" textAlign="left"/>
-                          <Cell id="txtPrice" left="120" top="40" right="20" height="25" text="bind:PRICE" displaytype="number" font="bold 16px 'Malgun Gothic'" color="#333333" textAlign="left"/>
+                          <Cell id="txtTitle" left="120" top="15" right="20" height="25" text="bind:TITLE" font="bold 14px 'Malgun Gothic'" color="#333333" textAlign="left" border="0px none"/>
+                          <Cell id="txtPrice" left="120" top="40" right="20" height="25" text="bind:PRICE" displaytype="number" font="bold 16px 'Malgun Gothic'" color="#333333" textAlign="left" border="0px none"/>
                           <Cell id="btnReview" left="120" top="75" right="20" height="35" displaytype="buttoncontrol" text="expr:POST_SCORE == null ? '후기 작성하기' : '★ ' + POST_SCORE + '점 남김'" cssclass="Login" padding="0px"/>
-                          <Cell id="txtDate" left="20" top="115" width="200" height="20" text="bind:REG_DATE" font="11px 'Malgun Gothic'" color="#999999" textAlign="left"/>
+                          <Cell id="txtDate" left="20" top="115" width="200" height="20" text="bind:REG_DATE" font="11px 'Malgun Gothic'" color="#999999" textAlign="left" border="0px none"/>
                         </Band>
                       </Format>
                     </Formats>
@@ -77,11 +75,10 @@
                     <Formats>
                       <Format id="default">
                         <Band id="body" width="100%" height="150" background="#f7f7f7" border="0px none">
-                          <Static id="bgCard" left="10" top="5" right="10" bottom="5" background="#ffffff" borderRadius="10px" border="1px solid #e0e0e0"/>
                           <Cell id="imgItem" left="20" top="15" width="90" height="90" displaytype="imagecontrol" text="bind:PHOTO_URL" imagestretch="fixaspectratio"/>
-                          <Cell id="txtTitle" left="120" top="15" right="60" height="25" text="bind:TITLE" font="bold 14px 'Malgun Gothic'" color="#333333" textAlign="left"/>
-                          <Cell id="txtPrice" left="120" top="40" right="60" height="25" text="bind:PRICE" displaytype="number" font="bold 16px 'Malgun Gothic'" color="#333333" textAlign="left"/>
-                          <Cell id="txtStatus" left="120" top="70" right="60" height="20" text="bind:POST_STATUS" displaytype="combotext" combodataset="ds_status" combodatacol="VALUE" combocodecol="CODE" font="12px 'Malgun Gothic'" color="#ff8c00" textAlign="left"/>
+                          <Cell id="txtTitle" left="120" top="15" right="60" height="25" text="bind:TITLE" font="bold 14px 'Malgun Gothic'" color="#333333" textAlign="left" border="0px none"/>
+                          <Cell id="txtPrice" left="120" top="40" right="60" height="25" text="bind:PRICE" displaytype="number" font="bold 16px 'Malgun Gothic'" color="#333333" textAlign="left" border="0px none"/>
+                          <Cell id="txtStatus" left="120" top="70" right="60" height="20" text="bind:POST_STATUS" displaytype="combotext" combodataset="ds_status" combodatacol="VALUE" combocodecol="CODE" font="12px 'Malgun Gothic'" color="#ff8c00" textAlign="left" border="0px none"/>
                           <Cell id="btnDelete" left="120" top="100" width="100" height="30" displaytype="buttoncontrol" text="삭제" background="#ffffff" border="1px solid #dddddd" color="#555555" borderRadius="5px"/>
                         </Band>
                       </Format>

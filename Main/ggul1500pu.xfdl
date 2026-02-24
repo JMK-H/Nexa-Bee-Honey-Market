@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="ggul1500pu" width="800" height="411" titletext="상품 상세 팝업" onload="PopDetail_onload" background="#ffffff" border="1px solid #ffcc00" borderRadius="10px">
+    <Layouts>
+      <Layout height="411" width="800">
+        <Static id="StaticBg" taborder="8" text="" left="0" top="0" borderRadius="10px" background="white" right="0" bottom="1"/>
+        <ImageViewer id="imgItem" taborder="0" left="20" top="20" width="350" height="370" stretch="fixaspectratio" border="1px solid #eeeeee" borderRadius="10px" background="#f7f7f7"/>
+        <Static id="staSubInfo" taborder="1" text="카테고리 · 날짜" left="390" top="22" right="20" height="20" color="#999999" font="12px 'Malgun Gothic'"/>
+        <Static id="staTitle" taborder="2" text="상품 제목" left="390" top="55" right="20" height="25" font="bold 20px 'Malgun Gothic'" color="#333333"/>
+        <Static id="staPrice" taborder="3" text="0원" left="390" top="80" right="20" height="30" font="bold 24px 'Malgun Gothic'" color="#ff8800"/>
+        <Static id="staLine" taborder="4" left="390" top="120" right="20" height="2" background="#f0f0f0"/>
+        <Static id="staWriter" taborder="5" text="판매자명" left="395" top="140" right="55" height="20" font="bold 13px 'Malgun Gothic'" color="black"/>
+        <TextArea id="txaCommend" taborder="6" left="390" top="180" right="20" height="210" readonly="true" background="#fffdf5" border="1px solid #ffe08c" borderRadius="5px" color="#555555" font="13px/1.5 'Malgun Gothic'" padding="10px" wordWrap="char"/>
+        <Button id="btnClose" taborder="7" text="닫기" top="22" right="20" width="90" height="22" background="#ffffff" border="1px solid #999999" borderRadius="5px" font="14px 'Malgun Gothic'" color="#333333" cursor="pointer" onclick="btnClose_onclick"/>
+      </Layout>
+    </Layouts>
+    <Objects/>
+    <Script type="xscript5.1"><![CDATA[
+// 화면이 로드될 때 실행되는 이벤트
+this.PopDetail_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+    // 1. 부모 폼에서 넘겨준 파라미터(oArg) 꺼내기
+    var sPostId       = this.getOwnerFrame().PostId;
+    var sTitle        = this.getOwnerFrame().Title;
+    var sImageUrl     = this.getOwnerFrame().ImageUrl;
+    var objDate         = this.getOwnerFrame().Date;
+    var sPrice        = this.getOwnerFrame().Price;
+    var sWriter       = this.getOwnerFrame().Writer;
+    var sCommend      = this.getOwnerFrame().Commend;
+    var sCategoryName = this.getOwnerFrame().CategoryName;
+    
+	var sYear = objDate.getFullYear().toString();
+    var sMonth = (objDate.getMonth() + 1).toString().padLeft(2, "0");
+    var sDay = objDate.getDate().toString().padLeft(2, "0");
+    var sDateString = sYear + sMonth + sDay; 
+	var sFinalDate = sDateString.substr(0, 4) + "-" + sDateString.substr(4, 2) + "-" + sDateString.substr(6, 2);
+	
+    // 2. 이미지 세팅
+    if(!this.gfnIsNull(sImageUrl)) {
+        this.imgItem.set_image(sImageUrl);
+    }
+    
+    // 3. 텍스트 세팅
+    this.staTitle.set_text(sTitle);
+    this.staWriter.set_text(sWriter);
+    this.txaCommend.set_value(sCommend);
+    
+    // 4. 카테고리 + 날짜 조합 (예: 가전제품 · 2026-02-24)
+    var sSubText = "";
+    if(!this.gfnIsNull(sCategoryName)) sSubText += sCategoryName;
+    else sSubText += "카테고리 없음";
+    
+    if(!this.gfnIsNull(sFinalDate)) sSubText += " · " + sFinalDate;
+    
+    this.staSubInfo.set_text(sSubText);
+    
+    // 5. 가격 포맷팅 (콤마 추가 및 '원' 붙이기)
+    if(!this.gfnIsNull(sPrice)) {
+        var nPrice = nexacro.toNumber(sPrice);
+        this.staPrice.set_text(nPrice.toLocaleString() + "원");
+    } else {
+        this.staPrice.set_text("가격 정보 없음");
+    }
+};
+
+// 닫기 버튼 클릭 이벤트
+this.btnClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+    this.close();
+};
+]]></Script>
+  </Form>
+</FDL>

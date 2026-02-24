@@ -316,6 +316,7 @@ this.sAdvSeq=""
 
 this.Dashboard_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
+	document.title = "꿀꺼억 - " + "관리자 대시보드";
 	this.ds_menu.clearData();
 	//===================================정보 받아오기 트랜잭션 날리기=========================
 	var strSvcUrl = "nexa/getDashBoard.do";
@@ -564,7 +565,7 @@ this.fnCallback = function (svcID, errCd, errMsg)
 		
 		this.staBestScore.set_text("👍 "+this.dsSummary.getColumn(0, "MAX_LIKE_COUNT"));
 		this.staBestPostTitle.set_text(this.dsTopPosts.getColumn(nRow, "POST_NAME"));
-		this.staBestPostWriter.set_text("작성자: " +this.dsTopPosts.getColumn(nRow, "USER_ID")+" • "+ bigsCategoryId +" • "+ sCategoryName  );
+		this.staBestPostWriter.set_text("작성자: " +this.dsTopPosts.getColumn(nRow, "USER_ID")+" • "+ sCategoryName  );
 		
 		//비추천
 		nRow = this.dsTopPosts.findRow("POST_TYPE", "HATE");
@@ -574,7 +575,7 @@ this.fnCallback = function (svcID, errCd, errMsg)
 		
 		this.staWorstScore.set_text("👎 "+this.dsSummary.getColumn(0, "MAX_HATE_COUNT"));
 		this.staWorstPostTitle.set_text(this.dsTopPosts.getColumn(nRow, "POST_NAME"));
-		this.staWorstPostWriter.set_text("작성자: " +this.dsTopPosts.getColumn(nRow, "USER_ID")+" • "+ bigsCategoryId +" • "+ sCategoryName  );
+		this.staWorstPostWriter.set_text("작성자: " +this.dsTopPosts.getColumn(nRow, "USER_ID")+" • "+ sCategoryName  );
 		
 	}
 	else if(svcID=="uploadAdvData")

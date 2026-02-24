@@ -103,14 +103,6 @@ this.fnCallback = function (svcId, errCd, errMsg)
 		
         if(objDs.rowcount > 0)//로그인 성공시
         {
-			// 디버깅 반복문 시작
-			for (var i = 0; i < objDs.getColCount(); i++) 
-			{
-				var colId = objDs.getColID(i); // 컬럼명 꺼내기
-				var colVal = objDs.getColumn(0, i); // 0번째 행의 값 꺼내기
-				trace(colId + " : " + colVal);
-			}
-			
 			//로그인 누르면 div붙어있는 메인 폼 리로드
 			objApp.mainframe.VFrameSet00.MainCF.form.reload();
 			
@@ -119,7 +111,7 @@ this.fnCallback = function (svcId, errCd, errMsg)
 			this.tfPassword.set_value("");//비번 지우기
 			
 			//로그인 성공시 메인화면으로 전환
-			objApp.mainframe.VFrameSet00.set_separatesize("0,*"); 
+			objApp.mainframe.VFrameSet00.set_separatesize("0,*");
 			
 			//정지기간 비교용 오늘 날짜 만들기
 			var objDate = new Date();
@@ -132,8 +124,13 @@ this.fnCallback = function (svcId, errCd, errMsg)
 			if (sBanDate >= sToday) { //만약 정지일 안지났으면
 				
 				var sDateView = sBanDate.substring(0,4) + "-" + sBanDate.substring(4,6) + "-" + sBanDate.substring(6,8);
-				alert("회원님은 [" + sDateView + "] 까지 정지 상태입니다.");
-				
+				//alert("회원님은 [" + sDateView + "] 까지 정지 상태입니다.");
+				var sMsgId = "msg.user.stopLogin"; //메세지ID
+				var arrArg = [sDateView]; //메세지취환될값 배열[생략가능]
+				var sPopId = "stopLoginUserDate"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+				var sMsgCallback = "";
+
+				this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
 				
 				this.dsCurrentUser.clearData(); 
 				nexacro.getApplication().gdsLoginUser.clearData();

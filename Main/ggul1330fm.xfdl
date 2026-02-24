@@ -10,7 +10,6 @@
             <Format id="default">
               <Band id="body" width="100%" height="230" background="#ffffff" border="1px solid #dbdee2" border_bottom="20px solid #f7f7f7" borderRadius="15px">
                 <Cell id="CellReportCnt" left="30" top="25" width="100" height="25" text="expr:&quot;🚩 신고 &quot;+REPORT_CNT+&quot;건&quot;" font="bold 14px 'Malgun Gothic'" color="#ff5e5e" border="0px none"/>
-                <Cell id="CellReason" left="140" top="25" width="120" height="28" background="#ffeceb" color="#ff4d4d" borderRadius="14px" textAlign="center" font="bold 12px 'Malgun Gothic'" border="0px none" text="bind:REPORT_REASON" displaytype="combotext" combodataset="dsReason" combocodecol="CODE" combodatacol="NAME"/>
                 <Cell id="CellTitle" left="30" top="60" right="30" height="40" text="bind:TITLE" font="bold 18px 'Malgun Gothic'" color="#333333" border="0px none"/>
                 <Cell id="CellMeta" left="30" top="115" right="589" height="25" text="expr:&quot;신고자: &quot;+LOGIN_NAME" font="14px 'Malgun Gothic'" color="#999999" border="0px none"/>
                 <Cell id="CellBtnView" left="30" top="165" width="130" height="40" displaytype="buttoncontrol" edittype="button" text="👁 상세보기" background="#ff9900" border="0px none" color="#ffffff" borderRadius="8px" font="bold 14px 'Malgun Gothic'" cursor="pointer"/>
@@ -234,8 +233,11 @@
       </Dataset>
     </Objects>
     <Script type="xscript5.1"><![CDATA[
+this.nRow = "";
+
 this.ContentAdmin_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
+	document.title = "꿀꺼억 - " + "관리자 컨텐츠관리";
 	var strSvcUrl = "nexa/getReportPostsList.do";
 	var inData = "";
 	var strArg = "";
@@ -252,24 +254,23 @@ this.ContentAdmin_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 this.lstReport_oncellclick = function(obj:nexacro.ListView,e:nexacro.ListViewClickEventInfo)
 {
 	//현제 누른 행이 몇 번째 행인가, 그의 POST_ID
-	var nRow = e.row;
-	var sPostId = this.dsReportPosts.getColumn(nRow, "POST_ID");
-	var sUserId = this.dsReportPosts.getColumn(nRow, "USER_ID");
-	var sPhotoUrl = this.dsReportPosts.getColumn(nRow, "PHOTO_URL");
+	this.nRow = e.row;
+	var sPostId = this.dsReportPosts.getColumn(this.nRow, "POST_ID");
+	var sUserId = this.dsReportPosts.getColumn(this.nRow, "USER_ID");
+	var sPhotoUrl = this.dsReportPosts.getColumn(this.nRow, "PHOTO_URL");
 	
 	//삭제버튼 CellBtnDelete, 무시하기버튼 CellBtnIgnore, 상세보기버튼 CellBtnView
-	//trace("e.bandid"+e.bandid+"e.cellid"+e.cellid)
 	if(e.cellid == "CellBtnView") //상세버튼이면
 	{
-		var sTitle = this.dsReportPosts.getColumn(nRow, "TITLE");
-		var sCategoryId = this.dsReportPosts.getColumn(nRow, "CATEGORY_ID");
+		var sTitle = this.dsReportPosts.getColumn(this.nRow, "TITLE");
+		var sCategoryId = this.dsReportPosts.getColumn(this.nRow, "CATEGORY_ID");
 		var sCategoryName = this.ds_menu.lookup("MENU_ID", sCategoryId, "MENU_NAME");
-		var sWriter = this.dsReportPosts.getColumn(nRow, "USER_ID");
-		var sReporter = this.dsReportPosts.getColumn(nRow, "LOGIN_NAME");
-		var sReportDate = this.dsReportPosts.getColumn(nRow, "REPORT_DATE");
-		var sPrice = this.dsReportPosts.getColumn(nRow, "PRICE");
-		var sPhotoUrl = this.dsReportPosts.getColumn(nRow, "PHOTO_URL");
-		var sReportCommend = this.dsReportPosts.getColumn(nRow, "REPORT_COMMEND");
+		var sWriter = this.dsReportPosts.getColumn(this.nRow, "USER_ID");
+		var sReporter = this.dsReportPosts.getColumn(this.nRow, "LOGIN_NAME");
+		var sReportDate = this.dsReportPosts.getColumn(this.nRow, "REPORT_DATE");
+		var sPrice = this.dsReportPosts.getColumn(this.nRow, "PRICE");
+		var sPhotoUrl = this.dsReportPosts.getColumn(this.nRow, "PHOTO_URL");
+		var sReportCommend = this.dsReportPosts.getColumn(this.nRow, "REPORT_COMMEND");
 		
 		var sPopupId = "sViewFm"; //Popup ID
 		var sUrl = "Main::ggul1440pu.xfdl"; //팝업 URL
@@ -283,20 +284,12 @@ this.lstReport_oncellclick = function(obj:nexacro.ListView,e:nexacro.ListViewCli
 	}
 	else if(e.cellid == "CellBtnDelete") //삭제버튼이면
 	{
-		if(!confirm("삭제하시겠습니까?")) {return;}
-		
-		var strSvcUrl = "nexa/deleteReportPost.do";
-		var inData = "";
-		var strArg = "sPostId="+sPostId+" sUserId=" + sUserId;
-		var outData = "";
+		var sMsgId = "confirm.before.delete"; //메세지ID
+		var arrArg = []; //메세지취환될값 배열[생략가능]
+		var sPopId = "deleteMsgBefore"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "fnPopupCallback";
 
-		this.gfnTransaction("deleteReportPost"
-							, strSvcUrl
-							, inData //이클립스받기=넥사크로주기
-							, outData //넥사크로받기=이클립스주기
-							, strArg
-							, "fnCallback"
-							, true);
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
 	}
 	else if(e.cellid == "CellBtnIgnore")//무시하기버튼이면
 	{
@@ -329,6 +322,30 @@ this.fnCallback = function (svcID, errCd, errMsg)
 	}
 };
 
-]]></Script>
+
+//==================================팝업콜백========================================
+this.fnPopupCallback = function (svcID, rtn)
+{
+	if(svcID == "deleteMsgBefore")
+	{
+		if(rtn)
+		{
+			var sPostId = this.dsReportPosts.getColumn(this.nRow, "POST_ID");
+			var sUserId = this.dsReportPosts.getColumn(this.nRow, "USER_ID");
+			var strSvcUrl = "nexa/deleteReportPost.do";
+			var inData = "";
+			var strArg = "sPostId="+sPostId+" sUserId=" + sUserId;
+			var outData = "";
+
+			this.gfnTransaction("deleteReportPost"
+								, strSvcUrl
+								, inData //이클립스받기=넥사크로주기
+								, outData //넥사크로받기=이클립스주기
+								, strArg
+								, "fnCallback"
+								, true);
+		}
+	}
+};]]></Script>
   </Form>
 </FDL>

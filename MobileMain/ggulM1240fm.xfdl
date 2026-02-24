@@ -14,6 +14,8 @@
         <Button id="btnNickChange" taborder="8" text="닉네임 변경" left="20" top="290" height="45" right="20" font="normal 14px 'Malgun Gothic'" borderRadius="10px" border="1px solid #e0e0e0" cursor="pointer" textAlign="left" padding="0px 0px 0px 15px" cssclass="Login" onclick="btnNickChange_onclick"/>
         <Button id="btnPwChange" taborder="9" text="비밀번호 변경" left="20" top="345" height="45" right="20" font="normal 14px 'Malgun Gothic'" borderRadius="10px" border="1px solid #e0e0e0" cursor="pointer" textAlign="left" padding="0px 0px 0px 15px" onclick="btnPwChange_onclick" cssclass="Login"/>
         <Button id="btnLogout" taborder="10" text="로그아웃" left="20" top="400" height="45" right="20" background="#ffffff" color="#ff4444" font="normal 14px 'Malgun Gothic'" borderRadius="10px" border="1px solid #e0e0e0" cursor="pointer" textAlign="left" padding="0px 0px 0px 15px" onclick="btn_onclick"/>
+        <Static id="stGgulScore" taborder="11" text="35.7°C" top="95" width="50" height="21" font="bold 14px/normal 'Malgun Gothic'" color="#0dcc5a" right="40" textAlign="right"/>
+        <Static id="stManner" taborder="12" text="꿀벌점수" top="116" width="50" height="16" font="normal 11px/normal 'Malgun Gothic'" color="#868e96" textAlign="right" textDecoration="underline" left="390"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -43,6 +45,19 @@ this.fn_SearchMyInfo = function()
 	var objApp = nexacro.getApplication();
 	var sLoginId = objApp.gdsLoginUser.getColumn(0, "LOGIN_ID");
 	var sLoginPw = objApp.gdsLoginUser.getColumn(0, "LOGIN_PW");
+	var sLoginScore= objApp.gdsLoginUser.getColumn(0, "LOGIN_SCORE");
+	
+	if(sLoginScore>=30)
+	{
+		this.stGgulScore.color = "green";
+		this.imgProfile.set_image("imagerc::happyBee.png")
+	}
+	else
+	{
+		this.stGgulScore.color = "red";
+		this.imgProfile.set_image("imagerc::sadBee.png")
+	}
+	this.stGgulScore.text = sLoginScore + "L";
 	
 	this.dsCurrentUser.clearData();
 	nRow = this.dsCurrentUser.addRow();

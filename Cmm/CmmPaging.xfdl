@@ -138,7 +138,8 @@ this.fnCreatePage = function(sFnCallback, nTotalCount, nRecords, nPage, nPageCou
 		 ************************************************************************/
 		var objBtnFirst = new Button("btnFirst", nLeft, nTop, nWidth, nHeight, null, null);   
 		objDivPaging.addChild(objBtnFirst.name, objBtnFirst);
-		objBtnFirst.cssclass = "btn_WF_PagingDPrev";
+		//objBtnFirst.cssclass = "btn_WF_PagingDPrev";
+		objBtnFirst.text = "<<";
 		objBtnFirst.page = 1;
 		objBtnFirst.addEventHandler("onclick", this.fnMovePage, this);
 		objBtnFirst.enable = true;
@@ -154,8 +155,8 @@ this.fnCreatePage = function(sFnCallback, nTotalCount, nRecords, nPage, nPageCou
 		 ************************************************************************/
 		var objBtnBefore = new Button("btnBefore", nLeft, nTop, nWidth, nHeight, null, null);   
 		objDivPaging.addChild(objBtnBefore.name, objBtnBefore);
-		objBtnBefore.cssclass = "btn_WF_PagingPrev";
-		//objBtnBefore.text = "<";
+		//objBtnBefore.cssclass = "btn_WF_PagingPrev";
+		objBtnBefore.text = "<";
 		objBtnBefore.page = nPage - 1;
 		objBtnBefore.addEventHandler("onclick", this.fnMovePage, this);	
 		objBtnBefore.enable = true;
@@ -189,8 +190,8 @@ this.fnCreatePage = function(sFnCallback, nTotalCount, nRecords, nPage, nPageCou
 		 ************************************************************************/
 		var objBtnNext = new Button("btnNext", nLeft, nTop, nWidth, nHeight, null, null);   
 		objDivPaging.addChild(objBtnNext.name, objBtnNext);
-		objBtnNext.cssclass = "btn_WF_PagingNext";
-		//objBtnNext.text = ">";
+		//objBtnNext.cssclass = "btn_WF_PagingNext";
+		objBtnNext.text = ">";
 		objBtnNext.addEventHandler("onclick", this.fnMovePage, this);
 		objBtnNext.enable = true;
 		objBtnNext.page = nPage +1;
@@ -204,8 +205,8 @@ this.fnCreatePage = function(sFnCallback, nTotalCount, nRecords, nPage, nPageCou
 		 ************************************************************************/	
 		var objBtnEnd = new Button("btnEnd", nLeft, nTop, nWidth, nHeight, null, null);   
 		objDivPaging.addChild(objBtnEnd.name, objBtnEnd);
-		objBtnEnd.cssclass = "btn_WF_PagingDNext";
-		//objBtnEnd.text = ">>";
+		//objBtnEnd.cssclass = "btn_WF_PagingDNext";
+		objBtnEnd.text = ">>";
 		objBtnEnd.addEventHandler("onclick", this.fnMovePage, this);
 		objBtnEnd.page = nTotalPageC;
 		//현재페이지가 전체페이지갯수만큼이면 비활성화

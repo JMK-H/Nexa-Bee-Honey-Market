@@ -3,7 +3,7 @@
   <Form id="MainWork" width="480" height="800" titletext="메인 목록" background="#ffffff" onload="form_onload">
     <Layouts>
       <Layout height="800" mobileorientation="portrait" width="480">
-        <ListView id="lstMain" taborder="0" left="0" top="0" right="0" bottom="0" binddataset="dsCurrentItem" scrolltype="vertical" bandinitstatus="expand" border="0px none" onvscroll="lstMain_onvscroll" oncellclick="lstMain_oncellclick">
+        <ListView id="lstMain" taborder="0" left="0" top="0" right="0" bottom="0" binddataset="dsCurrentItem" scrolltype="vertical" bandinitstatus="expand" border="0px none" onvscroll="lstMain_onvscroll" oncellclick="lstMain_oncellclick" cssclass="mobileWork">
           <Formats>
             <Format id="default">
               <Band id="body" width="100%" height="140" border="0px none,0px none,1px solid #f2f2f2">
@@ -149,10 +149,10 @@
         </ColumnInfo>
         <Rows>
           <Row>
-            <Col id="TITLE">닌텐도</Col>
-            <Col id="PRICE">400000</Col>
+            <Col id="TITLE"/>
+            <Col id="PRICE"/>
             <Col id="PURCHASE_URL"/>
-            <Col id="USER_ID">김준모</Col>
+            <Col id="USER_ID"/>
           </Row>
           <Row>
             <Col id="CATEGORY_ID"/>

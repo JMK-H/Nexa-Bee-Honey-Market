@@ -128,9 +128,13 @@ this.fnCallback = function (svcId, errCd, errMsg)
 			if (sBanDate >= sToday) { //만약 정지일 안지났으면
 				
 				var sDateView = sBanDate.substring(0,4) + "-" + sBanDate.substring(4,6) + "-" + sBanDate.substring(6,8);
-				alert("회원님은 [" + sDateView + "] 까지 정지 상태입니다.");
+				//alert("회원님은 [" + sDateView + "] 까지 정지 상태입니다.");
+				var sMsgId = "msg.user.stopLogin"; //메세지ID
+				var arrArg = [sDateView]; //메세지취환될값 배열[생략가능]
+				var sPopId = "stopLoginUserDate"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+				var sMsgCallback = "";
 				
-				
+				this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
 				this.dsCurrentUser.clearData(); 
 				nexacro.getApplication().gdsLoginUser.clearData();
 				objApp.mainframe.VFrameSet00.set_separatesize("*,0");

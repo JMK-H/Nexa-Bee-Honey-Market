@@ -13,7 +13,7 @@
         <Button id="btnClose" taborder="6" text="돌아가기" left="40" top="110" width="100" height="40" onclick="btnClose_onclick"/>
       </Layout>
     </Layouts>
-    <Script type="xscript5.1"><![CDATA[
+    <Script type="xscript5.1"><![CDATA[	
 this.fv_nScore = 0; // 초기값 0점
 
 this.ggul1490pu_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)

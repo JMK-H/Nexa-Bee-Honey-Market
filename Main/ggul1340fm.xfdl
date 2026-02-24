@@ -195,6 +195,7 @@ this.sMenuName  = "";
 
 this.QuickMenuMgr_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
+	document.title = "꿀꺼억 - " + "관리자 퀵메뉴관리";
 	this.ds_menu.clearData();
 	
 	var strSvcUrl = "nexa/getMenuList.do";

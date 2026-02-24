@@ -4,8 +4,8 @@
     <Layouts>
       <Layout height="260" width="180">
         <Static id="StaHeaderBg" taborder="0" left="0" top="0" right="0" height="80" background="#fff9e6" borderRadius="9px 9px 0px 0px" border="0px none"/>
-        <Static id="StaTitle" taborder="1" text="회원 정보" left="0" top="15" right="0" height="20" font="bold 12px 'Malgun Gothic'" color="#ffaa00" textAlign="center"/>
-        <Static id="StaName" taborder="2" text="관리자님" left="0" top="40" right="0" height="25" font="bold 14px 'Malgun Gothic'" color="#554400" textAlign="center"/>
+        <Static id="StaTitle" taborder="1" text="회원 정보" left="0" top="29" right="0" height="20" font="bold 15px 'Malgun Gothic'" color="#ffaa00" textAlign="center"/>
+        <Static id="StaName" taborder="2" text="" left="0" top="40" right="0" height="25" font="bold 14px 'Malgun Gothic'" color="#554400" textAlign="center"/>
         <Button id="BtnWrite" taborder="3" text="✏️ 물건 팔기" left="0" top="85" right="0" height="40" background="transparent" border="0px none" color="#333333" font="13px 'Malgun Gothic'" cursor="pointer" onmouseenter="fn_Button_onmouseenter" onmouseleave="fn_Button_onmouseleave" onclick="fn_Menu_onclick"/>
         <Static id="StaLine1" taborder="4" left="15" top="125" right="15" height="1" background="#f0f0f0" onclick="StaLine1_onclick"/>
         <Button id="BtnNick" taborder="5" text="닉네임 변경" left="0" top="126" right="0" height="40" background="transparent" border="0px none" color="#555555" font="13px 'Malgun Gothic'" cursor="pointer" onmouseenter="fn_Button_onmouseenter" onmouseleave="fn_Button_onmouseleave" onclick="BtnNick_onclick"/>
@@ -17,12 +17,12 @@
     <Script type="xscript5.1"><![CDATA[
 this.BtnLogout_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	var objApp = nexacro.getApplication();
-	var objDs = objApp.gdsLoginUser;
-	objDs.clearData(); 
-	
-	this.parent.closePopup();
-	objApp.mainframe.VFrameSet00.set_separatesize("*,0");
+	var sMsgId = "confirm.logout"; //메세지ID
+	var arrArg = []; //메세지취환될값 배열[생략가능]
+	var sPopId = "LogOut"; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+	var sMsgCallback = "fnPopcupCallback";
+
+	this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
 };
 
 
@@ -60,6 +60,23 @@ this.fn_Menu_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	objApp.mainframe.VFrameSet00.MainCF.form.divWork.url="Main::ggul1280fm.xfdl";
 	this.parent.closePopup();
 };
-]]></Script>
+
+
+//=================================팝업콜백=========================================================
+this.fnPopcupCallback = function (svcID, rtn)
+{
+	if(svcID == "LogOut")
+	{
+		if(rtn)
+		{
+			document.title = "꿀꺼억 - " + "로그인";
+			var objApp = nexacro.getApplication();
+			var objDs = objApp.gdsLoginUser;
+			objDs.clearData(); 
+			this.parent.closePopup();
+			objApp.mainframe.VFrameSet00.set_separatesize("*,0");
+		}
+	}
+};]]></Script>
   </Form>
 </FDL>

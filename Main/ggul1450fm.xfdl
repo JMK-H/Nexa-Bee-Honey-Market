@@ -3,9 +3,9 @@
   <Form id="SearchResult" width="1600" height="1450" titletext="검색 결과" background="#ffffff" onload="form_onload">
     <Layouts>
       <Layout height="1450" width="1600">
-        <Static id="staResultTitle" taborder="0" text="&quot;닌텐도&quot; 검색 결과" left="230" top="120" width="800" height="40" font="bold 24px 'Malgun Gothic'" color="#111111"/>
+        <Static id="staResultTitle" taborder="0" text="&quot;닌텐도&quot; 검색 결과" left="400" top="120" width="800" height="40" font="bold 24px 'Malgun Gothic'" color="#111111"/>
         <Static id="staLine01" taborder="1" left="30" top="180" right="70" height="1" background="#eeeeee"/>
-        <Div id="divFilter" taborder="2" left="26" top="185" width="274" height="650" text="">
+        <Div id="divFilter" taborder="2" left="36" top="185" width="274" height="650" text="">
           <Layouts>
             <Layout>
               <Static id="staSortTitle" taborder="1" text="정렬" left="15" top="5" width="100" height="30" font="bold 14px 'Malgun Gothic'" color="#111111" onclick="divFilter_staSortTitle_onclick"/>
@@ -161,7 +161,7 @@
           </Layouts>
         </Div>
         <Edit id="edtSearchKeyword" taborder="6" left="490" top="50" height="40" border="0px none" background="transparent" color="#333333" font="14px 'Malgun Gothic'" displaynulltext="검색어를 입력해주세요" width="610"/>
-        <Button id="btnCategoryTag" taborder="7" text="Button00" left="36" top="106" width="120" height="50" visible="false" borderRadius="15px" background="#fff4e6" border="1px solid #ffaa00" color="#ffaa00" cursor="pointer" padding="0px 10px" onclick="btnCategoryTag_onclick"/>
+        <Button id="btnCategoryTag" taborder="7" text="Button00" left="46" top="106" width="120" height="50" visible="false" borderRadius="15px" background="#fff4e6" border="1px solid #ffaa00" color="#ffaa00" cursor="pointer" padding="0px 10px" onclick="btnCategoryTag_onclick"/>
         <Static id="staNoData" taborder="8" text="검색결과가 없습니다." left="340" top="200" width="1200" height="400" textAlign="center" verticalAlign="middle" visible="false"/>
       </Layout>
     </Layouts>
@@ -507,6 +507,12 @@ this.fn_SetResultData = function()
             var sImgUrl = this.dsCurrentItem.getColumn(i, "PHOTO_URL");
 			var sPostStatus = this.dsCurrentItem.getColumn(i, "POST_STATUS");
 			
+			var sYear = sDate.getFullYear().toString();
+			var sMonth = (sDate.getMonth() + 1).toString().padLeft(2, "0");
+			var sDay = sDate.getDate().toString().padLeft(2, "0");
+			var sDateString = sYear + sMonth + sDay; 
+			var sFinalDate = sDateString.substr(0, 4) + "-" + sDateString.substr(4, 2) + "-" + sDateString.substr(6, 2);
+			
             var sFullImgUrl = sImgUrl; 
 
             // 안쪽 컴포넌트에 값
@@ -517,7 +523,7 @@ this.fn_SetResultData = function()
             objDiv.form.staPrice.set_text(sFormatPrice);
             
             // 글쓴이/날짜 조합
-            objDiv.form.staLoc.set_text(sLoc + " · " + sDate);
+            objDiv.form.staLoc.set_text(sLoc + " · " + sFinalDate);
             
             // 이미지 세팅
             objDiv.form.imgView.set_image(sFullImgUrl);
@@ -551,7 +557,7 @@ this.divSearch_btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEv
 	
 	this.fvPage = 0;
     this.fvRecordsOffset = 0;
-    
+    document.title = "꿀꺼억 - " + "검색";
     this.fnSearch();
 };
 //========================================낮은 가격순, 높은 가격순 클릭이벤트===================
@@ -837,7 +843,6 @@ this.divList_btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInf
 				, sLikeCnt:sLikeCnt, sUnlikeCnt:sUnlikeCnt, sMyLikeState:sMyLikeState}; //전달값
 	var sPopupCallback = "fnCallPopup";
 	var oOption = {title:"모달 팝업", titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
-
 	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
 };
 //=========================================================카테고리 테그==============================================
@@ -849,13 +854,14 @@ this.fn_UpdateCategoryTag = function()
     if (this.gfnIsNull(sMenuId)) 
     {
         this.btnCategoryTag.set_visible(false);
+		document.title = "꿀꺼억 - " + "검색";
         return;
     }
 
     var sMenuName = this.ds_menu.lookup("MENU_ID", sMenuId, "MENU_NAME");
     
     if (this.gfnIsNull(sMenuName)) sMenuName = "카테고리"; 
-
+	document.title = "꿀꺼억 - " + sMenuName;
     this.btnCategoryTag.set_text("# " + sMenuName + "  ✖");
     this.btnCategoryTag.set_visible(true);
     this.btnCategoryTag.set_width(sMenuName.length * 15 + 40); 
@@ -869,6 +875,7 @@ this.btnCategoryTag_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventIn
     this.btnCategoryTag.set_visible(false);
     
     this.fnPageInit();
+	document.title = "꿀꺼억 - " + "검색";
 };
 //==========================================콜백함수====================================================================
 this.fnCallback = function (svcID, errCd, errMsg)

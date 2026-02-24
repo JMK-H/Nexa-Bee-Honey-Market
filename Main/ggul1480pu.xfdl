@@ -55,7 +55,7 @@
               <Layouts>
                 <Layout>
                   <Static id="staInfo2" taborder="1" text="📜 내가 예약했던 물품의 현황입니다." left="5" top="5" width="500" height="30" color="#888888" font="bold 12px 'Malgun Gothic'" onclick="tabMain_tabPage2_staInfo2_onclick"/>
-                  <Grid id="grdComplete" taborder="0" left="0" top="40" right="0" bottom="0" binddataset="dsBuy_Reserved" autofittype="col" border="1px solid #e0e0e0" cssclass="myGridTem">
+                  <Grid id="grdComplete" taborder="0" left="0" top="40" right="0" bottom="0" binddataset="dsBuy_Reserved" autofittype="col" border="1px solid #e0e0e0" cssclass="myGridTem" oncellclick="tabMain_tabPage2_grdComplete_oncellclick">
                     <Formats>
                       <Format id="default">
                         <Columns>
@@ -121,7 +121,7 @@
                           <Cell col="2" text="bind:USER_ID" textAlign="center"/>
                           <Cell col="3" text="bind:REG_DATE" textAlign="center"/>
                           <Cell col="4" text="bind:POST_STATUS" color="#d2111b" font="bold 12px 'Malgun Gothic'" textAlign="center" displaytype="combotext" combodataset="ds_status" combodatacol="VALUE" combocodecol="CODE"/>
-                          <Cell col="5" displaytype="buttoncontrol" edittype="button" text="expr:POST_SCORE == null ? &quot;후기작성&quot; : &quot;★ &quot; + POST_SCORE + &quot;점&quot;" cssclass="Login"/>
+                          <Cell col="5" displaytype="buttoncontrol" edittype="button" text="expr:POST_SCORE == null ? &quot;별점주기&quot; : &quot;★ &quot; + POST_SCORE + &quot;점&quot;" cssclass="Login"/>
                         </Band>
                       </Format>
                     </Formats>
@@ -485,10 +485,38 @@ this.btnClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	this.close();
 };
 
+this.fnOpenDetail = function (objGrid,e)
+{
+	var nRow = e;
+	var objDs = objGrid.getBindDataset();
+	var PostId = objDs.getColumn(nRow, "POST_ID");
+    var Title = objDs.getColumn(nRow, "TITLE");
+	var ImageUrl = objDs.getColumn(nRow, "PHOTO_URL");
+	var Date = objDs.getColumn(nRow, "REG_DATE");
+	var Price = objDs.getColumn(nRow, "PRICE");
+	var Writer = objDs.getColumn(nRow, "USER_ID");
+	var Commend = objDs.getColumn(nRow, "POST_COMMEND");
+	var CategoryId = objDs.getColumn(nRow, "CATEGORY_ID"); //넘기는 것 아님
+	var CategoryName = this.ds_menu.lookup("MENU_ID", CategoryId, "MENU_NAME");
+	
+	var sPopupId = "sDetail"; //Popup ID
+	var sUrl = "Main::ggul1500pu.xfdl"; //팝업 URL
+	var oArg = {PostId:PostId, Title:Title, ImageUrl:ImageUrl, Date:Date, Price:Price, Writer:Writer, Commend:Commend, 
+				CategoryName:CategoryName}; //전달값
+	var sPopupCallback = "";
+	var oOption = {title:"모달 팝업", titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
+	
+	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
+};
+
 //버튼 누르기 메서드
 this.grdReserved_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
-	if(!(e.col==5 || e.col==6)) {return;}
+	if(!(e.col==5 || e.col==6))
+	{
+		this.fnOpenDetail(obj,e.row);
+		return;
+	}
 	
 	this.dsInfo.clearData();
 	var nRow = this.dsInfo.addRow();
@@ -521,10 +549,50 @@ this.grdReserved_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEven
 	}
 };
 
+//2페이지 클릭이벤트
+this.tabMain_tabPage2_grdComplete_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.fnOpenDetail(obj, e.row);
+};
+
+//3페이지 클릭이벤트
+this.tabMain_tabPage3_grdMyAll_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if(e.col!=5)
+	{
+		this.fnOpenDetail(obj, e.row);
+		return;
+	}
+	var sScore = this.dsBuy_Complete.getColumn(e.row, "POST_SCORE");
+	if(sScore){
+		var sMsgId = "msg.already.review"; //메세지ID
+		var arrArg = []; //메세지취환될값 배열[생략가능]
+		var sPopId = ""; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+		var sMsgCallback = "";
+
+		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
+		return;
+	}
+	var sPostId = this.dsBuy_Complete.getColumn(e.row, "POST_ID");
+	
+	var sPopupId = "sScorePopup"; //Popup ID
+	var sUrl = "Main::ggul1490pu.xfdl"; //팝업 URL
+	var oArg = {sPostId:sPostId, sParentForm: this, Row:e.row}; //전달값
+	var sPopupCallback = "fnCallPopup";
+	var oOption = {title:"모달 팝업", titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
+
+	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
+
+	
+};
 //4페이지 클릭이벤트
 this.tabMain_tabPage4_Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
-	if(e.col!=5) {return};
+	if(e.col!=5) 
+	{
+		this.fnOpenDetail(obj, e.row);
+		return;
+	}
 	this.sPostId = this.dsMySalesList.getColumn(e.row, "POST_ID");
 	this.sPostStatus = this.dsMySalesList.getColumn(e.row, "POST_STATUS");
 	var sMsgId = "msg.before.delete"; //메세지ID
@@ -594,32 +662,6 @@ this.fnCallback = function (svcID, errCd, errMsg)
 
 			this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
 		}
-};
-
-this.tabMain_tabPage3_grdMyAll_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
-{
-	if(e.col!=5){return;}
-	var sScore = this.dsBuy_Complete.getColumn(e.row, "POST_SCORE");
-	if(sScore){
-		var sMsgId = "msg.already.review"; //메세지ID
-		var arrArg = []; //메세지취환될값 배열[생략가능]
-		var sPopId = ""; //메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
-		var sMsgCallback = "";
-
-		this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
-		return;
-	}
-	var sPostId = this.dsBuy_Complete.getColumn(e.row, "POST_ID");
-	
-	var sPopupId = "sScorePopup"; //Popup ID
-	var sUrl = "Main::ggul1490pu.xfdl"; //팝업 URL
-	var oArg = {sPostId:sPostId, sParentForm: this, Row:e.row}; //전달값
-	var sPopupCallback = "fnCallPopup";
-	var oOption = {title:"모달 팝업", titlebar: false}; //모달리스가 아니라 모달이면 popuptupe 지우기
-
-	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
-
-	
 };
 
 //===================================================팝업 콜백================================================
@@ -700,6 +742,8 @@ this.fnPopupCallback = function (svcID, rtn)
 								, true);
 		}
 	}
-};]]></Script>
+};
+
+]]></Script>
   </Form>
 </FDL>

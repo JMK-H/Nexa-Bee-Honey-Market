@@ -67,6 +67,7 @@ this.btnUser_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 
 this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
+	document.title = "꿀꺼억 - " + "메뉴";
 	var objApp = nexacro.getApplication();
 	objApp.gv_MenuId="";
 	this.parent.parent.divWork.set_url("Main::work.xfdl");

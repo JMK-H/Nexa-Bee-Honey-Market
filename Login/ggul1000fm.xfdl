@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="ggulin1100fm" width="1600" height="730" cssclass="LoginForm">
+  <Form id="ggulin1100fm" width="1600" height="730" cssclass="LoginForm" titletext="로그인" onload="ggulin1100fm_onload">
     <Layouts>
       <Layout height="730" width="1600">
         <Div id="divBgBlur" taborder="0" left="0" top="0" right="0" bottom="0" background="#c1c1c1" opacity="0.5">
@@ -8,10 +8,15 @@
             <Layout/>
           </Layouts>
         </Div>
-        <Static id="Static00" taborder="2" text="Static00" left="0" top="0" width="50%" height="50%"/>
+        <Static id="Static00" taborder="2" text="" left="0" top="0" width="50%" height="50%"/>
         <Div id="divLogin" taborder="1" left="Static00:-200" top="Static00:-250" width="400" height="500" background="#ffffff" url="Login::ggul1100fm.xfdl" border="1px solid #ffffff" border-radius="20px" boxShadow="10px 10px 10px #888888" text="" borderRadius="20px"/>
       </Layout>
     </Layouts>
-    <Script type="xscript5.1"><![CDATA[]]></Script>
+    <Script type="xscript5.1"><![CDATA[
+this.ggulin1100fm_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	//document.title = "꿀꺼억 - " + "로그인";
+};
+]]></Script>
   </Form>
 </FDL>

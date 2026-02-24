@@ -66,9 +66,9 @@
           <Column id="LOGIN_ID" type="STRING" size="256"/>
           <Column id="LOGIN_NICKNAME" type="STRING" size="256"/>
           <Column id="LOGIN_DATE" type="STRING" size="256"/>
-          <Column id="LOGIN_LIKE_CNT" type="STRING" size="256"/>
-          <Column id="LOGIN_UNLIKE_CNT" type="STRING" size="256"/>
-          <Column id="LOGIN_REPORT_CNT" type="STRING" size="256"/>
+          <Column id="LOGIN_LIKE_CNT" type="INT" size="256"/>
+          <Column id="LOGIN_UNLIKE_CNT" type="INT" size="256"/>
+          <Column id="LOGIN_REPORT_CNT" type="INT" size="256"/>
           <Column id="LOGIN_STATUS" type="STRING" size="256"/>
         </ColumnInfo>
         <Rows>
@@ -89,6 +89,7 @@ this.sTempStatus = "";
 
 this.ggul1320fm_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
+	document.title = "꿀꺼억 - " + "관리자 회원관리";
 	this.sToday = this.gfnGetDate(); //오늘날짜 저장하는 메서드
 	
 	var strSvcUrl = "nexa/getUserList.do";

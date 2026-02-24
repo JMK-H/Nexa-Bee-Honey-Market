@@ -84,7 +84,11 @@ this.btnCharge_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 
 	this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);
 };
-
+//초기화버튼
+this.btnReset_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.mskAmount.value = 0;
+};
 //=============================================콜백함수===============================================================
 this.fnCallback = function (svcID, errCd, errMsg)
 {

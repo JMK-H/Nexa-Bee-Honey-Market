@@ -53,6 +53,7 @@ this.btnHome_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	var objApp = nexacro.getApplication();//글로벌에 접근 가능하게한뒤에
 	objApp.gv_MenuId = "";
+	objApp.gv_Search = "";
 	this.parent.parent.divWork.url = "MobileMain::MWork.xfdl";
 	this.parent.parent.divWork.reload();
 };
