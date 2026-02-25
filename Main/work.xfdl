@@ -18,7 +18,7 @@
             <Layout/>
           </Layouts>
         </Div>
-        <Edit id="edtSearchKeyword" taborder="3" left="510" top="50" height="40" border="0px none" background="transparent" color="#333333" font="14px 'Malgun Gothic'" displaynulltext="검색어를 입력해주세요" width="610"/>
+        <Edit id="edtSearchKeyword" taborder="3" left="510" top="50" height="40" border="0px none" background="transparent" color="#333333" font="14px 'Malgun Gothic'" displaynulltext="검색어를 입력해주세요" width="610" onkeyup="edtSearchKeyword_onkeyup"/>
         <Div id="divFooter" taborder="4" left="10" top="1770" width="98.75%" height="470" color="#888888" font="normal 13px/20px 'Malgun Gothic'" text="">
           <Layouts>
             <Layout>
@@ -369,6 +369,12 @@ this.divItem000_imgView_onclick = function(obj:nexacro.ImageViewer,e:nexacro.Cli
 	this.gfnOpenPopup(sPopupId, sUrl, oArg, sPopupCallback, oOption);
 };
 
+this.edtSearchKeyword_onkeyup = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode == "13"){
+    this.divSearch_btnSearch_onclick();}
+};
+
 //==================================================검색버튼 눌렀을때==========================================================
 this.divSearch_btnSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
@@ -418,7 +424,9 @@ this.fnCallPopup = function (svcID, rtn)
 							, true);
 	}
 
-};]]></Script>
+};
+
+]]></Script>
     <Objects>
       <Dataset id="dsBest5List">
         <ColumnInfo>

@@ -10,7 +10,7 @@
                 <Cell id="ImgView" left="15" top="15" width="110" height="110" displaytype="imagecontrol" text="bind:PHOTO_URL" imagestretch="fit" border="1px solid #efefef"/>
                 <Cell id="TxtTitle" left="140" top="15" right="20" height="50" text="bind:TITLE" font="normal 16px/22px 'Malgun Gothic'" color="#222222" wordWrap="char" verticalAlign="top" displaytype="text" textAlign="left" border="0px none"/>
                 <Cell id="TxtLoc" left="140" top="65" right="20" height="20" text="bind:USER_ID" font="normal 13px 'Malgun Gothic'" color="#888888" displaytype="text" textAlign="left" verticalAlign="middle" border="0px none"/>
-                <Cell id="TxtPrice" left="140" top="90" right="100" height="25" text="bind:PRICE" font="bold 18px 'Malgun Gothic'" color="#222222" displaytype="text" textAlign="left" verticalAlign="middle" border="0px none"/>
+                <Cell id="TxtPrice" left="140" top="90" right="100" height="25" text="bind:PRICE" font="bold 18px 'Malgun Gothic'" color="#222222" displaytype="number" textAlign="left" verticalAlign="middle" border="0px none"/>
                 <Cell id="Cell00" left="15" top="15" width="110" height="110"/>
               </Band>
             </Format>

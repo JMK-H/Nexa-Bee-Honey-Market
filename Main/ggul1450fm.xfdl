@@ -160,7 +160,7 @@
             </Layout>
           </Layouts>
         </Div>
-        <Edit id="edtSearchKeyword" taborder="6" left="490" top="50" height="40" border="0px none" background="transparent" color="#333333" font="14px 'Malgun Gothic'" displaynulltext="검색어를 입력해주세요" width="610"/>
+        <Edit id="edtSearchKeyword" taborder="6" left="490" top="50" height="40" border="0px none" background="transparent" color="#333333" font="14px 'Malgun Gothic'" displaynulltext="검색어를 입력해주세요" width="610" onkeyup="edtSearchKeyword_onkeyup"/>
         <Button id="btnCategoryTag" taborder="7" text="Button00" left="46" top="106" width="120" height="50" visible="false" borderRadius="15px" background="#fff4e6" border="1px solid #ffaa00" color="#ffaa00" cursor="pointer" padding="0px 10px" onclick="btnCategoryTag_onclick"/>
         <Static id="staNoData" taborder="8" text="검색결과가 없습니다." left="340" top="200" width="1200" height="400" textAlign="center" verticalAlign="middle" visible="false"/>
       </Layout>
@@ -931,6 +931,12 @@ this.fnCallPopup = function (svcID, rtn)
 		this.fnSearch();
 	}
 
-};]]></Script>
+};
+this.edtSearchKeyword_onkeyup = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode == "13"){
+    this.divSearch_btnSearch_onclick();}
+};
+]]></Script>
   </Form>
 </FDL>
