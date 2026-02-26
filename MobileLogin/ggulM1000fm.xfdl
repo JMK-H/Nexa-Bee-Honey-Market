@@ -4,8 +4,8 @@
     <Layouts>
       <Layout height="800" width="480" mobileorientation="portrait">
         <Static id="RNf" taborder="0" text="🍯꿀꺼억" left="0" top="80" height="60" cssclass="PopupTitle" right="0" textAlign="center" font="bold 28px 'Malgun Gothic'"/>
-        <TextField id="tfId" taborder="1" labeltext="아이디" left="30" top="180" height="70" right="30" helpertext="아이디를 입력하세요." displaynulltext="아이디를 입력하세요." cssclass="FindId" value="jmk" font="16px 'Malgun Gothic'" cursor="pointer"/>
-        <TextField id="tfPassword" taborder="2" labeltext="비밀번호" left="30" top="260" height="70" right="30" helpertext="비밀번호를 입력하세요." visible="true" onchanged="TextField00_00_onchanged" inputtype="password" displaynulltext="비밀번호를 입력하세요." cssclass="FindId" value="1111" font="16px 'Malgun Gothic'" cursor="pointer"/>
+        <TextField id="tfId" taborder="1" labeltext="아이디" left="30" top="180" height="70" right="30" helpertext="아이디를 입력하세요." displaynulltext="아이디를 입력하세요." cssclass="FindId" font="16px 'Malgun Gothic'" cursor="pointer"/>
+        <TextField id="tfPassword" taborder="2" labeltext="비밀번호" left="30" top="260" height="70" right="30" helpertext="비밀번호를 입력하세요." visible="true" onchanged="TextField00_00_onchanged" inputtype="password" displaynulltext="비밀번호를 입력하세요." cssclass="FindId" font="16px 'Malgun Gothic'" cursor="pointer"/>
         <Button id="btnLogin" taborder="3" text="로그인" left="30" top="360" height="70" cssclass="Login" onclick="btnLogin_onclick" borderRadius="10px" right="30" font="bold 18px 'Malgun Gothic'" background="#f5a623" color="#ffffff" cursor="pointer"/>
         <Static id="staFindId" taborder="6" text="아이디 찾기" left="40" top="445" width="120" height="40" cssclass="ForgotIdPw" onclick="Static00_onclick" textAlign="left" font="14px 'Malgun Gothic'" color="#888888" cursor="pointer"/>
         <Static id="staBar" taborder="9" text="|" left="240" top="445" width="20" height="40" textAlign="center" color="#dddddd"/>

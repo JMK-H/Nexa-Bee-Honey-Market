@@ -19,7 +19,7 @@
               <Edit id="edtPriceMin" taborder="5" left="15" top="321" width="110" height="40" borderRadius="8px" border="1px solid #dddddd" displaynulltext="0"/>
               <Static id="staRange" taborder="6" text="~" left="126" top="321" width="20" height="40" textAlign="center" color="#999999"/>
               <Edit id="edtPriceMax" taborder="7" left="150" top="321" width="110" height="40" borderRadius="8px" border="1px solid #dddddd" displaynulltext="최대"/>
-              <Button id="btnApply" taborder="8" text="적용하기" left="15" top="382" width="245" height="29" borderRadius="10px" cssclass="Login" onclick="divFilter_btnApply_onclick"/>
+              <Button id="btnApply" taborder="8" text="적용하기" left="15" top="382" width="245" height="53" borderRadius="10px" cssclass="Login" onclick="divFilter_btnApply_onclick" font="normal 20px/normal &quot;Arial&quot;"/>
               <Button id="btnPrice05" taborder="9" text="50,000원 이하" left="15" top="269" width="130" height="33" borderRadius="18px" background="#ffffff" border="1px solid #dddddd" color="#333333" font="13px 'Malgun Gothic'" cursor="pointer" u_price="50000" onclick="btnPricePreset_onclick"/>
             </Layout>
           </Layouts>
@@ -161,7 +161,7 @@
           </Layouts>
         </Div>
         <Edit id="edtSearchKeyword" taborder="6" left="490" top="50" height="40" border="0px none" background="transparent" color="#333333" font="14px 'Malgun Gothic'" displaynulltext="검색어를 입력해주세요" width="610" onkeyup="edtSearchKeyword_onkeyup"/>
-        <Button id="btnCategoryTag" taborder="7" text="Button00" left="46" top="106" width="120" height="50" visible="false" borderRadius="15px" background="#fff4e6" border="1px solid #ffaa00" color="#ffaa00" cursor="pointer" padding="0px 10px" onclick="btnCategoryTag_onclick"/>
+        <Button id="btnCategoryTag" taborder="7" text="Button00" left="46" top="106" width="259" height="50" visible="false" borderRadius="15px" background="#fff4e6" border="1px solid #ffaa00" color="black" cursor="pointer" padding="0px 10px" onclick="btnCategoryTag_onclick" font="normal 15px/normal &quot;Arial&quot;"/>
         <Static id="staNoData" taborder="8" text="검색결과가 없습니다." left="340" top="200" width="1200" height="400" textAlign="center" verticalAlign="middle" visible="false"/>
       </Layout>
     </Layouts>

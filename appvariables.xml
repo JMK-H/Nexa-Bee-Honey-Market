@@ -1810,7 +1810,7 @@
         </Row>
         <Row>
           <Col id="MSG_ID">msg.err.validator.multicombo.maxcnt</Col>
-          <Col id="MSG_TEXT">{0} 은(는) {1}개 이상 선택 할 수 없습니다.</Col>
+          <Col id="MSG_TEXT">{0}는 {1}개 이상 선택 할 수 없습니다.</Col>
           <Col id="MSG_TEXT_EN">You can't select more than {0}</Col>
           <Col id="MSG_TYPE">A</Col>
           <Col id="MSG_ICON">WAN</Col>
